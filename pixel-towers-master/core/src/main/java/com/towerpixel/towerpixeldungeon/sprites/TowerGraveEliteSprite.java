@@ -1,0 +1,34 @@
+package com.towerpixel.towerpixeldungeon.sprites;
+
+import com.towerpixel.towerpixeldungeon.Assets;
+import com.watabou.noosa.MovieClip;
+import com.watabou.noosa.TextureFilm;
+
+public class TowerGraveEliteSprite extends MobSprite {
+
+    private Animation cast;
+
+    public TowerGraveEliteSprite() {
+        super();
+
+        texture( Assets.Sprites.TOWERGRAVE);
+
+        TextureFilm frames = new TextureFilm( texture, 16, 16 );
+
+        idle = new MovieClip.Animation( 4, true );
+        idle.frames( frames, 64,65,66,67);
+
+        run = idle.clone();
+
+        attack = new MovieClip.Animation( 12, false );
+        attack.frames( frames, 68,69,70,71);
+
+        cast = attack.clone();
+
+        die = new MovieClip.Animation( 1, false );
+        die.frames( frames, 64 );
+
+        play( idle );
+    }
+
+}
