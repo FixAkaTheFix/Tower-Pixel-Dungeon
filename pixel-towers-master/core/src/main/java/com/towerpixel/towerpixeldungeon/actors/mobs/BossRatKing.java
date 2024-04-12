@@ -155,7 +155,7 @@ public class BossRatKing extends Rat{
 
     @Override
     public int defenseProc(Char enemy, int damage) {
-        if (Random.Int(2) == 1||true) {
+        if (Random.Int(2) == 1) {
             ArrayList<Integer> candidates = new ArrayList<>();
             for (int n : PathFinder.NEIGHBOURS8) {
                 if (Dungeon.level.passable[pos + n] && Actor.findChar(pos + n) == null) {
