@@ -1250,7 +1250,7 @@ public class Arena extends Level {
                     case 12:
                         mob = Random.oneOf(new GoblinShaman.ShamanShield(), new Goblin(), new GoblinSand(),new GoblinFat()); break;
                     case 13:
-                        mob = Random.oneOf(new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinShaman.ShamanShield()); break;
+                        mob = Random.oneOf(new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinShaman.ShamanStrength()); break;
                     case 14:
                         mob = Random.oneOf(new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinGiant(), new GoblinShaman.ShamanShield(),new GoblinShaman.ShamanStrength(),new GoblinShaman.ShamanRegen()); break;
                     case 15: {

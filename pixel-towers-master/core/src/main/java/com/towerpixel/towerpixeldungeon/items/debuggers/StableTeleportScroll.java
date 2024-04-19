@@ -57,7 +57,7 @@ public class StableTeleportScroll extends Item {
             Game.switchScene(InterlevelScene.class);
         }
         if (action == AC_PRELASTWAVE) {
-            Dungeon.level.wave = ((Arena)Dungeon.level).maxWaves-1;
+            Dungeon.level.wave = ((Arena)Dungeon.level).maxWaves-2;
         }
     }
 }
