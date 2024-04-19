@@ -259,7 +259,6 @@ public class Hero extends Char {
 		HT = (40 + 10*(lvl-1))*(Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 5 : 1) + HTBoost - (int)HTdrained;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
-		HT *= Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 5 : 1;
 
 		if (buff(ElixirOfMight.HTBoost.class) != null){
 			HT += buff(ElixirOfMight.HTBoost.class).boost();
