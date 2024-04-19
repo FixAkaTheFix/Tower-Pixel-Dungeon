@@ -36,6 +36,7 @@ import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.particles.BloodParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MagesStaff;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
@@ -75,7 +76,7 @@ public class WandOfTransfusion extends Wand {
 			//this wand does different things depending on the target.
 			
 			//heals/shields an ally or a charmed enemy while damaging self
-			if (ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null){
+			if ((ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null ) && !(ch instanceof Arena.AmuletTower)){
 				
 				// 5% of max hp
 				int selfDmg = Math.round(curUser.HT*0.05f);
@@ -100,7 +101,13 @@ public class WandOfTransfusion extends Wand {
 					freeCharge = false;
 				}
 
-			//for enemies...
+			} else if (ch instanceof Arena.AmuletTower) {
+
+				int selfDmg = Math.round(curUser.HT*0.05f);
+				Buff.affect(ch, Barrier.class).setShield(7);
+				damageHero(selfDmg);
+
+				//for enemies...
 			} else {
 
 				//grant a self-shield, and...
