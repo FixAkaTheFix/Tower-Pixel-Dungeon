@@ -34,9 +34,9 @@ public class TowerGrave3 extends TowerCSpawning{
         minionCooldown = 50;
         minionCooldownLeft = 1;
 
-        minionHP = 60;
-        minionDamageMax = 16;
-        minionDamageMin = 8;
+        minionHP = 70;
+        minionDamageMax = 20;
+        minionDamageMin = 10;
         minionAttackSkill = 10;
         minionDefenseSkill = 5;
         minionDR = 3;

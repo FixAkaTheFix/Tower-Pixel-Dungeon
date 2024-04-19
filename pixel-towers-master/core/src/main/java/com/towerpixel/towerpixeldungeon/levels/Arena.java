@@ -17,10 +17,10 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Corrosion;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Levitation;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
-import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Albino;
 import com.towerpixel.towerpixeldungeon.actors.mobs.ArmoredBrute;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bandit;
@@ -93,6 +93,7 @@ import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.plants.Sungrass;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.scenes.RankingsScene;
 import com.towerpixel.towerpixeldungeon.sprites.AmuletTowerSprite;
@@ -429,17 +430,17 @@ public class Arena extends Level {
                 case 6: return 10;
                 case 7: return 5;
                 case 8: return 7;
-                case 9: return 9;
-                case 10: return 17;
+                case 9: return 7;
+                case 10: return 11;
                 case 11: return 60;
                 case 12: return 40;
                 case 13: return 40;
                 case 14: return 18;
                 case 15: return 18;
-                case 16: return 65;
-                case 17: return 17;
-                case 18: return 100;
-                case 19: return 28;
+                case 16: return 50;
+                case 17: return 13;
+                case 18: return 90;
+                case 19: return 20;
                 case 20: return 10;
                 case 8055: return 1;
             }
@@ -505,9 +506,9 @@ public class Arena extends Level {
                 case 9: return 30;
                 case 10: return 35;
                 case 11: return 25;
-                case 12: return 25;
+                case 12: return 15;
                 case 13: return 50;
-                case 14: return 30;
+                case 14: return 22;
                 case 15: return 20;
                 case 16: return 8;
                 case 17: return 1;
@@ -1123,7 +1124,7 @@ public class Arena extends Level {
                         break;
                     }
                     case 8055:
-                        mob = new Shinobi(); break;
+                        mob = new Thief(); break;
                 }
                 break;
             }
@@ -1564,13 +1565,19 @@ public class Arena extends Level {
                 if (Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES) && mobsDeployed == 0){
                     int r = Random.Int(6);
                     switch (r){
-                        case 0: Buff.affect(mob, ChampionEnemy.Blazing.class);
-                        case 1: Buff.affect(mob, ChampionEnemy.Projecting.class);
-                        case 2: Buff.affect(mob, ChampionEnemy.AntiMagic.class);
-                        case 3: Buff.affect(mob, ChampionEnemy.Blessed.class);
-                        case 4: Buff.affect(mob, ChampionEnemy.Growing.class);
-                        case 5: Buff.affect(mob, ChampionEnemy.Giant.class);
+                        case 0: Buff.affect(mob, ChampionEnemy.Blazing.class); break;
+                        case 1: Buff.affect(mob, ChampionEnemy.Projecting.class); break;
+                        case 2: Buff.affect(mob, ChampionEnemy.AntiMagic.class); break;
+                        case 3: Buff.affect(mob, ChampionEnemy.Blessed.class); break;
+                        case 4: Buff.affect(mob, ChampionEnemy.Growing.class); break;
+                        case 5: Buff.affect(mob, ChampionEnemy.Giant.class); break;
                     }
+                }
+                if (Dungeon.isChallenged(Challenges.SHAMANISM) && mobsDeployed == 0 && level.wave>=5){
+                    Mob shaman = Reflection.newInstance(GoblinShaman.random());
+                    shaman.pos = grouppos;
+                    GameScene.add(shaman);
+                    shaman.state = shaman.HUNTING;
                 }
                 mob.pos = grouppos;
                 GameScene.add(mob);
@@ -1619,7 +1626,9 @@ public class Arena extends Level {
         }
         hero.speak(Messages.get(this, "wavestart", wave), CharSprite.NEUTRAL);
         Buff.detach(hero, WaveCooldownBuff.class);
-        Buff.affect(hero, WaveBuff.class,   ((Arena) level).maxWaves==((Arena) level).wave ? 10000000 : ((Arena)Dungeon.level).WIDTH + ((Arena)Dungeon.level).HEIGHT);
+        int coldow = ((Arena)Dungeon.level).WIDTH + ((Arena)Dungeon.level).HEIGHT;
+        if (((Arena)Dungeon.level).WIDTH < 70 || ((Arena)Dungeon.level).HEIGHT < 70) coldow += 50;
+        Buff.affect(hero, WaveBuff.class,   ((Arena) level).maxWaves==((Arena) level).wave ? 10000 : coldow);
         deployMobs(wave);
         doStuffStartwave(wave);
         amuletTower.attractMobs();
@@ -1691,6 +1700,9 @@ public class Arena extends Level {
             properties.add(Property.BOSS);
             properties.add(Property.INORGANIC);
 
+            immunities.add(Healing.class);
+            immunities.add(Sungrass.Health.class);
+
             alignment = Alignment.ALLY;
         }
         public int counter = 0;
@@ -1701,10 +1713,11 @@ public class Arena extends Level {
             GLog.cursed("Amulet was lost...");
             super.die(cause);
         }
-
+        public boolean itWasAWave = false;
         @Override
         protected boolean act() {
             boolean enemyspotted = false;
+
 
             counter++;
             GameScene.updateFog(pos, 3);
@@ -1730,9 +1743,15 @@ public class Arena extends Level {
             if (Dungeon.depth!=18){
                 if (hero.buff(WaveBuff.class) != null && !enemyspotted) {
                     ((Arena) level).endWave();
+                    itWasAWave = false;
                 }
                 if (hero.buff(WaveCooldownBuff.class) == null && hero.buff(WaveBuff.class) == null) {//starts the wave at cooldowns end
-                    ((Arena) level).startWave();
+                    if (!itWasAWave) {
+                        ((Arena) level).startWave();
+                        itWasAWave = true;
+                    } else {
+                        ((Arena) level).endWave();
+                        itWasAWave = false;}
                 }
             }
             if (mobs!=null) {
@@ -1782,15 +1801,18 @@ public class Arena extends Level {
         }
 
         private String COUNTER = "counter";
+        private String LASTWASCOOLDOWN= "lastwascooldown";
         @Override
         public void storeInBundle(Bundle bundle) {
             super.storeInBundle(bundle);
             bundle.put(COUNTER, counter);
+            bundle.put(LASTWASCOOLDOWN, itWasAWave);
         }
         @Override
         public void restoreFromBundle(Bundle bundle) {
             super.restoreFromBundle(bundle);
             counter = bundle.getInt(COUNTER);
+            itWasAWave = bundle.getBoolean(LASTWASCOOLDOWN);
         }
     }
 
@@ -1798,6 +1820,8 @@ public class Arena extends Level {
 
     private String SHOPKEEPER = "shopkeeper";
     private String TOWERSHOPKEEPER = "towershopkeeper";
+
+
 
     @Override
     public void storeInBundle(Bundle bundle) {

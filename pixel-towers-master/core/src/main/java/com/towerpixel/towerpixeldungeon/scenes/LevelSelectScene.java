@@ -173,14 +173,14 @@ public class LevelSelectScene extends PixelScene {
         mainWindow = new Image(chosenLevel <= SPDSettings.maxlevelunlocked() || DeviceCompat.isDebug() ? mainWindow() : Assets.Splashes.LOCKED) {
             @Override
             public void update() {
-                if (GamesInProgress.selectedClass != null) {
+
                     if (rm > 1f) {
                         rm -= Game.elapsed;
                         gm = bm = rm;
                     } else {
                         rm = gm = bm = 1;
                     }
-                }
+
             }
         };
 

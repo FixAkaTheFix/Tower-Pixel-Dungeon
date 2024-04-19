@@ -4,6 +4,7 @@ package com.towerpixel.towerpixeldungeon.levels;
 import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.mobs.GoldenMimic;
@@ -23,6 +24,12 @@ import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.food.FrozenCarpaccio;
 import com.towerpixel.towerpixeldungeon.items.food.MysteryMeat;
 import com.towerpixel.towerpixeldungeon.items.keys.IronKey;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfStrength;
+import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfStamina;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCannon;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
@@ -529,13 +536,35 @@ public class Arena6 extends Arena{
         @Override
         public  ArrayList<Item> generateItems() {
             ArrayList<Item> itemsToSpawn = new ArrayList<>();
-
-            itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.TOWERP2 ) );
-            itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.TOWERP2 ) );
-            itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.TOWER ) );
-            itemsToSpawn.add( new IronKey(6));
-            itemsToSpawn.add( new IronKey(6));
-
+            if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)) {
+                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                    itemsToSpawn.add( new IronKey(6));
+                    itemsToSpawn.add( new IronKey(6));
+                } else {
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerWall());
+                    itemsToSpawn.add( new IronKey(6));
+                    itemsToSpawn.add( new IronKey(6));
+                }
+            } else {
+                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(new PotionOfStamina());
+                    itemsToSpawn.add( new IronKey(6));
+                    itemsToSpawn.add( new IronKey(6));
+                } else {
+                    itemsToSpawn.add(Generator.random(Generator.Category.TOWERP2));
+                    itemsToSpawn.add(Generator.random(Generator.Category.TOWERP2));
+                    itemsToSpawn.add(Generator.random(Generator.Category.TOWER));
+                    itemsToSpawn.add( new IronKey(6));
+                    itemsToSpawn.add( new IronKey(6));
+                }
+            }
             return itemsToSpawn;
         }
         public WndBag sell() {

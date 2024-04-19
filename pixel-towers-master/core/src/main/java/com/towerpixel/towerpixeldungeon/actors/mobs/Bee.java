@@ -48,6 +48,7 @@ public class Bee extends Mob {
 		
 		flying = true;
 		state = WANDERING;
+		alignment = Alignment.ALLY;
 		
 		//only applicable when the bee is charmed with elixir of honeyed healing
 		intelligentAlly = true;

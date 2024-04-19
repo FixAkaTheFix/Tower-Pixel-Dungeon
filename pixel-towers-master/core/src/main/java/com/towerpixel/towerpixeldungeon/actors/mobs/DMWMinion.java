@@ -28,7 +28,7 @@ public class DMWMinion extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 45, 50 );
+        return Random.NormalIntRange( 60, 80 );
     }
     @Override
     public int attackProc( Char enemy, int damage ) {

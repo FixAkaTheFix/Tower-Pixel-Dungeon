@@ -5,6 +5,7 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.depth;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.items.Item;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.scenes.InterlevelScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -22,6 +23,7 @@ public class StableTeleportScroll extends Item {
     public static final String AC_RESET = "reset";
     public static final String AC_DESCEND = "descend";
     public static final String AC_ASCEND = "ascend";
+    public static final String AC_PRELASTWAVE = "prelastwave";
 
 
     @Override
@@ -30,6 +32,7 @@ public class StableTeleportScroll extends Item {
         actions.add(AC_RESET);
         actions.add(AC_ASCEND);
         actions.add(AC_DESCEND);
+        actions.add(AC_PRELASTWAVE);
         return actions;
     }
 
@@ -52,6 +55,9 @@ public class StableTeleportScroll extends Item {
             InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.branch, null);
             InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
             Game.switchScene(InterlevelScene.class);
+        }
+        if (action == AC_PRELASTWAVE) {
+            Dungeon.level.wave = ((Arena)Dungeon.level).maxWaves-1;
         }
     }
 }

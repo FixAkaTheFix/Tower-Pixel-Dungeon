@@ -90,6 +90,8 @@ public class TowerGraveCrypt extends TowerCSpawning{
             spriteClass = WraithSprite.class;
             HP = HT = minionHP;
             defenseSkill = minionDefenseSkill;
+
+            flying = true;
         }
 
         @Override

@@ -11,8 +11,9 @@ import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
-import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
 import com.towerpixel.towerpixeldungeon.actors.blobs.SmokeScreen;
+import com.towerpixel.towerpixeldungeon.actors.blobs.ToxicGas;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Blindness;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
@@ -29,6 +30,8 @@ import com.towerpixel.towerpixeldungeon.effects.particles.SmokeParticle;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfToxicGas;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
@@ -61,6 +64,7 @@ public class BossTengu extends Mob {
         properties.add(Property.BOSS);
 
         immunities.add( Paralysis.class );
+        immunities.add( ToxicGas.class );
         immunities.add( Charm.class );
         immunities.add( Blindness.class );
         immunities.add( Burning.class) ;
@@ -126,8 +130,8 @@ public class BossTengu extends Mob {
     private final int logTime=33;
     private int logTimer=0;
 
-    private final int iceTime=16;
-    private int iceTimer=0;
+    private final int gasTime =16;
+    private int gasTimer =0;
 
 
     @Override
@@ -135,12 +139,12 @@ public class BossTengu extends Mob {
         int x = 1;
         if (HP<= 2000) x = 2;
         if (HP<= 1000) x = 3;
-        if (HP <= 400) x = 4;
+        if (HP <= 300) x = 4;
         if (phase != x) setPhase(x);
         callForHelpTimer++;
         warpTimer++;
         logTimer++;
-        iceTimer++;
+        gasTimer++;
         if( Dungeon.depth==10 && callForHelpTimer>=callForHelpTime ){
             ((Arena)Dungeon.level).deploymobs(8055, Arena.Direction.RIGHT, 1);
             callForHelpTimer=0;
@@ -170,22 +174,33 @@ public class BossTengu extends Mob {
                 Dungeon.level.occupyCell( this );
             }
         }
-        if( iceTimer>=iceTime){
+        if( gasTimer >= gasTime){
 
             if (enemy == null) enemy = Char.findChar(((Arena)level).amuletCell);
             if (enemy == null) enemy = hero;
-            Item pot = new PotionOfShroudingFog();
-            pot.icon = ItemSpriteSheet.POTION_TURQUOISE;
-            iceTimer = 0;
+            gasTimer = 0;
+            if (enemy!=null) {
             ((MissileSprite) sprite.parent.recycle(MissileSprite.class)).
-                    reset(pos, hero.pos, pot , new Callback() {
+                    reset(pos, enemy.pos, new PotionOfLiquidFlame(), new Callback() {
                         @Override
                         public void call() {
-                            GameScene.add( Blob.seed( hero.pos, 15, Freezing.class ) );
+                            if (enemy!=null) GameScene.add( Blob.seed( enemy.pos, 2, Fire.class ) );
                             Sample.INSTANCE.play( Assets.Sounds.SHATTER );
                             next();
                         }
                     });
+            }
+            if (enemy!=null) {
+                ((MissileSprite) sprite.parent.recycle(MissileSprite.class)).
+                        reset(pos, hero.pos, new PotionOfToxicGas() , new Callback() {
+                            @Override
+                            public void call() {
+                                if (enemy!=null) GameScene.add( Blob.seed( hero.pos, 100, ToxicGas.class ) );
+                                Sample.INSTANCE.play( Assets.Sounds.SHATTER );
+                                next();
+                            }
+                        });
+            }
         }
         if( logTimer>=logTime){
             SmokeBomb.NinjaLog log = new SmokeBomb.NinjaLog();

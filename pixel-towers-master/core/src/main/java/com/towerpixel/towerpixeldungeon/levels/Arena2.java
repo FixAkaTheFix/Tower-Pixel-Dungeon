@@ -127,7 +127,7 @@ public class Arena2 extends Arena{
         Painter.fill(this,46,47,11,1, Terrain.PEDESTAL);
         this.map[46+WIDTH*48] = Terrain.ALCHEMY;
 
-        for (int x = 6;x<WIDTH-6;x++) for (int y = 6;y<HEIGHT-6;y++) if (x < 30 || x > 70) if (y < 30 || y > 70){
+        for (int x = 13;x<WIDTH-13;x++) for (int y = 13;y<HEIGHT-13;y++) if (x < 30 || x > 70) if (y < 30 || y > 70){
             //Random wet flooring
             int cell = x+WIDTH*y;
             if (this.map[cell]==Terrain.EMPTY){
@@ -196,8 +196,8 @@ public class Arena2 extends Arena{
         this.drop(new Bomb(), x+2+WIDTH*(y+4));
 
         //trapcircle
-        do {x = Random.Int(5,WIDTH-10);} while (x<60&&x>40);
-        do {y = Random.Int(5,HEIGHT-10);} while (y<60&&y>40);
+        do {x = Random.Int(12,WIDTH-15);} while (x<60&&x>40);
+        do {y = Random.Int(12,HEIGHT-15);} while (y<60&&y>40);
         for(int i : PathFinder.NEIGHBOURS8){
             this.map[x+y*WIDTH+i] = Terrain.TRAP;
             this.setTrap(new BurningTrap().reveal(), x+y*WIDTH+i);
@@ -205,8 +205,8 @@ public class Arena2 extends Arena{
         this.map[x+y*WIDTH] = Terrain.EMPTY_DECO;
         this.drop(new PotionOfStrength(), x + WIDTH*(y));
         //A pathway room
-        do {x = Random.Int(5,WIDTH-10);} while (x<60&&x>30);
-        do {y = Random.Int(5,HEIGHT-10);} while (y<60&&y>30);
+        do {x = Random.Int(12,WIDTH-15);} while (x<60&&x>30);
+        do {y = Random.Int(12,HEIGHT-15);} while (y<60&&y>30);
         Painter.fillEllipse(this,x,y,11,11, Terrain.EMPTY);
         Painter.fillEllipse(this,x+1,y+1,9,9, Terrain.WALL);
         Painter.fillEllipse(this,x+2,y+2,7,7, Terrain.WATER);

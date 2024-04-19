@@ -21,14 +21,20 @@
 
 package com.towerpixel.towerpixeldungeon.actors.mobs.npcs;
 
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
+import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfStrength;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCannon;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCrossbow;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGrave;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.towerpixel.towerpixeldungeon.sprites.BruteSprite;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -40,25 +46,84 @@ public class TowerShopKeeper extends NewShopKeeper {
         properties.add(Property.IMMOVABLE);
     }
 
-@Override
-    public  ArrayList<Item> generateItems() {
+    @Override
+    public ArrayList<Item> generateItems() {
         ArrayList<Item> itemsToSpawn = new ArrayList<>();
-        if (Dungeon.depth<5) {
-
-            itemsToSpawn.add(new SpawnerCrossbow());
-            itemsToSpawn.add(new SpawnerWand());
-            itemsToSpawn.add(new SpawnerWall());
-        } else if (Dungeon.depth<9) {
-            itemsToSpawn.add(new SpawnerCrossbow());
-            itemsToSpawn.add(new SpawnerWand());
-            itemsToSpawn.add(new SpawnerWall());
-            itemsToSpawn.add(new SpawnerCannon());
+        if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)) {
+            if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+                if (Dungeon.depth < 5) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                } else if (Dungeon.depth < 9) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                } else {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                }
+            } else {
+                if (Dungeon.depth < 5) {
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerWall());
+                } else if (Dungeon.depth < 9) {
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerWall());
+                    itemsToSpawn.add(new SpawnerCannon());
+                } else {
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerWall());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerGrave());
+                }
+            }
         } else {
-            itemsToSpawn.add(new SpawnerCrossbow());
-            itemsToSpawn.add(new SpawnerWand());
-            itemsToSpawn.add(new SpawnerWall());
-            itemsToSpawn.add(new SpawnerCannon());
-            itemsToSpawn.add(new SpawnerGrave());
+            if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+            if (Dungeon.depth < 5) {
+                itemsToSpawn.add(Random.oneOf(new ScrollOfUpgrade(), new PotionOfStrength()));
+                itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+
+            } else if (Dungeon.depth < 9) {
+                itemsToSpawn.add(Random.oneOf(new ScrollOfUpgrade(), new PotionOfStrength()));
+                itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+
+            } else {
+                itemsToSpawn.add(Random.oneOf(new ScrollOfUpgrade(), new PotionOfStrength()));
+                itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+                itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SCROLL),Generator.random(Generator.Category.RING),Generator.random(Generator.Category.ARMOR),Generator.random(Generator.Category.WAND),Generator.random(Generator.Category.WEAPON)));
+
+            }
+        } else {
+                if (Dungeon.depth < 5) {
+                    itemsToSpawn.add(new SpawnerCrossbow());
+                    itemsToSpawn.add(new SpawnerWand());
+                    itemsToSpawn.add(new SpawnerWall());
+                } else if (Dungeon.depth < 9) {
+                    itemsToSpawn.add(new SpawnerCrossbow());
+                    itemsToSpawn.add(new SpawnerWand());
+                    itemsToSpawn.add(new SpawnerWall());
+                    itemsToSpawn.add(new SpawnerCannon());
+                } else {
+                    itemsToSpawn.add(new SpawnerCrossbow());
+                    itemsToSpawn.add(new SpawnerWand());
+                    itemsToSpawn.add(new SpawnerWall());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerGrave());
+                }
+            }
         }
         return itemsToSpawn;
     }

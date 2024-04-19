@@ -134,17 +134,7 @@ public class YogDzewa extends Mob {
 
 	private ArrayList<Class> regularSummons = new ArrayList<>();
 	{
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-			for (int i = 0; i < 6; i++){
-				if (i >= 4){
-					regularSummons.add(YogRipper.class);
-				} else if (i >= Statistics.spawnersAlive){
-					regularSummons.add(Larva.class);
-				} else {
-					regularSummons.add( i % 2 == 0 ? YogEye.class : YogScorpio.class);
-				}
-			}
-		} else {
+
 			for (int i = 0; i < 4; i++){
 				if (i >= Statistics.spawnersAlive){
 					regularSummons.add(Larva.class);
@@ -152,7 +142,7 @@ public class YogDzewa extends Mob {
 					regularSummons.add(YogRipper.class);
 				}
 			}
-		}
+
 		Random.shuffle(regularSummons);
 	}
 
@@ -230,11 +220,9 @@ public class YogDzewa extends Mob {
 				for (Char ch : affected) {
 
 					if (hit( this, ch, DamageType.MAGICAL )) {
-						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
-							ch.damage(Random.NormalIntRange(30, 50), new Eye.DeathGaze());
-						} else {
-							ch.damage(Random.NormalIntRange(20, 30), new Eye.DeathGaze());
-						}
+
+						ch.damage(Random.NormalIntRange(20, 30), new Eye.DeathGaze());
+
 						if (Dungeon.level.heroFOV[pos]) {
 							ch.sprite.flash();
 							CellEmitter.center(pos).burst(PurpleParticle.BURST, Random.IntRange(1, 2));
@@ -401,9 +389,9 @@ public class YogDzewa extends Mob {
 
 			addFist((YogFist)Reflection.newInstance(fistSummons.remove(0)));
 
-			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-				addFist((YogFist)Reflection.newInstance(challengeSummons.remove(0)));
-			}
+			//if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+				//addFist((YogFist)Reflection.newInstance(challengeSummons.remove(0)));
+			//}
 
 			CellEmitter.get(Dungeon.level.exit()-1).burst(ShadowParticle.UP, 25);
 			CellEmitter.get(Dungeon.level.exit()).burst(ShadowParticle.UP, 100);
@@ -431,10 +419,7 @@ public class YogDzewa extends Mob {
 
 		int targetPos = Dungeon.level.exit() + Dungeon.level.width();
 
-		if (!Dungeon.isChallenged(Challenges.STRONGER_BOSSES)
-				&& (Actor.findChar(targetPos) == null || Actor.findChar(targetPos) instanceof Sheep)){
-			fist.pos = targetPos;
-		} else if (Actor.findChar(targetPos-1) == null || Actor.findChar(targetPos-1) instanceof Sheep){
+		if (Actor.findChar(targetPos-1) == null || Actor.findChar(targetPos-1) instanceof Sheep){
 			fist.pos = targetPos-1;
 		} else if (Actor.findChar(targetPos+1) == null || Actor.findChar(targetPos+1) instanceof Sheep){
 			fist.pos = targetPos+1;
@@ -507,10 +492,6 @@ public class YogDzewa extends Mob {
 		updateVisibility(Dungeon.level);
 
 		GameScene.bossSlain();
-
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && Statistics.spawnersAlive == 4){
-			Badges.validateBossChallengeCompleted();
-		}
 
 		Dungeon.level.unseal();
 		super.die( cause );

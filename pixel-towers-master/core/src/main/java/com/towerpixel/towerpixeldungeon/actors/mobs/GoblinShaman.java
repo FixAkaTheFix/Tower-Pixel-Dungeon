@@ -39,7 +39,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public abstract class GoblinShaman extends Goblin {
+public abstract class GoblinShaman extends Mob {
 
     {
         HP = HT = 70;

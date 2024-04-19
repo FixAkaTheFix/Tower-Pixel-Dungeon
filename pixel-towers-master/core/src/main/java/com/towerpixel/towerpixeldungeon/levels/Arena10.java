@@ -105,7 +105,7 @@ public class Arena10 extends Arena{
     @Override
     public void deploymobs(int wave, Direction direction, int group) {
         super.deploymobs(wave, Direction.RIGHT, 4);
-        if (wave >= 12 && wave <= 15) {
+        if (wave >= 12 && wave <= 19) {
             for (int i = 0; i<wave-10;i++){
                 Bandit shinobi1 = new Bandit();
                 shinobi1.pos = 3 + WIDTH*4;
@@ -116,7 +116,7 @@ public class Arena10 extends Arena{
         if (wave >= 16 && wave <= 19) {
             for (int i = 0; i<wave-15;i++){
                 Shinobi shinobi1 = new Shinobi();
-                shinobi1.pos = 3 + WIDTH*4;
+                shinobi1.pos = 3 + WIDTH*16;
                 GameScene.add(shinobi1);
                 level.occupyCell(shinobi1);
             }
@@ -205,11 +205,11 @@ public class Arena10 extends Arena{
             }
         }
 
-        for (int x = 1;x<WIDTH-1;x++) for (int y = 1;y<HEIGHT-1;y++){
+        for (int x = 20;x<WIDTH-1;x++) for (int y = 1;y<HEIGHT-1;y++){
             //Random grass
             int cell = x+WIDTH*y;
 
-            if (Math.random()>0.993) {
+            if (Math.random()>0.98) {
                 if (this.map[cell]==Terrain.EMPTY) this.map[cell]=Terrain.GRASS;
                 if (this.map[cell+1]==Terrain.EMPTY) this.map[cell+1]=Terrain.GRASS;
                 if (this.map[cell-1]==Terrain.EMPTY) this.map[cell-1]=Terrain.GRASS;
@@ -217,7 +217,7 @@ public class Arena10 extends Arena{
                 if (this.map[cell-WIDTH]==Terrain.EMPTY) this.map[cell-WIDTH]=Terrain.GRASS;
             }
             //tall grass
-            if (Math.random()>0.993) {
+            if (Math.random()>0.98) {
                 if (this.map[cell]==Terrain.EMPTY) this.map[cell]=Terrain.HIGH_GRASS;
                 if (this.map[cell+1]==Terrain.EMPTY) this.map[cell+1]=Terrain.HIGH_GRASS;
                 if (this.map[cell-1]==Terrain.EMPTY) this.map[cell-1]=Terrain.HIGH_GRASS;
@@ -229,7 +229,7 @@ public class Arena10 extends Arena{
                 if (this.map[cell]==Terrain.EMPTY) this.map[cell]=Terrain.EMPTY_DECO;
             }
             //water
-            if (Math.random()>0.97) {
+            if (Math.random()>0.95) {
                 for (int i:PathFinder.NEIGHBOURS8) if (this.map[cell+i]==Terrain.EMPTY&&(cell<WIDTH*17||cell>WIDTH*34)) this.map[cell+i]=Terrain.WATER;
             }
             //rare statues

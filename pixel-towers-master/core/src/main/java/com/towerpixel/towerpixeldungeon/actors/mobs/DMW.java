@@ -47,7 +47,7 @@ public class DMW extends Mob {
     {
         spriteClass = DMWSprite.class;
 
-        HP = HT = 2000;
+        HP = HT = 2300;
         defenseSkill = 5;
 
         EXP = 50;

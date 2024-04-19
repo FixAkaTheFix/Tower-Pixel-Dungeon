@@ -45,6 +45,7 @@ android {
                 releaseImplementation project(':services:updates:githubUpdates')
                 releaseImplementation project(':services:news:shatteredNews')
             }
+            signingConfig signingConfigs.debug
         }
     }
 

@@ -64,7 +64,7 @@ public class Berry extends Food {
 
 	@Override
 	public int value() {
-		return 5 * quantity;
+		return (5 + Dungeon.scalingDepth()) * quantity;
 	}
 
 	public static class SeedCounter extends CounterBuff{{revivePersists = true;}};

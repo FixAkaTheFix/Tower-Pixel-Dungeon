@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.levels;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Piranha;
 import com.towerpixel.towerpixeldungeon.actors.mobs.RotLasher;
@@ -11,7 +12,12 @@ import com.towerpixel.towerpixeldungeon.effects.Ripple;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.food.MysteryMeat;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfStrength;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCannon;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCrossbow;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGrave;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
@@ -327,11 +333,27 @@ public class Arena4 extends Arena {
         @Override
         public  ArrayList<Item> generateItems() {
             ArrayList<Item> itemsToSpawn = new ArrayList<>();
-
-            itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.TOWER ) );
-            itemsToSpawn.add( new SpawnerWand() );
-            itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.TOWER ) );
-
+            if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)) {
+                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
+                } else {
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerCannon());
+                    itemsToSpawn.add(new SpawnerWall());
+                }
+            } else {
+                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(Generator.random(Generator.Category.WAND));
+                } else {
+                    itemsToSpawn.add(Generator.random(Generator.Category.TOWER));
+                    itemsToSpawn.add(new SpawnerWand());
+                    itemsToSpawn.add(Generator.random(Generator.Category.TOWER));
+                }
+            }
             return itemsToSpawn;
         }
     }

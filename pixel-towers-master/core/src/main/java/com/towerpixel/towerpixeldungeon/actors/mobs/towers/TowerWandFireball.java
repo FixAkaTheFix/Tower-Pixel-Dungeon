@@ -14,7 +14,7 @@ public class TowerWandFireball extends TowerWand3{
         viewDistance = 6;//DPT =70*0.6 + 2 + HT/40 = 44 + HT/40 DPT/C = 0,0187 + HT/94000
         upgCount = 0;
 
-        cost = 200;
+        cost = 2000;
         upgrade1Cost = 1000;
         damageMin = 20;
         damageMax = 60;

@@ -27,37 +27,37 @@ import com.towerpixel.towerpixeldungeon.items.Item;
 public class Challenges {
 
 	//Some of these internal IDs are outdated and don't represent what these challenges do
-	public static final int NO_FOOD				= 1;
+	public static final int VAMPIRE				= 1;
 	public static final int NO_ARMOR			= 2;
-	public static final int NO_HEALING			= 4;
+	public static final int HEROIC_BATTLE		= 4;
 	public static final int NO_HERBALISM		= 8;
-	public static final int SWARM_INTELLIGENCE	= 16;
+	public static final int BOMBARDA_MAXIMA	    = 16;
 	public static final int DARKNESS			= 32;
 	public static final int NO_SCROLLS		    = 64;
 	public static final int CHAMPION_ENEMIES	= 128;
-	public static final int STRONGER_BOSSES 	= 256;
-	public static final int HARDER_QUESTS =       512;
+	public static final int SHAMANISM 	        = 256;
+	public static final int HARDER_QUESTS       = 512;
 
 	public static final int MAX_VALUE           = 1023;
 
 	public static final String[] NAME_IDS = {
 			"champion_enemies",
-			"stronger_bosses",
-			"no_food",
 			"no_armor",
-			"no_healing",
+			"vampire",
+			"shamanism",
+			"bombarda_maxima",
+			"heroic_battle",
 			"no_herbalism",
-			"swarm_intelligence",
 			"darkness",
 			"no_scrolls",
 			"harder_quests"
 	};
 
 	public static final int[] MASKS = {
-			CHAMPION_ENEMIES, STRONGER_BOSSES, NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS, HARDER_QUESTS
+			CHAMPION_ENEMIES, NO_ARMOR, VAMPIRE, SHAMANISM, BOMBARDA_MAXIMA, HEROIC_BATTLE, NO_HERBALISM,  DARKNESS, NO_SCROLLS, HARDER_QUESTS
 	};
 	public static final boolean[] EXIST = {
-			true           ,false           ,false    ,true     ,true       ,false        ,false             ,false      ,false      ,false
+			true          ,true     ,true  ,       true   , true     ,true       ,false             ,false      ,false      ,false
 	};
 
 	public static int activeChallenges(){

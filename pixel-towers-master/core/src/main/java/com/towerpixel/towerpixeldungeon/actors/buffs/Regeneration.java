@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.actors.buffs;
 
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
@@ -34,7 +35,7 @@ public class Regeneration extends Buff {
 		actPriority = HERO_PRIO - 1;
 	}
 	
-	private static final float REGENERATION_DELAY = 10;
+	private static final float REGENERATION_DELAY = Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 2 : 10;
 	
 	@Override
 	public boolean act() {

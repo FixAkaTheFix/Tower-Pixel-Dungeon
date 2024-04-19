@@ -21,11 +21,36 @@
 
 package com.towerpixel.towerpixeldungeon.actors.blobs;
 
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Actor;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Blindness;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
 import com.towerpixel.towerpixeldungeon.effects.BlobEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 
 public class SmokeScreen extends Blob {
+
+	@Override
+	protected void evolve() {
+		super.evolve();
+
+		Char ch;
+		int cell;
+
+		for (int i = area.left; i < area.right; i++){
+			for (int j = area.top; j < area.bottom; j++){
+				cell = i + j* Dungeon.level.width();
+				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
+					if (!ch.isImmune(this.getClass())) {
+						Buff.prolong(ch, Blindness.class, 2);
+					}
+				}
+			}
+		}
+	}
 	
 	@Override
 	public void use( BlobEmitter emitter ) {

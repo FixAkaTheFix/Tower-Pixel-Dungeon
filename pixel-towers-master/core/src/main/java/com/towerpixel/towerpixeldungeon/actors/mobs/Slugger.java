@@ -22,7 +22,7 @@ public class Slugger extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 20,25 );
+        return Random.NormalIntRange( 15,20 );
     }
 
     @Override
@@ -38,9 +38,10 @@ public class Slugger extends Mob {
 
     @Override
     public void damage(int dmg, Object src) {
-        if (DamageSource.POISON.contains(src)) {//
-            } else if (DamageSource.MAGICAL.contains(src)) super.damage(dmg, src);
-        else super.damage(dmg/4, src);
+        if (DamageSource.POISON.contains(src.getClass())) {//
+            } else if (DamageSource.MAGICAL.contains(src.getClass())) {
+            super.damage(dmg, src);
+        } else super.damage(dmg/4, src);
     }
 
     @Override

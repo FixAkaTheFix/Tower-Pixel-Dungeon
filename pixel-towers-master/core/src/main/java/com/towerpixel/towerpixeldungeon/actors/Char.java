@@ -25,6 +25,7 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Electricity;
 import com.towerpixel.towerpixeldungeon.actors.blobs.ToxicGas;
@@ -50,6 +51,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
 import com.towerpixel.towerpixeldungeon.actors.buffs.FrostImbue;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Fury;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Haste;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Hex;
 import com.towerpixel.towerpixeldungeon.actors.buffs.LifeLink;
 import com.towerpixel.towerpixeldungeon.actors.buffs.LostInventory;
@@ -68,6 +70,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Stamina;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Terror;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Vampirism;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vile;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vulnerable;
@@ -490,6 +493,7 @@ public abstract class Char extends Actor {
 			}
 
 			enemy.damage( effectiveDamage, this );
+			//if (buff(Vampirism.class) != null) Buff.affect(this, Healing.class).setHeal(effectiveDamage/3,0.01f,0);
 
 			if (buff(FireImbue.class) != null)  buff(FireImbue.class).proc(enemy);
 			if (buff(FrostImbue.class) != null) buff(FrostImbue.class).proc(enemy);
@@ -544,6 +548,7 @@ public abstract class Char extends Actor {
 					GLog.i( Messages.capitalize(Messages.get(Char.class, "defeat", enemy.name())) );
 				}
 			}
+			if (this == hero && Dungeon.isChallenged(Challenges.VAMPIRE)) Buff.affect(hero, Healing.class).setHeal(Math.max(effectiveDamage/5, 1),0.25f,0);
 
 			return true;
 			

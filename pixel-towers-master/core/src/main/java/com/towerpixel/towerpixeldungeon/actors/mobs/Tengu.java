@@ -83,7 +83,7 @@ public class Tengu extends Mob {
 	{
 		spriteClass = TenguSprite.class;
 		
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 250 : 200;
+		HP = HT = 200;
 		EXP = 20;
 		defenseSkill = 15;
 		
@@ -412,7 +412,7 @@ public class Tengu extends Mob {
 			
 			abilityCooldown--;
 			
-			if (targetAbilityUses() - abilitiesUsed >= 4 && !Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+			if (targetAbilityUses() - abilitiesUsed >= 4){
 				//Very behind in ability uses, use one right away!
 				//but not on bosses challenge, we already cast quickly then
 				abilityCooldown = 0;
@@ -454,7 +454,7 @@ public class Tengu extends Mob {
 				abilityToUse = BOMB_ABILITY;
 			} else if (abilitiesUsed == 1){
 				abilityToUse = SHOCKER_ABILITY;
-			} else if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
+			} else if (false/*Dungeon.isChallenged(Challenges.STRONGER_BOSSES)*/) {
 				abilityToUse = Random.Int(2)*2; //0 or 2, can't roll fire ability with challenge
 			} else {
 				abilityToUse = Random.Int(3);
@@ -484,27 +484,21 @@ public class Tengu extends Mob {
 						break;
 				}
 				//always use the fire ability with the bosses challenge
-				if (abilityUsed && abilityToUse != FIRE_ABILITY && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-					throwFire(Tengu.this, enemy);
-				}
+				//if (abilityUsed && abilityToUse != FIRE_ABILITY && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+				//	throwFire(Tengu.this, enemy);
+				//}
 			}
 			
 		}
 		
 		//spend 1 less turn if seriously behind on ability uses
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-			if (targetAbilityUses() - abilitiesUsed >= 4) {
-				//spend no time
-			} else {
-				spend(TICK);
-			}
+
+		if (targetAbilityUses() - abilitiesUsed >= 4) {
+			spend(TICK);
 		} else {
-			if (targetAbilityUses() - abilitiesUsed >= 4) {
-				spend(TICK);
-			} else {
-				spend(2 * TICK);
-			}
+			spend(2 * TICK);
 		}
+
 		
 		lastAbility = abilityToUse;
 		abilitiesUsed++;

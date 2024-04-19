@@ -152,4 +152,8 @@ public class CorpseDust extends Item {
 		}
 	}
 
+	@Override
+	public int value() {
+		return 100;
+	}
 }

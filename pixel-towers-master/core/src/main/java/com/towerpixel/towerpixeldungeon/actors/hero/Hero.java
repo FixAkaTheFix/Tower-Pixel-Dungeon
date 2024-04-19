@@ -26,6 +26,7 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Bones;
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
@@ -243,8 +244,8 @@ public class Hero extends Char {
 	public Hero() {
 		super();
 
-		HP = HT = 20;
-		STR = STARTING_STR;
+		HP = HT = Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 100 : 20;
+		STR = STARTING_STR + (Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 2 : 0);
 		
 		belongings = new Belongings( this );
 		
@@ -255,9 +256,10 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HT = 40 + 10*(lvl-1) + HTBoost - (int)HTdrained;
+		HT = (40 + 10*(lvl-1))*(Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 5 : 1) + HTBoost - (int)HTdrained;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
+		HT *= Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 5 : 1;
 
 		if (buff(ElixirOfMight.HTBoost.class) != null){
 			HT += buff(ElixirOfMight.HTBoost.class).boost();
@@ -917,8 +919,8 @@ public class Hero extends Char {
 			return false;
 		}
 	}
-	
-	private boolean actInteract( HeroAction.Interact action ) {
+
+	private boolean actInteract(HeroAction.Interact action ) {
 		
 		Char ch = action.ch;
 

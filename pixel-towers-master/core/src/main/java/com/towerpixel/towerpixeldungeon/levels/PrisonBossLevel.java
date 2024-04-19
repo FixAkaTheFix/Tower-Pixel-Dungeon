@@ -636,9 +636,9 @@ public class PrisonBossLevel extends Level {
 		boolean[] trapsPatch;
 
 		//fill ramps up much faster during challenge, effectively 78%-90%
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-			fill = 0.675f + fill/4f;
-		}
+		//if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+		//	fill = 0.675f + fill/4f;
+		//}
 
 		int tries = 0;
 		do {

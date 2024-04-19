@@ -123,7 +123,7 @@ public class CavesBossLevel extends Level {
 			if (map[i] == Terrain.EMPTY) {
 				if (patch[i - 14*width()]){
 					map[i] = Terrain.WATER;
-				} else if (Random.Int(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 4 : 8) == 0){
+				} else if (Random.Int(8) == 0){
 					map[i] = Terrain.INACTIVE_TRAP;
 				}
 			}
@@ -380,7 +380,7 @@ public class CavesBossLevel extends Level {
 				pylonsRemaining++;
 			}
 		}
-		int finalPylonsRemaining = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 1 : 2;
+		int finalPylonsRemaining = 2;
 		if (pylonsRemaining > finalPylonsRemaining) {
 			blobs.get(PylonEnergy.class).fullyClear();
 		}

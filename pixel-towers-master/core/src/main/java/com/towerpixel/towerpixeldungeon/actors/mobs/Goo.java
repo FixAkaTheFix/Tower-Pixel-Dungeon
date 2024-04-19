@@ -48,7 +48,7 @@ import com.watabou.utils.Random;
 public class Goo extends Mob {
 
 	{
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
+		HP = HT = 100;
 		EXP = 10;
 		defenseSkill = 6;
 		spriteClass = GooSprite.class;
@@ -103,9 +103,6 @@ public class Goo extends Mob {
 			HP += healInc;
 			if (Dungeon.level.heroFOV[pos] ){
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), healInc );
-			}
-			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && healInc < 3) {
-				healInc++;
 			}
 			if (HP*2 > HT) {
 				BossHealthBar.bleed(false);
@@ -189,14 +186,10 @@ public class Goo extends Mob {
 
 		} else {
 
-			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-				pumpedUp += 2;
-				//don't want to overly punish players with slow move or attack speed
-				spend(GameMath.gate(attackDelay(), Dungeon.hero.cooldown(), 3*attackDelay()));
-			} else {
-				pumpedUp++;
-				spend( attackDelay() );
-			}
+
+			pumpedUp++;
+			spend( attackDelay() );
+
 
 			((GooSprite)sprite).pumpUp( pumpedUp );
 

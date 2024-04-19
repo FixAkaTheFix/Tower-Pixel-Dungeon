@@ -17,8 +17,8 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
         upgCount=0;
 
         upgrade1Cost = 10000;
-        damageMin = 5;
-        damageMax = 15;
+        damageMin = 6;
+        damageMax = 12;
     }
 
     public int atCooldown = 1;

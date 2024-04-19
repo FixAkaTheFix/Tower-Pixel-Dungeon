@@ -103,6 +103,7 @@ public class WndChallenges extends Window {
 			int value = 0;
 			for (int i=0; i < boxes.size(); i++) {
 				if (boxes.get( i ).checked()) {
+
 					value |= Challenges.MASKS[i];
 				}
 			}

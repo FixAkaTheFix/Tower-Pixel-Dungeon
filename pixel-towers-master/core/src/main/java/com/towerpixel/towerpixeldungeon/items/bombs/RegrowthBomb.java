@@ -21,21 +21,28 @@
 
 package com.towerpixel.towerpixeldungeon.items.bombs;
 
+import static com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing.pharmacophobiaProc;
+
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Regrowth;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.effects.Splash;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Plant;
 import com.towerpixel.towerpixeldungeon.plants.Starflower;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
+import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -71,7 +78,15 @@ public class RegrowthBomb extends Bomb {
 					if (ch.alignment == Dungeon.hero.alignment) {
 						//same as a healing potion
 						PotionOfHealing.cure(ch);
-						PotionOfHealing.heal(ch);
+						if (ch == Dungeon.hero && Dungeon.isChallenged(Challenges.VAMPIRE)){
+							pharmacophobiaProc(Dungeon.hero);
+						} else {
+							//starts out healing 30 hp, equalizes with hero health total at level 11
+							Buff.affect(ch, Healing.class).setHeal((int) (0.3f * ch.HT + 14), 0.05f, 0);
+							if (ch == Dungeon.hero){
+								GLog.p( Messages.get(PotionOfHealing.class, "heal") );
+							}
+						}
 					}
 				} else if ((t == Terrain.EMPTY || t == Terrain.EMPTY_DECO || t == Terrain.EMBERS
 						|| t == Terrain.GRASS || t == Terrain.FURROWED_GRASS || t == Terrain.HIGH_GRASS)
@@ -113,6 +128,6 @@ public class RegrowthBomb extends Bomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (20 + 30);
+		return quantity * (50 + Dungeon.scalingDepth()*6);
 	}
 }

@@ -21,16 +21,23 @@
 
 package com.towerpixel.towerpixeldungeon.actors.mobs.npcs;
 
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.items.ArcaneResin;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.Stylus;
 import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
+import com.towerpixel.towerpixeldungeon.items.food.Berry;
 import com.towerpixel.towerpixeldungeon.items.food.MeatPie;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfStrength;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.towerpixel.towerpixeldungeon.items.quest.CeremonialCandle;
+import com.towerpixel.towerpixeldungeon.items.quest.CorpseDust;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.towerpixel.towerpixeldungeon.items.stones.StoneOfBlast;
 import com.towerpixel.towerpixeldungeon.plants.Sungrass;
 import com.towerpixel.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.watabou.utils.Random;
@@ -50,13 +57,48 @@ public class NormalShopKeeper extends NewShopKeeper {
     public ArrayList<Item> generateItems() {
         int type = Random.Int(3);
         ArrayList<Item> itemsToSpawn = new ArrayList<>();
-        if (Dungeon.depth < 16) {
+        if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)){
+            switch (type) {
+                case 0: {
+                    itemsToSpawn.add(new PotionOfHealing());
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    break;
+                }
+                case 1: {
+                    itemsToSpawn.add(new ScrollOfUpgrade());
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SCROLL));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SCROLL));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    break;
+                }
+                case 2: {
+                    itemsToSpawn.add(new PotionOfStrength());
+                    itemsToSpawn.add(new StoneOfBlast());
+                    itemsToSpawn.add(new Bomb());
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    break;
+                }
+                case 3: {
+                    itemsToSpawn.add(new Sungrass.Seed());
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
+                    break;
+                }
+            }
+        } else if (Dungeon.depth < 16) {
             switch (type) {
                 case 0: {
                     itemsToSpawn.add(new PotionOfHealing());
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.FOOD));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.STONE));
-                    itemsToSpawn.add(new Stylus());
+                    itemsToSpawn.add(Random.oneOf(new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(),new Stylus(),new Stylus(),new Stylus(),new Stylus(),new Stylus(), new CorpseDust(), new ArcaneResin(), new CeremonialCandle()));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.RING).upgrade(Random.IntRange(0, 1)).identify());
                     break;
                 }
@@ -71,13 +113,13 @@ public class NormalShopKeeper extends NewShopKeeper {
                 case 2: {
                     itemsToSpawn.add(new PotionOfStrength());
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SCROLL));
-                    itemsToSpawn.add(new Bomb());
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.FOOD));
+                    itemsToSpawn.add(new Berry());
+                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.ARMOR).upgrade(Random.IntRange(0, 2)).identify());
                     break;
                 }
                 case 3: {
-                    itemsToSpawn.add(new Sungrass.Seed());
+                    itemsToSpawn.add(new ElixirOfHoneyedHealing());
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.MISSILE));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.WAND).upgrade(Random.IntRange(0, 2)).identify());
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SEED));

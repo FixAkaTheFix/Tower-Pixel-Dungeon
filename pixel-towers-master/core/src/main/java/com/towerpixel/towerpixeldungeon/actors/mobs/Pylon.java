@@ -55,7 +55,7 @@ public class Pylon extends Mob {
 	{
 		spriteClass = PylonSprite.class;
 
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50;
+		HP = HT = 50;
 
 		maxLvl = -2;
 
@@ -83,13 +83,8 @@ public class Pylon extends Mob {
 		ArrayList<Integer> shockCells = new ArrayList<>();
 
 		shockCells.add(pos + PathFinder.CIRCLE8[targetNeighbor]);
+		shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+4)%8]);
 
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-			shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+3)%8]);
-			shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+5)%8]);
-		} else {
-			shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+4)%8]);
-		}
 
 		sprite.flash();
 

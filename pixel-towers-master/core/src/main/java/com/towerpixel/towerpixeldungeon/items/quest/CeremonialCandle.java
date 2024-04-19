@@ -194,4 +194,9 @@ public class CeremonialCandle extends Item {
 		}
 
 	}
+
+	@Override
+	public int value() {
+		return 30;
+	}
 }

@@ -113,14 +113,17 @@ public class Arena15 extends Arena{
         switch (wave){
             case 5:{
                 for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(47+WIDTH*44 + i, 2, Fire.class));
+                for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(55+WIDTH*44 + i, 2, Fire.class));
                 break;
             }
             case 8:{
                 for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(47+WIDTH*60 + i, 2, Fire.class));
+                for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(55+WIDTH*60 + i, 2, Fire.class));
                 break;
             }
             case 12:{
-                for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(44+WIDTH*51 + i, 2, Fire.class));
+                for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(44+WIDTH*54 + i, 2, Fire.class));
+                for (int i : PathFinder.NEIGHBOURS8) GameScene.add(Blob.seed(44+WIDTH*48 + i, 2, Fire.class));
                 break;
             }
         }

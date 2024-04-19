@@ -756,7 +756,7 @@ public class Dungeon {
 
 		updateLevelExplored();
 		Statistics.gameWon = true;
-		if(Dungeon.depth >= SPDSettings.maxlevelunlocked()) SPDSettings.maxlevelunlocked(Dungeon.depth+1);
+		if(Dungeon.depth >= SPDSettings.maxlevelunlocked() && (SPDSettings.challenges() == 0)) SPDSettings.maxlevelunlocked(Dungeon.depth+1);
 
 		hero.belongings.identify();
 

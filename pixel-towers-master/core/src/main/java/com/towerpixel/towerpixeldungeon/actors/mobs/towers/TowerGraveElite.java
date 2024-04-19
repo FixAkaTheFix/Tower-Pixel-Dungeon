@@ -24,7 +24,7 @@ public class TowerGraveElite extends TowerCSpawning{
     public static int minionDR;
 
     {
-        HP = HT = 150;
+        HP = HT = 300;
 
         spriteClass = TowerGraveEliteSprite.class;
 
