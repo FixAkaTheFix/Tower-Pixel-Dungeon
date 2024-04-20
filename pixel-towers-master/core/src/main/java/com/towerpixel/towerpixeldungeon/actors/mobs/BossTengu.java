@@ -331,7 +331,7 @@ public class BossTengu extends Mob {
         int x = 1;
         if (HP - dmg <= 2000) x = 2;
         if (HP - dmg <= 1000) x = 3;
-        if (HP - dmg <= 400) x = 4;
+        if (HP - dmg <= 300) x = 4;
         if (phase != x) setPhase(x);
         super.damage(dmg, src);
 
