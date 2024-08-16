@@ -24,7 +24,7 @@ jobs:
       run: chmod +x gradlew
       working-directory: ./pixel-towers-master
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew assembleDebug #build#
       working-directory: ./pixel-towers-master
     - uses: actions/upload-artifact@v4
       with:
