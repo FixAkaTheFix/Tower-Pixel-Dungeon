@@ -79,7 +79,7 @@ public class StaffOfBeasts extends Item {
                 "Choose any wanted NPC选择任何想要的npc",
                 "Shopkeep店主",
                 "Sadghost悲伤幽灵",
-                "RK",
+                "RK鼠王",
                 "OldWMaker老牌制造商"
 
         ) {
