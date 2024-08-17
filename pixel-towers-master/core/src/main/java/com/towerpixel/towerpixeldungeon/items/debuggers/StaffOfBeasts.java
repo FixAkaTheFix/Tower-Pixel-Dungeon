@@ -75,12 +75,12 @@ public class StaffOfBeasts extends Item {
     private void chooseNPCS() {
 
         GameScene.show( new WndOptions(new ItemSprite(this),
-                "Staff of beasts: NPC mod",
-                "Choose any wanted NPC",
-                "Shopkeep",
-                "Sadghost",
+                "Staff of beasts野兽之杖: NPC mod非玩家角色模式",
+                "Choose any wanted NPC选择任何想要的npc",
+                "Shopkeep店主",
+                "Sadghost悲伤幽灵",
                 "RK",
-                "OldWMaker"
+                "OldWMaker老牌制造商"
 
         ) {
             @Override
@@ -95,16 +95,16 @@ public class StaffOfBeasts extends Item {
     private void chooseBosses() {
 
         GameScene.show( new WndOptions(new ItemSprite(this),
-                "Staff of beasts: NPC mod",
-                "Choose any wanted NPC, X= not working",
-                "GOO",
-                "BossTengu",
+                "Staff of beasts野兽之杖: NPC mod非玩家角色模式",
+                "Choose any wanted NPC选择任何想要的npc, X= not working如果是x选项的话就无效",
+                "GOO黏咕",
+                "BossTengu天狗首领",
                 "DWM",
-                "BossRatKing",
-                "Remac",
+                "BossRatKing鼠王首领",
+                "Remac雷马克",
                 "OOZE",
-                "TRICKSTER",
-                "BossTroll",
+                "TRICKSTER诡术士",
+                "BossTroll巨魔首领",
                 "DRILL3000"
 
         ) {
