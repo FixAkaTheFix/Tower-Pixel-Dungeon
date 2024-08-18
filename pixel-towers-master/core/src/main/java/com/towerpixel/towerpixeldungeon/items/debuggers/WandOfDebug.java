@@ -55,21 +55,21 @@ public class WandOfDebug extends Item {
     public int chosenIndex;
     private int chooseTile() {
         GameScene.show( new WndOptions(new ItemSprite(this),
-                "Wand Of Debug:  built mode",
-                "Choose the tile type",
-                "CHASM",
-                "EMPTY",
-                "GRASS	",
-                "EMPTY_WELL	",
-                "WALL",
-                "DOOR",
-                "OPEN_DOOR",
-                "ENTRANCE",
-                "EXIT",
-                "EMBERS	",
-                "LOCKED_DOOR",
-                "CRYSTAL_DOOR",
-                "PEDESTAL"
+                "Wand Of Debug测试法杖:  built mode铸造模式",
+                "Choose the tile type选择放置在地块上的类型",
+                "CHASM深渊",
+                "EMPTY删除",
+                "GRASS	草",
+                "EMPTY_WELL	干涸的井",
+                "WALL墙面",
+                "DOOR门",
+                "OPEN_DOOR开启的门",
+                "ENTRANCE下层入口",
+                "EXIT上层出口",
+                "EMBERS	余烬",
+                "LOCKED_DOOR锁上的门🚪",
+                "CRYSTAL_DOOR水晶门",
+                "PEDESTAL基座"
         ) {
             @Override
             protected void onSelect( int index ) {
@@ -81,18 +81,18 @@ public class WandOfDebug extends Item {
     }
     private int chooseTile2() {
         GameScene.show( new WndOptions(new ItemSprite(this),
-                "Wand Of Debug:  built mode",
-                "Choose the tile type",
-                "WALL_DECO	",
-                "BARRICADE	",
-                "EMPTY_SP",
-                "HIGH_GRASS	",
-                "SECRET_DOOR",
-                "SECRET_TRAP",
-                "TRAP",
-                "INACTIVE_TRAP ",
+                "Wand Of Debug测试法杖:  built mode铸造模式",
+                "Choose the tile type选择放置在地块上的类型",
+                "WALL_DECO	岩金",
+                "BARRICADE	木路障栅栏",
+                "EMPTY_SP删除＿sp",
+                "HIGH_GRASS	高草",
+                "SECRET_DOOR未发现门",
+                "SECRET_TRAP未发现陷阱",
+                "TRAP陷阱",
+                "INACTIVE_TRAP 失效陷阱",
 
-                "EMPTY_DECO	"
+                "EMPTY_DECO	有附着物的地块"
                 ) {
             @Override
             protected void onSelect( int index ) {
@@ -104,18 +104,18 @@ public class WandOfDebug extends Item {
     }
     private int chooseTile3() {
         GameScene.show( new WndOptions(new ItemSprite(this),
-                "Wand Of Debug:  built mode",
-                "Choose the tile type",
-                "LOCKED_EXIT",
-                "UNLOCKED_EXIT",
-                "SIGN",
-                "WELL",
-                "STATUE",
-                "STATUE_SP",
-                "BOOKSHELF",
-                "ALCHEMY",
-                "WATER",
-                "FURROWED_GRASS") {
+                "Wand Of Debug测试法杖:  built mode铸造模式",
+                "Choose the tile type选择放置在地块上的类型",
+                "LOCKED_EXIT锁着的楼层出口",
+                "UNLOCKED_EXIT已解锁的楼层出口",
+                "SIGN告示牌",
+                "WELL井",
+                "STATUE垒台柱或雕像",
+                "STATUE_SP状态_SP",
+                "BOOKSHELF书架",
+                "ALCHEMY炼金锅",
+                "WATER水",
+                "FURROWED_GRASS枯萎的植被") {
             @Override
             protected void onSelect( int index ) {
                 chosenIndex = index + 21;
