@@ -20,6 +20,11 @@ public abstract class HeroSpell extends Item {
         defaultAction = AC_CAST;
     }
 
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
+
     protected int castCost(){
         return 100;//basic cost in coins
     }
