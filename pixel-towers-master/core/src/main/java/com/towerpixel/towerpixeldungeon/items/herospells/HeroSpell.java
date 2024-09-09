@@ -51,7 +51,7 @@ public abstract class HeroSpell extends Item {
                 public void call() {
                     if (Dungeon.gold >= castCost()) {
                         cast();
-                    } else GLog.w(Messages.get(this, "no_coins"));
+                    } else GLog.w(Messages.get(HeroSpell.class, "no_coins"));
                 }
             });
 
