@@ -38,14 +38,17 @@ public class Assets {
 		public static final String WALL_BLOCKING= "environment/wall_blocking.png";
 
 		public static final String TILES_SEWERS = "environment/tiles_sewers.png";
+		public static final String TILES_SEWERS_OOZY = "environment/tiles_sewers_oozy.png";
 		public static final String TILES_PRISON = "environment/tiles_prison.png";
 		public static final String TILES_CAVES  = "environment/tiles_caves.png";
 		public static final String TILES_MINES  = "environment/tiles_mines.png";
 		public static final String TILES_GOBS  = "environment/tiles_gobs.png";
+		public static final String TILES_TEMPLE = "environment/tiles_temple.png";
 		public static final String TILES_CITY   = "environment/tiles_city.png";
 		public static final String TILES_GATES   = "environment/tiles_gates.png";
 		public static final String TILES_MAGES   = "environment/tiles_mages.png";
 		public static final String TILES_HALLS  = "environment/tiles_halls.png";
+		public static final String TILES_SOULDESERT  = "environment/tiles_souldesert.png";
 
 		public static final String WATER_SEWERS = "environment/water0.png";
 		public static final String WATER_PRISON = "environment/water1.png";
@@ -79,6 +82,10 @@ public class Assets {
 				case "cavern": interfaceType = "basicinterface"; break;
 				case "fixed": interfaceType = "fixinterface"; break;
 				case "redneon": interfaceType = "redneoninterface"; break;
+				case "yellowneon": interfaceType = "yellowneoninterface"; break;
+				case "greenneon": interfaceType = "greenneoninterface"; break;
+				case "blueneon": interfaceType = "blueneoninterface"; break;
+				case "purpleneon": interfaceType = "purpleneoninterface"; break;
 				case "magicling": interfaceType = "magiclinginterface";break;
 			}
 		}
@@ -107,6 +114,18 @@ public class Assets {
 		public static final String LOADING_CAVES    = "interfaces/loading_caves.png";
 		public static final String LOADING_CITY     = "interfaces/loading_city.png";
 		public static final String LOADING_HALLS    = "interfaces/loading_halls.png";
+
+		public static final String LOADING_SEWERS_HARD   = "interfaces/loading_sewers_hard.png";
+		public static final String LOADING_PRISON_HARD   = "interfaces/loading_prison_hard.png";
+		public static final String LOADING_CAVES_HARD    = "interfaces/loading_caves_hard.png";
+		public static final String LOADING_CITY_HARD     = "interfaces/loading_city_hard.png";
+		public static final String LOADING_HALLS_HARD    = "interfaces/loading_halls_hard.png";
+
+		public static final String LOADING_SEWERS_CHAL   = "interfaces/loading_sewers_chal.png";
+		public static final String LOADING_PRISON_CHAL   = "interfaces/loading_prison_chal.png";
+		public static final String LOADING_CAVES_CHAL    = "interfaces/loading_caves_chal.png";
+		public static final String LOADING_CITY_CHAL    = "interfaces/loading_city_chal.png";
+		public static final String LOADING_HALLS_CHAL    = "interfaces/loading_halls_chal.png";
 
 		public static final String BUFFS_SMALL      = "interfaces/buffs.png";
 		public static final String BUFFS_LARGE      = "interfaces/large_buffs.png";
@@ -160,6 +179,7 @@ public class Assets {
 		public static final String HALLS_BOSS   = "music/halls_boss.ogg";
 		public static final String CITY_BOSS_SPEDUP   = "music/city_boss_spedup.ogg";
 		public static final String DESCENT   = "music/descent.ogg";
+		public static final String METROPOLIS   = "music/metropolis_track.ogg";
 		public static final String RAT_PUNCHER_SPEDUP   = "music/rat_puncher.ogg";
 		public static final String BOSS_TRIAL   = "music/boss_trial.ogg";
 		public static final String GOBLIN_GROTTO   = "music/goblin_grotto.ogg";
@@ -252,7 +272,7 @@ public class Assets {
 		};
 	}
 
-	public static class Splashes {
+	public static class Splashes { // those include most pics now
 		public static final String HERO  = "splashes/hero.png";
 		public static final String WARRIOR  = "splashes/warrior.jpg";
 		public static final String MAGE     = "splashes/mage.jpg";
@@ -260,6 +280,9 @@ public class Assets {
 		public static final String HUNTRESS = "splashes/huntress.jpg";
 		public static final String DUELIST  = "splashes/duelist.jpg";
 		public static final String FIX  = "splashes/fix.jpg";
+		public static final String GDX  = "splashes/libgdx.png";
+		public static final String LOGO  = "splashes/garbagelogo.png";
+		public static final String BASED  = "splashes/based.png";
 
 		public static final String MAINWINDOW = "levelsplashes/mainwindow.png";
 		public static final String LOCKED = "levelsplashes/locked.png";
@@ -291,6 +314,27 @@ public class Assets {
 		public static final String ARENA24 = "levelsplashes/arena24.png";
 		public static final String ARENA25 = "levelsplashes/arena25.png";
 
+		//towerphotos
+		public static final String TOWERAMULET= "towersplashes/towercrossbow.png";
+
+		public static final String TOWERCROSSBOW = "towersplashes/towercrossbow.png";
+		public static final String TOWERCANNON = "towersplashes/towercannon.png";
+		public static final String TOWERMAGICMISSILE = "towersplashes/towermagicmissile.png";
+		public static final String TOWERDISINTEGRATION = "towersplashes/towerdisintegration.png";
+		public static final String TOWERFROST = "towersplashes/towerfrost.png";
+		public static final String TOWERLIGHTNING = "towersplashes/towerlightning.png";
+		public static final String TOWERWALL= "towersplashes/towerwall.png";
+		public static final String TOWERTOTEM= "towersplashes/towertotem.png";
+		public static final String TOWERGRAVE= "towersplashes/towergrave.png";
+
+		public static final String TOWERGUARD= "towersplashes/towerguard.png";
+		public static final String TOWERDARTGUN= "towersplashes/towerdartgun.png";
+		public static final String TOWERTNTLOG= "towersplashes/towertntlog.png";
+
+		public static final String TOWERMINER= "towersplashes/towerminer.png";
+		public static final String TOWERPYLON= "towersplashes/towerpylon.png";
+
+
 	};
 
 	public static class Sprites {
@@ -313,6 +357,7 @@ public class Assets {
 
 		public static final String RAT      = "sprites/rat.png";
 		public static final String BOSSRATKING      = "sprites/bossratking.png";
+		public static final String RATKINGAVATAR      = "sprites/ratkingavatar.png";
 		public static final String BOSSOOZE     = "sprites/bossooze.png";
 
 		public static final String BOSSTROLL    = "sprites/bosstroll.png";
@@ -341,12 +386,15 @@ public class Assets {
 		public static final String SHARD    = "sprites/shard.png";
 		public static final String CRAB     = "sprites/crab.png";
 		public static final String GOO      = "sprites/goo.png";
+		public static final String MINER    = "sprites/miner.png";
+		public static final String SIGN    = "sprites/sign.png";
 		public static final String SWARM    = "sprites/swarm.png";
 		public static final String SKELETON = "sprites/skeleton.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
 		public static final String SLUGGER   = "sprites/slugger.png";
 		public static final String THIEF    = "sprites/thief.png";
 		public static final String TENGU    = "sprites/tengu.png";
+		public static final String TARGET    = "sprites/target.png";
 
 
 
@@ -402,9 +450,19 @@ public class Assets {
 
 		public static final String TOWERCROSSBOW       = "sprites/towers/towercrossbow.png";
 		public static final String TOWERWALL          = "sprites/towers/towerwall.png";
+		public static final String TOWERWALLRUNIC          = "sprites/towers/towerwallrunic.png";
+		public static final String TOWERWALLSPIKED          = "sprites/towers/towerwallspiked.png";
 		public static final String TOWERWAND           = "sprites/towers/towerwand.png";
 		public static final String TOWERGRAVE          = "sprites/towers/towergrave.png";
 		public static final String TOWERCANNON           = "sprites/towers/towercannon.png";
+		public static final String ROCKET                = "sprites/towers/rocket.png";
 		public static final String TOWERTOTEM          = "sprites/towers/towertotem.png";
+		public static final String TOWERGUARD          = "sprites/towers/towerguard.png";
+		public static final String TOWERGUARDSPEARMAN          = "sprites/towers/towerguardspearman.png";
+		public static final String TOWERLIGHTNING           = "sprites/towers/towerlightning.png";
+		public static final String TOWERDISINTEGRATION          = "sprites/towers/towerdisintegration.png";
+		public static final String TOWERDARTGUN          = "sprites/towers/towerdartgun.png";
+		public static final String TOWERTNTLOG         = "sprites/towers/towertntlog.png";
+
 	}
 }

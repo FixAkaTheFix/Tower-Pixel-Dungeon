@@ -87,21 +87,21 @@ public class WndHeroInfo extends WndTabbed {
 				heroInfo.visible = heroInfo.active = value;
 			}
 		});
+		if (false) {
+			talentInfo = new TalentInfoTab(cl);
+			add(talentInfo);
+			talentInfo.setSize(WIDTH, MIN_HEIGHT);
+			finalHeight = (int) Math.max(finalHeight, talentInfo.height());
 
-		talentInfo = new TalentInfoTab(cl);
-		add(talentInfo);
-		talentInfo.setSize(WIDTH, MIN_HEIGHT);
-		finalHeight = (int)Math.max(finalHeight, talentInfo.height());
-
-		add( new IconTab( Icons.get(Icons.TALENT) ){
-			@Override
-			protected void select(boolean value) {
-				super.select(value);
-				talentInfo.visible = talentInfo.active = value;
-			}
-		});
-
-		{
+			add(new IconTab(Icons.get(Icons.TALENT)) {
+				@Override
+				protected void select(boolean value) {
+					super.select(value);
+					talentInfo.visible = talentInfo.active = value;
+				}
+			});
+		}
+		if (false) {
 			subclassInfo = new SubclassInfoTab(cl);
 			add(subclassInfo);
 			subclassInfo.setSize(WIDTH, MIN_HEIGHT);
@@ -122,7 +122,7 @@ public class WndHeroInfo extends WndTabbed {
 			abilityInfo.setSize(WIDTH, MIN_HEIGHT);
 			finalHeight = (int)Math.max(finalHeight, abilityInfo.height());
 
-			add(new IconTab(new ItemSprite(ItemSpriteSheet.CROWN, null)) {
+			add(new IconTab(new ItemSprite(ItemSpriteSheet.HEROSPELL_ROGUE_NOAMULET, null)) {
 				@Override
 				protected void select(boolean value) {
 					super.select(value);
@@ -134,7 +134,7 @@ public class WndHeroInfo extends WndTabbed {
 		resize(WIDTH, finalHeight);
 
 		layoutTabs();
-		talentInfo.layout();
+		//talentInfo.layout();
 
 		select(0);
 
@@ -143,7 +143,7 @@ public class WndHeroInfo extends WndTabbed {
 	@Override
 	public void offset(int xOffset, int yOffset) {
 		super.offset(xOffset, yOffset);
-		talentInfo.layout();
+		//talentInfo.layout();
 	}
 
 	private static class HeroInfoTab extends Component {
@@ -323,35 +323,53 @@ public class WndHeroInfo extends WndTabbed {
 	private static class ArmorAbilityInfoTab extends Component {
 
 		private RenderedTextBlock title;
-		private RenderedTextBlock message;
-		private RenderedTextBlock[] abilityDescs;
-		private IconButton[] abilityInfos;
+		private RenderedTextBlock[] info;
+		private Image[] icons;
 
 		public ArmorAbilityInfoTab(HeroClass cls){
 			super();
-			title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(WndHeroInfo.class, "abilities")), 9);
+			title = PixelScene.renderTextBlock(Messages.titleCase(cls.title()), 9);
 			title.hardlight(TITLE_COLOR);
 			add(title);
 
-			message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "abilities_msg"), 6);
-			add(message);
+			String[] ab_entries = cls.heroSpells().split("\n\n");
 
-			ArmorAbility[] abilities = cls.armorAbilities();
+			info = new RenderedTextBlock[ab_entries.length];
 
-			abilityDescs = new RenderedTextBlock[abilities.length];
-			abilityInfos = new IconButton[abilities.length];
+			for (int i = 0; i < ab_entries.length; i++){
+				info[i] = PixelScene.renderTextBlock(ab_entries[i], 6);
+				add(info[i]);
+			}
 
-			for (int i = 0; i < abilities.length; i++){
-				abilityDescs[i] = PixelScene.renderTextBlock(abilities[i].shortDesc(), 6);
-				int finalI = i;
-				abilityInfos[i] = new IconButton( Icons.get(Icons.INFO) ){
-					@Override
-					protected void onClick() {
-						Game.scene().addToFront(new WndInfoArmorAbility(cls, abilities[finalI]));
-					}
-				};
-				add(abilityDescs[i]);
-				add(abilityInfos[i]);
+			switch (cls){
+				case WARRIOR: default:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_WARRIOR_SHIELD),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_WARRIOR_GLOWUP),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_WARRIOR_GOLDARMOR)};
+					break;
+				case MAGE:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_MAGE_GIBBERISH),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_MAGE_BLESSING),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_MAGE_NECROMANCY)};
+					break;
+				case ROGUE:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_ROGUE_SWIFT),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_ROGUE_DISENGAGE),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_ROGUE_SHADOWCLONE)};
+					break;
+				case HUNTRESS:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_HUNTRESS_INSIGHT),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_HUNTRESS_OAKSKIN),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_HUNTRESS_REGENERATION)};
+					break;
+				case DUELIST:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_DUELIST_ARCANESWORD),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_DUELIST_BERSERK),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_DUELIST_EGOIST)};
+					break;
+			}
+			for (Image im : icons) {
+				add(im);
 			}
 
 		}
@@ -361,18 +379,17 @@ public class WndHeroInfo extends WndTabbed {
 			super.layout();
 
 			title.setPos((width-title.width())/2, MARGIN);
-			message.maxWidth((int)width);
-			message.setPos(0, title.bottom()+4*MARGIN);
 
-			float pos = message.bottom()+4*MARGIN;
+			float pos = title.bottom()+4*MARGIN;
 
-			for (int i = 0; i < abilityDescs.length; i++){
-				abilityDescs[i].maxWidth((int)width - 20);
-				abilityDescs[i].setPos(0, pos);
+			for (int i = 0; i < info.length; i++){
+				info[i].maxWidth((int)width - 20);
+				info[i].setPos(20, pos);
 
-				abilityInfos[i].setRect(width-20, abilityDescs[i].top() + (abilityDescs[i].height()-20)/2, 20, 20);
+				icons[i].x = (20-icons[i].width())/2;
+				icons[i].y = info[i].top() + (info[i].height() - icons[i].height())/2;
 
-				pos = abilityDescs[i].bottom() + 4*MARGIN;
+				pos = info[i].bottom() + 4*MARGIN;
 			}
 
 			height = Math.max(height, pos - 4*MARGIN);

@@ -75,8 +75,8 @@ public class Arena15 extends Arena{
         towerShopKeeper=null;
         normalShopKeeper=null;
 
-        waveCooldownNormal = 1;
-        waveCooldownBoss = 1;
+        waveCooldownNormal = 5;
+        waveCooldownBoss = 5;
         waterIsToxic = true;
     }
 

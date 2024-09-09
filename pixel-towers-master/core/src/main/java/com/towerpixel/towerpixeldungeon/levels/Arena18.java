@@ -21,6 +21,8 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.SkeletonArmored;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Statue;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Warlock;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Wraith;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannon1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannon2;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannon3;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Heap;
@@ -45,7 +47,9 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.particles.Emitter;
@@ -60,14 +64,14 @@ public class Arena18 extends Arena {
     {
         name = "Storm the gates";
 
-        color1 = 0x801500;
-        color2 = 0xa68521;
+        color1 = 0x00DD00;
+        color2 = 0x218521;
         viewDistance = 40;
         WIDTH = 500;
         HEIGHT = 30;
 
-        startGold = 3000;
-        startLvl = 15;
+        startGold = 3300;
+        startLvl = 20;
 
         maxWaves = 15;
 
@@ -90,6 +94,13 @@ public class Arena18 extends Arena {
     }
     @Override
     protected boolean build() {
+        if (mode == WndModes.Modes.CHALLENGE) {
+            slot1 = TowerInfo.AllTowers.GUARD;
+            slot2 = TowerInfo.AllTowers.WALL;
+            slot3 = TowerInfo.AllTowers.CANNON;
+            slot4 = TowerInfo.AllTowers.TNTLOG;
+        }
+
 
         //base room
         setSize(WIDTH, HEIGHT);
@@ -108,7 +119,7 @@ public class Arena18 extends Arena {
 
     //those generate on the spot
     private void buildGraveyard(int x) {
-        Painter.fill(level, x, 15, 5, 10, Terrain.BARRICADE);
+        Painter.fill(level, x, 11, 5, 10, Terrain.BARRICADE);
         Painter.fill(level, x + 5, 1, 25, 28, Terrain.GRASS);
         for (int x1 = x; x1 < x + 25; x1 += 5)
             for (int y1 = 15; y1 < 26; y1 += 10) {
@@ -120,9 +131,24 @@ public class Arena18 extends Arena {
             for (int y1 = 1; y1 < 28; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        this.drop(new SpawnerWand(), Random.element(candidates));
-        level.drop(new SpawnerWand(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
+        this.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
         level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
         level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
         level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
@@ -154,7 +180,7 @@ public class Arena18 extends Arena {
         }
         else if (Math.random() > 0.66) for (int i = 0; i < (wave+1) * 8; i++) {
             Mob skele;
-            if (i % 5 == 0) skele = new SkeletonArmored();
+            if (i % 6 == 0) skele = new SkeletonArmored();
             else skele = new Skeleton();
             skele.pos = Random.element(candidates);
             skele.state = skele.WANDERING;
@@ -182,18 +208,33 @@ public class Arena18 extends Arena {
             for (int y1 = 6; y1 < 29; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        level.drop(new SpawnerWand(), Random.element(candidates));
-        level.drop(new SpawnerWand(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
         for (int x1 = x; x1 < x + 13; x1 += 2)
             for (int y1 = 8; y1 < 28; y1 += 13) {
                 level.map[x1 + WIDTH * y1] = Terrain.BARRICADE;
             }
         candidates.clear();
 
-        Painter.fill(level, x+19, 8, 1, 15, Terrain.PEDESTAL);
+        Painter.fill(level, x+19, 8, 1, 14, Terrain.PEDESTAL);
 
-        for (int yb = 8;yb<28;yb+=2){
+        for (int yb = 8;yb<24;yb+=2){
             LineCannon cann = new LineCannon();
             cann.pos = x+20 + yb*WIDTH;
             cann.state = cann.HUNTING;
@@ -226,7 +267,7 @@ public class Arena18 extends Arena {
         Painter.fill(level, x+15, 12, 1, 15, Terrain.BARRICADE);
         Painter.fill(level, x+11, 8, 1, 15, Terrain.BARRICADE);
 
-        for (int yb = 8;yb<23;yb+=1){
+        for (int yb = 8;yb<16;yb+=1){
             Golem crossbow = new Golem();
             crossbow.pos = x+20 + yb*WIDTH;
             crossbow.state = crossbow.HUNTING;
@@ -309,7 +350,8 @@ public class Arena18 extends Arena {
         Painter.fill(level, x + 5, 1, 25, 23, Terrain.EMPTY);
         Painter.fill(level, x+5,10,25,5,Terrain.EMPTY_SP);
         Painter.fill(level, x+5,20,25,5,Terrain.EMPTY_SP);
-        Painter.fill(level, x+25, 13, 5, 9, Terrain.LOCKED_DOOR);
+        Painter.fill(level, x+25, 10, 5, 10, Terrain.WALL);
+        Painter.fill(level, x+25, 13, 5, 4, Terrain.EMPTY_SP);
         level.buildFlagMaps();
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int x1 = x + 5; x1 < x + 20; x1++)
@@ -365,10 +407,30 @@ public class Arena18 extends Arena {
             for (int y1 = 5; y1 < 25; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        level.drop(new SpawnerCrossbow(), Random.element(candidates));
-        level.drop(new SpawnerCannon(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
+        level.drop(Random.oneOf(
+                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+        ), Random.element(candidates));
         level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
         level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
         level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
@@ -387,7 +449,7 @@ public class Arena18 extends Arena {
             for (int y1 = 1; y1 < 29; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        if (Math.random() > 0.66) for (int i = 0; i < (wave+1) * 4; i++) {
+        if (Math.random() > 0.66) for (int i = 0; i < (wave/1.5f+1) * 4; i++) {
             Monk monk = new Monk();
             monk.pos = Random.element(candidates);
             monk.state = monk.WANDERING;
@@ -402,7 +464,7 @@ public class Arena18 extends Arena {
             GameScene.add(guard);
             level.occupyCell(guard);
         }
-        else for (int i = 0; i < (wave+1); i++) {
+        else for (int i = 0; i < (wave/4+1); i++) {
                 Mob sen;
                 sen = new Senior();
                 sen.pos = Random.element(candidates);
@@ -444,14 +506,16 @@ public class Arena18 extends Arena {
         level.drop(Generator.random(Generator.Category.WEAPON).identify(), hero.pos + WIDTH*5).type = Heap.Type.CHEST;
 
         ArrayList<Item> itemsToSpawn = new ArrayList<>();
+
+
         itemsToSpawn.add(new Firebomb());
         itemsToSpawn.add(new SummonElemental());
         itemsToSpawn.add(new HolyBomb());
-        itemsToSpawn.add(new SpawnerCannon());
-        itemsToSpawn.add(new SpawnerCrossbow());
-        itemsToSpawn.add(new SpawnerWand());
-        itemsToSpawn.add(new SpawnerWall());
-        itemsToSpawn.add(new SpawnerWall());
+        itemsToSpawn.add(TowerInfo.getTowerSpawner(Dungeon.level.slot1));
+        itemsToSpawn.add(TowerInfo.getTowerSpawner(Dungeon.level.slot2));
+        itemsToSpawn.add(TowerInfo.getTowerSpawner(Dungeon.level.slot3));
+        itemsToSpawn.add(TowerInfo.getTowerSpawner(Dungeon.level.slot4));
+
         itemsToSpawn.add(new SpawnerTotemShield());
         itemsToSpawn.add(new SpawnerTotemNecrotic());
         itemsToSpawn.add(new SpawnerTotemHealing());
@@ -550,6 +614,7 @@ public class Arena18 extends Arena {
     @Override
     public void doStuffEndwave(int wave) {
         int goldAdd = 600;
+        if (mode == WndModes.Modes.CHALLENGE) goldAdd = 1800;
         Dungeon.gold += goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
@@ -678,7 +743,7 @@ public class Arena18 extends Arena {
             size(6 - p * 3);
         }
     }
-    public static class LineCannon extends TowerCannon3 {
+    public static class LineCannon extends TowerCannon1 {
 
         {
             state = HUNTING;

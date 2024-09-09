@@ -26,7 +26,7 @@ import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.sprites.GnollThrowerSprite;
 import com.watabou.utils.Random;
 
-public class GnollThrower extends Mob {
+public class GnollThrower extends Gnoll {
 
     {
         spriteClass = GnollThrowerSprite.class;

@@ -23,16 +23,5 @@ public class SpawnerTotemHealing extends TowerSpawner {
         return 180;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerTotem.TotemHealing tower = new TowerTotem.TotemHealing();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
+
 }

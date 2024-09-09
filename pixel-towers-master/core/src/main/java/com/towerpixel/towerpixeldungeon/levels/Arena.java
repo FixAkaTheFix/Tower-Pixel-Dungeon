@@ -1,5 +1,6 @@
 package com.towerpixel.towerpixeldungeon.levels;
 
+import static com.towerpixel.towerpixeldungeon.Dungeon.depth;
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 import static com.towerpixel.towerpixeldungeon.Dungeon.win;
@@ -10,22 +11,34 @@ import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
+import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 
+import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Corrosion;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
+import com.towerpixel.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Levitation;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Slow;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
+import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Albino;
 import com.towerpixel.towerpixeldungeon.actors.mobs.ArmoredBrute;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bandit;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bat;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bee;
+import com.towerpixel.towerpixeldungeon.actors.mobs.BossDwarfKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossNecromancer;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossTroll;
@@ -42,6 +55,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.DMWHead;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DMWMinion;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DMWWheels;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Elemental;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Eye;
 import com.towerpixel.towerpixeldungeon.actors.mobs.FetidRat;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Ghoul;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Gnoll;
@@ -66,17 +80,21 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Monk;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Necromancer;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Piranha;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
+import com.towerpixel.towerpixeldungeon.actors.mobs.RipperDemon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.RotLasher;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Senior;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Shaman;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Shinobi;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Skeleton;
 import com.towerpixel.towerpixeldungeon.actors.mobs.SkeletonArmored;
+import com.towerpixel.towerpixeldungeon.actors.mobs.SkeletonArmoredShielded;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Slime;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Slugger;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Snake;
 import com.towerpixel.towerpixeldungeon.actors.mobs.SpectralNecromancer;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Spinner;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Statue;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Succubus;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Swarm;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Thief;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Warlock;
@@ -85,6 +103,23 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannon1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannonMissileLauncher;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannonNuke;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow2;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDisintegration1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave2;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave3;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGraveCrypt;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGraveElite;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerLightning1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerTntLog;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWall1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.MagicMissile;
 import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
@@ -98,8 +133,14 @@ import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.scenes.RankingsScene;
 import com.towerpixel.towerpixeldungeon.sprites.AmuletTowerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
+import com.towerpixel.towerpixeldungeon.sprites.GoblinFatSprite;
 import com.towerpixel.towerpixeldungeon.sprites.MissileSprite;
+import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbow1Sprite;
+import com.towerpixel.towerpixeldungeon.sprites.TowerGuard1Sprite;
+import com.towerpixel.towerpixeldungeon.sprites.walls.TowerWall1Sprite;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Bundle;
@@ -119,7 +160,7 @@ public class Arena extends Level {
         viewDistance = 15;
 
     }
-    public int startGold = 500;
+    public int startGold = 5;
     public int startLvl = 6;
 
     /**
@@ -128,9 +169,11 @@ public class Arena extends Level {
      */
 
 
-    AmuletTower amuletTower = new AmuletTower();
+    public AmuletTower amuletTower = new AmuletTower();
     NewShopKeeper towerShopKeeper = new TowerShopKeeper();
     NormalShopKeeper normalShopKeeper = new NormalShopKeeper();
+
+    public boolean shopkeepVertical = false;
 
     public int WIDTH = 101;
     public int HEIGHT = 101;
@@ -163,6 +206,9 @@ public class Arena extends Level {
     public Rect middle1less = new Rect(3 + cornersize, 3 + cornersize, WIDTH - 2 - cornersize, HEIGHT - 2 - cornersize);//a shape inside the middle rect
 
     public HashSet<Rect> deployingRects = new HashSet<>();
+
+
+
 
     /**
      * Stuff you can change probably. All turns handled by the amulet.
@@ -202,7 +248,11 @@ public class Arena extends Level {
     @Override
     protected boolean build() {
 
+
+
+
         setSize(WIDTH,HEIGHT);
+
         //base room
         Painter.fill(this, fullArena, Terrain.EMPTY);
         Painter.fill(this, barrierArena, Terrain.ADDITIONALBARRIER);
@@ -446,20 +496,20 @@ public class Arena extends Level {
             }
             case 11: switch (wave){
                 case 1: return 20;
-                case 2: return 20;
-                case 3: return 9;
+                case 2: return 4;
+                case 3: return 17;
                 case 4: return 6;
                 case 5: return 8;
-                case 6: return 15;
-                case 7: return 13;
-                case 8: return 20;
-                case 9: return 20;
-                case 10: return 4;
-                case 11: return 23;
-                case 12: return 25;
-                case 13: return 6;
-                case 14: return 30;
-                case 15: return 30;
+                case 6: return 8;
+                case 7: return 20;
+                case 8: return 12;
+                case 9: return 30;
+                case 10: return 15;
+                case 11: return 8;
+                case 12: return 15;
+                case 13: return 40;
+                case 14: return 13;
+                case 15: return 25;
             }
             case 12: switch (wave){
                 case 1: return 10;
@@ -474,8 +524,21 @@ public class Arena extends Level {
                 case 10: return 40;
             }
             case 13: switch (wave){
-                case 1: return 100;
-                case 2: return 2;
+                case 1: return 2;
+                case 2: return 5;
+                case 3: return 3;
+                case 4: return 13;
+                case 5: return 8;
+                case 6: return 9;
+                case 7: return 10;
+                case 8: return 7;
+                case 9: return 8;
+                case 10: return 13;
+                case 11: return 7;
+                case 12: return 11;
+                case 13: return 15;
+                case 14: return 17;
+                case 15: return 15;
             }
             case 14: switch (wave){
                 case 1: return 10;//gobs
@@ -525,7 +588,7 @@ public class Arena extends Level {
                 case 1:
                     return 20;
                 case 2:
-                    return 7;
+                    return 6;
                 case 3:
                     return 25;
                 case 4:
@@ -554,27 +617,74 @@ public class Arena extends Level {
                     return 50;
             }
             case 17: switch (wave){
-                case 1: return 30;
-                case 2: return 8;
+                case 1: return 5;
+                case 2: return 1;
                 case 3: return 10;
-                case 4: return 12;
-                case 5: return 14;
-                case 6: return 16;
-                case 7: return 50;
-                case 8: return 30;
-                case 9: return 25;
-                case 10: return 40;
-                case 11: return 30;
-                case 12: return 40;
-                case 13: return 30;
-                case 14: return 40;
+                case 4: return 2;
+                case 5: return 2;
+                case 6: return 15;
+                case 7: return 3;
+                case 8: return 3;
+                case 9: return 4;
+                case 10: return 25;
+                case 11: return 5;
+                case 12: return 6;
+                case 13: return 7;
+                case 14: return 5;
                 case 15: return 40;
-                case 16: return 35;
-                case 17: return 40;
-                case 18: return 30;
-                case 19: return 50;
-                case 20: return 70;
-                case 8055: return 1;
+                case 16: return 6;
+                case 17: return 10;
+                case 18: return 11;
+                case 19: return 13;
+                case 20: return 17;
+                case 21: return 21;
+                case 22: return 25;
+            }
+            case 19: switch (wave % 4){
+                    case 0: return wave * 3;
+                    case 1: return wave * 3;
+                    case 2: return wave;
+                    case 3: return (int) (wave * 1.5f);
+            }
+            case 20: switch (wave){
+                case 1: return 70;
+                case 2: return 15;
+                case 3: return 7;
+                case 4: return 15;
+                case 5002:
+                case 5003:
+                case 5006:
+                case 5007:
+                case 5008: return 17;
+                case 5001:
+                case 5004:
+                case 5005: return 14;
+                case 5009: return 8;
+                case 5010: return 120;
+                case 6: return 25;
+                case 7: return 60;
+                case 8: return 23;
+                case 9: return 30;
+                case 10001: return 31;
+                case 10002: return 32;
+                case 10003: return 33;
+                case 11: return 38;
+                case 12: return 39;
+                case 13: return 25;
+                case 14: return 20;
+                case 15: return 43;
+                case 16: return 20;
+                case 17001: return 40;
+                case 17002: return 40;
+                case 17003: return 40;
+                case 18: return 50;
+                case 19: return 30;
+                case 20: return 50;
+                case 21: return 35;
+                case 22: return 25;
+                case 23: return 55;
+                case 24: return 45;
+                case 25: return 200;
             }
 
         }
@@ -592,7 +702,7 @@ public class Arena extends Level {
             case 1:{
                 switch (wave){
                     case 1:
-                        mob = Random.oneOf(new Rat(), new Rat(), new Albino()); break;
+                        mob = new Albino(); break;
                     case 2:
                         mob = Random.oneOf(new Rat(), new Snake(), new GnollBlind()); break;
                     case 3:
@@ -616,7 +726,7 @@ public class Arena extends Level {
                     case 12:
                         mob = new Crab(); break;
                     case 13:
-                        mob = Random.oneOf(new CausticSlime(), new Slime(), new Crab()); break;
+                        mob = Random.oneOf(new Slime(), new Crab()); break;
                     case 14:
                         mob = Random.oneOf(new Rat(), new Rat(), new Albino()); break;
                     case 15: {
@@ -826,7 +936,7 @@ public class Arena extends Level {
                     case 8:
                         mob = new CausticSlime(); break;
                     case 9:
-                        mob = Random.oneOf(new Slime(), new Slime(), new CausticSlime()); break;
+                        mob = Random.oneOf(new Slime(),  new CausticSlime()); break;
                     case 10:
                         mob = Random.oneOf(new Gnoll(), new GnollThrower()); break;
                     case 11:
@@ -844,7 +954,7 @@ public class Arena extends Level {
                         } else mob = new CausticSlime();
                         break;
                     case 16:
-                        mob = Random.oneOf(new Gnoll(), new GnollThrower(), new Albino(), new Rat(), new Slime(), new CausticSlime()); break;
+                        mob = Random.oneOf(new Gnoll(), new GnollThrower(), new Albino(), new Rat(), new CausticSlime(), new CausticSlime()); break;
                     case 17:
                         mob = new Crab(); break;
                     case 18:
@@ -861,7 +971,7 @@ public class Arena extends Level {
                     case 22:
                         mob = new Crab(); break;
                     case 23:
-                        mob = Random.oneOf(new CausticSlime(), new Slime()); break;
+                        mob = Random.oneOf(new CausticSlime()); break;
                     case 24:
                         mob = new HermitCrab(); break;
                     case 25:
@@ -1132,33 +1242,33 @@ public class Arena extends Level {
             case 11:{
                 switch (wave){
                     case 1:
-                        mob = Random.oneOf(new Rat()); break;
+                        mob = new Rat(); break;
                     case 2:
-                        mob = Random.oneOf(new Gnoll()); break;
+                        mob = new Bat(); break;
                     case 3:
-                        mob = Random.oneOf(new Bat(), new Spinner()); break;
+                        mob = new Gnoll(); break;
                     case 4:
-                        mob = Random.oneOf(new Goblin(),new GoblinFat()); break;
+                        mob = new Spinner(); break;
                     case 5:
                         mob = Random.oneOf(new Goblin(), new GoblinSand(), new GoblinFat()); break;
                     case 6:
                         mob = new Bat(); break;
                     case 7:
-                        mob = new ChiefRat(); break;
+                        mob = new Swarm(); break;
                     case 8:
                         mob = new Spinner(); break;
                     case 9:
-                        mob = new GoblinSand(); break;
+                        mob = new Albino(); break;
                     case 10:
-                        mob = new GoblinGiant(); break;
+                        mob = Random.oneOf(new Goblin(), new GoblinSand(), new GoblinFat()); break;
                     case 11:
-                        mob = new Spinner(); break;
+                        mob = new ChiefRat(); break;
                     case 12:
-                        mob = Random.oneOf(new Spinner(), new Goblin(), new Bat(),new GoblinFat()); break;
-                    case 13:
-                        mob = Random.oneOf(new GoblinGiant(),new ArmoredBrute()); break;
-                    case 14:
                         mob = Random.oneOf(new Spinner(), new Bat()); break;
+                    case 13:
+                        mob = Random.oneOf(new GnollThrower()); break;
+                    case 14:
+                        mob = Random.oneOf(new Brute()); break;
                     case 15: {
                         if (!bossSpawned) {
                             bossSpawned = true;
@@ -1186,7 +1296,7 @@ public class Arena extends Level {
                     case 7:
                         mob = Random.oneOf(new Bat(), new HermitCrab()); break;
                     case 8:
-                        mob = new Piranha(); break;
+                        mob = new HermitCrab(); break;
                     case 9: {
                         if (!bossSpawned) {
                             bossSpawned = true;
@@ -1207,12 +1317,43 @@ public class Arena extends Level {
             case 13:{
                 switch (wave){
                     case 1:
+                        mob = Random.oneOf(new Swarm()); break;
+                    case 2:
+                        mob = Random.oneOf(new Gnoll()); break;
+                    case 3:
+                        mob = Random.oneOf(new Bat(), new Spinner()); break;
+                    case 4:
+                        mob = Random.oneOf(new Gnoll(), new GnollThrower()); break;
+                    case 5:
+                        mob = Random.oneOf(new Swarm()); break;
+                    case 6:
+                        mob = new GnollTrickster(); break;
+                    case 7:
+                        mob = new Bat(); break;
+                    case 8:
+                        mob = new Shaman.BlueShaman(); break;
+                    case 9:
+                        mob = new MagiCrab(); break;
+                    case 10:
+                        mob = new Spinner(); break;
+                    case 11:
+                        mob = new Brute(); break;
+                    case 12:
+                        mob = Random.oneOf(new DM200()); break;
+                    case 13: if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new ArmoredBrute();
+                        } else mob = new GnollTrickster();
+                    break;
+                    case 14:
+                        mob = Random.oneOf(new Spinner(), new Bat()); break;
+                    case 15: {
                         if (!bossSpawned) {
                             bossSpawned = true;
-                            mob = new GoblinGiant();
-                        } else mob = Random.oneOf(new Goblin(), new GoblinSand(), new GoblinFat()); break;
-                    case 2:
-                        mob = new Arena13.GoblinGuard(); break;
+                            mob = new ArmoredBrute();
+                        } else mob = new Brute();
+                        break;
+                    }
                 }
                 break;
             }
@@ -1386,69 +1527,162 @@ public class Arena extends Level {
             }
             case 17:{
                 switch (wave){
+                    case 1: case 3: case 6: case 10: case 15:
+                        mob = new Skeleton(); break;
+                    case 2: case 4: case 5: case 7: case 9: case 13: case 18:
+                        mob = new Succubus(); break;
+                    case 8: case 11: case 14: case 16:
+                        mob = new Eye(); break;
+                    default:
+                        mob = new RipperDemon(); break;
+                }
+                break;
+            }
+            case 19:{
+                switch (wave % 4){
+                    case 0: mob = new Warlock(); break;
+                    case 1: mob = new Monk(); break;
+                    case 2: mob = new Golem(); break;
+                    case 3: mob = new Ghoul(); break;
+                }
+                break;
+            }
+            case 20:{
+                switch (wave){
                     case 1:
                         mob = Random.oneOf(new Skeleton()); break;
                     case 2:
-                        mob = Random.oneOf(new Warlock()); break;
+                        mob = Random.oneOf(new Monk()); break;
                     case 3:
-                        mob = Random.oneOf(new Elemental.FireElemental()); break;
+                        mob = Random.oneOf(new Senior()); break;
                     case 4:
-                        mob = Random.oneOf(new Elemental.FrostElemental()); break;
-                    case 5: {
+                        mob = Random.oneOf(new Warlock()); break;
+                    case 5002:
+                    case 5003:
+                    case 5006:
+                    case 5007:
+                    case 5008: {
                         if (!bossSpawned) {
                             bossSpawned = true;
-                            mob = new CrystalMimic();
-                        } else mob = Random.oneOf(new Elemental.ShockElemental());
+                            mob = new SkeletonArmored();
+                        } else mob = new Warlock();
+                        break;
+                    }
+                    case 5001:
+                    case 5004:
+                    case 5005: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new SkeletonArmoredShielded();
+                        } else mob = new SkeletonArmored();
+                        break;
+                    }
+                    case 5009: {
+                        mob = new Golem();
+                        break;
+                    }
+                    case 5010: {
+                        mob = new Skeleton();
                         break;
                     }
                     case 6:
-                        mob = Random.oneOf(new Elemental.FireElemental(),new Elemental.FrostElemental(),new Elemental.ShockElemental()); break;
+                        mob = Random.oneOf(new Monk()); break;
                     case 7:
-                        mob = new Wraith(); break;
+                        mob = new DM100(); break;
                     case 8:
-                        mob = Random.oneOf(new Wraith(), new Elemental.FireElemental()); break;
+                        mob = Random.oneOf(new SkeletonArmored()); break;
                     case 9:
                         mob = Random.oneOf(new Elemental.FrostElemental()); break;
-                    case 10: {
+                    case 10001: {
                         if (!bossSpawned) {
                             bossSpawned = true;
-                            mob = new GoblinShaman.ShamanShield();
-                        } else mob = Random.oneOf(Reflection.newInstance(Shaman.random()));
+                            mob = new SkeletonArmoredShielded();
+                        } else mob = Random.oneOf(new SkeletonArmored());
+                        break;
+                    }
+                    case 10002: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new Senior();
+                        } else mob = new Warlock();
+                        break;
+                    }
+                    case 10003: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new Senior();
+                        } else mob = new Monk();
                         break;
                     }
                     case 11:
                         mob = Random.oneOf(new Monk(), new Warlock()); break;
                     case 12:
-                        mob = Random.oneOf(new Elemental.FireElemental()); break;
+                        mob = Random.oneOf(new Monk()); break;
                     case 13:
-                        mob = Random.oneOf(new Necromancer()); break;
+                        mob = Random.oneOf(new Ghoul()); break;
                     case 14:
-                        mob = Random.oneOf(new Elemental.FrostElemental()); break;
+                        mob = Random.oneOf(new Golem()); break;
                     case 15: {
                         if (!bossSpawned) {
                             bossSpawned = true;
-                            mob = new CrystalMimic();
+                            mob = new Senior();
                         } else mob = new Monk();
                         break;
                     }
                     case 16:
-                        mob = Random.oneOf(new Warlock()); break;
-                    case 17:
-                        mob = Random.oneOf(new GoblinShaman.ShamanRegen(), new Elemental.NewbornFireElemental()); break;
-                    case 18:
-                        mob = Random.oneOf(new SpectralNecromancer()); break;
-                    case 19:
-                        mob = Random.oneOf(new Elemental.ShockElemental()); break;
-                    case 20: {
-                        mob = Random.oneOf(Reflection.newInstance(Elemental.random()));
+                        mob = Random.oneOf(new Golem()); break;
+                    case 17001: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new SkeletonArmoredShielded();
+                        } else mob = Random.oneOf(new SkeletonArmored());
                         break;
                     }
-                    case 8055:
-                        mob = Random.oneOf(new Elemental.FireElemental(),new Elemental.FrostElemental(),new Elemental.ShockElemental()); break;
+                    case 17002: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new Senior();
+                        } else mob = new Warlock();
+                        break;
+                    }
+                    case 17003: {
+                        if (!bossSpawned) {
+                            bossSpawned = true;
+                            mob = new Senior();
+                        } else mob = new Monk();
+                        break;
+                    }
+                    case 18:
+                        mob = new Monk(); break;
+                    case 19:
+                        mob = new Senior(); break;
+                    case 20:
+                        mob = Random.oneOf(new Warlock(), new Monk()); break;
+                    case 21:
+                        mob = Random.oneOf(new Ghoul()); break;
+                    case 22:
+                        mob = Random.oneOf(new Golem()); break;
+                    case 23:
+                        mob = Random.oneOf(new Warlock()); break;
+                    case 24:
+                        mob = Random.oneOf(new Statue()); break;
+                    case 25:
+                        mob = Random.oneOf(new Skeleton(), new Skeleton(), new Skeleton(),new Skeleton(), new Skeleton(), new SkeletonArmored());
+                        Buff.affect(mob, Speed.class, 25);
+                        break;
                 }
                 break;
             }
         }
+        if (depth == 4 && level.mode== WndModes.Modes.CHALLENGE && mob instanceof Crab){
+            MagiCrab cr = new MagiCrab();
+            cr.buffs().addAll(mob.buffs());
+            return cr;
+        }
+        if (level.mode == WndModes.Modes.CHALLENGE){
+            ((Arena)level).affectMob(mob);
+        }
+
         return mob;
     }
 
@@ -1469,7 +1703,11 @@ public class Arena extends Level {
         RANDOM,
         CENTRAL,
         EVENMORECENTRAL,
-        NOTONEDGE
+        NOTONEDGE,
+        EXACTLYRIGHT,
+        EXACTLYLEFT,
+        EXACTLYUP,
+        EXACTLYDOWN
     }
 
     private boolean bossSpawned = false;
@@ -1550,19 +1788,47 @@ public class Arena extends Level {
                     }
                     break;
                 }
+                case EXACTLYUP: {
+                    if ((y <= 7) && (level.passable[x + WIDTH * y]) && x < WIDTH/2+2 && x > WIDTH/2-2) {
+                        candidatecells.add(x + WIDTH * y);
+                    }
+                    break;
+                }
+                case EXACTLYDOWN: {
+                    if ((y >= HEIGHT - 5) && (level.passable[x + WIDTH * y]) && x < WIDTH/2+2 && x > WIDTH/2-2) {
+                        candidatecells.add(x + WIDTH * y);
+                    }
+                    break;
+                }
+                case EXACTLYLEFT: {
+                    if ((x <= 7)  && (level.passable[x + WIDTH * y]) && y < HEIGHT/2+2 && y > HEIGHT/2-2 ) {
+                        candidatecells.add(x + WIDTH * y);
+                    }
+                    break;
+                }
+                case EXACTLYRIGHT: {
+                    if ((x >= WIDTH - 6) && (level.passable[x + WIDTH * y])&& y < HEIGHT/2+2 && y > HEIGHT/2-2 ) {
+                        candidatecells.add(x + WIDTH * y);
+                    }
+                    break;
+                }
 
             }
         }
         bossSpawned = false;
         int grouppos = -1;
         int mobsDeployed = 0;
-        float onexd = ((float)mobsToDeploy(wave)/groupnum);
+        int mobsToDeployFinal = mobsToDeploy(wave);
+        if (Dungeon.level.mode == WndModes.Modes.HARDMODE) {
+            mobsToDeployFinal = mobsToDeployFinal + mobsToDeployFinal*2*(wave*wave/maxWaves/maxWaves);
+        }
+        float onexd = ((float)mobsToDeployFinal/groupnum);
         float onexdsum = onexd;
-        while (mobsDeployed<mobsToDeploy(wave)) {
+        while (mobsDeployed<mobsToDeployFinal) {
             grouppos = Random.element(candidatecells);
             while ((float)mobsDeployed<onexdsum) {
                 Mob mob = chooseMob(wave);
-                if (Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES) && mobsDeployed == 0){
+                if (Dungeon.level.mode == WndModes.Modes.HARDMODE && mobsDeployed % 8 == 1){
                     int r = Random.Int(6);
                     switch (r){
                         case 0: Buff.affect(mob, ChampionEnemy.Blazing.class); break;
@@ -1578,6 +1844,17 @@ public class Arena extends Level {
                     shaman.pos = grouppos;
                     GameScene.add(shaman);
                     shaman.state = shaman.HUNTING;
+                }
+                if (depth == 14 && mobsDeployed == 0 && mode == WndModes.Modes.CHALLENGE){
+                    Bandit bandit = new Bandit();
+                    bandit.spriteClass = Random.oneOf(TowerCrossbow1Sprite.class, TowerWall1Sprite.class, TowerGuard1Sprite.class, GoblinFatSprite.class);
+                    bandit.targetingPreference = Mob.TargetingPreference.ONLY_AMULET;
+                    if (Math.random()>0.9)Buff.affect(bandit, Invisibility.class, 100000);
+                    Buff.affect(bandit, Speed.class, 100000);
+                    Buff.affect(bandit, Strength.class, 100000);
+                    bandit.pos = grouppos;
+                    GameScene.add(bandit);
+                    bandit.state = bandit.HUNTING;
                 }
                 mob.pos = grouppos;
                 GameScene.add(mob);
@@ -1607,15 +1884,24 @@ public class Arena extends Level {
         updateQuickslot();
         amuletTower.pos = amuletCell;
         amuletTower.HP = amuletTower.HT;
-        towerShopKeeper.pos = towerShopKeeperCell;
-        normalShopKeeper.pos = normalShopKeeperCell;
+        if (towerShopKeeper!=null){
+            towerShopKeeper.pos = towerShopKeeperCell;
+        }
+        if (normalShopKeeper!=null){
+            normalShopKeeper.pos = normalShopKeeperCell;
+        }
+
         level = this;
         GameScene.add(amuletTower);
         this.occupyCell(amuletTower);
-        GameScene.add(towerShopKeeper);
-        this.occupyCell(towerShopKeeper);
-        GameScene.add(normalShopKeeper);
-        this.occupyCell(normalShopKeeper);
+        if (towerShopKeeper!=null){
+            GameScene.add(towerShopKeeper);
+            this.occupyCell(towerShopKeeper);
+        }
+        if (normalShopKeeper!=null){
+            GameScene.add(normalShopKeeper);
+            this.occupyCell(normalShopKeeper);
+        }
     }
 
     public void startWave() {
@@ -1654,7 +1940,7 @@ public class Arena extends Level {
         if (towerShopKeeper!=null) towerShopKeeper.placeItems();
         if (normalShopKeeper!=null) normalShopKeeper.placeItems();
         doStuffEndwave(wave);
-        if (wave==maxWaves) {
+        if (wave==maxWaves && (depth!=6) && (depth!=17) && (depth!=20)) {
             win( Amulet.class );
             if (Dungeon.depth == 15)Badges.validateBossSlain();
             Dungeon.deleteGame( GamesInProgress.curSlot, true );
@@ -1663,6 +1949,14 @@ public class Arena extends Level {
         Buff.detach(hero, WaveBuff.class);
         Buff.affect(hero, WaveCooldownBuff.class, (wave % 5 == 4 ? waveCooldownBoss : waveCooldownNormal));
     };
+
+
+    //a method used for challenges with mobs being affected
+    public void affectMob(Mob mob){
+        //nothing by default
+    }
+
+
 
 
 
@@ -1696,12 +1990,19 @@ public class Arena extends Level {
 
             state = PASSIVE;
 
+            flying = true;
+
             properties.add(Property.IMMOVABLE);
             properties.add(Property.BOSS);
             properties.add(Property.INORGANIC);
 
             immunities.add(Healing.class);
             immunities.add(Sungrass.Health.class);
+
+            immunities.add(Paralysis.class);
+            immunities.add(Slow.class);
+            immunities.add(Frost.class);
+            immunities.add(Freezing.class);
 
             alignment = Alignment.ALLY;
         }
@@ -1720,27 +2021,43 @@ public class Arena extends Level {
 
 
             counter++;
-            GameScene.updateFog(pos, 3);
+            if (Dungeon.depth == 18) GameScene.updateFog(pos, 8);
+            else GameScene.updateFog(pos, 3);
 
             for (Mob mob : level.mobs.toArray( new Mob[0] )) {
                 if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
                 if (((Arena)level).waterIsToxic && level.map[mob.pos] == Terrain.WATER && !mob.flying){
-                    mob.damage(1, Corrosion.class);
+                    if (!(level.mode == WndModes.Modes.CHALLENGE && depth==15)) mob.damage(1, Corrosion.class);
+                    else if (mob.alignment == Alignment.ALLY) mob.damage(3, Corrosion.class);
                 }
 
             }
             if (((Arena)level).waterIsToxic && level.map[hero.pos] == Terrain.WATER && !hero.buffs().contains(Levitation.class)){
-                hero.damage(1, Corrosion.class);
+                hero.damage((level.mode == WndModes.Modes.CHALLENGE && depth==15) ? 3 : 1, Corrosion.class);
+            }
+            if (depth==5 && level.mode == WndModes.Modes.CHALLENGE){
+                for (Mob mob : level.mobs){
+                    if (mob.alignment==Alignment.ALLY && level.map[pos]==Terrain.WATER){
+                        Buff.affect(mob, Burning.class).setTime(20);
+                    }
+                }
+            }
+            if (depth==8 && level.mode == WndModes.Modes.CHALLENGE){
+                for (Mob mob : level.mobs){
+                    if (mob.alignment==Alignment.ALLY && mob.buff(GoldArmor.class)==null){
+                        Buff.affect(mob, GoldArmor.class).setTime(10000);
+                    }
+                }
             }
             state = PASSIVE;
             for (Mob mob : mobs.toArray( new Mob[0] )) {
                 if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
-                if (mob.alignment==Alignment.ENEMY && !(mob instanceof Tower) && !(mob instanceof Piranha) && !(mob instanceof RotLasher) && !(mob instanceof Mimic) && !(mob instanceof Bee)) enemyspotted = true;
+                if (mob.alignment==Alignment.ENEMY && !(mob instanceof Tower) && !(mob instanceof Piranha) && !(mob instanceof RotLasher) && !(mob instanceof Mimic) && !(mob instanceof Bee)&& !(mob instanceof BossDwarfKing)) enemyspotted = true;
             }
-            if (Dungeon.depth==11 && Math.random()*50+level.wave>49){
+            if (Dungeon.depth==11 && Math.random()*1000+level.wave>999){
                 if (mobs!=null && hero.buff(WaveCooldownBuff.class)==null) Arena11.dropRock(Random.element(mobs));
             }
-            if (Dungeon.depth!=18){
+            if (Dungeon.depth!=18 && !(depth==20 && level.wave == 25)){
                 if (hero.buff(WaveBuff.class) != null && !enemyspotted) {
                     ((Arena) level).endWave();
                     itWasAWave = false;
@@ -1755,9 +2072,11 @@ public class Arena extends Level {
                 }
             }
             if (mobs!=null) {
-                MissileSprite.SPEED = 640f + mobs.size()*10;
-                MagicMissile.SPEED = 600 + mobs.size()*9;
+                MissileSprite.SPEED = 640f + mobs.size()*30;
+                MagicMissile.SPEED = 600 + mobs.size()*20;
             }
+
+
 
 
             alerted = false;

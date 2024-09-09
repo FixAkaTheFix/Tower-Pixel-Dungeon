@@ -660,8 +660,8 @@ public class DM300 extends Mob {
 
 				Char ch = Actor.findChar(i);
 				if (ch != null && !(ch instanceof DM300) && !(ch instanceof Arena.AmuletTower)){
-					Buff.prolong( ch, Paralysis.class, 2 );
-					ch.damage(Random.Int(2, 3),this);
+					Buff.prolong( ch, Vertigo.class, 5 );
+					ch.damage(Random.Int(5, 10),this);
 				}
 			}
 

@@ -5,7 +5,9 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
@@ -26,15 +28,19 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
+import com.towerpixel.towerpixeldungeon.sprites.GoblinSprite;
+import com.towerpixel.towerpixeldungeon.sprites.TenguSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbow2Sprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -55,15 +61,15 @@ public class Arena14 extends Arena{
 
         maxWaves = 15;
 
-        towerShopKeeper = new TowerShopKeeperVertical();
-        normalShopKeeper = new NormalShopKeeperVertical();
+        normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
+        towerShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
 
         amuletCell = 9 + WIDTH*35;
         exitCell = amuletCell;
         towerShopKeeperCell = 2 + 30*WIDTH;
         normalShopKeeperCell = 2 + 40*WIDTH;
 
-        waveCooldownNormal = 3;
+        waveCooldownNormal = 5;
         waveCooldownBoss = 400;
     }
 
@@ -327,6 +333,44 @@ public class Arena14 extends Arena{
     @Override
     public void initNpcs() {
         super.initNpcs();
+
+    }
+
+    @Override
+    public void doStuffStartwave(int wave) {
+        super.doStuffStartwave(wave);
+        if (wave==1) {
+            WndDialogueWithPic.dialogue(new GoblinSprite(), Messages.get(RatKing.class, "goblin"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l14w1start1"),
+                            Messages.get(RatKing.class, "l14w1start2")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+
+        }
+        if (wave==10) {
+            WndDialogueWithPic.dialogue(new GoblinSprite(), Messages.get(RatKing.class, "goblin"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l14w10start1"),
+                            Messages.get(RatKing.class, "l14w10start2")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+
+        }
+        if (wave==15) {
+            WndDialogueWithPic.dialogue(new GoblinSprite(), Messages.get(RatKing.class, "goblin"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l14w15start1"),
+                            Messages.get(RatKing.class, "l14w15start2")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
     }
 
     @Override
@@ -397,43 +441,6 @@ public class Arena14 extends Arena{
     private String SHOPKEEPER = "shopkeeper";
     private String TOWERSHOPKEEPERPOS = "towershopkeeperpos";
 
-    public class NormalShopKeeperVertical extends NormalShopKeeper {
-
-        @Override
-        public void placeItems(){
-
-            ArrayList<Item> itemsToSpawn = generateItems();
-
-            int b = -Math.round(itemsToSpawn.size()*0.5f) + 1;
-
-            for (Item item : itemsToSpawn) {
-                level.drop( item, pos + 1 + WIDTH*b ).type = Heap.Type.FOR_SALE;//places stuff before the shopkeeper
-                CellEmitter.center(pos + 1 + WIDTH*b).burst(Speck.factory(Speck.COIN), 3);
-                b++;
-            }
-        }
-
-
-    }
-    public class TowerShopKeeperVertical extends TowerShopKeeper {
-
-        @Override
-        public void placeItems(){
-
-            ArrayList<Item> itemsToSpawn = generateItems();
-
-            int b = -Math.round(itemsToSpawn.size()*0.5f) + 1;
-
-            for (Item item : itemsToSpawn) {
-                level.drop( item, pos + 1 + WIDTH*b ).type = Heap.Type.FOR_SALE;//places before under the shopkeeper
-                CellEmitter.center(pos + 1 + WIDTH*b).burst(Speck.factory(Speck.COIN), 3);
-                b++;
-            }
-        }
-
-
-    }
-
     public static class Vein extends Group {
 
         private int pos;
@@ -502,29 +509,6 @@ public class Arena14 extends Arena{
     @Override
     public String waterTex() {
         return Assets.Environment.WATER_SEWERS;
-    }
-
-
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(WAVE, wave);
-        bundle.put(SHOPKEEPER,normalShopKeeper.pos);
-        bundle.put(TOWERSHOPKEEPERPOS,towerShopKeeper.pos);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        wave = bundle.getInt(WAVE);
-        normalShopKeeper = new NormalShopKeeperVertical();
-        normalShopKeeper.pos = bundle.getInt(SHOPKEEPER);
-        GameScene.add(normalShopKeeper);
-        towerShopKeeper = new TowerShopKeeperVertical();
-        towerShopKeeper.pos = bundle.getInt(TOWERSHOPKEEPERPOS);
-        GameScene.add(towerShopKeeper);
-
     }
 
     public static class GoblinCrossbow extends TowerCrossbow1 {

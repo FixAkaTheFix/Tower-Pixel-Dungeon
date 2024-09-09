@@ -23,17 +23,33 @@ package com.towerpixel.towerpixeldungeon.levels;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Bless;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Small;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Stamina;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Vulnerable;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerTotem;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Honeypot;
 import com.towerpixel.towerpixeldungeon.items.food.MeatPie;
 import com.towerpixel.towerpixeldungeon.items.food.MysteryMeat;
 import com.towerpixel.towerpixeldungeon.items.food.SmallRation;
+import com.towerpixel.towerpixeldungeon.items.keys.GoldenKey;
 import com.towerpixel.towerpixeldungeon.items.keys.IronKey;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfToxicGas;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPrismaticImage;
+import com.towerpixel.towerpixeldungeon.items.spells.SummonElemental;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerDisintegration;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerTotemNecrotic;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.levels.rooms.special.MassGraveRoom;
@@ -56,8 +72,8 @@ public class Arena16 extends Arena {
     {
         name = "City ruins";
 
-        color1 = 0x801500;
-        color2 = 0xa68521;
+        color1 = 0x00DD00;
+        color2 = 0x218521;
         viewDistance = 25;
         WIDTH = 121;
         HEIGHT = 61;
@@ -93,10 +109,17 @@ public class Arena16 extends Arena {
 
         Painter.fill(this, 3, 3, 117, 57, Terrain.EMPTY);
 
-        this.map[amuletCell+8] = Terrain.STATUE;
-        this.map[amuletCell-8] = Terrain.STATUE;
-        this.map[amuletCell+8+2*WIDTH] = Terrain.STATUE;
-        this.map[amuletCell-8+2*WIDTH] = Terrain.STATUE;
+        Painter.fill(this, 1, 0, 54, 7, Terrain.WALL);
+        Painter.fill(this, 68, 0, 54, 7, Terrain.WALL);
+
+        this.map[amuletCell+1] = Terrain.STATUE;
+        this.map[amuletCell-1] = Terrain.STATUE;
+        this.map[amuletCell+6] = Terrain.STATUE;
+        this.map[amuletCell-6] = Terrain.STATUE;
+        this.map[amuletCell+6+2*WIDTH] = Terrain.STATUE;
+        this.map[amuletCell-6+2*WIDTH] = Terrain.STATUE;
+        this.map[amuletCell+6+4*WIDTH] = Terrain.STATUE;
+        this.map[amuletCell-6+4*WIDTH] = Terrain.STATUE;
 
         Painter.fill(this, 55, 2, 13, 1, Terrain.PEDESTAL);
         Painter.fill(this, 55, 1, 13, 1, Terrain.EMPTY);
@@ -395,6 +418,24 @@ public class Arena16 extends Arena {
         this.drop(new IronKey(16),Random.element(candidates));
         this.drop(new IronKey(16),Random.element(candidates));
 
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+        this.drop(new GoldenKey(16),Random.element(candidates));
+
+        this.drop(new ScrollOfPrismaticImage(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new ElixirOfIcyTouch(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new ElixirOfHoneyedHealing(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new SummonElemental(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new SpawnerDisintegration(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new SpawnerDisintegration(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new SpawnerTotemNecrotic(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.SKELETON;
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.SKELETON;
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates)).type = Heap.Type.SKELETON;
@@ -476,6 +517,12 @@ public class Arena16 extends Arena {
         deploymobs(wave, Direction.DOWN, 1);
     }
 
+    @Override
+    public void affectMob(Mob mob) {
+        Buff.affect(mob, Small.class);
+        Buff.affect(mob, Bless.class, 100000);
+        Buff.affect(mob, Vulnerable.class, 100000);
+    }
 
     @Override
     public String tilesTex() {

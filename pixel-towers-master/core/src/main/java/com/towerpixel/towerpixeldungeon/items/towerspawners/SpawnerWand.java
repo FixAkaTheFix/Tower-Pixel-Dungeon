@@ -22,16 +22,5 @@ public class SpawnerWand extends TowerSpawner {
         return 40;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerWand1 tower = new TowerWand1();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
+
 }

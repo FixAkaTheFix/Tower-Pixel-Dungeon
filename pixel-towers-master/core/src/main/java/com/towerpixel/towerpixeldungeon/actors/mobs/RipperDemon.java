@@ -23,6 +23,7 @@ package com.towerpixel.towerpixeldungeon.actors.mobs;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.DamageType;
@@ -69,7 +70,7 @@ public class RipperDemon extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 15, 25 );
+		return Random.NormalIntRange( 20, 35 );
 	}
 
 	@Override
@@ -77,10 +78,6 @@ public class RipperDemon extends Mob {
 		return 10;
 	}
 
-	@Override
-	public float attackDelay() {
-		return super.attackDelay()*0.5f;
-	}
 
 	@Override
 	public int drRoll() {
@@ -170,8 +167,15 @@ public class RipperDemon extends Mob {
 				}
 
 				//do leap
+
 				sprite.visible = Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[leapPos] || Dungeon.level.heroFOV[endPos];
-				sprite.jump(pos, leapPos, new Callback() {
+				float distance = Math.max( 1f, Dungeon.level.trueDistance( pos, leapPos ));
+				sprite.jump(pos,
+						leapPos,
+						distance * 2.3f,
+						SPDSettings.fasterAnimations() ? distance * 0.04f : distance * 0.07f,
+
+						new Callback() {
 					@Override
 					public void call() {
 

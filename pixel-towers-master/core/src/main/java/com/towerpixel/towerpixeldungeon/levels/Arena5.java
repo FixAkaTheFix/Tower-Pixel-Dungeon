@@ -6,10 +6,15 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.FireImbue;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossOoze;
+import com.towerpixel.towerpixeldungeon.actors.mobs.CausticSlime;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Goo;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Ripple;
@@ -17,30 +22,41 @@ import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Gold;
 import com.towerpixel.towerpixeldungeon.items.Heap;
+import com.towerpixel.towerpixeldungeon.items.bombs.Firebomb;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfLevitation;
+import com.towerpixel.towerpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfToxicGas;
 import com.towerpixel.towerpixeldungeon.items.potions.brews.CausticBrew;
 import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfArcaneArmor;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfDragonsBlood;
 import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfStormClouds;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPrismaticImage;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Sorrowmoss;
 import com.towerpixel.towerpixeldungeon.plants.Starflower;
 import com.towerpixel.towerpixeldungeon.plants.Stormvine;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.BossOozeSprite;
+import com.towerpixel.towerpixeldungeon.sprites.BossRatKingSprite;
+import com.towerpixel.towerpixeldungeon.sprites.GooSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
+import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
@@ -58,45 +74,27 @@ public class Arena5 extends Arena{
         WIDTH = 101;
         HEIGHT = 51;
 
-        startGold = 1500;
+        startGold = 2000;
         startLvl = 5;
 
         maxWaves= 25;
 
-        amuletCell = 39 + WIDTH*25;
+        amuletCell = 52 + WIDTH*25;
         exitCell = amuletCell;
-        towerShopKeeperCell = 36 + 17*WIDTH;
-        normalShopKeeperCell = 41 + 17*WIDTH;
+        towerShopKeeperCell = amuletCell-11 - WIDTH*4;
+        normalShopKeeperCell = amuletCell-11 + WIDTH*4;
+
+        towerShopKeeper.vertical = NewShopKeeper.ShopDirection.DOWN;
+        normalShopKeeper.vertical = NewShopKeeper.ShopDirection.UP;
 
         waveCooldownBoss = 70;
-        waveCooldownNormal = 3;
+        waveCooldownNormal = 5;
     }
 
 
     @Override
     public void playLevelMusic() {
-        if (locked){
-            Music.INSTANCE.play(Assets.Music.CAVES_BOSS, true);
-            return;
-        }
-
-        boolean gooAlive = false;
-        for (Mob m : mobs){
-            if (m instanceof BossOoze) {
-                gooAlive = true;
-                break;
-            }
-        }
-
-        if (gooAlive){
-            Music.INSTANCE.end();
-        } else {
-            Music.INSTANCE.playTracks(
-                    new String[]{Assets.Music.SEWERS_BOSS},
-                    new float[]{1},
-                    false);
-        }
-
+        Music.INSTANCE.play(Assets.Music.CAVES_BOSS, true);
     }
 
     @Override
@@ -110,9 +108,10 @@ public class Arena5 extends Arena{
         Painter.fill(this,0,30,50,11, Terrain.WALL);
         Painter.fill(this,55,9,45,13, Terrain.WALL);
         Painter.fill(this,55,30,45,12, Terrain.WALL);
-        Painter.fill(this,0,0,10,50, Terrain.WALL);
-        Painter.fill(this, 35,21,12,9,Terrain.EMPTY_SP);
-        Painter.fill(this, 37,23,5,5,Terrain.EMPTY);
+        Painter.fill(this,0,0,20,50, Terrain.WALL);
+        Painter.fill(this, 38,21,12,9,Terrain.EMPTY_SP);
+
+        Painter.fill(this, 35,21,3,9,Terrain.WALL);
         Painter.fill(this, 1,21,34,9,Terrain.WALL);
 
         Painter.fill(this,0,0,50,21, Terrain.WALL);
@@ -123,21 +122,21 @@ public class Arena5 extends Arena{
 
         Painter.fillDiamond(this,44,17,17,17,Terrain.EMPTY_SP);
         Painter.fillDiamond(this,46,19,13,13,Terrain.EMPTY);
-        Painter.fillDiamond(this,48,21,9,9,Terrain.WATER);
+        if (mode != WndModes.Modes.CHALLENGE) Painter.fillDiamond(this,48,21,9,9,Terrain.WATER);
+
+        Painter.fill(this, 38,24,12,3,Terrain.EMPTY);
 
         Painter.fill(this, 55,21, 45,9, Terrain.EMPTY);
 
-        Painter.fill(this, 55,25, 41,1, Terrain.WATER);
-        Painter.fill(this, 55,23, 42,1, Terrain.WATER);
-        Painter.fill(this, 55,27, 43,1, Terrain.WATER);
+        if (mode != WndModes.Modes.CHALLENGE) Painter.fill(this, 55,25, 41,1, Terrain.WATER);
+        if (mode != WndModes.Modes.CHALLENGE) Painter.fill(this, 55,23, 42,1, Terrain.WATER);
+        if (mode != WndModes.Modes.CHALLENGE) Painter.fill(this, 55,27, 43,1, Terrain.WATER);
 
 
-        Painter.fill(this, 35,17,9,1,Terrain.EMPTY_SP);
+        Painter.fill(this, 38,17,6,1,Terrain.EMPTY_SP);
         Painter.fill(this, 35,18,9,1,Terrain.PEDESTAL);
         Painter.fill(this, 35,19,9,1,Terrain.EMPTY);
         Painter.fill(this, 35,20,9,1,Terrain.WALL);
-        Painter.fill(this, 38,20,3,1,Terrain.WALL_DECO);
-        Painter.fill(this, 39,20,1,1,Terrain.DOOR);
 
         Painter.fill(this, 52,22,1,1,Terrain.STATUE);
         Painter.fill(this, 52,28,1,1,Terrain.STATUE);
@@ -179,7 +178,7 @@ public class Arena5 extends Arena{
                 if (this.map[cell]==Terrain.EMPTY) this.map[cell]=Terrain.EMPTY_DECO;
             }
             //water
-            if (Math.random()>0.95) {
+            if (mode != WndModes.Modes.CHALLENGE) if (Math.random()>0.95) {
                 for (int i:PathFinder.NEIGHBOURS8) if (this.map[cell+i]==Terrain.EMPTY&&(cell<WIDTH*17||cell>WIDTH*34)) this.map[cell+i]=Terrain.WATER;
             }
             //rare statues
@@ -225,18 +224,16 @@ public class Arena5 extends Arena{
         this.drop(new Gold(50),Random.element(candidates));
         this.drop(new Gold(50),Random.element(candidates));
         this.drop(new Gold(50),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
+        this.drop(new Gold(100),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLevitation(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new PotionOfStormClouds(),Random.element(candidates));
         this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
         this.drop(new Sorrowmoss.Seed(),Random.element(candidates));
         this.drop(new Sorrowmoss.Seed(),Random.element(candidates));
@@ -247,39 +244,36 @@ public class Arena5 extends Arena{
         this.drop(new Sorrowmoss.Seed(),Random.element(candidates));
         this.drop(new Sorrowmoss.Seed(),Random.element(candidates));
         this.drop(new Sorrowmoss.Seed(),Random.element(candidates));
-        this.drop(new Starflower.Seed(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfLevitation(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new PotionOfStormClouds(),Random.element(candidates));
         this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
         this.drop(new Starflower.Seed(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.WEP_T1).identify(),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.WEP_T2).identify(),Random.element(candidates));
+        this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
+        this.drop(new CausticBrew(), Random.element(candidates));
+        this.drop(new CausticBrew(), Random.element(candidates));
+        this.drop(new CausticBrew(), Random.element(candidates));
+        this.drop(new PotionOfToxicGas(),Random.element(candidates));
+        this.drop(new PotionOfToxicGas(),Random.element(candidates));
         this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
         this.drop(new CausticBrew(), Random.element(candidates));
         this.drop(new CausticBrew(), Random.element(candidates));
@@ -287,6 +281,19 @@ public class Arena5 extends Arena{
         this.drop(new PotionOfToxicGas(),Random.element(candidates));
         this.drop(new PotionOfToxicGas(),Random.element(candidates));
 
+        candidates = new ArrayList<>();
+        for (int m = 0; m<WIDTH*HEIGHT;m++){
+            if (this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
+        }
+        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
+        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
+        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
+        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
+        this.drop(new Firebomb(),Random.element(candidates));
+        this.drop(new ElixirOfDragonsBlood(),Random.element(candidates));
+        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
+        this.drop(new Firebomb(),Random.element(candidates));
+        this.drop(new ElixirOfDragonsBlood(),Random.element(candidates));
 
         candidates.clear();
 
@@ -310,12 +317,43 @@ public class Arena5 extends Arena{
         }
         towerShopKeeper.placeItems();
         normalShopKeeper.placeItems();
+
+
         doStuffEndwave(wave);
+
+        if (wave==22) {
+            GooSprite sprite = new GooSprite();
+
+            sprite.rm = sprite.bm = sprite.gm = 0;
+            sprite.update();
+
+            Sample.INSTANCE.play(Assets.Sounds.WATER, 5, 0.2f);
+            WndDialogueWithPic.dialogue(sprite, "#???#",
+                    new String[]{
+                            Messages.get(Goo.class, "defeated"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+
+        }
         if (wave==maxWaves) {
             BossOoze ooze = new BossOoze();
             ooze.pos = 25*WIDTH+96;
             GameScene.add(ooze);
-            Camera.main.snapTo(ooze.sprite.center());
+           // Camera.main.snapTo(ooze.sprite.center());
+            GooSprite sprite = new GooSprite();
+            Sample.INSTANCE.play(Assets.Sounds.WATER, 5, 0.2f);
+            Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 5, 0.2f);
+            sprite.rm = sprite.bm = sprite.gm = 0;
+            sprite.update();
+            WndDialogueWithPic.dialogue(sprite, "#THE OOZE#",
+                    new String[]{
+                            Messages.get(Goo.class, "notice"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
             for (int i : PathFinder.NEIGHBOURS25){
                 CellEmitter.floor(ooze.pos+i).start(ElmoParticle.FACTORY,0.1f, 50);
                 CellEmitter.floor(ooze.pos+i).start(ElmoParticle.FACTORY,1f, 5);
@@ -336,13 +374,20 @@ public class Arena5 extends Arena{
         super.initNpcs();
     }
 
+    @Override
+    public void affectMob(Mob mob) {
+        if (mob instanceof Goo || mob instanceof CausticSlime || mob instanceof BossOoze){
+            Buff.affect(mob, FireImbue.class).set(1000);
+        }
+    }
+
     public void deployMobs(int wave) {
         deploymobs(wave, Direction.TOORIGHT, 1);
     }
 
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
+        return Assets.Environment.TILES_SEWERS_OOZY;
     }
 
     @Override

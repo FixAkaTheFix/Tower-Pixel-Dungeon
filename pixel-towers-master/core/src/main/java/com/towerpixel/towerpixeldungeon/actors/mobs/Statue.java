@@ -167,11 +167,7 @@ public class Statue extends Mob {
 		}
 		return damage;
 	}
-	
-	@Override
-	public void beckon( int cell ) {
-		// Do nothing
-	}
+
 	
 	@Override
 	public void die( Object cause ) {

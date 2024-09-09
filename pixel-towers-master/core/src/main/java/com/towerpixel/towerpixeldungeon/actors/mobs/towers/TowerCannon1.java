@@ -10,6 +10,7 @@ import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
+import com.towerpixel.towerpixeldungeon.effects.Lightning;
 import com.towerpixel.towerpixeldungeon.effects.particles.BlastParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.SmokeParticle;
 import com.towerpixel.towerpixeldungeon.items.Heap;
@@ -49,8 +50,9 @@ public class TowerCannon1 extends TowerCShooting{
     @Override
     public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
         int cell;
-
-
+        if (Dungeon.level.heroFOV[this.pos] || Dungeon.level.heroFOV[enemy.pos]){
+            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+        }
         for (int i : PathFinder.NEIGHBOURS8){
             cell = enemy.pos + i;
             Char ch = Char.findChar(cell);
@@ -70,7 +72,7 @@ public class TowerCannon1 extends TowerCShooting{
             }
             if (level.heroFOV[enemy.pos+i]) {
                 CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
-                Sample.INSTANCE.play(Assets.Sounds.BLAST);
+
             }
             if (level.heroFOV[enemy.pos]) {
                 CellEmitter.center(enemy.pos).start(SmokeParticle.FACTORY, 0.3f, 8);

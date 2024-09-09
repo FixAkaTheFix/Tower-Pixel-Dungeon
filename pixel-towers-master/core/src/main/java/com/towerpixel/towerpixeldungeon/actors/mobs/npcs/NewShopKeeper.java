@@ -34,6 +34,7 @@ import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ShopkeeperSprite;
+import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,15 @@ public class NewShopKeeper extends NPC {
         properties.add(Property.IMMOVABLE);
     }
 
+    public ShopDirection vertical = ShopDirection.DOWN;
+
+    public enum ShopDirection{
+        UP,
+        LEFT,
+        DOWN,
+        RIGHT
+    }
+
     @Override
     public boolean isImmune(Class effect) {
         return true;
@@ -52,35 +62,62 @@ public class NewShopKeeper extends NPC {
 
     @Override
     protected boolean act() {
-        sprite.turnTo( pos, Dungeon.hero.pos );
-        spend( TICK );
+        sprite.turnTo(pos, Dungeon.hero.pos);
+        spend(TICK);
         return super.act();
     }
 
     @Override
-    public void damage( int dmg, Object src ) {
+    public void damage(int dmg, Object src) {
 
     }
+
     public ArrayList<Item> generateItems() {
         ArrayList<Item> itemsToSpawn = new ArrayList<>();
         return itemsToSpawn;
     }
 
-    public void placeItems(){
+    public void placeItems() {
 
         ArrayList<Item> itemsToSpawn = generateItems();
 
-        int b = -Math.round(itemsToSpawn.size()*0.5f) + 1;
+        if (vertical==ShopDirection.RIGHT) {
+            int b = -Math.round(itemsToSpawn.size() * 0.5f) + 1;
 
-        for (Item item : itemsToSpawn) {
-            level.drop( item, pos + level.width() + b ).type = Heap.Type.FOR_SALE;//places stuff under the shopkeeper
-            CellEmitter.center(pos + level.width() + b).burst(Speck.factory(Speck.COIN), 3);
-            b++;
+            for (Item item : itemsToSpawn) {
+                level.drop(item, pos + 1 + level.width()*b ).type = Heap.Type.FOR_SALE;//places stuff under the shopkeeper
+                CellEmitter.center(pos + 1 + level.width()*b ).burst(Speck.factory(Speck.COIN), 3);
+                b++;
+            }
+        } else if (vertical==ShopDirection.DOWN) {
+            int b = -Math.round(itemsToSpawn.size() * 0.5f) + 1;
+
+            for (Item item : itemsToSpawn) {
+                level.drop(item, pos + level.width() + b).type = Heap.Type.FOR_SALE;//places stuff under the shopkeeper
+                CellEmitter.center(pos + level.width() + b).burst(Speck.factory(Speck.COIN), 3);
+                b++;
+            }
+        } else if (vertical==ShopDirection.LEFT) {
+            int b = -Math.round(itemsToSpawn.size() * 0.5f) + 1;
+
+            for (Item item : itemsToSpawn) {
+                level.drop(item, pos - 1 + b*level.width()).type = Heap.Type.FOR_SALE;//places stuff under the shopkeeper
+                CellEmitter.center(pos - 1 + b*level.width()).burst(Speck.factory(Speck.COIN), 3);
+                b++;
+            }
+        } else if (vertical==ShopDirection.UP) {
+            int b = -Math.round(itemsToSpawn.size() * 0.5f) + 1;
+
+            for (Item item : itemsToSpawn) {
+                level.drop(item, pos - level.width() + b).type = Heap.Type.FOR_SALE;//places stuff under the shopkeeper
+                CellEmitter.center(pos - level.width() + b).burst(Speck.factory(Speck.COIN), 3);
+                b++;
+            }
         }
     }
 
     @Override
-    public boolean add( Buff buff ) {
+    public boolean add(Buff buff) {
         if (super.add(buff)) {
             return true;
         }
@@ -90,7 +127,7 @@ public class NewShopKeeper extends NPC {
     @Override
     public void destroy() {
         super.destroy();
-        for (Heap heap: level.heaps.valueList()) {
+        for (Heap heap : level.heaps.valueList()) {
             if (heap.type == Heap.Type.FOR_SALE) {
                 if (ShatteredPixelDungeon.scene() instanceof GameScene) {
                     CellEmitter.get(heap.pos).burst(ElmoParticle.FACTORY, 4);
@@ -98,7 +135,7 @@ public class NewShopKeeper extends NPC {
                 if (heap.size() == 1) {
                     heap.destroy();
                 } else {
-                    heap.items.remove(heap.size()-1);
+                    heap.items.remove(heap.size() - 1);
                     heap.type = Heap.Type.HEAP;
                 }
             }
@@ -116,5 +153,19 @@ public class NewShopKeeper extends NPC {
             return true;
         }
         return true;
+    }
+
+    private static final String VERTICAL = "vertical";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(VERTICAL, vertical);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        vertical = bundle.getEnum(VERTICAL, ShopDirection.class);
     }
 }

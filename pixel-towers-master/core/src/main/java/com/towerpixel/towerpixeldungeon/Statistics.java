@@ -26,9 +26,7 @@ import com.watabou.utils.SparseArray;
 
 public class Statistics {
 	public static int chosenLevel = 1;
-	public static int maxLevelDeveloped = 15;
-	public static int maxLevelUnlocked = 25;
-
+	public static int maxLevelDeveloped = 20;
 	public static int goldCollected;
 	public static int deepestFloor;
 	public static int highestAscent;

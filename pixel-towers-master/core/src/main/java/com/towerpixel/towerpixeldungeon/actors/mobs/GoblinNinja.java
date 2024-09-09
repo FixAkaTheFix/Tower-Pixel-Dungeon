@@ -1,6 +1,10 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.sprites.GoblinNinjaSprite;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 
 public class GoblinNinja extends Goblin{
     {
@@ -16,5 +20,8 @@ public class GoblinNinja extends Goblin{
         maxLvl = 15;
 
         targetingPreference = TargetingPreference.NOT_AMULET;
+        if(Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+            Buff.affect(this, Invisibility.class,50);
+        }
     }
 }

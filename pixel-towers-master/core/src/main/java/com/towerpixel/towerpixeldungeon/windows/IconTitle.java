@@ -69,6 +69,11 @@ public class IconTitle extends Component {
 		label( label );
 	}
 
+	public IconTitle(  String label ) {
+		super();
+		label( label );
+	}
+
 	@Override
 	protected void createChildren() {
 		imIcon = new Image();
@@ -95,8 +100,8 @@ public class IconTitle extends Component {
 		int imWidth = (int)Math.max(imIcon.width(), 16);
 		int imHeight = (int)Math.max(imIcon.height(), 16);
 
-		tfLabel.maxWidth((int)(width - (imWidth + GAP)));
-		tfLabel.setPos(x + imWidth + GAP,
+		tfLabel.maxWidth((int)(imIcon==null ? width - GAP : width - (imWidth + GAP)));
+		tfLabel.setPos(imIcon==null ? x + GAP : x + imWidth + GAP,
 						imHeight > tfLabel.height() ? y +(imHeight - tfLabel.height()) / 2 : y);
 		PixelScene.align(tfLabel);
 

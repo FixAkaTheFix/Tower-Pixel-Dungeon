@@ -50,6 +50,17 @@ public class PoisonParticle extends PixelParticle {
 			return true;
 		}
 	};
+
+	public static final Emitter.Factory CELLSPLASH = new Factory() {
+		@Override
+		public void emit( Emitter emitter, int index, float x, float y ) {
+			((PoisonParticle)emitter.recycle( PoisonParticle.class )).resetCellSplash( x, y );
+		}
+		@Override
+		public boolean lightMode() {
+			return true;
+		}
+	};
 	
 	public PoisonParticle() {
 		super();
@@ -78,6 +89,16 @@ public class PoisonParticle extends PixelParticle {
 		
 		left = lifespan;
 		
+		speed.polar( Random.Float( 3.1415926f ), Random.Float( 10, 20 ) );
+	}
+	public void resetCellSplash( float x, float y ) {
+		revive();
+
+		this.x = x + Random.Int(-8,8);
+		this.y = y+ Random.Int(-8,8);;
+
+		left = lifespan;
+
 		speed.polar( Random.Float( 3.1415926f ), Random.Float( 10, 20 ) );
 	}
 	

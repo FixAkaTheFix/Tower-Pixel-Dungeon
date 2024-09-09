@@ -268,44 +268,12 @@ public class TitleScene extends PixelScene {
 		@Override
 		public void update() {
 			super.update();
-
-			if (!updateShown && (Updates.updateAvailable() || Updates.isInstallable())){
-				updateShown = true;
-				if (Updates.isInstallable())    text(Messages.get(TitleScene.class, "install"));
-				else                            text(Messages.get(TitleScene.class, "update"));
-			}
 		}
 
 		@Override
 		protected void onClick() {
-			if (Updates.isInstallable()){
-				Updates.launchInstall();
-
-			} else if (Updates.updateAvailable()){
-				AvailableUpdateData update = Updates.updateData();
-
-				ShatteredPixelDungeon.scene().addToFront( new WndOptions(
-						Icons.get(Icons.CHANGES),
-						update.versionName == null ? Messages.get(this,"title") : Messages.get(this,"versioned_title", update.versionName),
-						update.desc == null ? Messages.get(this,"desc") : update.desc,
-						Messages.get(this,"update"),
-						Messages.get(this,"changes")
-				) {
-					@Override
-					protected void onSelect(int index) {
-						if (index == 0) {
-							Updates.launchUpdate(Updates.updateData());
-						} else if (index == 1){
-							ChangesScene.changesSelected = 0;
-							ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-						}
-					}
-				});
-
-			} else {
-				ChangesScene.changesSelected = 0;
-				ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-			}
+			ChangesScene.changesSelected = 0;
+			ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
 		}
 
 	}

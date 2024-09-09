@@ -22,6 +22,10 @@
 package com.towerpixel.towerpixeldungeon.sprites;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.mobs.BossDwarfKing;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.watabou.noosa.TextureFilm;
 
 public class KingSprite extends MobSprite {
@@ -46,5 +50,13 @@ public class KingSprite extends MobSprite {
 		die.frames( frames, 12, 13, 14, 15 );
 		
 		play( idle );
+	}
+
+	@Override
+	public void link(Char ch) {
+		if (ch instanceof BossDwarfKing && ((BossDwarfKing)ch).battleMode==0){
+			add(CharSprite.State.SHIELDED);
+		}
+		super.link(ch);
 	}
 }

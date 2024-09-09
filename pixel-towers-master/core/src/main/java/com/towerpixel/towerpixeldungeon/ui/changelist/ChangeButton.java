@@ -52,7 +52,7 @@ public class ChangeButton extends Component {
 		this( new ItemSprite(item), item.name(), message);
 	}
 	
-	protected void onClick() {
+	public void onClick() {
 		ChangesScene.showChangeInfo(new Image(icon), title, messages);
 	}
 	

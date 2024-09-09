@@ -28,9 +28,9 @@ public class Trisai extends MeleeWeapon {
     }
     @Override
     public int proc(Char attacker, Char defender, int damage) {
-        Mob def = (Mob)defender;//making a spare "Mob" from a "Char" class to read the defenseSkill successfully
-        if (def.defenseSkill > 4){ damage += Random.Int(5);
-        } else { damage+=Random.Int(def.defenseSkill);}
+        Char def = (Char)defender;//making a spare "Mob" from a "Char" class to read the defenseSkill successfully
+        if (def.defenseSkill(attacker) > 4){ damage += Random.Int(5);
+        } else { damage+=Random.Int(def.defenseSkill(attacker));}
         if (damage>(4*(tier+1) + this.level()*(tier+1))) damage = max(); //probably FIXME - not changing enemies armor yet (i want it to deal a bit more dmg to armored foes), make it based on reducing armor for 1 momemt, by //def.defenseSkill-=5; defender = def (like mob def)
         return super.proc(attacker, defender, damage);
     }

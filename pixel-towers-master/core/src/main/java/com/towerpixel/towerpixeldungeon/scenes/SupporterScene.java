@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.scenes;
 
+import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.messages.Languages;
@@ -33,6 +34,7 @@ import com.towerpixel.towerpixeldungeon.ui.Window;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.ui.Component;
 
 public class SupporterScene extends PixelScene {
@@ -43,6 +45,10 @@ public class SupporterScene extends PixelScene {
 	@Override
 	public void create() {
 		super.create();
+		Music.INSTANCE.playTracks(
+				new String[]{Assets.Music.GNOLL_GROTTO},
+				new float[]{1},
+				false);
 
 		uiCamera.visible = false;
 

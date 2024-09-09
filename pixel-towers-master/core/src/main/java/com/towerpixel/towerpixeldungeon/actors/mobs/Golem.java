@@ -33,6 +33,7 @@ import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.GolemSprite;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -52,10 +53,20 @@ public class Golem extends Mob {
 		lootChance = 0.125f; //initially, see lootChance()
 
 		properties.add(Property.INORGANIC);
-		properties.add(Property.LARGE);
 
 		WANDERING = new Wandering();
 		HUNTING = new Hunting();
+	}
+
+	@Override
+	public void die(Object cause) {
+		if (Dungeon.depth == 19 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+			HermitCrab swarm = new HermitCrab();
+			swarm.pos = pos;
+			GameScene.add(swarm);
+			Dungeon.level.occupyCell(swarm);
+		}
+		super.die(cause);
 	}
 
 	@Override

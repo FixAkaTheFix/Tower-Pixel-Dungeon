@@ -30,5 +30,4 @@ public class TowerCrossbow1 extends TowerCShooting {
         return !Dungeon.level.adjacent( pos, enemy.pos )
                 && (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance);
     }
-
 }

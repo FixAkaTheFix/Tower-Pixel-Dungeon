@@ -9,13 +9,17 @@ import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DM300;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Goblin;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerMiner;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.quest.Pickaxe;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
@@ -37,7 +41,7 @@ public class Arena11 extends Arena{
         color1 = 0x534f3e;
         color2 = 0xb9d661;
 
-        startGold = 2000;
+        startGold = 1500;
         startLvl = 11;
 
         maxWaves = 15;
@@ -62,21 +66,19 @@ public class Arena11 extends Arena{
 
     @Override
     public void deploymobs(int wave, Direction direction, int group) {
-        if (chooseMob(wave) instanceof Goblin) {
-            super.deploymobs(wave, Direction.DOWN, 1);
-        }
-        super.deploymobs(wave, Direction.RANDOM, 1);
+        if (wave == 15){
+            super.deploymobs(wave, Direction.TOOUP, 1);
+        } else if (wave % 5 == 0) {
+            super.deploymobs(wave, Direction.TOODOWN, 1);
+        } else if (wave % 2 == 1) {
+            super.deploymobs(wave, Direction.TOORIGHT, 1);
+        } else super.deploymobs(wave, Direction.TOOLEFT, 1);
+
+
     }
 
     @Override
-    public void doStuffStartwave(int wave) {
-        if (Math.random()>0.8)dropRock(hero);
-        super.doStuffStartwave(wave);
-    }
-
-
-    @Override
-    protected boolean build() { //wow that was original, damm yungs caves there. "Thanks Fix!" - "You are welcome, aka TheFix"
+    protected boolean build() {
         boolean checkUp = true;
         do try {
             setSize(WIDTH, HEIGHT);
@@ -109,56 +111,21 @@ public class Arena11 extends Arena{
                         candidatesforspawn.add(m + WIDTH * n);
                 }
 
-            int pathnum = 15;//VARIABLES YOU CAN CHANGE IF THE CAVES SEEM NOT BIG ENOUGH
-            int connectionpathsnum = 10;
 
-
-            int pathnummax = pathnum;
-
-            for (int i = 0; i < pathnummax; i++) {
-                int candidate = candidatesforspawn.get(Random.Int(candidatesforspawn.size() - 1));
-                int xcan = candidate % WIDTH;
-                int ycan = candidate / WIDTH;
-                pathnum--;
-                if (pathnum <= connectionpathsnum) {
-                    x = Random.Int(10, WIDTH - 10);
-                    y = Random.Int(10, HEIGHT - 10);
-                    xcan = Random.Int(10, WIDTH - 10);
-                    ycan = Random.Int(10, HEIGHT - 10);
-                }
-                int xcur = x;
-                int ycur = y;
-
-                while (!(xcur == xcan && ycur == ycan)) {
-                    int ran = Random.Int(6);
-                    switch (ran) {
-                        case 0:
-                        case 1: {
-                            if (xcan < xcur && xcur > 9) {
-                                xcur--;
-                            }
-                            if (xcan > xcur && xcur < WIDTH - 9) xcur++;
-                            if (ycan < ycur && ycur > 9) ycur--;
-                            if (ycan > ycur && ycur < HEIGHT - 9) ycur++;
-                            break;
-                        }
-                        case 3:
-                            if (xcur < WIDTH - 9) xcur++;
-                            break;
-                        case 4:
-                            if (xcur > 9) xcur--;
-                            break;
-                        case 5:
-                            if (ycur < HEIGHT - 9) ycur++;
-                            break;
-                        case 6:
-                            if (ycur > 9) ycur--;
-                            break;
-
-                    }
-                    this.map[xcur + WIDTH * ycur] = Terrain.EMPTY;
-                }
+            for (int xcur = 5; xcur<WIDTH-5;xcur++){
+                Painter.fill(this, xcur-2,HEIGHT/2-2, 5 , 5, Terrain.EMPTY);
             }
+            for (int ycur = HEIGHT/2; ycur<HEIGHT-5;ycur++){
+                Painter.fill(this, WIDTH/2-2 + Random.NormalIntRange(-1,1),ycur-2 , 5 , 5, Terrain.EMPTY);
+            }
+            for (int xcur = 5; xcur<WIDTH-5;xcur++){
+                Painter.fill(this, xcur-2,HEIGHT/2-2, 5 , 5, Terrain.EMPTY);
+            }
+            for (int ycur = HEIGHT/2; ycur<HEIGHT-5;ycur++){
+                Painter.fill(this, WIDTH/2-2 + Random.NormalIntRange(-1,1),ycur-2 , 5 , 5, Terrain.EMPTY);
+            }
+
+
             ArrayList<Integer> emptyTiles = new ArrayList<>();
             for (int m = 2; m < WIDTH - 2; m++)
                 for (int n = 2; n < HEIGHT - 2; n++) {
@@ -247,8 +214,9 @@ public class Arena11 extends Arena{
                     }
                 }
             Painter.fill(this, WIDTH / 2 - 6, HEIGHT / 2 - 11, 12, 7, Terrain.EMPTY);
-            Painter.fillEllipse(this, WIDTH / 2 - 6, HEIGHT / 2 - 11, 12, 3, Terrain.BARRICADE);
+            Painter.fill(this, WIDTH / 2 - 6, HEIGHT / 2 - 11, 12, 3, Terrain.BARRICADE);
             Painter.fill(this, WIDTH / 2 - 5, HEIGHT / 2 - 10, 10, 2, Terrain.EMPTY_SP);
+
 
             LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
 
@@ -301,12 +269,59 @@ public class Arena11 extends Arena{
         super.addDestinations();
     }
 
+    @Override
+    public void initNpcs() {
+        super.initNpcs();
+        if (mode == WndModes.Modes.CHALLENGE){
+            TowerMiner miner1 = new TowerMiner();
+            miner1.pos = amuletCell - 6;
+            GameScene.add(miner1);
+            TowerMiner miner2 = new TowerMiner();
+            miner2.pos = amuletCell + 6;
+            GameScene.add(miner2);
+            TowerMiner miner3 = new TowerMiner();
+            miner3.pos = amuletCell - 5*WIDTH;
+            GameScene.add(miner3);
+            TowerMiner miner4 = new TowerMiner();
+            miner4.pos = amuletCell + 6*WIDTH;
+            GameScene.add(miner4);
+
+            TowerMiner miner5 = new TowerMiner();
+            miner5.pos = amuletCell - 4 - 4*WIDTH;
+            GameScene.add(miner5);
+            TowerMiner miner6 = new TowerMiner();
+            miner6.pos = amuletCell + 4 - 4*WIDTH;
+            GameScene.add(miner6);
+            TowerMiner miner7 = new TowerMiner();
+            miner7.pos = amuletCell - 4 + 4*WIDTH;
+            GameScene.add(miner7);
+            TowerMiner miner8 = new TowerMiner();
+            miner8.pos = amuletCell + 4 + 4*WIDTH;
+            GameScene.add(miner8);
+
+        } else {
+            TowerMiner miner1 = new TowerMiner();
+            miner1.pos = amuletCell - 6;
+            GameScene.add(miner1);
+            TowerMiner miner2 = new TowerMiner();
+            miner2.pos = amuletCell + 6;
+            GameScene.add(miner2);
+        }
+
+    }
 
     @Override
     public void doStuffEndwave(int wave) {
-        int goldAdd = 350;
-        Dungeon.gold+=goldAdd;
-        GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
+        for (Mob mob : mobs){
+            if (mob instanceof TowerMiner){
+                TowerMiner miner = (TowerMiner) mob;
+                if (mode == WndModes.Modes.CHALLENGE){
+                    miner.dropGold(55);
+                } else {
+                    miner.dropGold(230);
+                }
+            }
+        }
         super.doStuffEndwave(wave);
     }
 

@@ -3,14 +3,19 @@ package com.towerpixel.towerpixeldungeon.levels;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Goblin;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerMiner;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Gold;
+import com.towerpixel.towerpixeldungeon.items.quest.CorpseDust;
 import com.towerpixel.towerpixeldungeon.items.quest.Pickaxe;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
@@ -35,10 +40,10 @@ public class Arena12 extends Arena{
 
         maxWaves = 10;
 
-        amuletCell = WIDTH/2 +WIDTH*HEIGHT/2;
+        amuletCell = WIDTH/2 +WIDTH*HEIGHT/2 + 3;
         exitCell = amuletCell;
-        towerShopKeeperCell = amuletCell - 10*WIDTH - 3;
-        normalShopKeeperCell = amuletCell - 10*WIDTH + 2;
+        towerShopKeeperCell = amuletCell - 10*WIDTH - 6;
+        normalShopKeeperCell = amuletCell - 10*WIDTH - 1;
 
         waveCooldownNormal = 5;
         waveCooldownBoss = 50;
@@ -54,10 +59,10 @@ public class Arena12 extends Arena{
 
     @Override
     public void deploymobs(int wave, Direction direction, int group) {
-        if (chooseMob(wave) instanceof Goblin) {
-            super.deploymobs(wave, Direction.DOWN, 1);
+        if (wave % 2 == 1) {
+            super.deploymobs(wave, Direction.TOORIGHT, 1);
         }
-        super.deploymobs(wave, Direction.RANDOM, 1);
+        super.deploymobs(wave, Direction.TOOLEFT, 1);
     }
 
     @Override
@@ -67,77 +72,15 @@ public class Arena12 extends Arena{
             setSize(WIDTH, HEIGHT);
 
             Painter.fill(this, 0, 0, WIDTH, HEIGHT, Terrain.WALL);
-            Painter.fill(this, 4, HEIGHT / 2, WIDTH - 8, 4, Terrain.WATER);
-            Painter.fill(this, WIDTH / 2, 4, 4, HEIGHT - 8, Terrain.WATER);
-            Painter.fillDiamond(this, 9, 9, WIDTH - 18, HEIGHT - 18, Terrain.WATER);
-            Painter.fillDiamond(this, 10, 10, WIDTH - 20, HEIGHT - 20, Terrain.WALL);
 
-            ArrayList<Integer> empty = new ArrayList<>();
-            for (int m = 5; m < WIDTH - 5; m++)
-                for (int n = 5; n < HEIGHT - 5; n++) {
-                    if (this.map[m + WIDTH * n] == Terrain.WATER) empty.add(m + WIDTH * n);
-                }
+            Painter.fillDiamond(this, 2, HEIGHT/4, WIDTH/2-2, HEIGHT/2-2, Terrain.WATER);
+            Painter.fillDiamond(this, 7, HEIGHT/4+5, WIDTH/2-12, HEIGHT/2-12, Terrain.WALL);
 
 
-            int x = WIDTH / 2;
-            int y = HEIGHT / 2;
-            ArrayList<Integer> candidatesforspawn = new ArrayList<>();
-            for (int m = 10; m < WIDTH - 10; m++)
-                for (int n = 10; n < HEIGHT - 10; n++) {
-                    if (((m < 11) || (m > WIDTH - 11)) || ((n < 11) || (n > HEIGHT - 11)))
-                        candidatesforspawn.add(m + WIDTH * n);
-                }
-
-            int pathnum = 10;//VARIABLES YOU CAN CHANGE IF THE CAVES SEEM NOT BIG ENOUGH
-            int connectionpathsnum = 2;
+            Painter.fillDiamond(this, WIDTH/2-2, HEIGHT/4, WIDTH/2-2, HEIGHT/2-2, Terrain.WATER);
+            Painter.fillDiamond(this, WIDTH/2+3, HEIGHT/4+5, WIDTH/2-12, HEIGHT/2-12, Terrain.WALL);
 
 
-            int pathnummax = pathnum;
-
-            for (int i = 0; i < pathnummax; i++) {
-                int candidate = candidatesforspawn.get(Random.Int(candidatesforspawn.size() - 1));
-                int xcan = candidate % WIDTH;
-                int ycan = candidate / WIDTH;
-                pathnum--;
-                if (pathnum <= connectionpathsnum) {
-                    x = Random.Int(10, WIDTH - 10);
-                    y = Random.Int(10, HEIGHT - 10);
-                    xcan = Random.Int(10, WIDTH - 10);
-                    ycan = Random.Int(10, HEIGHT - 10);
-                }
-                int xcur = x;
-                int ycur = y;
-
-                while (!(xcur == xcan && ycur == ycan)) {
-                    int ran = Random.Int(6);
-                    switch (ran) {
-                        case 0:
-                        case 1: {
-                            if (xcan < xcur && xcur > 9) {
-                                xcur--;
-                            }
-                            if (xcan > xcur && xcur < WIDTH - 9) xcur++;
-                            if (ycan < ycur && ycur > 9) ycur--;
-                            if (ycan > ycur && ycur < HEIGHT - 9) ycur++;
-                            break;
-                        }
-                        case 3:
-                            if (xcur < WIDTH - 9) xcur++;
-                            break;
-                        case 4:
-                            if (xcur > 9) xcur--;
-                            break;
-                        case 5:
-                            if (ycur < HEIGHT - 9) ycur++;
-                            break;
-                        case 6:
-                            if (ycur > 9) ycur--;
-                            break;
-
-                    }
-                    this.map[xcur + WIDTH * ycur] = Terrain.WATER;
-                }
-            }
             ArrayList<Integer> emptyTiles = new ArrayList<>();
             for (int m = 5; m < WIDTH - 5; m++)
                 for (int n = 5; n < HEIGHT - 5; n++) {
@@ -180,10 +123,9 @@ public class Arena12 extends Arena{
                         if (this.map[cell] == Terrain.WATER) this.map[cell] = Terrain.BARRICADE;
                     }
                 }
-            Painter.fillEllipse(this, WIDTH / 2 - 7, HEIGHT / 2 - 7, 14, 14, Random.oneOf(Terrain.EMPTY,Terrain.WATER,Terrain.EMPTY_SP));
-            Painter.fillEllipse(this, WIDTH / 2 - 6, HEIGHT / 2 - 6, 12, 12, Random.oneOf(Terrain.EMPTY,Terrain.WATER,Terrain.EMPTY_SP));
-            Painter.fill(this, WIDTH / 2 - 8, HEIGHT/2-1,16,3, Terrain.WATER);
-            Painter.fill(this, WIDTH / 2-1, HEIGHT/2 - 8,3,16, Terrain.WATER);
+            Painter.fillEllipse(this, WIDTH / 2 - 7, HEIGHT / 2 - 7, 14, 14, Terrain.WATER);
+            Painter.fillEllipse(this, WIDTH / 2 - 6, HEIGHT / 2 - 6, 12, 12, Terrain.EMPTY);
+
 
             for (int x1 = 1; x1 < WIDTH - 1; x1++)
                 for (int y1 = 1; y1 < HEIGHT - 1; y1++) {
@@ -223,6 +165,13 @@ public class Arena12 extends Arena{
         }
     }
 
+    @Override
+    public void initNpcs() {
+        super.initNpcs();
+        TowerMiner miner1 = new TowerMiner();
+        miner1.pos = amuletCell - 6;
+        GameScene.add(miner1);
+    }
 
     @Override
     public void addDestinations() {
@@ -230,50 +179,25 @@ public class Arena12 extends Arena{
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.passable[m]&&this.map[m]==Terrain.EMPTY) candidates.add(m);
         }
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
+
         this.drop(new Gold(50),Random.element(candidates));
         this.drop(new Gold(50),Random.element(candidates));
         this.drop(new Gold(50),Random.element(candidates));
         this.drop(new Gold(50),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WEP_T1),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
+        this.drop(new CorpseDust(),Random.element(candidates));
         this.drop(new Pickaxe() ,Random.element(candidates));
         candidates.clear();
 
@@ -282,9 +206,12 @@ public class Arena12 extends Arena{
 
     @Override
     public void doStuffEndwave(int wave) {
-        int goldAdd = 200;
-        Dungeon.gold+=goldAdd;
-        GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
+        for (Mob mob : mobs){
+            if (mob instanceof TowerMiner){
+                TowerMiner miner = (TowerMiner) mob;
+                miner.dropGold(200);
+            }
+        }
         super.doStuffEndwave(wave);
     }
 

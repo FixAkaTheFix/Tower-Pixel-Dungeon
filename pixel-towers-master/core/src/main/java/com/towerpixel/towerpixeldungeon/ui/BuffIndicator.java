@@ -131,6 +131,7 @@ public class BuffIndicator extends Component {
 	public static final int PROTECTED   = 103;
 	public static final int RUNNINGTOREPORT   = 104;
 	public static final int EXPOSED   = 105;
+	public static final int GOLDARMOR  = 106;
 
 
 	public static final int SIZE_SMALL  = 7;

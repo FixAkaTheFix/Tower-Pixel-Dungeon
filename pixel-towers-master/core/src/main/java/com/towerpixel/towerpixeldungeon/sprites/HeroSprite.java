@@ -46,7 +46,7 @@ public class HeroSprite extends CharSprite {
 	private static TextureFilm tiers;
 	
 	private Animation fly;
-	private Animation read;
+	public Animation read;
 
 	public HeroSprite() {
 		super();
@@ -152,6 +152,11 @@ public class HeroSprite extends CharSprite {
 		sleeping = ch.isAlive() && ((Hero)ch).resting;
 		
 		super.update();
+	}
+
+	public void castSpell(Callback callback){
+		animCallback = callback;
+		play(read);
 	}
 	
 	public void sprint( float speed ) {

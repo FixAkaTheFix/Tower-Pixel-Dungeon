@@ -23,16 +23,4 @@ public class SpawnerCannon extends TowerSpawner {
         return 60;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerCannon1 tower = new TowerCannon1();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
 }

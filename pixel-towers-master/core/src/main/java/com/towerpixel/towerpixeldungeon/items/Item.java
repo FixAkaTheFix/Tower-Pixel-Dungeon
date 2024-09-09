@@ -41,6 +41,8 @@ import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.CellSelector;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
+import com.towerpixel.towerpixeldungeon.sprites.GnollSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.MissileSprite;
 import com.towerpixel.towerpixeldungeon.ui.QuickSlotButton;
@@ -85,6 +87,9 @@ public class Item implements Bundlable {
 	
 	public boolean cursed;
 	public boolean cursedKnown;
+
+	public boolean animated = false;
+	public ItemSprite animatedSprite = null;
 	
 	// Unique items persist through revival
 	public boolean unique = false;

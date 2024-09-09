@@ -25,7 +25,7 @@ public class TowerCannonNukeSprite extends MobSprite {
         run = idle.clone();
 
         attack = new MovieClip.Animation( 9, false );
-        attack.frames( frames, 52,53,54,55,56,57,58,59,60);
+        attack.frames( frames, 52,53,54,55,56,57,58);
 
         cast = attack.clone();
 

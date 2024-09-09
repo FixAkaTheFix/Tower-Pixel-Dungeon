@@ -29,7 +29,7 @@ public class Challenges {
 	//Some of these internal IDs are outdated and don't represent what these challenges do
 	public static final int VAMPIRE				= 1;
 	public static final int NO_ARMOR			= 2;
-	public static final int HEROIC_BATTLE		= 4;
+	//public static final int HEROIC_BATTLE		= 4;
 	public static final int NO_HERBALISM		= 8;
 	public static final int BOMBARDA_MAXIMA	    = 16;
 	public static final int DARKNESS			= 32;
@@ -46,7 +46,6 @@ public class Challenges {
 			"vampire",
 			"shamanism",
 			"bombarda_maxima",
-			"heroic_battle",
 			"no_herbalism",
 			"darkness",
 			"no_scrolls",
@@ -54,10 +53,10 @@ public class Challenges {
 	};
 
 	public static final int[] MASKS = {
-			CHAMPION_ENEMIES, NO_ARMOR, VAMPIRE, SHAMANISM, BOMBARDA_MAXIMA, HEROIC_BATTLE, NO_HERBALISM,  DARKNESS, NO_SCROLLS, HARDER_QUESTS
+			CHAMPION_ENEMIES, NO_ARMOR, VAMPIRE, SHAMANISM, BOMBARDA_MAXIMA, NO_HERBALISM,  DARKNESS, NO_SCROLLS, HARDER_QUESTS
 	};
 	public static final boolean[] EXIST = {
-			true          ,true     ,true  ,       true   , true     ,true       ,false             ,false      ,false      ,false
+			true          ,true     ,true  ,       true   , true          ,false             ,false      ,false      ,false
 	};
 
 	public static int activeChallenges(){

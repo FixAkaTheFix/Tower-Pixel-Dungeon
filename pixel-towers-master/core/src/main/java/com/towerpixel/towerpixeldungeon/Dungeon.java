@@ -262,7 +262,7 @@ public class Dungeon {
 	}
 
 	public static boolean isChallenged( int mask ) {
-		return (challenges & mask) != 0;
+		return false;//(challenges & mask) != 0; //TODO this is temporarily, so the chals won't be active
 	}
 	
 	public static Level newLevel() {
@@ -756,8 +756,21 @@ public class Dungeon {
 
 		updateLevelExplored();
 		Statistics.gameWon = true;
-		if(Dungeon.depth >= SPDSettings.maxlevelunlocked() && (SPDSettings.challenges() == 0)) SPDSettings.maxlevelunlocked(Dungeon.depth+1);
+		switch (Dungeon.level.mode){
+			case NORMAL:{
+				if(Dungeon.depth >= SPDSettings.maxlevelunlocked()) SPDSettings.maxlevelunlocked(Dungeon.depth+1);
+				break;
+			}
+			case HARDMODE:{
+				if(Dungeon.depth >= SPDSettings.maxlevelunlockedHardmode()) SPDSettings.maxlevelunlockedHardmode(Dungeon.depth+1);
+				break;
+			}
+			case CHALLENGE:{
+				if(Dungeon.depth >= SPDSettings.maxlevelunlockedChalmode()) SPDSettings.maxlevelunlockedChalmode(Dungeon.depth+1);
+				break;
+			}
 
+		}
 		hero.belongings.identify();
 
 		Rankings.INSTANCE.submit( true, cause );

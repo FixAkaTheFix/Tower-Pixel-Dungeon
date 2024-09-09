@@ -25,7 +25,10 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuardPaladin;
 import com.towerpixel.towerpixeldungeon.effects.Chains;
 import com.towerpixel.towerpixeldungeon.effects.Effects;
 import com.towerpixel.towerpixeldungeon.effects.Pushing;
@@ -103,16 +106,24 @@ public class Guard extends Mob {
 							Effects.Type.CHAIN,
 							new Callback() {
 						public void call() {
-							Actor.addDelayed(new Pushing(enemy, enemy.pos, newPosFinal, new Callback() {
-								public void call() {
-									pullEnemy(enemy, newPosFinal);
-								}
-							}), -1);
+
+							if (enemy instanceof TowerGuardPaladin){
+								yell(Messages.get(Guard.this, "argh"));
+								Buff.affect(Guard.this, Vertigo.class, 2);
+							}
+							else {
+								Actor.addDelayed(new Pushing(enemy, enemy.pos, newPosFinal, new Callback() {
+									public void call() {
+										pullEnemy(enemy, newPosFinal);
+									}
+								}), -1);
+							}
+
 							next();
 						}
 					}));
 				} else {
-					pullEnemy(enemy, newPos);
+					if (!(enemy instanceof TowerGuardPaladin)) pullEnemy(enemy, newPos);
 				}
 			}
 		}

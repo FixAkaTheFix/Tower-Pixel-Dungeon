@@ -9,13 +9,17 @@ public class TowerWall3 extends TowerCWall{
         spriteClass = TowerWall3Sprite.class;
         HP = HT = 500;
         cost = 600;
-        upgrade1Cost = 100800;
+
         damageMin = 0;
         damageMax = 0;
         defMin = 2;
         defMax = 4;
 
-        upgCount = 0;
+        upgradeLevel = 16;
+
+        upgrade1Cost = 800;
+        upgrade2Cost = 1200;
+        upgCount = 2;
 
         state = PASSIVE;
     }

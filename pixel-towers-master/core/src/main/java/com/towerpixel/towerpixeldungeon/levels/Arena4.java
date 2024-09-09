@@ -50,16 +50,14 @@ public class Arena4 extends Arena {
         WIDTH = 61;
         HEIGHT = 61;
 
-        startGold = 600;
+        startGold = 700;
         startLvl = 3;
 
         maxWaves = 15;
 
-        towerShopKeeper = new TowerShopKeeperMagic();
-
         amuletCell = 31 + WIDTH * 4;
         exitCell = amuletCell;
-        towerShopKeeperCell = amuletCell - 3 * WIDTH - 3;
+        towerShopKeeperCell = amuletCell - 3 * WIDTH - 4;
         normalShopKeeperCell = amuletCell - 3 * WIDTH + 2;
 
         waveCooldownNormal = 5;
@@ -225,6 +223,15 @@ public class Arena4 extends Arena {
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
+        if (wave == 7||wave == 9){
+            ArrayList<Integer> candidates = new ArrayList<>();
+            for (int m = 0; m<WIDTH*HEIGHT;m++){
+                if (this.map[m]==Terrain.WATER) candidates.add(m);
+            }
+            for (int i = 0; i<10;i++){
+
+            }
+        }
     }
 
     public void deployMobs(int wave) {
@@ -320,65 +327,5 @@ public class Arena4 extends Arena {
 
             left = lifespan = 0.4f;
         }
-    }
-
-    public class TowerShopKeeperMagic extends TowerShopKeeper {
-
-        {
-            spriteClass = WandmakerSprite.class;
-
-            properties.add(Property.IMMOVABLE);
-        }
-
-        @Override
-        public  ArrayList<Item> generateItems() {
-            ArrayList<Item> itemsToSpawn = new ArrayList<>();
-            if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)) {
-                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
-                    itemsToSpawn.add(new ScrollOfUpgrade());
-                    itemsToSpawn.add(new PotionOfStrength());
-                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
-                } else {
-                    itemsToSpawn.add(new SpawnerCannon());
-                    itemsToSpawn.add(new SpawnerCannon());
-                    itemsToSpawn.add(new SpawnerWall());
-                }
-            } else {
-                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
-                    itemsToSpawn.add(new ScrollOfUpgrade());
-                    itemsToSpawn.add(new PotionOfStrength());
-                    itemsToSpawn.add(Generator.random(Generator.Category.WAND));
-                } else {
-                    itemsToSpawn.add(Generator.random(Generator.Category.TOWER));
-                    itemsToSpawn.add(new SpawnerWand());
-                    itemsToSpawn.add(Generator.random(Generator.Category.TOWER));
-                }
-            }
-            return itemsToSpawn;
-        }
-    }
-
-    private String WAVE = "wave";
-    private String SHOPKEEPER = "shopkeeper";
-    private String TOWERSHOPKEEPERPOS = "towershopkeeperpos";
-
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(WAVE, wave);
-        bundle.put(SHOPKEEPER,normalShopKeeper);
-        bundle.put(TOWERSHOPKEEPERPOS,towerShopKeeper.pos);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        wave = bundle.getInt(WAVE);
-        normalShopKeeper = (NormalShopKeeper) bundle.get(SHOPKEEPER);
-        towerShopKeeper = new Arena4.TowerShopKeeperMagic();
-        towerShopKeeper.pos = bundle.getInt(TOWERSHOPKEEPERPOS);
-        GameScene.add(towerShopKeeper);
-
     }
 }

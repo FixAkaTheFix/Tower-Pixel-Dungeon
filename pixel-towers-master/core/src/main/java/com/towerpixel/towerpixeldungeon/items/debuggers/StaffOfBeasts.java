@@ -13,6 +13,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.GnollTrickster;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Goo;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Swarm;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Shopkeeper;
@@ -98,7 +99,7 @@ public class StaffOfBeasts extends Item {
                 "Staff of beasts: NPC mod",
                 "Choose any wanted NPC, X= not working",
                 "GOO",
-                "BossTengu",
+                "SWARM",
                 "DWM",
                 "BossRatKing",
                 "Remac",
@@ -147,7 +148,7 @@ public class StaffOfBeasts extends Item {
                         break;
                     }
                     case 21 : {
-                        z = new BossTengu();
+                        z = new Swarm();
                         break;
                     }
                     case 22 : {

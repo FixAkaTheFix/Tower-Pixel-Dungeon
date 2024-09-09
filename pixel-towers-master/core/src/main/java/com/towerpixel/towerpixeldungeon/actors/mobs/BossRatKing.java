@@ -126,7 +126,7 @@ public class BossRatKing extends Rat{
             }
             case 3:{
                 for (Mob mob : Dungeon.level.mobs){
-                    if (mob instanceof Tower) Buff.affect(mob, Paralysis.class, 2);
+                    if (mob instanceof Tower) Buff.affect(mob, Paralysis.class, 1);
                 }
                 int i = Random.Int(2);
                 switch (i) {

@@ -22,13 +22,16 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Imp;
 import com.towerpixel.towerpixeldungeon.items.food.Food;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.MonkSprite;
 import com.towerpixel.towerpixeldungeon.ui.BuffIndicator;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -67,9 +70,19 @@ public class Monk extends Mob {
 	public float attackDelay() {
 		return super.attackDelay()*0.5f;
 	}
-	
 
-	
+
+	@Override
+	public void die(Object cause) {
+		if (Dungeon.depth == 19 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+			Slime swarm = new Slime();
+			swarm.pos = pos;
+			GameScene.add(swarm);
+			Dungeon.level.occupyCell(swarm);
+		}
+		super.die(cause);
+	}
+
 	@Override
 	public void rollToDropLoot() {
 		Imp.Quest.process( this );

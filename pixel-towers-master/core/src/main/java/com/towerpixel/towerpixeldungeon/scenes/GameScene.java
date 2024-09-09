@@ -106,6 +106,7 @@ import com.towerpixel.towerpixeldungeon.ui.Toolbar;
 import com.towerpixel.towerpixeldungeon.ui.Window;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndBag;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.towerpixel.towerpixeldungeon.windows.WndGame;
 import com.towerpixel.towerpixeldungeon.windows.WndHero;
 import com.towerpixel.towerpixeldungeon.windows.WndInfoCell;
@@ -115,6 +116,7 @@ import com.towerpixel.towerpixeldungeon.windows.WndInfoPlant;
 import com.towerpixel.towerpixeldungeon.windows.WndInfoTrap;
 import com.towerpixel.towerpixeldungeon.windows.WndKeyBindings;
 import com.towerpixel.towerpixeldungeon.windows.WndMessage;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.towerpixel.towerpixeldungeon.windows.WndOptions;
 import com.towerpixel.towerpixeldungeon.windows.WndResurrect;
 import com.towerpixel.towerpixeldungeon.windows.WndStory;
@@ -1193,7 +1195,6 @@ public class GameScene extends PixelScene {
 	public static void show( Window wnd ) {
 		if (scene != null) {
 			cancel();
-
 			//If a window is already present (or was just present)
 			// then inherit the offset it had
 			if (scene.inventory != null && scene.inventory.visible){

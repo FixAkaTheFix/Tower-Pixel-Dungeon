@@ -45,7 +45,11 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.nio.Buffer;
+
+import javax.swing.Timer;
 
 public class ItemSprite extends MovieClip {
 
@@ -94,7 +98,6 @@ public class ItemSprite extends MovieClip {
 	
 	public ItemSprite( int image, Glowing glowing ) {
 		super( Assets.Sprites.ITEMS );
-		
 		view(image, glowing);
 	}
 	

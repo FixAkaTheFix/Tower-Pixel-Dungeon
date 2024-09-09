@@ -25,7 +25,7 @@ import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.sprites.GnollBlindSprite;
 import com.watabou.utils.Random;
 
-public class GnollBlind extends Mob {
+public class GnollBlind extends Gnoll {
 
     {
         spriteClass = GnollBlindSprite.class;

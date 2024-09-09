@@ -1,7 +1,9 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.walls.TowerWall1Sprite;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 
 public class TowerWall1 extends TowerCWall{
 

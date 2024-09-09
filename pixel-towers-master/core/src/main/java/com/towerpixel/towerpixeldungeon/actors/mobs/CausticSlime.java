@@ -57,18 +57,5 @@ public class CausticSlime extends Slime {
 	public int damageRoll() {
 		return Random.NormalIntRange( 4, 9 );
 	}
-	
-	@Override
-	public void rollToDropLoot() {
-		if (Dungeon.hero.lvl > maxLvl + 2) return;
-		
-		super.rollToDropLoot();
-		
-		int ofs;
-		do {
-			ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-		} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
-		Dungeon.level.drop( new GooBlob(), pos + ofs ).sprite.drop( pos );
-	}
 
 }

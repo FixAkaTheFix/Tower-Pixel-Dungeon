@@ -1,10 +1,12 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.DamageSource;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Ooze;
 import com.towerpixel.towerpixeldungeon.sprites.SluggerSprite;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.utils.Random;
 
 public class Slugger extends Mob {
@@ -12,7 +14,7 @@ public class Slugger extends Mob {
     {
         spriteClass = SluggerSprite.class;
 
-        HP = HT = 50;
+        HP = HT = 40;
         defenseSkill = 1;
 
         viewDistance = 10;
@@ -22,7 +24,7 @@ public class Slugger extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 15,20 );
+        return (Dungeon.level.mode== WndModes.Modes.CHALLENGE && Dungeon.depth==15) ? Random.NormalIntRange( 30,45 ) : Random.NormalIntRange( 10,15 );
     }
 
     @Override

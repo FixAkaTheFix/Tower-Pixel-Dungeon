@@ -29,10 +29,10 @@ public class TowerGrave1 extends TowerCSpawning{
         spriteClass = TowerGrave1Sprite.class;
 
         maxMinions = 3;
-        minionCooldown = 50;
+        minionCooldown = 20;
         minionCooldownLeft = 1;
 
-        minionHP = 20;
+        minionHP = 10;
         minionDamageMax = 6;
         minionDamageMin = 3;
         minionAttackSkill = 10;
@@ -84,7 +84,7 @@ public class TowerGrave1 extends TowerCSpawning{
     }
 
     public static class SkeletonMinion extends Mob{
-        int mompos;
+        public int mompos;
 
         {
             spriteClass = SkeletonSprite.class;

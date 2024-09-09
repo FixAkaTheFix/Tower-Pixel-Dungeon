@@ -137,23 +137,6 @@ public class Pickaxe extends MeleeWeapon {
 							int gg = Random.Int(30,70);
 							Dungeon.gold+= gg;
 							GLog.i(Messages.get(Pickaxe.class,"goldmined",gg));
-							if (Dungeon.depth == 13) {
-								if (Math.random() > 0.9f) { //for sound attracting
-									for (Mob mob : Dungeon.level.mobs){
-										if (Math.random() > 0.5f) {
-											mob.beckon(hero.pos);
-										};
-									}
-								}
-								((Arena13)Dungeon.level).goldCounter+=gg;
-								GLog.i(Messages.get(Pickaxe.class,"goldminedon13floor",((Arena13)Dungeon.level).goldCounter));
-								 if (((Arena13)Dungeon.level).goldCounter>=5000) {
-									 win(Hero.class);
-									 Dungeon.win( Amulet.class );
-									 Dungeon.deleteGame( GamesInProgress.curSlot, true );
-									 Game.switchScene( RankingsScene.class );
-								 }
-							}
 							updateQuickslot();
 							hero.onOperateComplete();
 						}

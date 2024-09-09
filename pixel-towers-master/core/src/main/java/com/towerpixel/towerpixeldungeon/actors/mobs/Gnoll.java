@@ -21,8 +21,20 @@
 
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
+import static com.towerpixel.towerpixeldungeon.Dungeon.level;
+import static com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave.throwChar;
+
+import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
+import com.towerpixel.towerpixeldungeon.effects.particles.BlastParticle;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
+import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.sprites.GnollSprite;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Gnoll extends Mob {
@@ -52,5 +64,31 @@ public class Gnoll extends Mob {
 	@Override
 	public int drRoll() {
 		return super.drRoll() + Random.NormalIntRange(0, 2);
+	}
+
+	@Override
+	public void die(Object cause) {
+		super.die(cause);
+		if (Dungeon.depth==3 && Dungeon.level.mode== WndModes.Modes.CHALLENGE){
+			int cell;
+			Sample.INSTANCE.play(Assets.Sounds.BLAST);
+			for (int i : PathFinder.NEIGHBOURS8){
+				cell = pos + i;
+				Char ch = Char.findChar(cell);
+				if (ch!=null){
+					if (ch.alignment == this.alignment){
+						//friends receive 0 damage
+					} else {
+						ch.damage (Random.Int(15, 25),this);
+						Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
+						throwChar(ch, trajectory, 2, false, true, getClass());
+						if (ch instanceof Arena.AmuletTower) ch.die(this);
+					};//damages foes nearby and throws them away
+				}
+				if (level.heroFOV[cell]) {
+					CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
+				}
+			}
+		}
 	}
 }

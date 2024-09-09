@@ -3,7 +3,7 @@ package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 
-public class TowerCWall extends Tower{
+public class TowerCWall extends TowerNotliving{
 
     {
     HP = HT = 50;
@@ -14,6 +14,16 @@ public class TowerCWall extends Tower{
     defMin = 1;
     defMax = 2;
     properties.add(Property.IMMOVABLE);
+    }
+
+    @Override
+    protected boolean getCloser(int target) {
+        return true;
+    }
+
+    @Override
+    protected boolean getFurther(int target) {
+        return true;
     }
 
     @Override

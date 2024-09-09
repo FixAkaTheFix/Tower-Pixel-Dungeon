@@ -2,7 +2,6 @@ package com.towerpixel.towerpixeldungeon.actors.buffs;
 
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
-import com.towerpixel.towerpixeldungeon.levels.Arena13;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.ui.BuffIndicator;
 
@@ -37,6 +36,5 @@ public class WaveCooldownBuff extends FlavourBuff {
     @Override
     public void detach() {
         super.detach();
-        if (Dungeon.depth==13&&Dungeon.level.wave==0) ((Arena13)Dungeon.level).startWave();
     }
 }

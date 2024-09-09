@@ -23,6 +23,8 @@ package com.towerpixel.towerpixeldungeon.actors.mobs.npcs;
 
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Gnoll;
 import com.towerpixel.towerpixeldungeon.items.ArcaneResin;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
@@ -38,8 +40,16 @@ import com.towerpixel.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.towerpixel.towerpixeldungeon.items.quest.CorpseDust;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.towerpixel.towerpixeldungeon.items.stones.StoneOfBlast;
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Sungrass;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.RatKingSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ShopkeeperSprite;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
+import com.watabou.noosa.Game;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -57,48 +67,20 @@ public class NormalShopKeeper extends NewShopKeeper {
     public ArrayList<Item> generateItems() {
         int type = Random.Int(3);
         ArrayList<Item> itemsToSpawn = new ArrayList<>();
-        if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)){
-            switch (type) {
-                case 0: {
-                    itemsToSpawn.add(new PotionOfHealing());
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    break;
-                }
-                case 1: {
-                    itemsToSpawn.add(new ScrollOfUpgrade());
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SCROLL));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.SCROLL));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    break;
-                }
-                case 2: {
-                    itemsToSpawn.add(new PotionOfStrength());
-                    itemsToSpawn.add(new StoneOfBlast());
-                    itemsToSpawn.add(new Bomb());
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    break;
-                }
-                case 3: {
-                    itemsToSpawn.add(new Sungrass.Seed());
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.BOMB));
-                    break;
-                }
-            }
-        } else if (Dungeon.depth < 16) {
+        if(Dungeon.depth==7 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+            itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.SCROLL)));
+            itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.SCROLL)));
+            itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.SCROLL)));
+            itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.SCROLL)));
+            itemsToSpawn.add(Random.oneOf(Generator.random(Generator.Category.SCROLL)));
+        } else
+        if (Dungeon.depth < 16) {
             switch (type) {
                 case 0: {
                     itemsToSpawn.add(new PotionOfHealing());
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.FOOD));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.STONE));
-                    itemsToSpawn.add(Random.oneOf(new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(),new Stylus(),new Stylus(),new Stylus(),new Stylus(),new Stylus(), new CorpseDust(), new ArcaneResin(), new CeremonialCandle()));
+                    itemsToSpawn.add(Random.oneOf(new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new Stylus(), new CorpseDust(), new ArcaneResin(), new CeremonialCandle()));
                     itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.RING).upgrade(Random.IntRange(0, 1)).identify());
                     break;
                 }
@@ -163,6 +145,26 @@ public class NormalShopKeeper extends NewShopKeeper {
                 }
             }
         }
-            return itemsToSpawn;
+        return itemsToSpawn;
     }
+
+    @Override
+    public boolean interact(Char c) {
+        if (c == Dungeon.hero) {
+            Game.runOnRenderThread(new Callback() {
+                @Override
+                public void call() {
+                    GameScene.show(new WndDialogueWithPic(sprite(), "Shopkeeper",
+                            new String[]{
+                                    Messages.get(NormalShopKeeper.class, "line1"),
+                                    Messages.get(NormalShopKeeper.class, "line2"),
+                                    Messages.get(NormalShopKeeper.class, "line3"),
+                            }
+                    ));
+                }
+            });
+        }
+        return true;
+    }
+
 }

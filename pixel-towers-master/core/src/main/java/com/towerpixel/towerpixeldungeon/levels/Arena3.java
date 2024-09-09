@@ -3,6 +3,7 @@ package com.towerpixel.towerpixeldungeon.levels;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.effects.Ripple;
 import com.towerpixel.towerpixeldungeon.items.Generator;
@@ -19,14 +20,17 @@ import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.BossRatKingSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
@@ -45,7 +49,7 @@ public class Arena3 extends Arena {
         WIDTH = 51;
         HEIGHT = 81;
 
-        startGold = 200;
+        startGold = 400;
         startLvl = 3;
 
         maxWaves = 15;
@@ -288,6 +292,26 @@ public class Arena3 extends Arena {
         this.map[amuletCell] = Terrain.PEDESTAL;
 
         return true;
+    }
+
+    @Override
+    public void doStuffStartwave(int wave) {
+        super.doStuffStartwave(wave);
+        if (wave == 1){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l3w1start1"),
+                            Messages.get(RatKing.class, "l3w1start2"),
+                            Messages.get(RatKing.class, "l3w1start3"),
+                            Messages.get(RatKing.class, "l3w1start4"),
+                            Messages.get(RatKing.class, "l3w1start5"),
+                            Messages.get(RatKing.class, "l3w1start6")
+
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                    });
+        }
     }
 
     @Override

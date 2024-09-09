@@ -41,7 +41,7 @@ public class Scorpio extends Mob {
 		spriteClass = ScorpioSprite.class;
 		
 		HP = HT = 110;
-		defenseSkill = 24;
+		defenseSkill = 20;
 		viewDistance = 3;
 		
 		EXP = 14;
@@ -55,12 +55,12 @@ public class Scorpio extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 30, 40 );
+		return Random.NormalIntRange( 17, 24 );
 	}
 	
 	@Override
 	public int attackSkill( Char target ) {
-		return 36;
+		return 20;
 	}
 	
 	@Override

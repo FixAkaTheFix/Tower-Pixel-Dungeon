@@ -83,7 +83,7 @@ public class Eye extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(3, 7);
+		return super.drRoll();
 	}
 	
 	private Ballistica beam;
@@ -167,7 +167,7 @@ public class Eye extends Mob {
 			return;
 
 		beamCharged = false;
-		beamCooldown = Random.IntRange(4, 6);
+		beamCooldown = Random.IntRange(10, 16);
 
 		boolean terrainAffected = false;
 

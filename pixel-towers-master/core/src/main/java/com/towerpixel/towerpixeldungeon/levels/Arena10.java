@@ -12,6 +12,8 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bandit;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossTengu;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Shinobi;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlameParticle;
@@ -23,15 +25,21 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.levels.traps.GrimTrap;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.TenguSprite;
+import com.towerpixel.towerpixeldungeon.sprites.YogSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Halo;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
@@ -120,6 +128,18 @@ public class Arena10 extends Arena{
                 GameScene.add(shinobi1);
                 level.occupyCell(shinobi1);
             }
+        }
+    }
+
+    @Override
+    public void initNpcs() {
+        super.initNpcs();
+
+        if( mode == WndModes.Modes.CHALLENGE )for (int x = 1; x < 4; x++) for (int y = 6; y< 15; y++){
+            TowerGuard1 towerGuard1 = new TowerGuard1();
+            towerGuard1.sellable = false;
+            towerGuard1.pos = x + WIDTH*y;
+            GameScene.add(towerGuard1);
         }
     }
 
@@ -250,6 +270,7 @@ public class Arena10 extends Arena{
     }
 
 
+
     @Override
     public void endWave() {
         for (Heap heap: Dungeon.level.heaps.valueList()) {
@@ -317,7 +338,24 @@ public class Arena10 extends Arena{
     }
     @Override
     public void doStuffStartwave(int wave) {
+
         super.doStuffStartwave(wave);
+
+        if (wave==20) {
+            TenguSprite sprite = new TenguSprite();
+
+            sprite.rm = sprite.bm = sprite.gm = 0;
+            sprite.update();
+
+            WndDialogueWithPic.dialogue(sprite, "???",
+                    new String[]{
+                            Messages.get(RatKing.class, "l10w20start1"),
+                            Messages.get(RatKing.class, "l10w20start2")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
     }
 
 

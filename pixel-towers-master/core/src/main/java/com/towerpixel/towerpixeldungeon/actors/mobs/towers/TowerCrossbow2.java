@@ -8,13 +8,13 @@ public class TowerCrossbow2 extends TowerCrossbow1{
 
         viewDistance = 8;
 
-        baseAttackDelay = 0.7f;
+        baseAttackDelay = 0.65f;
 
         upgradeLevel = 8;
 
         cost = 450;
         upgrade1Cost = 550;
         damageMin = 3;
-        damageMax = 8;
+        damageMax = 7;
     }
 }

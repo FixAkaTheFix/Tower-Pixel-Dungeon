@@ -36,7 +36,7 @@ public class Bat extends Mob {
 		
 		HP = HT = 30;
 		defenseSkill = 8;
-		baseSpeed = 1.1f;
+		baseSpeed = 1f;
 
 		viewDistance = 12;
 		

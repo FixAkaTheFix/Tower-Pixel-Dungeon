@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.scenes;
 
+import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.effects.Flare;
 import com.towerpixel.towerpixeldungeon.ui.ExitButton;
@@ -34,6 +35,7 @@ import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.PointerArea;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.ui.Component;
 
 public class AboutScene extends PixelScene {
@@ -41,6 +43,11 @@ public class AboutScene extends PixelScene {
 	@Override
 	public void create() {
 		super.create();
+
+		Music.INSTANCE.playTracks(
+				new String[]{Assets.Music.GNOLL_GROTTO},
+				new float[]{1},
+				false);
 
 		final float colWidth = 120;
 		final float fullWidth = colWidth * (landscape() ? 2 : 1);
@@ -67,7 +74,7 @@ public class AboutScene extends PixelScene {
 		CreditsBlock fix = new CreditsBlock(true, 0xEEAA33,
 				"Pixel Towers (aka Towers-PD)",
 				Icons.TOWER.get(),
-				"Developed by: _FixAkaTheFix_\nFor TD lovers, by a TD enjoyer",
+				"Developed by: _FixAkaTheFix_\nBased on Evan's Shattered PD",
 				null,
 				null);
 		if (landscape()){
@@ -80,7 +87,7 @@ public class AboutScene extends PixelScene {
 		CreditsBlock addit = new CreditsBlock(false, 0x22DD33,
 				"Additional",
 				Icons.FIX.get(),
-				"\nAdditional music by: `Jivvy` (YAPD soundtrack), FixAkaTheFix (remixing and editing)\nAdditional spritework: _FixAkaTheFix_ (soon will include RavenWolf sprites)",
+				"\nAdditional music by: `Jivvy` (YAPD soundtrack)\nAdditional sprites & designs: _FixAkaTheFix_ (soon will include RavenWolf sprites)",
 				null,
 				null);
 		addit.setSize(colWidth, 0);

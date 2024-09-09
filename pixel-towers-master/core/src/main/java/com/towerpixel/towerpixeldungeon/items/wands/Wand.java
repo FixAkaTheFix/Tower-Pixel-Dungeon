@@ -552,7 +552,7 @@ public abstract class Wand extends Item {
 		}
 	}
 	
-	protected static CellSelector.Listener zapper = new  CellSelector.Listener() {
+	public static CellSelector.Listener zapper = new  CellSelector.Listener() {
 		
 		@Override
 		public void onSelect( Integer target ) {

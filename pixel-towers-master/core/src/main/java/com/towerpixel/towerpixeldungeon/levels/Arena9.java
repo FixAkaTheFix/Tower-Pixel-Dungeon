@@ -3,8 +3,11 @@ package com.towerpixel.towerpixeldungeon.levels;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow2;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave2;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlameParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
@@ -20,7 +23,9 @@ import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.NecromancerSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Halo;
 import com.watabou.noosa.audio.Music;
@@ -170,10 +175,16 @@ public class Arena9 extends Arena{
 
     @Override
     public void initNpcs() {
-        TowerCrossbow2 tower = new TowerCrossbow2();
-        tower.pos = amuletCell-2*WIDTH;
-        GameScene.add(tower);
         super.initNpcs();
+
+        TowerGrave1 tower = new TowerGrave1();
+        tower.pos = amuletCell+1;
+        GameScene.add(tower);
+
+        TowerGrave1 tower2 = new TowerGrave1();
+        tower2.pos = amuletCell-1;
+        GameScene.add(tower2);
+
     }
 
     @Override
@@ -274,26 +285,26 @@ public class Arena9 extends Arena{
         @Override
         public  ArrayList<Item> generateItems() {
             ArrayList<Item> itemsToSpawn = new ArrayList<>();
-            if (Dungeon.isChallenged(Challenges.BOMBARDA_MAXIMA)) {
-                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
-                    itemsToSpawn.add(new ScrollOfUpgrade());
-                    itemsToSpawn.add(new PotionOfStrength());
-                    itemsToSpawn.add(Generator.random(Generator.Category.BOMB));
-                } else {
-                    itemsToSpawn.add(new SpawnerGrave());
-                    itemsToSpawn.add(new SpawnerGrave());
-                    itemsToSpawn.add(new SpawnerWall());
-                }
+            if (mode == WndModes.Modes.CHALLENGE) {
+                itemsToSpawn.add(new SpawnerGrave());
+                itemsToSpawn.add(new SpawnerGrave());
+                itemsToSpawn.add(new SpawnerGrave());
+                itemsToSpawn.add(new SpawnerGrave());
             } else {
-                if (Dungeon.isChallenged(Challenges.HEROIC_BATTLE)) {
-                    itemsToSpawn.add(new ScrollOfUpgrade());
-                    itemsToSpawn.add(new PotionOfStrength());
-                    itemsToSpawn.add(Generator.random(Generator.Category.POTION));
-                } else {
-                    itemsToSpawn.add(new SpawnerGrave());
-                    itemsToSpawn.add(new SpawnerGrave());
-                    itemsToSpawn.add(new SpawnerWall());
-                }
+                itemsToSpawn.add(Random.oneOf(
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+                ));
+                itemsToSpawn.add(Random.oneOf(
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+                ));
+                itemsToSpawn.add(new SpawnerGrave());
+                itemsToSpawn.add(new SpawnerGrave());
             }
             return itemsToSpawn;
         }

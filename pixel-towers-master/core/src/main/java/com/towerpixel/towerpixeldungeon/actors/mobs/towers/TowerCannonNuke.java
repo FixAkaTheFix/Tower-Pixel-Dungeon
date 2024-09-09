@@ -1,5 +1,6 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 
+import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 import static com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave.throwChar;
 
 import com.towerpixel.towerpixeldungeon.Dungeon;
@@ -87,8 +88,8 @@ public class TowerCannonNuke extends TowerCShooting{
     }
 
     @Override
-    protected boolean canAttack( Char enemy ) {//does not attack close foes in melee
-        return super.canAttack(enemy) || new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
+    protected boolean canAttack( Char enemy ) {
+        return (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos|| level.distance(enemy.pos, this.pos)<=viewDistance);
     }
 
 }

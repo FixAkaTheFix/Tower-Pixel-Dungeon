@@ -31,6 +31,7 @@ import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
 import com.towerpixel.towerpixeldungeon.actors.blobs.StenchGas;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave1;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -41,8 +42,10 @@ import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.BossNecromancerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.SkeletonSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerGraveEliteSprite;
+import com.towerpixel.towerpixeldungeon.sprites.TowerGuard3Sprite;
 import com.towerpixel.towerpixeldungeon.ui.BossHealthBar;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -393,8 +396,16 @@ public class BossNecromancer extends Mob {
 
     @Override
     public void die(Object cause) {
-        GLog.n(Messages.get(this, "death"));
-        GLog.w(Messages.get(this, "deathhint"));
+        {
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+                    new String[]{
+                            Messages.get(BossNecromancer.class, "death1"),
+                            Messages.get(BossNecromancer.class, "death2"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    }, WndDialogueWithPic.WndType.FINAL);
+        }
         super.die(cause);
     }
 

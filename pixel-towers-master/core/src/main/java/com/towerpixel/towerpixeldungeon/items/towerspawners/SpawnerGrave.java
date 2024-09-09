@@ -22,16 +22,5 @@ public class SpawnerGrave extends TowerSpawner {
         return 50;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerGrave1 tower = new TowerGrave1();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
+
 }

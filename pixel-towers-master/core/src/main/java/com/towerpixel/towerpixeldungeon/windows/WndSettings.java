@@ -205,6 +205,8 @@ public class WndSettings extends WndTabbed {
 		RenderedTextBlock title;
 		ColorBlock sep1;
 		CheckBox chkFullscreen;
+		CheckBox chkStatusNumbersOn;
+		CheckBox chkFasterAnimations;
 		OptionSlider optScale;
 		CheckBox chkSaver;
 		RedButton btnOrientation;
@@ -236,6 +238,28 @@ public class WndSettings extends WndTabbed {
 				chkFullscreen.enable(false);
 			}
 			add(chkFullscreen);
+			chkStatusNumbersOn = new CheckBox( Messages.get(this, "statusnumbers") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.damageNumbersOn(checked());
+				}
+			};
+			chkStatusNumbersOn.checked(SPDSettings.damageNumbersOn());
+
+
+			add(chkStatusNumbersOn);
+			chkFasterAnimations = new CheckBox( Messages.get(this, "fasteranimations") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.fasterAnimations(checked());
+				}
+			};
+			chkFasterAnimations.checked(SPDSettings.fasterAnimations());
+
+
+			add(chkFasterAnimations);
 
 			if (DeviceCompat.isAndroid() && PixelScene.maxScreenZoom >= 2) {
 				chkSaver = new CheckBox(Messages.get(this, "saver")) {
@@ -336,6 +360,10 @@ public class WndSettings extends WndTabbed {
 			} else {
 				chkFullscreen.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkFullscreen.bottom();
+				chkStatusNumbersOn.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkStatusNumbersOn.bottom();
+				chkFasterAnimations.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkFasterAnimations.bottom();
 
 				if (chkSaver != null) {
 					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);

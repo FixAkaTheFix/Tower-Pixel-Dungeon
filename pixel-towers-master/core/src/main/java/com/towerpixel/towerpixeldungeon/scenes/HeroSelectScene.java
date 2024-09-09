@@ -208,7 +208,7 @@ public class HeroSelectScene extends PixelScene {
 		updateOptionsColor();
 		btnOptions.visible = false;
 
-		if (DeviceCompat.isDebug() || true){ // Badges.isUnlocked(Badges.Badge.VICTORY)){
+		if (false){ // Badges.isUnlocked(Badges.Badge.VICTORY)){
 			add(btnOptions);
 		} else {
 			Dungeon.challenges = 0;

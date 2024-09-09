@@ -30,11 +30,13 @@ import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.armor.Armor;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.TowerSpawner;
 import com.towerpixel.towerpixeldungeon.journal.Notes;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.towerpixel.towerpixeldungeon.windows.WndBag;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.towerpixel.towerpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Callback;
@@ -114,6 +116,7 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
+		if (Dungeon.depth==10 && Dungeon.level.mode == WndModes.Modes.CHALLENGE && item instanceof TowerSpawner) return item.value() * 10;
 		return item.value() * 5;
 	}
 	

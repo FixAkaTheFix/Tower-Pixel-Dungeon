@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.windows;
 
+import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
@@ -45,7 +46,7 @@ public class WndGameInProgress extends Window {
 	
 	private static final int WIDTH    = 120;
 	
-	private int GAP	  = 6;
+	private int GAP	= 6;
 	
 	private float pos;
 	
@@ -63,6 +64,15 @@ public class WndGameInProgress extends Window {
 		IconTitle title = new IconTitle();
 		title.icon( HeroSprite.avatar(info.heroClass, info.armorTier) );
 		title.label((Messages.get(this, "title", info.level, className)).toUpperCase(Locale.ENGLISH));
+
+		if (info.mode==null) info.mode = WndModes.Modes.NORMAL;
+		switch (info.mode){
+			case NORMAL: default: title.color(Window.TITLE_COLOR);break;
+			case CHALLENGE: title.color(0xDD0000);break;
+			case HARDMODE: title.color(0x99EEFF);break;
+		}
+
+
 		title.color(Window.TITLE_COLOR);
 		title.setRect( 0, 0, WIDTH, 0 );
 		add(title);
@@ -111,8 +121,15 @@ public class WndGameInProgress extends Window {
 		}
 		
 		pos += GAP;
+
+		Chrome.Type type = Chrome.Type.RED_BUTTON;
+		switch (info.mode){
+			case NORMAL: default: type = Chrome.Type.RED_BUTTON;;break;
+			case CHALLENGE: type = Chrome.Type.YELLOW_BUTTON;break;
+			case HARDMODE: type = Chrome.Type.GREY_BUTTON;break;
+		}
 		
-		RedButton cont = new RedButton(Messages.get(this, "continue")){
+		RedButton cont = new RedButton(Messages.get(this, "continue"), 9,  type){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -127,7 +144,7 @@ public class WndGameInProgress extends Window {
 			}
 		};
 		
-		RedButton erase = new RedButton( Messages.get(this, "erase")){
+		RedButton erase = new RedButton( Messages.get(this, "erase"),9,type){
 			@Override
 			protected void onClick() {
 				super.onClick();

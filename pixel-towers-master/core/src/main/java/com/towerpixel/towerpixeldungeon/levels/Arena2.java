@@ -2,6 +2,14 @@ package com.towerpixel.towerpixeldungeon.levels;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.effects.Ripple;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Honeypot;
@@ -27,13 +35,17 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.levels.traps.BurningTrap;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.BossRatKingSprite;
+import com.towerpixel.towerpixeldungeon.sprites.RatKingSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
@@ -51,7 +63,7 @@ public class Arena2 extends Arena{
         WIDTH = 101;
         HEIGHT = 101;
 
-        startGold = 400;
+        startGold = 1100;
         startLvl = 3;
 
         maxWaves = 20;
@@ -74,11 +86,107 @@ public class Arena2 extends Arena{
     }
 
     @Override
+    public void doStuffStartwave(int wave) {
+        if (wave == 1){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w1start1"),
+                            Messages.get(RatKing.class, "l2w1start2"),
+                            Messages.get(RatKing.class, "l2w1start3"),
+                            Messages.get(RatKing.class, "l2w1start4"),
+                            Messages.get(RatKing.class, "l2w1start5"),
+                            Messages.get(RatKing.class, "l2w1start6")
+
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave==5){
+
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w5start1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave==10){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w10start1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave == 12){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w12start1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+
+        if (wave==15){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w15start1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave==20){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w20start1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+
+        super.doStuffStartwave(wave);
+    }
+
+    @Override
     public void doStuffEndwave(int wave) {
         int goldAdd = 70 + wave;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
+        if (wave==4){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w4end1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave==12){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king, disappointed",
+                    new String[]{
+                            Messages.get(RatKing.class, "l2w12end1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN
+                    });
+        }
+    }
+
+    @Override
+    public void affectMob(Mob mob) {
+        if (mob instanceof Rat) Buff.affect(mob, Invisibility.class, 300);
     }
 
 
@@ -88,36 +196,28 @@ public class Arena2 extends Arena{
         setSize(WIDTH,HEIGHT);
         //base room
         Painter.fill(this, 6,6,91,91, Terrain.WALL);
-        //Painter.fill(this, 1,1,45,48, Terrain.HEROBARRIER);
+
 
         Painter.fill(this, 7,7,89,89, Terrain.EMPTY);
         Painter.fill(this, 8,8,87,87, Terrain.WATER);
         Painter.fill(this,9,9,85,85, Terrain.EMPTY);
         Painter.fill(this, 10,10,83,83, Terrain.WALL);
-        Painter.fill(this,11,11,81,81, Terrain.EMPTY);
-        Painter.fill(this, 12,12,79,79, Terrain.WATER);
-        Painter.fill(this,13,13,77,77, Terrain.EMPTY);
-        Painter.fill(this, 14,14,75,75, Terrain.WALL);
+
         Painter.fill(this,15,15,73,73, Terrain.EMPTY);
-        Painter.fill(this, 16,16,71,71, Terrain.WALL);
+        Painter.fill(this, 16,16,71,71, Terrain.WATER);
         Painter.fill(this,17,17,69,69, Terrain.EMPTY);
         Painter.fill(this, 18,18,67,67, Terrain.WALL);
-        Painter.fill(this,19,19,65,65, Terrain.EMPTY);
-        Painter.fill(this, 20,20,63,63, Terrain.WATER);
-        Painter.fill(this,21,21,61,61, Terrain.EMPTY);
-        Painter.fill(this, 22,22,59,59, Terrain.WALL);
+
         Painter.fill(this,23,23,57,57, Terrain.EMPTY_SP);
         Painter.fill(this, 26,26, 51,51, Terrain.WALL);
         Painter.fill(this,27,27,49,49, Terrain.EMPTY);
         Painter.fill(this, 28,28,47,47, Terrain.WALL);
-        Painter.fill(this,29,29,45,45, Terrain.EMPTY);
-        Painter.fill(this, 30,30,43,43, Terrain.WATER);
-        Painter.fill(this,31,31,41,41, Terrain.EMPTY);
-        Painter.fill(this, 32,32,39,39, Terrain.WALL);
+
         Painter.fill(this,33,33,37,37, Terrain.EMPTY);
         Painter.fill(this, 34,34,35,35, Terrain.WATER);
         Painter.fill(this,35,35,33,33, Terrain.EMPTY);
         Painter.fill(this, 36,36,31,31, Terrain.WALL);
+
         Painter.fill(this,37,37,29,29, Terrain.EMPTY);
         Painter.fill(this, 38,38,27,27, Terrain.WATER);
         Painter.fill(this,39,39,25,25, Terrain.EMPTY);
@@ -467,9 +567,28 @@ public class Arena2 extends Arena{
     }
 
     public void deployMobs(int wave) {
-        switch (wave%4){
-            case 0: case 1:deploymobs(wave, Direction.TOORIGHT, 1); break;
-            case 2: case 3:deploymobs(wave, Direction.TOOLEFT, 1); break;
+        switch (wave){
+            case 2: case 4:case 8:case 9:case 11:case 14:case 17:case 18:{
+                deploymobs(wave, Direction.TOORIGHT, 1); break;
+            }
+            case 12:{
+                for (int i : PathFinder.NEIGHBOURS9) GameScene.add(Blob.seed(51+WIDTH*58 + i, 10, Fire.class));
+                for (int i : PathFinder.NEIGHBOURS9) GameScene.add(Blob.seed(51+WIDTH*61 + i, 10, Fire.class));
+
+                destroy(50 + WIDTH*57);
+                destroy(51 + WIDTH*57);
+                destroy(52 + WIDTH*57);
+
+
+                for (int i=0;i<20;i++){
+                    Rat rat = new Rat();
+                    rat.pos = 51 + WIDTH*62;
+                    GameScene.add(rat);
+
+                }
+                break;
+            }
+            default: deploymobs(wave, Direction.TOOLEFT, 1);
         }
     }
 

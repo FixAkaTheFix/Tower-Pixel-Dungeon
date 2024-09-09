@@ -56,6 +56,7 @@ public class ChiefRat extends Rat {
 
             if (!candidates.isEmpty()) {
                 Rat spawn = new Rat();
+                spawn.alignment = this.alignment;
 
                 spawn.pos = Random.element(candidates);
                 spawn.state = spawn.HUNTING;

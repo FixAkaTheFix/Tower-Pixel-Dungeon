@@ -10,7 +10,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public abstract class TowerCSpawning extends Tower{
+public abstract class TowerCSpawning extends TowerNotliving{
 
     {
         properties.add(Property.IMMOVABLE);
@@ -31,6 +31,23 @@ public abstract class TowerCSpawning extends Tower{
         info.append(Messages.get(this, "stats", HT , maxMinions, minionCooldown, minionHP, minionDamageMin, minionDamageMax, minionAttackSkill*10, minionDefenseSkill*20, minionDR, minionCount, maxMinions, minionCooldownLeft));
         info.append(Messages.get(this, "descstats"));
         return info.toString();
+    }
+
+    public String infoWithoutCurrent() {
+        StringBuilder info = new StringBuilder();
+        info.append(info());
+        info.delete(info.indexOf("Current number of"), info.indexOf("Turns to next spawn attempt:") + "Turns to next spawn attempt:".length() + Integer.toString(minionCooldownLeft).length()+4);
+        return info.toString();
+    }
+
+    @Override
+    protected boolean getCloser(int target) {
+        return true;
+    }
+
+    @Override
+    protected boolean getFurther(int target) {
+        return true;
     }
     @Override
     protected boolean canAttack(Char enemy) {

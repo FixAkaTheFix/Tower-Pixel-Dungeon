@@ -24,6 +24,8 @@ package com.towerpixel.towerpixeldungeon;
 import com.towerpixel.towerpixeldungeon.messages.Languages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.scenes.PixelScene;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -35,23 +37,107 @@ import java.util.Locale;
 
 public class SPDSettings extends GameSettings {
 
-	//MISC
+	//INTERNAL, DO NOT MODIFY
 
 	private static final String STYLE		= "style";
-	private static final String MAXLEVELUNLOCKED = "maxlevelunlocked";
-	private static final String CHOSENLEVEL		= "chosenlevel";
-
-
-
-
 	public static void style(String value) {put (STYLE , value);}
 	public static String style() {return getString( STYLE, "normal");}
+	private static final String MAXLEVELUNLOCKED = "maxlevelunlockednormalmode";
 
 	public static void maxlevelunlocked(int value) {
 		put (MAXLEVELUNLOCKED, value);
 	}
 	public static int maxlevelunlocked() {
 		return getInt(MAXLEVELUNLOCKED, 1);
+	}
+
+	private static final String MAXLEVELUNLOCKEDHARDMODE = "maxlevelunlockedhardmode";
+
+	public static void maxlevelunlockedHardmode(int value) {
+		put (MAXLEVELUNLOCKEDHARDMODE, value);
+	}
+	public static int maxlevelunlockedHardmode() {
+		return getInt(MAXLEVELUNLOCKEDHARDMODE, 1);
+	}
+
+	private static final String MAXLEVELUNLOCKEDCHALMODE = "maxlevelunlockedchalmode";
+
+	public static void maxlevelunlockedChalmode(int value) {
+		put (MAXLEVELUNLOCKEDCHALMODE, value);
+	}
+	public static int maxlevelunlockedChalmode() {
+		return getInt(MAXLEVELUNLOCKEDCHALMODE, 1);
+	}
+
+
+
+	private static final String CHOSENMODE		= "chosenmode";
+
+	public static void mode(WndModes.Modes mode) {
+		switch (mode){
+			case NORMAL: put(CHOSENMODE, 1);break;
+			case HARDMODE: put( CHOSENMODE, 2);break;
+			case CHALLENGE: put(CHOSENMODE, 3);break;
+		}
+	}
+	public static WndModes.Modes mode(){
+		switch (getInt(CHOSENMODE,1)){
+			case 1: default: return  WndModes.Modes.NORMAL;
+			case 2: return WndModes.Modes.HARDMODE;
+			case 3: return WndModes.Modes.CHALLENGE;
+		}
+	}
+
+
+
+
+
+
+
+	private static final String TOWERSLOT1		= "towerslot1";
+	private static final String TOWERSLOT2		= "towerslot2";
+	private static final String TOWERSLOT3		= "towerslot3";
+	private static final String TOWERSLOT4		= "towerslot4";
+	public static void towerslot1(TowerInfo.AllTowers tower) {
+		put(TOWERSLOT1, TowerInfo.getTowerIndex(tower));
+	}
+	public static void towerslot2(TowerInfo.AllTowers tower) {
+		put(TOWERSLOT2, TowerInfo.getTowerIndex(tower));
+	}
+	public static void towerslot3(TowerInfo.AllTowers tower) {
+		put(TOWERSLOT3, TowerInfo.getTowerIndex(tower));
+	}
+	public static void towerslot4(TowerInfo.AllTowers tower) {
+		put(TOWERSLOT4, TowerInfo.getTowerIndex(tower));
+	}
+	public static TowerInfo.AllTowers towerslot1() {
+		return TowerInfo.getTowerByIndex(getInt(TOWERSLOT1, 302));
+	}
+	public static TowerInfo.AllTowers towerslot2() {
+		return TowerInfo.getTowerByIndex(getInt(TOWERSLOT2, 303));
+	}
+	public static TowerInfo.AllTowers towerslot3() {
+		return TowerInfo.getTowerByIndex(getInt(TOWERSLOT3, 306));
+	}
+	public static TowerInfo.AllTowers towerslot4() {
+		return TowerInfo.getTowerByIndex(getInt(TOWERSLOT4, 306));
+	}
+
+	//Misc
+	private static final String DAMAGENUMBERSON		= "damagenumberson";
+	public static void damageNumbersOn(Boolean value){
+		put(DAMAGENUMBERSON, value);
+	}
+	public static boolean damageNumbersOn(){
+		return getBoolean(DAMAGENUMBERSON, true);
+	}
+
+	private static final String FASTERATTACKANIMATIONS	= "fasterattackanimations";
+	public static void fasterAnimations(Boolean value){
+		put(FASTERATTACKANIMATIONS, value);
+	}
+	public static boolean fasterAnimations() {
+		return getBoolean(FASTERATTACKANIMATIONS, false);
 	}
 
 	//Version info

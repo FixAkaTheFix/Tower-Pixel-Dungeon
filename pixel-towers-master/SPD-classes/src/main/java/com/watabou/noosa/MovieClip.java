@@ -109,9 +109,14 @@ public class MovieClip extends Image {
 		frameTimer = 0;
 
 		if (curAnim != null) {
-			if (!curAnim.looped) setAnimationSpeed(0.5f);
+			if (!curAnim.looped){
+				setAnimationSpeed(0.45f);
+			}
 			else setAnimationSpeed(1f);
+
 		}
+
+
 
 		if (anim != null) {
 			frame( anim.frames[curFrame] );
@@ -124,6 +129,8 @@ public class MovieClip extends Image {
 		public float delay;
 		public RectF[] frames;
 		public boolean looped;
+
+		public boolean fast = false;
 		
 		public Animation( int fps, boolean looped ) {
 			this.delay = 1f / fps;

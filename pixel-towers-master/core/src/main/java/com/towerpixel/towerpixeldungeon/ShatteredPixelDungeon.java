@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon;
 
+import com.towerpixel.towerpixeldungeon.scenes.EnteringScene;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.scenes.PixelScene;
 import com.towerpixel.towerpixeldungeon.scenes.TitleScene;
@@ -42,7 +43,7 @@ public class ShatteredPixelDungeon extends Game {
 	public static final int v2_0_0  = 684;
 	
 	public ShatteredPixelDungeon( PlatformSupport platform ) {
-		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
+		super( sceneClass == null ? EnteringScene.class : sceneClass, platform );
 
 		//pre-v1.3.0
 		com.watabou.utils.Bundle.addAlias(

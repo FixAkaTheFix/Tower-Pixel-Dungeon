@@ -24,6 +24,7 @@ package com.towerpixel.towerpixeldungeon.levels;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
@@ -80,8 +81,10 @@ import com.towerpixel.towerpixeldungeon.plants.Swiftthistle;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.tiles.CustomTilemap;
+import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -117,7 +120,7 @@ public abstract class Level implements Bundlable {
 	protected int width;
 	protected int height;
 	protected int length;
-	
+	public WndModes.Modes mode;
 	protected static final float TIME_TO_RESPAWN	= 50;
 
 	public int wave = 0;
@@ -173,6 +176,7 @@ public abstract class Level implements Bundlable {
 	public int color2 = 0x88CC44;
 
 	private static final String VERSION     = "version";
+	private static final String LEVELMODE		= "levelmode";
 	private static final String WIDTH       = "width";
 	private static final String HEIGHT      = "height";
 	private static final String MAP			= "map";
@@ -189,11 +193,27 @@ public abstract class Level implements Bundlable {
 	private static final String BLOBS		= "blobs";
 	private static final String FEELING		= "feeling";
 
+	public TowerInfo.AllTowers slot1 = TowerInfo.AllTowers.WALL;
+	public TowerInfo.AllTowers slot2 = TowerInfo.AllTowers.WALL;
+	public TowerInfo.AllTowers slot3 = TowerInfo.AllTowers.WALL;
+	public TowerInfo.AllTowers slot4 = TowerInfo.AllTowers.WALL;
+
+	private static final String SLOT1	= "slot1";
+	private static final String SLOT2	= "slot2";
+	private static final String SLOT3	= "slot3";
+	private static final String SLOT4	= "slot4";
+
 	public void initNpcs(){
 	}
 
 	public void create() {
 		Random.pushGenerator( Dungeon.seedCurDepth() );
+
+		mode = SPDSettings.mode();
+		slot1 = SPDSettings.towerslot1();
+		slot2 = SPDSettings.towerslot2();
+		slot3 = SPDSettings.towerslot3();
+		slot4 = SPDSettings.towerslot4();
 		
 		if (!(Dungeon.bossLevel())) {
 
@@ -401,6 +421,18 @@ public abstract class Level implements Bundlable {
 			respawner = (Respawner) bundle.get("respawner");
 		}
 
+		switch (bundle.getInt(LEVELMODE)){
+			case 1: default: mode = WndModes.Modes.NORMAL; break;
+			case 2: mode = WndModes.Modes.HARDMODE; break;
+			case 3: mode = WndModes.Modes.CHALLENGE; break;
+		}
+
+		slot1 = TowerInfo.getTowerByIndex(bundle.getInt(SLOT1));
+		slot2 = TowerInfo.getTowerByIndex(bundle.getInt(SLOT2));
+		slot3 = TowerInfo.getTowerByIndex(bundle.getInt(SLOT3));
+		slot4 = TowerInfo.getTowerByIndex(bundle.getInt(SLOT4));
+
+
 		buildFlagMaps();
 		cleanWalls();
 
@@ -426,6 +458,16 @@ public abstract class Level implements Bundlable {
 		bundle.put( FEELING, feeling );
 		bundle.put( "mobs_to_spawn", mobsToSpawn.toArray(new Class[0]));
 		bundle.put( "respawner", respawner );
+
+		switch (mode){
+			case NORMAL:    bundle.put(LEVELMODE, 1);break;
+			case HARDMODE:  bundle.put(LEVELMODE, 2);break;
+			case CHALLENGE: bundle.put(LEVELMODE, 3);break;
+		}
+		bundle.put(SLOT1, TowerInfo.getTowerIndex(slot1));
+		bundle.put(SLOT2, TowerInfo.getTowerIndex(slot2));
+		bundle.put(SLOT3, TowerInfo.getTowerIndex(slot3));
+		bundle.put(SLOT4, TowerInfo.getTowerIndex(slot4));
 	}
 	
 	public int tunnelTile() {

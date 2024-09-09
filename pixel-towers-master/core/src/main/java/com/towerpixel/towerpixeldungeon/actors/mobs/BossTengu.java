@@ -93,10 +93,10 @@ public class BossTengu extends Mob {
             Sample.INSTANCE.play(Assets.Sounds.GAS,1.3f, 0.5f);
             for (Mob mob : Dungeon.level.mobs){
                 if (mob instanceof Tower) {
-                    Buff.affect(mob, Blindness.class, 100);
+                    Buff.affect(mob, Blindness.class, 30);
                 }
             }
-            Buff.affect(Dungeon.hero, Blindness.class, 30);
+            Buff.affect(Dungeon.hero, Blindness.class, 20);
             for (int i : PathFinder.NEIGHBOURS25)
                 try {
                     if (Dungeon.level.passable[pos + i] && Actor.findChar(pos + i) == null) {

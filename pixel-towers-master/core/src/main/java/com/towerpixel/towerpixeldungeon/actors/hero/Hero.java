@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.actors.hero;
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
+import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
@@ -51,6 +52,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Combo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Drowsy;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Foresight;
+import com.towerpixel.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.HoldFast;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Hunger;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
@@ -244,8 +246,8 @@ public class Hero extends Char {
 	public Hero() {
 		super();
 
-		HP = HT = Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 100 : 20;
-		STR = STARTING_STR + (Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 2 : 0);
+		HP = HT = 20;
+		STR = STARTING_STR;
 		
 		belongings = new Belongings( this );
 		
@@ -256,7 +258,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HT = (40 + 10*(lvl-1))*(Dungeon.isChallenged(Challenges.HEROIC_BATTLE) ? 5 : 1) + HTBoost - (int)HTdrained;
+		HT = (40 + 10*(lvl-1)) + HTBoost - (int)HTdrained;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
 
@@ -1362,8 +1364,12 @@ public class Hero extends Char {
 	
 	@Override
 	public void damage( int dmg, Object src ) {
+		//for Hourglass invincibility
 		if (buff(TimekeepersHourglass.timeStasis.class) != null)
 			return;
+
+
+
 
 		//regular damage interrupt, triggers on any damage except specific mild DOT effects
 		// unless the player recently hit 'continue moving', in which case this is ignored
@@ -1774,7 +1780,7 @@ public class Hero extends Char {
 				}
 			}
 			
-			Item.updateQuickslot();
+			updateQuickslot();
 			
 			Badges.validateLevelReached();
 		}
@@ -2056,7 +2062,7 @@ public class Hero extends Char {
 				charger.partialCharge++;
 			}
 			BuffIndicator.refreshHero();
-			Item.updateQuickslot();
+			updateQuickslot();
 		}
 
 		curAction = null;
@@ -2333,4 +2339,6 @@ public class Hero extends Char {
 	public static interface Doom {
 		public void onDeath();
 	}
+
+
 }

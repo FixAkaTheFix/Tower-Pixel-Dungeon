@@ -4,6 +4,8 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.mobs.BossNecromancer;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
@@ -19,8 +21,10 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.levels.rooms.special.MassGraveRoom;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.BossNecromancerSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Halo;
 import com.watabou.noosa.audio.Music;
@@ -48,8 +52,8 @@ public class Arena8 extends Arena{
 
         maxWaves=20;
 
-        towerShopKeeper = new Arena8.TowerShopKeeperVertical();
-        normalShopKeeper = new Arena8.NormalShopKeeperVertical();
+        normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
+        towerShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
 
         amuletCell = 3 + WIDTH*40;
         exitCell = amuletCell;
@@ -225,6 +229,7 @@ public class Arena8 extends Arena{
         cleanWalls();
     }
 
+
     public class CursedNecroSword extends Sword{
         @Override
         public String name() {
@@ -250,6 +255,45 @@ public class Arena8 extends Arena{
     }
     @Override
     public void doStuffStartwave(int wave) {
+
+        if (wave == 1){
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+                    new String[]{
+                            Messages.get(BossNecromancer.class, "start1"),
+                            Messages.get(BossNecromancer.class, "start2"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
+
+        if (wave == 10){
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+                    new String[]{
+                            Messages.get(BossNecromancer.class, "mid1"),
+                            Messages.get(BossNecromancer.class, "mid1"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
+
+        if (wave == maxWaves){
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+                    new String[]{
+                            Messages.get(BossNecromancer.class, "engage1"),
+                            Messages.get(BossNecromancer.class, "engage2"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
+
+
+
+
+
+
         super.doStuffStartwave(wave);
     }
 
@@ -306,72 +350,6 @@ public class Arena8 extends Arena{
                 super.update();
             }
         }
-    }
-
-
-
-    public class NormalShopKeeperVertical extends NormalShopKeeper {
-
-        @Override
-        public void placeItems(){
-
-            ArrayList<Item> itemsToSpawn = generateItems();
-
-            int b = -Math.round(itemsToSpawn.size()*0.5f) + 1;
-
-            for (Item item : itemsToSpawn) {
-                level.drop( item, pos + 1 + WIDTH*b ).type = Heap.Type.FOR_SALE;//places stuff before the shopkeeper
-                CellEmitter.center(pos + 1 + WIDTH*b).burst(Speck.factory(Speck.COIN), 3);
-                b++;
-            }
-        }
-
-
-    }
-    public class TowerShopKeeperVertical extends TowerShopKeeper {
-
-        @Override
-        public void placeItems(){
-
-            ArrayList<Item> itemsToSpawn = generateItems();
-
-            int b = -Math.round(itemsToSpawn.size()*0.5f) + 1;
-
-            for (Item item : itemsToSpawn) {
-                level.drop( item, pos + 1 + WIDTH*b ).type = Heap.Type.FOR_SALE;//places before under the shopkeeper
-                CellEmitter.center(pos + 1 + WIDTH*b).burst(Speck.factory(Speck.COIN), 3);
-                b++;
-            }
-        }
-
-
-    }
-
-
-    private String WAVE = "wave";
-    private String SHOPKEEPER = "shopkeeper";
-    private String TOWERSHOPKEEPERPOS = "towershopkeeperpos";
-
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(WAVE, wave);
-        bundle.put(SHOPKEEPER,normalShopKeeper.pos);
-        bundle.put(TOWERSHOPKEEPERPOS,towerShopKeeper.pos);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        wave = bundle.getInt(WAVE);
-        normalShopKeeper = new Arena8.NormalShopKeeperVertical();
-        normalShopKeeper.pos = bundle.getInt(SHOPKEEPER);
-        GameScene.add(normalShopKeeper);
-        towerShopKeeper = new Arena8.TowerShopKeeperVertical();
-        towerShopKeeper.pos = bundle.getInt(TOWERSHOPKEEPERPOS);
-        GameScene.add(towerShopKeeper);
-
     }
 
 

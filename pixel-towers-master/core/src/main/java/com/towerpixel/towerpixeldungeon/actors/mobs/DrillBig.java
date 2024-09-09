@@ -30,6 +30,7 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.WaveBuff;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.BlastParticle;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave;
@@ -38,6 +39,7 @@ import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.DrillBigSprite;
+import com.towerpixel.towerpixeldungeon.sprites.TowerGuard1Sprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -85,6 +87,7 @@ public class DrillBig extends Mob {
             if (Char.findChar(x+Dungeon.level.width()*y)!= null && Char.findChar(x+Dungeon.level.width()*y)!= this){
                 Char ch = Char.findChar(x+Dungeon.level.width()*y);
                 ch.pos++;
+                if (ch instanceof TowerGuard1) ((TowerGuard1)ch).guardPos++;
                 ch.sprite.move(x+Dungeon.level.width()*y, x+Dungeon.level.width()*y+1);
                 Dungeon.level.occupyCell(ch);
             }

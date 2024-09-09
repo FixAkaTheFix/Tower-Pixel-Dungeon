@@ -23,7 +23,9 @@ package com.towerpixel.towerpixeldungeon.sprites;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.effects.DarkBlock;
 import com.towerpixel.towerpixeldungeon.effects.EmoIcon;
 import com.towerpixel.towerpixeldungeon.effects.Flare;
@@ -79,6 +81,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	
 	public static final float DEFAULT_MOVE_INTERVAL = 0.1f;
+	public static final float FASTER_MOVE_INTERVAL = 0.05f;
 	private static float moveInterval = DEFAULT_MOVE_INTERVAL;
 	private static final float FLASH_INTERVAL	= 0.05f;
 
@@ -98,11 +101,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private int stunStates = 0;
 	
 	public Animation idle;//was changed from protected
-	protected Animation run;
-	protected Animation attack;
+	public Animation run;
+	public Animation attack;
 	protected Animation operate;
 	protected Animation zap;
-	protected Animation die;
+	public Animation die;
 
 	protected Animation idle2;
 	protected Animation idle3;
@@ -149,7 +152,30 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void play(Animation anim) {
 		//Shouldn't interrupt the dieing animation
 		if (curAnim == null || curAnim != die) {//
-			super.play(anim);
+			if ((curAnim != null) && (curAnim == anim) && (curAnim.looped || !finished)) {
+				return;
+			}
+
+			curAnim = anim;
+			curFrame = 0;
+			finished = false;
+			frameTimer = 0;
+
+			if (curAnim != null) {
+				if (!curAnim.looped){
+					if (SPDSettings.fasterAnimations()){
+						setAnimationSpeed(0.2f);
+					} else setAnimationSpeed(0.35f);
+				}
+				else setAnimationSpeed(1f);
+
+			}
+
+
+
+			if (anim != null) {
+				frame( anim.frames[curFrame] );
+			}
 		}
 	}
 	
@@ -201,8 +227,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void place( int cell ) {
 		point( worldToCamera( cell ) );
 	}
-	
+
 	public void showStatus( int color, String text, Object... args ) {
+		if (SPDSettings.damageNumbersOn())
 		if (visible) {
 			if (args.length > 0) {
 				text = Messages.format( text, args );
@@ -227,7 +254,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 		play( run );
 		
-		motion = new PosTweener( this, worldToCamera( to ), moveInterval );
+		motion = new PosTweener( this, worldToCamera( to ),this instanceof RocketSprite ? FASTER_MOVE_INTERVAL : DEFAULT_MOVE_INTERVAL);
 		motion.listener = this;
 		parent.add( motion );
 
@@ -301,7 +328,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public void jump( int from, int to, Callback callback ) {
 		float distance = Math.max( 1f, Dungeon.level.trueDistance( from, to ));
-		jump( from, to, distance * 2, distance * 0.1f, callback );
+		jump( from, to, distance * 2, distance * 0.07f, callback );
 	}
 
 	public void jump( int from, int to, float height, float duration,  Callback callback ) {
@@ -317,9 +344,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void die() {
 		sleeping = false;
 		play( die );
-
 		hideEmo();
-		
 		if (health != null){
 			health.killAndErase();
 		}
@@ -383,7 +408,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (invisible != null) {
 					invisible.killAndErase();
 				}
-				invisible = new AlphaTweener( this, 0.4f, 0.4f );
+				invisible = new AlphaTweener( this, ch.alignment== Char.Alignment.ALLY ? 0.4f : 0f, 0.4f );
 				if (parent != null){
 					parent.add(invisible);
 				} else
@@ -749,7 +774,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	@Override
 	public synchronized void onComplete( Animation anim ) {
-		
+
+		if (ch!=null){
+
 		if (animCallback != null) {
 			Callback executing = animCallback;
 			animCallback = null;
@@ -757,7 +784,6 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		} else {
 			
 			if (anim == attack) {
-				
 				idle();
 				ch.onAttackComplete();
 				
@@ -768,6 +794,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				
 			}
 			
+		}
 		}
 	}
 

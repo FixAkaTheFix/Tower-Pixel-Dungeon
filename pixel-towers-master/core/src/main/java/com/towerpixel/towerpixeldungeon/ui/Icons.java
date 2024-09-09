@@ -40,6 +40,10 @@ public enum Icons {
 	PREFS,
 	SHPX,
 	TOWER,
+	GREYTOWER,
+	AMULET,
+	BLOODAMULET,
+	ETHERIALAMULET,
 
 	//rankings and hero select icons, spacing for 16x16
 	STAIRS,
@@ -67,6 +71,7 @@ public enum Icons {
 	RENAME_ON,
 	SEED,
 	LEFTARROW,
+	CROSS,
 	RIGHTARROW,
 	CALENDAR,
 
@@ -120,7 +125,37 @@ public enum Icons {
 	KRISTJAN,
 	CUBE_CODE,
 	PURIGRO,
-	ARCNOR;
+	ARCNOR,
+
+	//icons for towers
+	CROSSBOW,
+	MAGICMISSILE,
+	WALL,
+	LIGHTNING,
+	DISINTEGRATION,
+	GRAVE,
+	GUARD,
+	CANNON,
+	TOTEM,
+	DARTGUN,
+	TNTLOG,
+
+	REDLOCK,
+	GREENLOCK,
+	DUNGEON,
+	GREYLOCK,
+
+	CYANARROW,
+	MINER,
+	PYLON,
+
+	SLOT1,
+	SLOT2,
+	SLOT3,
+	SLOT4
+
+
+	;
 
 	public Image get() {
 		return get( this );
@@ -156,6 +191,18 @@ public enum Icons {
 				break;
 			case TOWER:
 				icon.frame( icon.texture.uvRectBySize( 138, 0, 16, 16 ) );
+				break;
+			case GREYTOWER:
+				icon.frame( icon.texture.uvRectBySize( 154, 0, 16, 16 ) );
+				break;
+			case AMULET:
+				icon.frame( icon.texture.uvRectBySize( 170, 0, 16, 16 ) );
+				break;
+			case BLOODAMULET:
+				icon.frame( icon.texture.uvRectBySize( 186, 0, 16, 16 ) );
+				break;
+			case ETHERIALAMULET:
+				icon.frame( icon.texture.uvRectBySize( 202, 0, 16, 16 ) );
 				break;
 
 			case STAIRS:
@@ -284,6 +331,9 @@ public enum Icons {
 			case ARROWREVERSE:
 				icon.frame( icon.texture.uvRectBySize( 224, 48, 11, 11 ) );
 				break;
+			case CROSS:
+				icon.frame( icon.texture.uvRectBySize( 240, 48, 11, 11) );
+				break;
 			case COIN_SML:
 				icon.frame( icon.texture.uvRectBySize( 192, 64, 7, 7 ) );
 				break;
@@ -387,6 +437,73 @@ public enum Icons {
 				icon.scale.set(PixelScene.align(0.49f));
 				break;
 
+			//icons for towers, upscaled
+			case CROSSBOW:
+				icon.frame( icon.texture.uvRectBySize( 0, 128, 16, 16 ) );
+				break;
+			case MAGICMISSILE:
+				icon.frame( icon.texture.uvRectBySize( 16, 128, 16, 16 ) );
+				break;
+			case WALL:
+				icon.frame( icon.texture.uvRectBySize( 32, 128, 16, 16 ) );
+				break;
+			case LIGHTNING:
+				icon.frame( icon.texture.uvRectBySize( 48, 128, 16, 16 ) );
+				break;
+			case DISINTEGRATION:
+				icon.frame( icon.texture.uvRectBySize( 64, 128, 16, 16 ) );
+				break;
+			case GRAVE:
+				icon.frame( icon.texture.uvRectBySize( 80, 128, 16, 16 ) );
+				break;
+			case GUARD:
+				icon.frame( icon.texture.uvRectBySize( 96, 128, 16, 16 ) );
+				break;
+			case CANNON:
+				icon.frame( icon.texture.uvRectBySize( 112, 128, 16, 16 ) );
+				break;
+			case DARTGUN:
+				icon.frame( icon.texture.uvRectBySize( 128, 128, 16, 16 ) );
+				break;
+			case TNTLOG:
+				icon.frame( icon.texture.uvRectBySize( 144, 128, 16, 16 ) );
+				break;
+			case TOTEM:
+				icon.frame( icon.texture.uvRectBySize( 160, 128, 16, 16 ) );
+				break;
+			case REDLOCK:
+				icon.frame( icon.texture.uvRectBySize( 176, 128, 16, 16 ) );
+				break;
+			case GREENLOCK:
+				icon.frame( icon.texture.uvRectBySize( 192, 128, 16, 16 ) );
+				break;
+			case DUNGEON:
+				icon.frame( icon.texture.uvRectBySize( 208, 128, 16, 16 ) );
+				break;
+			case GREYLOCK:
+				icon.frame( icon.texture.uvRectBySize( 224, 128, 16, 16 ) );
+				break;
+			case CYANARROW:
+				icon.frame( icon.texture.uvRectBySize( 240, 128, 16, 16 ) );
+				break;
+			case PYLON:
+				icon.frame( icon.texture.uvRectBySize( 16, 144, 16, 16 ) );
+				break;
+			case MINER:
+				icon.frame( icon.texture.uvRectBySize( 0, 144, 16, 16 ) );
+				break;
+			case SLOT1:
+				icon.frame( icon.texture.uvRectBySize( 192, 112, 16, 16 ) );
+				break;
+			case SLOT2:
+				icon.frame( icon.texture.uvRectBySize( 208, 112, 16, 16 ) );
+				break;
+			case SLOT3:
+				icon.frame( icon.texture.uvRectBySize( 224, 112, 16, 16 ) );
+				break;
+			case SLOT4:
+				icon.frame( icon.texture.uvRectBySize( 240, 112, 16, 16 ) );
+				break;
 		}
 		return icon;
 	}

@@ -24,6 +24,7 @@ package com.towerpixel.towerpixeldungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.HeroClass;
 import com.towerpixel.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
 
@@ -132,6 +133,8 @@ public class GamesInProgress {
 		info.depth = Dungeon.depth;
 		info.challenges = Dungeon.challenges;
 
+		info.mode = Dungeon.level.mode;
+
 		info.seed = Dungeon.seed;
 		info.customSeed = Dungeon.customSeedText;
 		info.daily = Dungeon.daily;
@@ -168,6 +171,8 @@ public class GamesInProgress {
 	
 	public static class Info {
 		public int slot;
+
+		public WndModes.Modes mode;
 		
 		public int depth;
 		public int version;

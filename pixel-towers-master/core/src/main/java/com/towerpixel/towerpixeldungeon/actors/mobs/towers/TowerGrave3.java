@@ -31,10 +31,10 @@ public class TowerGrave3 extends TowerCSpawning{
         spriteClass = TowerGrave3Sprite.class;
 
         maxMinions = 3;
-        minionCooldown = 50;
+        minionCooldown = 20;
         minionCooldownLeft = 1;
 
-        minionHP = 70;
+        minionHP = 35;
         minionDamageMax = 20;
         minionDamageMin = 10;
         minionAttackSkill = 10;

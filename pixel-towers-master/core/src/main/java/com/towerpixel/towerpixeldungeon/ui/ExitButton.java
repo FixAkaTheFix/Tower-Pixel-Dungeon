@@ -23,7 +23,9 @@ package com.towerpixel.towerpixeldungeon.ui;
 
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.LevelSelectScene;
 import com.towerpixel.towerpixeldungeon.scenes.TitleScene;
+import com.towerpixel.towerpixeldungeon.scenes.TowersSelectionScene;
 import com.towerpixel.towerpixeldungeon.windows.WndKeyBindings;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.Game;
@@ -41,6 +43,8 @@ public class ExitButton extends IconButton {
 	protected void onClick() {
 		if (Game.scene() instanceof TitleScene) {
 			Game.instance.finish();
+		} else if (Game.scene() instanceof TowersSelectionScene) {
+			ShatteredPixelDungeon.switchNoFade( LevelSelectScene.class );
 		} else {
 			ShatteredPixelDungeon.switchNoFade( TitleScene.class );
 		}

@@ -2,10 +2,12 @@ package com.towerpixel.towerpixeldungeon.sprites;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.effects.Lightning;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
 public class TowerCannon1Sprite extends MobSprite {
@@ -25,7 +27,7 @@ public class TowerCannon1Sprite extends MobSprite {
         run = idle.clone();
 
         attack = new MovieClip.Animation( 12, false );
-        attack.frames( frames, 4,5,6,7,8,9,10,11,12);
+        attack.frames( frames, 4,5,6,7,8,9,10);
 
         cast = attack.clone();
 
@@ -43,7 +45,9 @@ public class TowerCannon1Sprite extends MobSprite {
 
     @Override
     public void attack( int cell ) {
-        if (!Dungeon.level.adjacent(cell, ch.pos)) {
+
+
+        if (Dungeon.level.heroFOV[ch.pos] || Dungeon.level.heroFOV[cell]) {
 
             ((MissileSprite)parent.recycle( MissileSprite.class )).
                     reset( this, cell, new Bomb(), new Callback() {

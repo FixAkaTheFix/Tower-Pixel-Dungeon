@@ -45,6 +45,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Hunger;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.actors.buffs.MindVision;
 import com.towerpixel.towerpixeldungeon.actors.buffs.MonkEnergy;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Poison;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Preparation;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Sleep;
 import com.towerpixel.towerpixeldungeon.actors.buffs.SoulMark;
@@ -56,6 +57,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCWall;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandPrismatic;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
@@ -110,13 +112,14 @@ public abstract class Mob extends Char {
 
 	public int powerlevel;
 
-	protected enum TargetingPreference {
+	public enum TargetingPreference {
 		NORMAL,
 		NOT_WALLS,
 		NOT_HERO,
-		NOT_AMULET
+		NOT_AMULET,
+		ONLY_AMULET
 	}
-	protected TargetingPreference targetingPreference = TargetingPreference.NORMAL;
+	public TargetingPreference targetingPreference = TargetingPreference.NORMAL;
 
 	private static final String	TXT_DIED	= "You hear something died in the distance";
 
@@ -160,6 +163,7 @@ public abstract class Mob extends Char {
 	private static final String TP_NOAMULET	= "tp_noamulet";
 	private static final String TP_NOWALLS	= "tp_nowalls";
 	private static final String TP_NOHERO	= "tp_nohero";
+	private static final String TP_ONLYAMULET	= "tp_onlyamulet";
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 
@@ -185,6 +189,8 @@ public abstract class Mob extends Char {
 			bundle.put( TARGETING_PREFERENCE, TP_NOWALLS);
 		} else if (targetingPreference==TargetingPreference.NOT_HERO){
 			bundle.put( TARGETING_PREFERENCE, TP_NOHERO);
+		} else if (targetingPreference==TargetingPreference.ONLY_AMULET){
+			bundle.put( TARGETING_PREFERENCE, TP_ONLYAMULET);
 		}
 
 		bundle.put( TARGET, target );
@@ -221,6 +227,8 @@ public abstract class Mob extends Char {
 			targetingPreference = TargetingPreference.NOT_WALLS;
 		} else if (targetPref.equals( TP_NOHERO)){
 			targetingPreference = TargetingPreference.NOT_HERO;
+		} else if (targetPref.equals( TP_ONLYAMULET)){
+			targetingPreference = TargetingPreference.ONLY_AMULET;
 		}
 
 		enemySeen = bundle.getBoolean( SEEN );
@@ -327,6 +335,9 @@ public abstract class Mob extends Char {
 			//ADDED BY THEFIX We have an enemy but he is far out of our sight/ran away/teleported away
 		} else if (distance(enemy)>viewDistance+1) {
 			newEnemy = true;
+			//ADDED BY THEFIX  If the enemy is a dormant boss dwarf king
+		} else if (enemy instanceof BossDwarfKing && ((BossDwarfKing)enemy).battleMode==0) {
+			newEnemy = true;
 			//ADDED BY THEFIX We have an enemy but he is out of our reaching distance (used for ballistas and some ranged mobs, that cant aim at close enemies)
 		} else if (!canAttack(enemy)) {
 			newEnemy = true;
@@ -348,6 +359,10 @@ public abstract class Mob extends Char {
 		else if ((targetingPreference==TargetingPreference.NOT_HERO) && (enemy instanceof Hero)){
 			newEnemy = true;
 		}
+		//ADDED BY THEFIX if we are foes that target only the amulet:
+		else if ((targetingPreference==TargetingPreference.ONLY_AMULET) && !(enemy instanceof Arena.AmuletTower)){
+			newEnemy = true;
+		}
 		//ADDED BY THEFIX if we are foes that are clever enough to not attack the walls:
 		else if ((targetingPreference==TargetingPreference.NOT_WALLS) && (enemy instanceof TowerCWall)){
 			newEnemy = true;
@@ -359,10 +374,13 @@ public abstract class Mob extends Char {
 			if (enemy.alignment == Alignment.ALLY){
 				newEnemy = true;
 				//current enemy is invulnerable
-			} else if (enemy.isInvulnerable(getClass())){
+			} else
+				if (enemy.isInvulnerable(getClass())){
 				newEnemy = true;
 				//ADDED BY THEFIX if we are the blinding tower and the foe is blinded. Could make it that it blinds stuff when unfriendly, but its op (the towerpath would make all the towers blind)
 			} else if (this instanceof TowerWandPrismatic && enemy.buff(Blindness.class) !=null){
+				newEnemy = true;
+			} else if (this instanceof TowerDartgun1 && enemy.buff(Poison.class) !=null){
 				newEnemy = true;
 			}
 
@@ -410,6 +428,8 @@ public abstract class Mob extends Char {
 
 						if (!(this instanceof TowerWandPrismatic) ||
 								(mob.buff(Blindness.class)==null || enemies.isEmpty()))
+						if (!(this instanceof TowerDartgun1) ||
+							(mob.buff(Poison.class)==null || enemies.isEmpty()))
 
 						if (!intelligentAlly ||
 								(mob.state != mob.SLEEPING && mob.state != mob.PASSIVE && mob.state != mob.WANDERING)) {
@@ -437,6 +457,10 @@ public abstract class Mob extends Char {
 				if (source != null && enemies.contains(source) && enemies.size() > 1){
 					enemies.remove(source);
 				}
+			}
+			//ADDED BY THEFIX stop attacking the DK first dammit
+			if (enemy instanceof BossDwarfKing && ((BossDwarfKing)enemy).battleMode==0) {
+				enemies.remove(enemy);
 			}
 			HashSet<Char> filteredEnemies = new HashSet<>();
 			for (Char curr : enemies) {
@@ -869,7 +893,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void die( Object cause ) {
 
-		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1) Dungeon.gold += 3*EXP + 5;// Foes add up to gold
+		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1) Dungeon.gold += 3*EXP + 1;// Foes add up to gold
 		updateQuickslot();
 
 		if (cause == Chasm.class){
@@ -1027,6 +1051,8 @@ public abstract class Mob extends Char {
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
+
+		desc+= "\n\n" + Messages.get(Char.class, "stats", HP,HT);
 
 		return desc;
 	}

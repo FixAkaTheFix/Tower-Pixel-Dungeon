@@ -2,15 +2,19 @@ package com.towerpixel.towerpixeldungeon.windows;
 
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.gold;
+import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerPylon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerPylonBroken;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerTotem;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.CellSelector;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.ui.RedButton;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 
@@ -35,12 +39,13 @@ public class WndTower extends WndInfoMob {
                     @Override
                     protected void onClick() {
                         hide();
+                        hero.spendAndNext(1);
                         tower.sell();
                     }
                 };
                 if (!(tower instanceof TowerPylon || tower instanceof TowerPylonBroken || tower instanceof TowerTotem)) {//you cant sell special towers
                     sellbtn.setSize(sellbtn.reqWidth(), BUTTON_HEIGHT);
-                    buttons.add(sellbtn);
+                    if (tower.sellable) buttons.add(sellbtn);
                 }
                 String name1 = "XXS";
                 if (tower.upgCount>1)  name1 = tower.upgradeTower1().getClass().getSimpleName();else name1 = "upgradebutton";
@@ -97,10 +102,36 @@ public class WndTower extends WndInfoMob {
                 };
                 upgbtn3.setSize(upgbtn3.reqWidth(), BUTTON_HEIGHT);
 
-                if (!(tower instanceof TowerPylon || tower instanceof TowerPylonBroken || tower instanceof TowerTotem)) {add(sellbtn);}
+                if (!(tower instanceof TowerPylon || tower instanceof TowerPylonBroken || tower instanceof TowerTotem || !tower.sellable)) {add(sellbtn);}
                 if (tower.upgCount>=1 && tower.upgradeLevel<=Dungeon.depth) {buttons.add(upgbtn1);add(upgbtn1);}
                 if (tower.upgCount>=2 && tower.upgradeLevel<=Dungeon.depth) {buttons.add(upgbtn2);add(upgbtn2);}
                 if (tower.upgCount>=3 && tower.upgradeLevel<=Dungeon.depth) {buttons.add(upgbtn3);add(upgbtn3);}
+
+
+                RedButton moveGuardButton = new RedButton(Messages.get(this,"towerguardmove"), 8, Chrome.Type.RED_BUTTON) {
+                    @Override
+                    protected void onClick() {
+                        hide();
+                        GameScene.selectCell(new CellSelector.Listener() {
+                            @Override
+                            public void onSelect(Integer cell) {
+                                if (cell == null) return;
+                                ((TowerGuard1) tower).guardPos = cell;
+                            }
+
+                            @Override
+                            public String prompt() {
+                                return Messages.get(WndTower.class,"towerguardmove_prompt");
+                            }
+                        });
+                    }
+                };
+                moveGuardButton.setSize(moveGuardButton.reqWidth(), BUTTON_HEIGHT);
+
+                if (tower instanceof TowerGuard1){
+                    {buttons.add(moveGuardButton);add(moveGuardButton);}
+                }
+
 
                 y = layoutButtons(buttons, width, y);
             }

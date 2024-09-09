@@ -34,6 +34,7 @@ import com.towerpixel.towerpixeldungeon.items.Gold;
 import com.towerpixel.towerpixeldungeon.levels.features.Chasm;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.GhoulSprite;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -55,9 +56,6 @@ public class Ghoul extends Mob {
 		SLEEPING = new Sleeping();
 		WANDERING = new Wandering();
 		state = SLEEPING;
-
-		loot = Gold.class;
-		lootChance = 0.2f;
 		
 		properties.add(Property.UNDEAD);
 	}
@@ -161,7 +159,12 @@ public class Ghoul extends Mob {
 				return;
 			}
 		}
-
+		if (Dungeon.depth == 19 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+			Swarm swarm = new Swarm();
+			swarm.pos = pos;
+			GameScene.add(swarm);
+			Dungeon.level.occupyCell(swarm);
+		}
 		super.die(cause);
 	}
 

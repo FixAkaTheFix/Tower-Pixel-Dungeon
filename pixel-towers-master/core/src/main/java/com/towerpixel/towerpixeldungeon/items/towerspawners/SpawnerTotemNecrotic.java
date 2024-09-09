@@ -23,16 +23,5 @@ public class SpawnerTotemNecrotic extends TowerSpawner {
         return 100;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerTotem.TotemNecrotic tower = new TowerTotem.TotemNecrotic();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
+
 }

@@ -35,9 +35,11 @@ import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.WarlockSprite;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -82,8 +84,19 @@ public class Warlock extends Mob implements Callback {
 		return super.canAttack(enemy)
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
-	
-	protected boolean doAttack( Char enemy ) {
+
+	@Override
+	public void die(Object cause) {
+		if (Dungeon.depth == 19 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+			Shaman.PurpleShaman swarm = new Shaman.PurpleShaman();
+			swarm.pos = pos;
+			GameScene.add(swarm);
+			Dungeon.level.occupyCell(swarm);
+		}
+		super.die(cause);
+	}
+
+	protected boolean doAttack(Char enemy ) {
 
 		if (Dungeon.level.adjacent( pos, enemy.pos )
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos != enemy.pos) {

@@ -15,7 +15,7 @@ allprojects {
         appPackageName = 'com.towerpixel.towerpixeldungeon'
 
         appVersionCode = 700
-        appVersionName = '0.0.3'
+        appVersionName = '0.1.0'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 

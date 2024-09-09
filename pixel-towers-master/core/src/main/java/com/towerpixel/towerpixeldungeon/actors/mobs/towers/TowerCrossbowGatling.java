@@ -3,6 +3,7 @@ package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.effects.particles.SmokeParticle;
 import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbowGatlingSprite;
+import com.watabou.utils.Bundle;
 
 public class TowerCrossbowGatling extends TowerCrossbow3{
 
@@ -18,14 +19,14 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
 
         upgrade1Cost = 10000;
         damageMin = 6;
-        damageMax = 12;
+        damageMax = 13;
     }
 
-    public int atCooldown = 1;
+    public float atCooldown = 1;
 
     @Override
     protected boolean act() {
-        if ( atCooldown < 13 ) atCooldown++;
+        if ( atCooldown < 13 ) atCooldown+=0.2f;
         baseAttackDelay = 0.1f + (atCooldown * 0.1f);
         sprite.ra = 1 / (5*baseAttackDelay);
         if (baseAttackDelay<0.8f) sprite.emitter().start(SmokeParticle.FACTORY, 1f, 3);
@@ -34,10 +35,24 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
 
     @Override
     public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
-        if ( atCooldown > 1 ) atCooldown -= 1;
-        if ( atCooldown > 1 ) atCooldown -= 1;
-        if ( atCooldown > 1 ) atCooldown -= 1;
+        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
+        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
+        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
         baseAttackDelay = 0.1f + (atCooldown * 0.1f);//max cooldown = 0.2
         return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
+    }
+
+    private static final String ATCOOLDOWN = "atcooldown";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(ATCOOLDOWN, atCooldown);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        atCooldown = bundle.getInt(ATCOOLDOWN);
     }
 }

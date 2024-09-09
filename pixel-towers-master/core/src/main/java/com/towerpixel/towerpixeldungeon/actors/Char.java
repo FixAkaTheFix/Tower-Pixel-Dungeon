@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.actors;
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
+import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
@@ -50,6 +51,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.FireImbue;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
 import com.towerpixel.towerpixeldungeon.actors.buffs.FrostImbue;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Fury;
+import com.towerpixel.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Haste;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Hex;
@@ -70,7 +72,6 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Stamina;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Terror;
-import com.towerpixel.towerpixeldungeon.actors.buffs.Vampirism;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vile;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vulnerable;
@@ -715,7 +716,11 @@ public abstract class Char extends Actor {
 		}
 
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
-			dmg = (int) Math.ceil(dmg * buff.damageTakenFactor());
+			if (DamageSource.MAGICAL.contains(src)){
+				dmg = (int) Math.ceil(dmg * buff.magicalDamageTakenFactor());
+			} else {
+				dmg = (int) Math.ceil(dmg * buff.physicalDamageTakenFactor());
+			}
 		}
 		dmg = (int)Math.ceil(dmg / AscensionChallenge.statModifier(this));
 
@@ -785,6 +790,18 @@ public abstract class Char extends Actor {
 			buff( Paralysis.class ).processDamage(dmg);
 		}
 
+		//for GoldArmor buff
+		if (buff(GoldArmor.class) != null){
+			if (Dungeon.gold >= (dmg * 1.5f)) {
+				Dungeon.gold -= (dmg * 1.5f);
+				updateQuickslot();
+				sprite.showStatus(CharSprite.WARNING, Integer.toString(dmg));
+				return;
+			} else {
+				Buff.detach(this, GoldArmor.class);
+			}
+		}
+
 		int shielded = dmg;
 		//FIXME: when I add proper damage properties, should add an IGNORES_SHIELDS property to use here. FixakaTheFix: DONE!)!)!)!)
 		if (!DamageSource.SHIELDIGNORING.contains(src.getClass())){
@@ -807,6 +824,8 @@ public abstract class Char extends Actor {
 				((Char) src).buff(Kinetic.KineticTracker.class).detach();
 			}
 		}
+
+
 
 		
 		if (sprite != null) {

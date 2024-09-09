@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
-import com.towerpixel.towerpixeldungeon.sprites.walls.SkeletonWarriorSprite;
+import com.towerpixel.towerpixeldungeon.actors.DamageSource;
+import com.towerpixel.towerpixeldungeon.sprites.SkeletonWarriorSprite;
 import com.watabou.utils.Random;
 
 public class SkeletonArmored extends Skeleton{
@@ -17,7 +18,13 @@ public class SkeletonArmored extends Skeleton{
     }
 
     @Override
+    public void damage(int dmg, Object src) {
+        if (!DamageSource.MAGICAL.contains(src.getClass())) dmg/=2;
+        super.damage(dmg, src);
+    }
+
+    @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 10, 15 );
+        return Random.NormalIntRange( 15, 22 );
     }
 }

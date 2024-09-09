@@ -22,16 +22,4 @@ public class SpawnerTotemAttack extends TowerSpawner {
         return 200;
     }
 
-    @Override
-    protected void onThrow( int cell ) {
-        Char enemy = Actor.findChar( cell );
-        if (enemy == null) {
-            TowerTotem.TotemAttack tower = new TowerTotem.TotemAttack();
-            tower.pos = cell;
-            GameScene.add(tower);
-            Dungeon.level.occupyCell(tower);
-        } else {
-            super.onThrow( cell );
-        }
-    }
 }

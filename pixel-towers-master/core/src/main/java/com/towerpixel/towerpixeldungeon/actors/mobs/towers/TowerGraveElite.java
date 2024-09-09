@@ -8,7 +8,7 @@ import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.TowerGraveEliteSprite;
-import com.towerpixel.towerpixeldungeon.sprites.walls.SkeletonWarriorSprite;
+import com.towerpixel.towerpixeldungeon.sprites.SkeletonWarriorSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -29,14 +29,14 @@ public class TowerGraveElite extends TowerCSpawning{
         spriteClass = TowerGraveEliteSprite.class;
 
         maxMinions = 1;
-        minionCooldown = 70;
+        minionCooldown = 50;
         minionCooldownLeft = 1;
 
-        minionHP = 150;
+        minionHP = 140;
         minionDamageMax = 25;
         minionDamageMin = 20;
         minionAttackSkill = 10;
-        minionDefenseSkill = 1;
+        minionDefenseSkill = 4;
         minionDR = 6;
 
         cost = 2500;

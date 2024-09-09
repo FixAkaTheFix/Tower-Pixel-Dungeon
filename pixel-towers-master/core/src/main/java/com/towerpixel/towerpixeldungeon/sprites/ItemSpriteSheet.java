@@ -357,10 +357,12 @@ public class ItemSpriteSheet {
 	public static final int THROWING_HAMMER = MISSILE_WEP+14;
 	public static final int FORCE_CUBE      = MISSILE_WEP+15;
 	public static final int DEBUG_BOW      = MISSILE_WEP+16;
+	public static final int DARTGUN_DART      = MISSILE_WEP+17;
 	
 	static{
 		assignItemRect(SPIRIT_BOW,      16, 16);
 		assignItemRect(DEBUG_BOW,      15, 15);
+		assignItemRect(DARTGUN_DART,      12, 12);
 		
 		assignItemRect(THROWING_SPIKE,  11, 10);
 		assignItemRect(THROWING_KNIFE,  12, 13);
@@ -803,14 +805,46 @@ public class ItemSpriteSheet {
 	public static final int TOWERSPAWNER_GRAVE            = TOWERSPAWNERS+2;
 	public static final int TOWERSPAWNER_WALL = TOWERSPAWNERS+3;
 	public static final int TOWERSPAWNER_CANNON           = TOWERSPAWNERS+4;
-	public static final int TOWERSPAWNER_TOTEMHEALING          = TOWERSPAWNERS+5;
-	public static final int TOWERSPAWNER_TOTEMSHIELD             = TOWERSPAWNERS+6;
-	public static final int TOWERSPAWNER_TOTEMATTACK           = TOWERSPAWNERS+7;
-	public static final int TOWERSPAWNER_TOTEMNECROTIC         = TOWERSPAWNERS+8;
+	public static final int TOWERSPAWNER_TOTEMHEALING     = TOWERSPAWNERS+5;
+	public static final int TOWERSPAWNER_TOTEMSHIELD      = TOWERSPAWNERS+6;
+	public static final int TOWERSPAWNER_TOTEMATTACK      = TOWERSPAWNERS+7;
+	public static final int TOWERSPAWNER_TOTEMNECROTIC    = TOWERSPAWNERS+8;
+	public static final int TOWERSPAWNER_LIGHTNING        = TOWERSPAWNERS+9;
+	public static final int TOWERSPAWNER_DISINTEGRATION   = TOWERSPAWNERS+10;
+	public static final int TOWERSPAWNER_GUARD            = TOWERSPAWNERS+11;
+	public static final int TOWERSPAWNER_DARTGUN           = TOWERSPAWNERS+12;
+	public static final int TOWERSPAWNER_TNTLOG           = TOWERSPAWNERS+13;
 
 	static {
 		for (int i = TOWERSPAWNERS; i < TOWERSPAWNERS+16; i++)
-			assignItemRect(i, 12, 9);
+			if (i == TOWERSPAWNERS + 11) assignItemRect(i, 11,11);
+				else assignItemRect(i, 12, 9);
+	}
+	private static final int HEROSPELLS            =                           xy(1, 37);  //16 slots
+	public static final int HEROSPELL_WARRIOR_SHIELD        = HEROSPELLS+0;
+	public static final int HEROSPELL_WARRIOR_GLOWUP        = HEROSPELLS+1;
+	public static final int HEROSPELL_WARRIOR_CHARGE        = HEROSPELLS+2;
+	public static final int HEROSPELL_WARRIOR_GOLDARMOR        = HEROSPELLS+3;
+	public static final int HEROSPELL_ROGUE_SWIFT        = HEROSPELLS+6;
+	public static final int HEROSPELL_ROGUE_DISENGAGE        = HEROSPELLS+7;
+	public static final int HEROSPELL_ROGUE_SHADOWCLONE        = HEROSPELLS+8;
+	public static final int HEROSPELL_ROGUE_NOAMULET        = HEROSPELLS+9;
+	public static final int HEROSPELL_MAGE_GIBBERISH        = HEROSPELLS+12;
+	public static final int HEROSPELL_MAGE_BLESSING        = HEROSPELLS+13;
+	public static final int HEROSPELL_MAGE_NECROMANCY        = HEROSPELLS+14;
+	public static final int HEROSPELL_MAGE_IMMORTALITY        = HEROSPELLS+15;
+	public static final int HEROSPELL_HUNTRESS_INSIGHT        = HEROSPELLS+18;
+	public static final int HEROSPELL_HUNTRESS_PROJECTILES        = HEROSPELLS+19;
+	public static final int HEROSPELL_HUNTRESS_OAKSKIN        = HEROSPELLS+20;
+	public static final int HEROSPELL_HUNTRESS_REGENERATION        = HEROSPELLS+21;
+	public static final int HEROSPELL_DUELIST_ARCANESWORD        = HEROSPELLS+24;
+	public static final int HEROSPELL_DUELIST_BERSERK        = HEROSPELLS+25;
+	public static final int HEROSPELL_DUELIST_EGOIST       = HEROSPELLS+26;
+
+
+	static {
+		for (int i = HEROSPELLS; i < HEROSPELLS+31; i++)
+			assignItemRect(i, 16, 16);
 	}
 
 	//for smaller 8x8 icons that often accompany an item sprite

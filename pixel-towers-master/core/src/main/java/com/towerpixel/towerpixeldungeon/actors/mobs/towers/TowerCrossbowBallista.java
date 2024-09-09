@@ -22,7 +22,7 @@ public class TowerCrossbowBallista extends TowerCrossbow2{
     }
     @Override
     public int attackSkill(Char target) {
-        return 50;
+        return 500;
     }
 
     @Override

@@ -21,7 +21,6 @@
 
 package com.towerpixel.towerpixeldungeon.actors.buffs;
 
-import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
@@ -75,10 +74,12 @@ public abstract class ChampionEnemy extends Buff {
 		return 1f;
 	}
 
-	public float damageTakenFactor(){
+	public float physicalDamageTakenFactor(){
 		return 1f;
 	}
-
+	public float magicalDamageTakenFactor(){
+		return 1f;
+	}
 	public float evasionAndAccuracyFactor(){
 		return 1f;
 	}
@@ -134,6 +135,7 @@ public abstract class ChampionEnemy extends Buff {
 			super.detach();
 		}
 
+
 		@Override
 		public float meleeDamageFactor() {
 			return 1.25f;
@@ -168,14 +170,9 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		@Override
-		public float damageTakenFactor() {
-			return 0.75f;
+		public float magicalDamageTakenFactor() {
+			return 0.5f;
 		}
-
-		{
-			immunities.addAll(DamageSource.MAGICAL);
-		}
-
 	}
 
 	//Also makes target large, see Char.properties()
@@ -186,8 +183,13 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		@Override
-		public float damageTakenFactor() {
+		public float physicalDamageTakenFactor() {
 			return 0.5f;
+		}
+
+		@Override
+		public float meleeDamageFactor() {
+			return 1.5f;
 		}
 
 		@Override
@@ -205,6 +207,14 @@ public abstract class ChampionEnemy extends Buff {
 
 				return PathFinder.distance[target.pos] <= 2;
 			}
+		}
+
+		@Override
+		public void fx(boolean on) {
+			if (on) target.sprite.scale.set(1.5f, 1.5f);
+			else target.sprite.scale.set(1f, 1f);
+			target.sprite.update();
+			super.fx(on);
 		}
 	}
 
@@ -241,7 +251,7 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		@Override
-		public float damageTakenFactor() {
+		public float physicalDamageTakenFactor() {
 			return 1f/multiplier;
 		}
 

@@ -2,6 +2,11 @@ package com.towerpixel.towerpixeldungeon.levels;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
+import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Honeypot;
@@ -12,8 +17,12 @@ import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.sprites.RatKingSprite;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -33,6 +42,8 @@ public class Arena1 extends Arena{
         towerShopKeeperCell = 6 + 21*WIDTH;
         normalShopKeeperCell = 11 + 21*WIDTH;
 
+        startGold = 500;
+
         waveCooldownNormal = 5;
         waveCooldownBoss = 30;
     }
@@ -45,6 +56,10 @@ public class Arena1 extends Arena{
                 false);
     }
 
+    @Override
+    public void affectMob(Mob mob) {
+        Buff.affect(mob, ChampionEnemy.Projecting.class);
+    }
 
     @Override
     protected boolean build() {
@@ -70,12 +85,10 @@ public class Arena1 extends Arena{
         Painter.fill(this, 14,21,1,3,Terrain.WALL);
         Painter.fill(this, 14,27,1,3,Terrain.WALL);
 
-        this.map[5+23*WIDTH]=Terrain.ALCHEMY;
-
         for (int x = 1; x < WIDTH-1; x++) for (int y = 1; y < HEIGHT-1; y++){
 
             if (Math.random()>0.5 && x > 15 && x < 44 && y > 20 && y < 30) this.map[x + WIDTH*y] = Terrain.WATER;
-            if (Math.random()>0.7 && x > 18 && x < 44 && y > 20 && y < 29) {this.map[x + WIDTH*y] = Terrain.WALL; this.map[x + WIDTH*y + WIDTH] = Terrain.WALL;}
+            if (Math.random()>0.9 && x > 18 && x < 44 && y > 20 && y < 29) {this.map[x + WIDTH*y] = Terrain.WALL; this.map[x + WIDTH*y + WIDTH] = Terrain.WALL;}
         }
         Painter.fill(this, 12,24,40,3,Terrain.EMPTY_SP);
 
@@ -112,11 +125,75 @@ public class Arena1 extends Arena{
     }
 
     @Override
+    public void doStuffStartwave(int wave) {
+        super.doStuffStartwave(wave);
+        if (wave == 1) {
+
+            WndDialogueWithPic.dialogue(new RatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l1w1start1"),
+                            Messages.get(RatKing.class, "l1w1start2"),
+                            Messages.get(RatKing.class, "l1w1start3"),
+                            Messages.get(RatKing.class, "l1w1start4"),
+                            Messages.get(RatKing.class, "l1w1start5"),
+                            Messages.get(RatKing.class, "l1w1start6"),
+                            Messages.get(RatKing.class, "l1w1start7"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN
+                    });
+        }
+        if (wave == 15) {
+            WndDialogueWithPic.dialogue(new RatKingSprite(), "Rat king",
+                    new String[]{
+                            Messages.get(RatKing.class, "l1w15start1"),
+                            Messages.get(RatKing.class, "l1w15start2"),
+                            Messages.get(RatKing.class, "l1w15start3"),
+                            Messages.get(RatKing.class, "l1w15start4"),
+                            Messages.get(RatKing.class, "l1w15start5"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN
+                    });
+        }
+    }
+
+    @Override
     public void doStuffEndwave(int wave) {
         int goldAdd = 100;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
+        if (wave == 1) {
+
+            WndDialogueWithPic.dialogue(new RatKingSprite(), "Rat king",
+                    new String[]{
+                            Dungeon.level.distance(Dungeon.hero.pos, amuletCell) < 10 ? Messages.get(RatKing.class, "l1w1end1") : Messages.get(RatKing.class, "l1w1end1herofar"),
+                            Dungeon.level.distance(Dungeon.hero.pos, amuletCell) < 10 ? Messages.get(RatKing.class, "l1w1end2") : Messages.get(RatKing.class, "l1w1end2herofar"),
+                            Messages.get(RatKing.class, "l1w1end3"),
+                            Messages.get(RatKing.class, "l1w1end4"),
+                            Messages.get(RatKing.class, "l1w1end5"),
+                            Messages.get(RatKing.class, "l1w1end6"),
+                            Messages.get(RatKing.class, "l1w1end7"),
+                            Messages.get(RatKing.class, "l1w1end8")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN
+                    });
+        }
     }
 
     @Override

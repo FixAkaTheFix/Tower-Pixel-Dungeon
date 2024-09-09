@@ -165,7 +165,7 @@ public class ShadowClone extends ArmorAbility {
 				HT += hpBonus;
 				HP += hpBonus;
 			}
-			defenseSkill = heroLevel + 5; //equal to base hero defense skill
+			defenseSkill = 5; //equal to base hero defense skill
 		}
 
 		@Override
@@ -175,6 +175,11 @@ public class ShadowClone extends ArmorAbility {
 			//partially simulates how the hero switches to idle animation
 			if ((pos == target || oldPos == pos) && sprite.looping()){
 				sprite.idle();
+			}
+			if (Dungeon.level.distance(pos, Dungeon.hero.pos)>3){
+				sprite.move(pos, Dungeon.hero.pos);
+				pos = Dungeon.hero.pos+1;
+				next();
 			}
 			return result;
 		}
@@ -204,7 +209,7 @@ public class ShadowClone extends ArmorAbility {
 
 		@Override
 		public int damageRoll() {
-			int damage = Random.NormalIntRange(10, 20);
+			int damage = Dungeon.hero.damageRoll();
 			int heroDamage = Dungeon.hero.damageRoll();
 			heroDamage /= Dungeon.hero.attackDelay(); //normalize hero damage based on atk speed
 			heroDamage = Math.round(0.08f * Dungeon.hero.pointsInTalent(Talent.SHADOW_BLADE) * heroDamage);

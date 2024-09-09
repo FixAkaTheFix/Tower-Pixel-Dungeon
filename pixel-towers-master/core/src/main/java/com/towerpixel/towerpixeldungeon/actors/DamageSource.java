@@ -28,6 +28,13 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.MagicShard;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Shaman;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Warlock;
 import com.towerpixel.towerpixeldungeon.actors.mobs.YogFist;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgunSpitter;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDisintegration1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDisintegration2;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDisintegration3;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerLightning1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerLightning2;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerLightning3;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerPylon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand2;
@@ -121,22 +128,21 @@ public class DamageSource {
         MAGICAL.add(TowerWandFireball.class);
         MAGICAL.add(TowerWandPrismatic.class);
 
+        MAGICAL.add(TowerPylon.class);
+        MAGICAL.add(TowerLightning1.class);
+        MAGICAL.add(TowerLightning2.class);
+        MAGICAL.add(TowerLightning3.class);
+        MAGICAL.add(TowerDisintegration1.class);
+        MAGICAL.add(TowerDisintegration2.class);
+        MAGICAL.add(TowerDisintegration3.class);
     }
 
-    public static final HashSet<Class> DRIGNORING = new HashSet<>();
-
+    public static final HashSet<Class> DRIGNORING = new HashSet<>();//NOT IMPLEMENTED YET
     static {
-        DRIGNORING.add(TowerWand1.class);
-        DRIGNORING.add(TowerWand2.class);
-        DRIGNORING.add(TowerWand3.class);
-
-        DRIGNORING.add(WandOfMagicMissile.class);
     }
 
-    public static final HashSet<Class> PHYSICAL = new HashSet<>();
+    public static final HashSet<Class> PHYSICAL = new HashSet<>();//OTHER STUFF. NOT USED.
     static {
-       //OTHER STUFF PHYSICAL.add etc
-        //TODO: MAKE THIS GARBAGE INCLUDE ALL OF THE MELEE WEAPONRY, AND ENEMY ATTACKS
     }
 
     public static final HashSet<Class> SHIELDIGNORING = new HashSet<>();
@@ -144,18 +150,8 @@ public class DamageSource {
         SHIELDIGNORING.add(Hunger.class);
     }
 
-    public static final HashSet<Class> PROJECTILE = new HashSet<>();
+    public static final HashSet<Class> PROJECTILE = new HashSet<>();//NOT IMPLEMENTED YET
     static {
-        PROJECTILE.add(DebugBow.class);
-        PROJECTILE.add(SpiritBow.class);
-
-        //PROJECTILE.add(WandOfPebbles.class);
-        PROJECTILE.add(GnollTrickster.class);
-
-
-        PROJECTILE.add(Bolas.class);
-        PROJECTILE.add(FishingSpear.class);
-
     }
 
 
@@ -178,6 +174,10 @@ public class DamageSource {
         ELEMENTAL.add( DMWHead.LightningBolt.class );
         ELEMENTAL.add( DM100.LightningBolt.class );
         ELEMENTAL.add( WandOfLightning.class );
+        ELEMENTAL.add(TowerPylon.class);
+        ELEMENTAL.add(TowerLightning1.class);
+        ELEMENTAL.add(TowerLightning2.class);
+        ELEMENTAL.add(TowerLightning3.class);
 
 
     }
@@ -202,12 +202,15 @@ public class DamageSource {
         LIGHTNING.add( DM100.LightningBolt.class );
         LIGHTNING.add( WandOfLightning.class );
         LIGHTNING.add( TowerPylon.LightningBolt.class );
+        LIGHTNING.add(TowerLightning1.class);
+        LIGHTNING.add(TowerLightning2.class);
+        LIGHTNING.add(TowerLightning3.class);
     }
     public static final HashSet<Class> POISON = new HashSet<>();
     static {
         POISON.add(Poison.class);
         POISON.add(ToxicGas.class);
         POISON.add(Corrosion.class);
+        POISON.add(TowerDartgunSpitter.class);
     }
-
 }

@@ -27,15 +27,15 @@ public class TowerGraveCrypt extends TowerCSpawning{
 
         spriteClass = TowerGraveCryptSprite.class;
 
-        maxMinions = 10;
+        maxMinions = 5;
         minionCooldown = 5;
         minionCooldownLeft = 1;
 
         minionHP = 1;
-        minionDamageMax = 10;
+        minionDamageMax = 12;
         minionDamageMin = 8;
         minionAttackSkill = 10;
-        minionDefenseSkill = 15;
+        minionDefenseSkill = 10;
         minionDR = 0;
 
         cost = 2000;

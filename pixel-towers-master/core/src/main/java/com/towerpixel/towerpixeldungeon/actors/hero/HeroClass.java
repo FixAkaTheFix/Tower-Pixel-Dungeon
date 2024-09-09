@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.actors.hero;
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.gold;
+import static com.towerpixel.towerpixeldungeon.items.Item.itemComparator;
 import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.towerpixel.towerpixeldungeon.Assets;
@@ -30,6 +31,7 @@ import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.QuickSlot;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
+import com.towerpixel.towerpixeldungeon.Statistics;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -54,14 +56,35 @@ import com.towerpixel.towerpixeldungeon.items.armor.ClothArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.LeatherArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.MailArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.PlateArmor;
+import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Stone;
 import com.towerpixel.towerpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.towerpixel.towerpixeldungeon.items.artifacts.CloakOfShadows;
 import com.towerpixel.towerpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.towerpixel.towerpixeldungeon.items.artifacts.SandalsOfNature;
+import com.towerpixel.towerpixeldungeon.items.bags.HeroSpellbook;
 import com.towerpixel.towerpixeldungeon.items.bombs.Flashbang;
 import com.towerpixel.towerpixeldungeon.items.debuggers.StableTeleportScroll;
 import com.towerpixel.towerpixeldungeon.items.debuggers.StaffOfBeasts;
 import com.towerpixel.towerpixeldungeon.items.food.Food;
+import com.towerpixel.towerpixeldungeon.items.herospells.DuelistArcanesword;
+import com.towerpixel.towerpixeldungeon.items.herospells.DuelistBerserk;
+import com.towerpixel.towerpixeldungeon.items.herospells.DuelistEgoist;
+import com.towerpixel.towerpixeldungeon.items.herospells.HuntressOakskin;
+import com.towerpixel.towerpixeldungeon.items.herospells.HuntressProjectiles;
+import com.towerpixel.towerpixeldungeon.items.herospells.HuntressRegeneration;
+import com.towerpixel.towerpixeldungeon.items.herospells.HuntressVision;
+import com.towerpixel.towerpixeldungeon.items.herospells.MageBlessing;
+import com.towerpixel.towerpixeldungeon.items.herospells.MageGibberish;
+import com.towerpixel.towerpixeldungeon.items.herospells.MageImmortality;
+import com.towerpixel.towerpixeldungeon.items.herospells.MageNecromancy;
+import com.towerpixel.towerpixeldungeon.items.herospells.RogueDisengage;
+import com.towerpixel.towerpixeldungeon.items.herospells.RogueNoAmulet;
+import com.towerpixel.towerpixeldungeon.items.herospells.RogueShadowclone;
+import com.towerpixel.towerpixeldungeon.items.herospells.RogueSwift;
+import com.towerpixel.towerpixeldungeon.items.herospells.WarriorCharge;
+import com.towerpixel.towerpixeldungeon.items.herospells.WarriorGlowup;
+import com.towerpixel.towerpixeldungeon.items.herospells.WarriorGoldarmor;
+import com.towerpixel.towerpixeldungeon.items.herospells.WarriorShield;
 import com.towerpixel.towerpixeldungeon.items.potions.Potion;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHaste;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
@@ -71,9 +94,11 @@ import com.towerpixel.towerpixeldungeon.items.potions.PotionOfMindVision;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfPurity;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfStrength;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfToxicGas;
+import com.towerpixel.towerpixeldungeon.items.potions.elixirs.Elixir;
 import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfMagicalSight;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShielding;
+import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfSnapFreeze;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -99,7 +124,12 @@ import com.towerpixel.towerpixeldungeon.items.stones.StoneOfIntuition;
 import com.towerpixel.towerpixeldungeon.items.stones.StoneOfShock;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCannon;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerCrossbow;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerDartgun;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerDisintegration;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGrave;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGuard;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerLightning;
+import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerTntlog;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
@@ -124,12 +154,14 @@ import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.AdrenalineDa
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.BlindingDart;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.HealingDart;
+import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.PoisonDart;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Blindweed;
 import com.towerpixel.towerpixeldungeon.plants.Earthroot;
 import com.towerpixel.towerpixeldungeon.plants.Stormvine;
 import com.towerpixel.towerpixeldungeon.plants.Sungrass;
 import com.towerpixel.towerpixeldungeon.plants.Swiftthistle;
+import com.towerpixel.towerpixeldungeon.scenes.LevelSelectScene;
 
 public enum HeroClass {
 
@@ -218,21 +250,28 @@ public enum HeroClass {
 		hero.attackSkill = 9;
 
 		Item i = new MailArmor().identify();
-		hero.belongings.armor = (MailArmor)i;
+
+		if (Statistics.chosenLevel >=16){
+			i.upgrade(2);
+			hero.belongings.armor = (MailArmor)i;
+		} else{
+			hero.belongings.armor = (MailArmor)i;
+		}
 
 		(hero.belongings.weapon = new Sword()).identify();
-		ThrowingStone stones = new ThrowingStone();
-		stones.quantity(5).collect();
-		Dungeon.quickslot.setSlot(0, stones);
 
 		if (hero.belongings.armor != null){
 			hero.belongings.armor.affixSeal(new BrokenSeal());
 		}
 
+
+
+		new WarriorShield().collect();
+		new WarriorGlowup().collect();
+		new WarriorGoldarmor().collect();
+
 		new ElixirOfHoneyedHealing().collect();
-		new PotionOfPurity().collect();
 		new PotionOfShielding().collect();
-		new ScrollOfRage().identify().collect();
 	}
 
 	private static void initMage( Hero hero ) {
@@ -242,26 +281,21 @@ public enum HeroClass {
 		hero.belongings.armor = (LeatherArmor)i;
 
 		MeleeWeapon staff = (MeleeWeapon) (new MagesStaff(new WandOfMagicMissile()).upgrade(1));
+		if (Statistics.chosenLevel >=16){
+			staff.upgrade(1);
+		}
 		(hero.belongings.weapon = staff).identify();
 		hero.belongings.weapon.activate(hero);
 
 		Dungeon.quickslot.setSlot(0, staff);
 
-		new ScrollOfUpgrade().identify();
-		new StoneOfShock().collect();
-		new StoneOfAggression().collect();
-		new StoneOfBlast().collect();
-		new StoneOfClairvoyance().collect();
-		new StoneOfDisarming().collect();
-		new StoneOfFlock().collect();
-		new StoneOfIntuition().collect();
-		new StoneOfIntuition().collect();
-		new StoneOfIntuition().collect();
-		new StoneOfIntuition().collect();
-		new StoneOfIntuition().collect();
-		new ScrollOfAntiMagic().collect();
-		new ScrollOfRecharging().collect();
+		new MageGibberish().collect();
+		new MageNecromancy().collect();
+		new MageBlessing().collect();
 
+		new StoneOfShock().collect();
+		new StoneOfFlock().collect();
+		new StoneOfBlast().collect();
 	}
 
 	private static void initRogue( Hero hero ) {
@@ -272,7 +306,12 @@ public enum HeroClass {
 		updateQuickslot();
 
 		Item i = new LeatherArmor().identify();
-		hero.belongings.armor = (LeatherArmor)i;
+		if (Statistics.chosenLevel>=16){
+			i.upgrade(2);
+			hero.belongings.armor = (LeatherArmor)i;
+		} else{
+			hero.belongings.armor = (LeatherArmor)i;
+		}
 
 		(hero.belongings.weapon = new Dirk()).identify();
 
@@ -286,12 +325,12 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, knives);
 
-		new ScrollOfMagicMapping().identify().collect();
-		new PotionOfInvisibility().identify().collect();
-		new PotionOfHaste().collect();
-		new StoneOfBlink().collect();
-		new Flashbang().collect();
-		new PotionOfSnapFreeze().collect();
+		new RogueDisengage().collect();
+		new RogueShadowclone().collect();
+		new RogueSwift().collect();
+
+		new PotionOfShroudingFog().collect();
+		new ScrollOfTeleportation().collect();
 	}
 
 	private static void initHuntress( Hero hero ) {
@@ -299,7 +338,13 @@ public enum HeroClass {
 		hero.attackSkill = 11;
 
 		Item i = new ClothArmor().identify();
-		hero.belongings.armor = (ClothArmor)i;
+		if (Statistics.chosenLevel>=16){
+			Item x = new LeatherArmor().identify();
+			x.upgrade(1);
+			hero.belongings.armor = (LeatherArmor)x;
+		} else{
+			hero.belongings.armor = (ClothArmor)i;
+		}
 
 		(hero.belongings.weapon = new Gloves()).identify();
 		SpiritBow bow = new SpiritBow();
@@ -307,14 +352,17 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(0, bow);
 
-		for (int x = 0; x < 3; x++){
-			new Dart().collect();
-		}
-		new Blindweed.Seed().collect();
-		new Stormvine.Seed().collect();
-		new Sungrass.Seed().collect();
-		new Swiftthistle.Seed().collect();
-		new Earthroot.Seed().collect();
+		new HuntressOakskin().collect();
+		new HuntressVision().collect();
+		new HuntressRegeneration().collect();
+
+		new HealingDart().collect();
+		new PoisonDart().collect();
+		new BlindingDart().collect();
+		new BlindingDart().collect();
+		new BlindingDart().collect();
+
+
 	}
 
 	private static void initDuelist( Hero hero ) {
@@ -322,7 +370,12 @@ public enum HeroClass {
 		hero.critChance = 0.15f;
 
 		Item i = new LeatherArmor().identify();
-		hero.belongings.armor = (LeatherArmor)i;
+		if (Statistics.chosenLevel>=16){
+			i.upgrade(2);
+			hero.belongings.armor = (LeatherArmor)i;
+		} else{
+			hero.belongings.armor = (LeatherArmor)i;
+		}
 
 		(hero.belongings.weapon = new Rapier()).identify().upgrade(1);
 		hero.belongings.weapon.activate(hero);
@@ -336,9 +389,11 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);
 
-		new ScrollOfMirrorImage().identify().collect();
-		new ScrollOfPrismaticImage().collect();
-		new ScrollOfSirensSong().collect();
+		new DuelistArcanesword().collect();
+		new DuelistBerserk().collect();
+		new DuelistEgoist().collect();
+
+
 
 	}
 	private static void initFix(Hero hero){
@@ -354,7 +409,7 @@ public enum HeroClass {
 
 		(hero.belongings.weapon = banhammer).identify();
 
-		gold = 10000;
+		gold = 100000;
 		updateQuickslot();
 
 		hero.STR = 12;
@@ -373,17 +428,11 @@ public enum HeroClass {
 		StaffOfBeasts staffo = new StaffOfBeasts();
 		staffo.identify().collect();
 
-		WandOfSnakes r22 = new WandOfSnakes();
-		r22.identify().collect();
-
-		new WandOfRegrowth().collect();
-		new SandalsOfNature().upgrade(10000).collect();
-
 		StableTeleportScroll stableTeleportScroll=new StableTeleportScroll();
 		stableTeleportScroll.identify().collect();
 
-		MasterThievesArmband armband = new MasterThievesArmband();
-		armband.identify().collect();
+		SpiritBow sbow = new SpiritBow();
+		sbow.identify().collect();
 
 		for (int i = 0; i<=20; i++) {
 			new PotionOfMagicalSight().collect();
@@ -393,17 +442,40 @@ public enum HeroClass {
 			new SpawnerGrave().identify().collect();
 			new SpawnerWall().identify().collect();
 			new SpawnerCannon().identify().collect();
+			new SpawnerGuard().identify().collect();
+			new SpawnerLightning().identify().collect();
+			new SpawnerDartgun().identify().collect();
+			new SpawnerTntlog().identify().collect();
 			new ScrollOfMagicMapping().identify().collect();
 			new PotionOfToxicGas().identify().collect();
+			new SpawnerDisintegration().identify().collect();
 
 		}
+
+		//new HeroSpellbook().identify().collect();
+		new WarriorCharge().collect();
+		new WarriorGlowup().collect();
+		new WarriorShield().collect();
+		new WarriorGoldarmor().collect();
+		new MageImmortality().collect();
+		new MageGibberish().collect();
+		new MageBlessing().collect();
+		new MageNecromancy().collect();
+		new RogueDisengage().collect();
+		new RogueSwift().collect();
+		new RogueNoAmulet().collect();
+		new RogueShadowclone().collect();
+		new HuntressOakskin().collect();
+		new HuntressProjectiles().collect();
+		new HuntressRegeneration().collect();
+		new HuntressVision().collect();
 
 
 		DebugBow bow = new DebugBow();
 		bow.identify().collect();
 
-		AlchemistsToolkit alchemistsToolkit = new AlchemistsToolkit();
-		alchemistsToolkit.identify().collect();
+
+
 
 
 
@@ -423,6 +495,9 @@ public enum HeroClass {
 
 	public String desc(){
 		return Messages.get(HeroClass.class, name()+"_desc");
+	}
+	public String heroSpells(){
+		return Messages.get(HeroClass.class, name()+"_herospells");
 	}
 
 	public String shortDesc(){
