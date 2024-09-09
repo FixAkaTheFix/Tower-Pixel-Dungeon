@@ -52,8 +52,8 @@ public class Styles {
             if (style == GREENNEON) con = SPDSettings.maxlevelunlockedChalmode()>=11;
             if (style == BLUENEON) con = SPDSettings.maxlevelunlockedChalmode()>=15;
             if (style == PURPLENEON) con = SPDSettings.maxlevelunlockedChalmode()>=20;
-            if (style == SEWER) con = Badges.isUnlocked(Badges.Badge.OOZE_SLAIN);
-            if (style == PRISON) con = Badges.isUnlocked(Badges.Badge.TENGU_SLAIN);
+            if (style == SEWER) con = SPDSettings.maxlevelunlockedHardmode()>=6;
+            if (style == PRISON) con = SPDSettings.maxlevelunlockedHardmode()>=11;
             if (style == FIXED) con = SPDSettings.maxlevelunlocked()>=6;
             if (style == MAGICLING) con = SPDSettings.maxlevelunlocked()>=11;
             if (DeviceCompat.isDebug()) return true;
