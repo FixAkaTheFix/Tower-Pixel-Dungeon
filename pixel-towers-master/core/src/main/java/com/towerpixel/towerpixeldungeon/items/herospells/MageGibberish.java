@@ -38,10 +38,10 @@ public class MageGibberish extends HeroSpellTargeted {
                             new WandOfLightning()
                     );
                     curItem = wando;
+                    Dungeon.gold -= castCost();
+                    updateQuickslot();
                     wando.zapper.onSelect(cell);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
             }
             @Override
             public String prompt() {

@@ -26,11 +26,11 @@ public class HuntressOakskin extends HeroSpellTargeted {
                         Char ch = Char.findChar(cell);
                         Buff.affect(ch, Barkskin.class).set(Random.Int(3, 7), 10);
                         CellEmitter.get(cell).burst(ElmoParticle.FACTORY, 10);
-                    } Dungeon.hero.spendAndNext(1f);
-                    Dungeon.gold -= castCost();
-                    updateQuickslot();
+                        Dungeon.gold -= castCost();
+                        updateQuickslot();
+                        Dungeon.hero.spendAndNext(1f);
+                    }
                 }
-
             }
             @Override
             public String prompt() {

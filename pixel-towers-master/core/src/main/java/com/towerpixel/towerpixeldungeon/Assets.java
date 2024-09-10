@@ -26,7 +26,6 @@ public class Assets {
 
 	public static class Effects {
 		public static final String EFFECTS      = "effects/effects.png";
-		public static final String FIREBALL     = "effects/fireball.png";
 		public static final String SPECKS       = "effects/specks.png";
 		public static final String SPELL_ICONS  = "effects/spell_icons.png";
 	}
@@ -87,6 +86,7 @@ public class Assets {
 				case "blueneon": interfaceType = "blueneoninterface"; break;
 				case "purpleneon": interfaceType = "purpleneoninterface"; break;
 				case "magicling": interfaceType = "magiclinginterface";break;
+				case "clairvoyant": interfaceType = "clairvoyantinterface";break;
 			}
 		}
 		public static final String ARCS_BG  = "interfaces/" + interfaceType + "/arcs1.png";
@@ -95,6 +95,7 @@ public class Assets {
 		public static final String BANNERS  = "interfaces/" + interfaceType + "/banners.png";
 		public static final String BADGES   = "interfaces/badges.png";
 		public static final String LOCKED   = "interfaces/" + interfaceType + "/locked_badge.png";
+		public static final String FIREBALL     = "interfaces/" + interfaceType + "/fireball.png";
 
 		public static final String CHROME   = "interfaces/" + interfaceType + "/chrome.png";
 		public static final String ICONS    = "interfaces/icons.png";

@@ -59,8 +59,6 @@ public class DuelistEgoist extends HeroSpell {
         }
         Buff.affect(Dungeon.hero, Healing.class).setHeal(1+ mobsaffected.size()*20, 0.05f,5);
         Sample.INSTANCE.play(Assets.Sounds.CURSED);
-        Dungeon.gold -= castCost();
-        updateQuickslot();
     }
 
     @Override

@@ -376,7 +376,7 @@ public class LevelSelectScene extends PixelScene {
         startBtn.icon(Icons.get(Icons.ENTER));
         startBtn.textColor(Window.TITLE_COLOR);
         startBtn.text(Messages.titleCase(Messages.get(this, "start")));
-        startBtn.setSize(120, 20);
+        startBtn.setSize(80, 20);
         startBtn.setPos(levelNum.centerX() - (startBtn.width() / 2f), levelNum.centerY() + 0.05f * Camera.main.height);
         align(startBtn);
         add(startBtn);

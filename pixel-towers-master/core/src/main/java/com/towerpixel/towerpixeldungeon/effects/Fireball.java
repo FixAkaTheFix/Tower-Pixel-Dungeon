@@ -56,7 +56,7 @@ public class Fireball extends Component {
 		sparks = new Group();
 		add( sparks );
 		
-		bLight = new Image( Assets.Effects.FIREBALL );
+		bLight = new Image( Assets.Interfaces.FIREBALL );
 		bLight.frame( BLIGHT );
 		bLight.origin.set( bLight.width / 2 );
 		bLight.angularSpeed = -90;
@@ -75,7 +75,7 @@ public class Fireball extends Component {
 		}, 0.1f );
 		add( emitter );
 		
-		fLight = new Image( Assets.Effects.FIREBALL );
+		fLight = new Image( Assets.Interfaces.FIREBALL );
 		fLight.frame( FLIGHT );
 		fLight.origin.set( fLight.width / 2 );
 		fLight.angularSpeed = 360;
@@ -136,7 +136,7 @@ public class Fireball extends Component {
 		
 		public Flame() {
 			
-			super( Assets.Effects.FIREBALL );
+			super( Assets.Interfaces.FIREBALL );
 			
 			frame( Random.Int( 2 ) == 0 ? FLAME1 : FLAME2 );
 			origin.set( width / 2, height / 2 );

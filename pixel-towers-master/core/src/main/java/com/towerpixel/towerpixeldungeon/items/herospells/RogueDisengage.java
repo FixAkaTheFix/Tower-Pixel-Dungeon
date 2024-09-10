@@ -43,10 +43,10 @@ public class RogueDisengage extends HeroSpellTargeted {
                         Buff.affect(ch, Invisibility.class, cheatingAttempt ? 2 : ch.alignment == Char.Alignment.ALLY ? 10 : 5);
                         Buff.affect(ch, Paralysis.class, cheatingAttempt ? 2 : ch.alignment == Char.Alignment.ALLY ? 10 : 5);
                     }
+                    Dungeon.gold -= castCost();
+                    updateQuickslot();
                     Dungeon.hero.spendAndNext(1f);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
             }
             @Override
             public String prompt() {

@@ -98,19 +98,23 @@ public class vTowersNewChanges {
 						"- new menus, slot and tower equipment systems\n" +
 						"- hero abilities\n" +
 						"- Lore"));
-		changes = new ChangeInfo("Some mobs!", false, null);
+		changes = new ChangeInfo("0.1.1", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new RatKingAvatarSprite(), "`Rat king avatar`",
-				Random.oneOf("`Hey? What are you looking for here??? Get away non-rodent!`",
-						"`Don't bother me, human!`",
-						"`Do you have my cheese??? NO? Go find it then!`")));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugfixes and additions",
+				"The new 0.1.1 version has a ton of bugs fixed:\n" +
+						"- skills cost the intended amount of coins now\n" +
+						"- minibosses are no longer corruptable\n" +
+						"- many minor spelling mistakes were fixed (thx Ifrit)\n" +
+						"- several minor ui glitches fixed\n" +
+						"- level 3 difficulty lowered\n" +
+						"- Styles have more beatiful elements now"));
 
 		changes.addButton(new ChangeButton(new GorematiaSpiritSprite(), "#???#",
-				Random.oneOf("#Get lost.#",
-						"#What do you need from me? It's not like I am sentient...#",
-						"#Sure. Go do something else.#")));
+				Random.oneOf("#HEY, WHERE IS THE RAT KING?????#",
+						"#I WON'T BE DELETED THAT EASILY!!!#",
+						"#YOU WON'T DARE TO...#")));
 
 
 	}

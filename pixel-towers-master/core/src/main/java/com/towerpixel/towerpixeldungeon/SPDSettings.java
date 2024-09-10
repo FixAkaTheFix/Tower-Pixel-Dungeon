@@ -132,6 +132,14 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(DAMAGENUMBERSON, true);
 	}
 
+	private static final String INTROSOFF		= "INTROSOFF";
+	public static void introsOff(Boolean value){
+		put(INTROSOFF, value);
+	}
+	public static boolean introsOff(){
+		return getBoolean(INTROSOFF, false);
+	}
+
 	private static final String FASTERATTACKANIMATIONS	= "fasterattackanimations";
 	public static void fasterAnimations(Boolean value){
 		put(FASTERATTACKANIMATIONS, value);

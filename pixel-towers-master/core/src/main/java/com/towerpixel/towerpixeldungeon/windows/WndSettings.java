@@ -137,7 +137,7 @@ public class WndSettings extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				audio.visible = audio.active = value;
-				if (value) last_index = 4;
+				if (value) last_index = 3;
 			}
 		});
 
@@ -152,7 +152,7 @@ public class WndSettings extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				langs.visible = langs.active = value;
-				if (value) last_index = 5;
+				if (value) last_index = 4;
 			}
 
 			@Override
@@ -175,7 +175,7 @@ public class WndSettings extends WndTabbed {
 
 		layoutTabs();
 
-		if (tabs.size() == 5 && last_index >= 3){
+		if (tabs.size() == 4 && last_index >= 2){
 			//input tab isn't visible
 			select(last_index-1);
 		} else {
@@ -207,6 +207,7 @@ public class WndSettings extends WndTabbed {
 		CheckBox chkFullscreen;
 		CheckBox chkStatusNumbersOn;
 		CheckBox chkFasterAnimations;
+		CheckBox chkIntrosOff;
 		OptionSlider optScale;
 		CheckBox chkSaver;
 		RedButton btnOrientation;
@@ -257,9 +258,17 @@ public class WndSettings extends WndTabbed {
 				}
 			};
 			chkFasterAnimations.checked(SPDSettings.fasterAnimations());
-
-
 			add(chkFasterAnimations);
+
+			chkIntrosOff = new CheckBox( Messages.get(this, "introsoff") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.introsOff(checked());
+				}
+			};
+			chkIntrosOff.checked(SPDSettings.introsOff());
+			add(chkIntrosOff);
 
 			if (DeviceCompat.isAndroid() && PixelScene.maxScreenZoom >= 2) {
 				chkSaver = new CheckBox(Messages.get(this, "saver")) {
@@ -288,23 +297,6 @@ public class WndSettings extends WndTabbed {
 				};
 				chkSaver.checked( SPDSettings.powerSaver() );
 				add( chkSaver );
-			}
-
-			if (DeviceCompat.isAndroid()) {
-				Boolean landscape = SPDSettings.landscape();
-				if (landscape == null){
-					landscape = Game.width > Game.height;
-				}
-				Boolean finalLandscape = landscape;
-				btnOrientation = new RedButton(finalLandscape ?
-						Messages.get(this, "portrait")
-						: Messages.get(this, "landscape")) {
-					@Override
-					protected void onClick() {
-						SPDSettings.landscape(!finalLandscape);
-					}
-				};
-				add(btnOrientation);
 			}
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
@@ -364,6 +356,8 @@ public class WndSettings extends WndTabbed {
 				bottom = chkStatusNumbersOn.bottom();
 				chkFasterAnimations.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkFasterAnimations.bottom();
+				chkIntrosOff.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkIntrosOff.bottom();
 
 				if (chkSaver != null) {
 					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);

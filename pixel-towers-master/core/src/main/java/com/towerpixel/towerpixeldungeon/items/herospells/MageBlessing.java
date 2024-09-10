@@ -26,11 +26,11 @@ public class MageBlessing extends HeroSpellTargeted {
                         Char ch = Char.findChar(cell);
                         Buff.affect(ch, Bless.class, 50);
                         CellEmitter.get(cell).burst(CPLight.DOWN, 10);
+                        Dungeon.gold -= castCost();
+                        updateQuickslot();
+                        Dungeon.hero.spendAndNext(1f);
                     }
-                    Dungeon.hero.spendAndNext(1f);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
             }
             @Override
             public String prompt() {

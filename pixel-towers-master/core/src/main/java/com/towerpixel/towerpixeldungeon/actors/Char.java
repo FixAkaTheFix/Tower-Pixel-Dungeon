@@ -1162,7 +1162,7 @@ public abstract class Char extends Actor {
 		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfRetribution.class, ScrollOfPsionicBlast.class)),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
 		MINIBOSS ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Dread.class) )),
+				new HashSet<Class>( Arrays.asList(Dread.class, AllyBuff.class) )),
 		BOSS_MINION,
 		UNDEAD,
 		DEMONIC,

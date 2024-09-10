@@ -13,6 +13,7 @@ public class Styles {
         PRISON,
         FIXED,
         MAGICLING,
+        CLAIRVOYANT,
         YELLOWNEON,
         GREENNEON,
         BLUENEON,
@@ -56,6 +57,7 @@ public class Styles {
             if (style == PRISON) con = SPDSettings.maxlevelunlockedHardmode()>=11;
             if (style == FIXED) con = SPDSettings.maxlevelunlocked()>=6;
             if (style == MAGICLING) con = SPDSettings.maxlevelunlocked()>=11;
+            if (style == CLAIRVOYANT) con = SPDSettings.maxlevelunlocked()>=16;
             if (DeviceCompat.isDebug()) return true;
             return con;
         }
@@ -70,6 +72,7 @@ public class Styles {
             if (style == PRISON)return "prison";
             if (style == FIXED) return "fixed";
             if (style == MAGICLING) return "magicling";
+            if (style == CLAIRVOYANT) return "clairvoyant";
             return "normal";
         }
     }

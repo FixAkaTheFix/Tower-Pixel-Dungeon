@@ -37,10 +37,11 @@ public class MageNecromancy extends HeroSpellTargeted {
                         skeletonbud.die(Dungeon.hero);
                         Buff.affect(ch, Vertigo.class,2);
                     }
+                    Dungeon.gold -= castCost();
+                    updateQuickslot();
                     Dungeon.hero.spendAndNext(1f);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
+
             }
             @Override
             public String prompt() {

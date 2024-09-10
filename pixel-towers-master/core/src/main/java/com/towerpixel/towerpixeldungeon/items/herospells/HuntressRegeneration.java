@@ -24,10 +24,11 @@ public class HuntressRegeneration extends HeroSpellTargeted {
                     Char ch = Char.findChar(cell);
                     Buff.affect(ch, Healing.class).setHeal(50,0,1);
                     CellEmitter.get(cell).burst(CPHeal.UP, 10);
-                }Dungeon.hero.spendAndNext(1f);
+                    Dungeon.gold -= castCost();
+                    updateQuickslot();
+                    Dungeon.hero.spendAndNext(1f);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
+                }
             }
             @Override
             public String prompt() {

@@ -84,10 +84,10 @@ public class WarriorCharge extends HeroSpellTargeted {
                             }
                         });
                     }
+                    Dungeon.gold -= castCost();
+                    updateQuickslot();
                     Dungeon.hero.spendAndNext(1f);
                 }
-                Dungeon.gold -= castCost();
-                updateQuickslot();
             }
             @Override
             public String prompt() {

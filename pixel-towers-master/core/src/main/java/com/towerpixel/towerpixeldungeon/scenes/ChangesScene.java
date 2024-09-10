@@ -228,7 +228,7 @@ public class ChangesScene extends PixelScene {
 			}
 		};
 		if (changesSelected != 0) btnTowersNew.textColor( 0xBBBBBB );
-		btnTowersNew.setRect(list.left()-4f, list.bottom(), 70, changesSelected == 0 ? 19 : 15);
+		btnTowersNew.setRect(list.left()-4f, list.bottom(), panel.width()/2, changesSelected == 0 ? 19 : 15);
 		addToBack(btnTowersNew);
 
 		StyledButton btnShattered = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "Shattered"){
@@ -242,7 +242,7 @@ public class ChangesScene extends PixelScene {
 			}
 		};
 		if (changesSelected != 1) btnShattered.textColor( 0xBBBBBB );
-		btnShattered.setRect(btnTowersNew.right()-2, list.bottom(), 70, changesSelected == 1 ? 19 : 15);
+		btnShattered.setRect(btnTowersNew.right()-1, list.bottom(), panel.width()/2+1, changesSelected == 1 ? 19 : 15);
 		addToBack(btnShattered);
 
 
