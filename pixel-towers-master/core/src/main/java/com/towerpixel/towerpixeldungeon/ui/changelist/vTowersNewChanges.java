@@ -126,15 +126,16 @@ public class vTowersNewChanges {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(new WandOfMagicMissile()), "General",
+		changes.addButton(new ChangeButton(new ItemSprite(new WandOfMagicMissile()), "Additions",
 				"All new content added in ver-0.2.0 includes:\n" +
 						"- Almost all wands reworked. Also most of them have a new sprite\n" +
 						"- Skills rebalanced. Some got new icons too and reworked in mechanic, like Rogue's Rush skill, or blessing\n" +
 						"- Added some visuals to effects, such as blessing, and reworked berserk totem, which grants it's buff for longer durations at the cost of the effect's power"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Last update",
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs and balancing",
 				"Bugs removed:\n" +
 						"- pushing-yourself-into-the-void bug. Now you can't cheese the tengu level, sorry((((\n" +
+						"- levels 4, 10, 11, 12 were rebalanced\n" +
 						"- The visual bug with the walls in stage 2 not disappearing after burning"));
 		/*changes = new ChangeInfo("0.1.1", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
