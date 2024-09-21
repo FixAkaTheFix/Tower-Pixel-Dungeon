@@ -23,6 +23,7 @@ package com.towerpixel.towerpixeldungeon.ui.changelist;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.actors.hero.HeroClass;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.ChangesScene;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
@@ -44,6 +45,7 @@ public class vTowersNewChanges {
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
 		add_Coming_Soon(changeInfos);
 		add_v010_Changes(changeInfos);
+		add_v020_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -115,6 +117,42 @@ public class vTowersNewChanges {
 				Random.oneOf("#HEY, WHERE IS THE RAT KING?????#",
 						"#I WON'T BE DELETED THAT EASILY!!!#",
 						"#YOU WON'T DARE TO...#")));
+
+
+	}
+	public static void add_v020_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+		ChangeInfo changes = new ChangeInfo("v0.2.0", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new ItemSprite(new WandOfMagicMissile()), "General",
+				"All new content added in ver-0.2.0 includes:\n" +
+						"- Almost all wands reworked. Also most of them have a new sprite\n" +
+						"- Skills rebalanced. Some got new icons too and reworked in mechanic, like Rogue's Rush skill, or blessing\n" +
+						"- Added some visuals to effects, such as blessing, and reworked berserk totem, which grants it's buff for longer durations at the cost of the effect's power"));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Last update",
+				"Bugs removed:\n" +
+						"- pushing-yourself-into-the-void bug. Now you can't cheese the tengu level, sorry((((\n" +
+						"- The visual bug with the walls in stage 2 not disappearing after burning"));
+		/*changes = new ChangeInfo("0.1.1", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugfixes and additions",
+				"The new 0.1.1 version has a ton of bugs fixed:\n" +
+						"- skills cost the intended amount of coins now\n" +
+						"- minibosses are no longer corruptable\n" +
+						"- many minor spelling mistakes were fixed (thx Ifrit)\n" +
+						"- several minor ui glitches fixed\n" +
+						"- level 3 difficulty lowered\n" +
+						"- Styles have more beatiful elements now"));
+
+		changes.addButton(new ChangeButton(new GorematiaSpiritSprite(), "#???#",
+				Random.oneOf("#HEY, WHERE IS THE RAT KING?????#",
+						"#I WON'T BE DELETED THAT EASILY!!!#",
+						"#YOU WON'T DARE TO...#")));*/
 
 
 	}

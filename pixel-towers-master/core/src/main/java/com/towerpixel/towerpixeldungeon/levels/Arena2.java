@@ -7,6 +7,7 @@ import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Albino;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
@@ -575,13 +576,11 @@ public class Arena2 extends Arena{
                 for (int i : PathFinder.NEIGHBOURS9) GameScene.add(Blob.seed(51+WIDTH*58 + i, 10, Fire.class));
                 for (int i : PathFinder.NEIGHBOURS9) GameScene.add(Blob.seed(51+WIDTH*61 + i, 10, Fire.class));
 
-                destroy(50 + WIDTH*57);
-                destroy(51 + WIDTH*57);
-                destroy(52 + WIDTH*57);
+                (new Bomb()).explode(51 + WIDTH*57);
 
 
                 for (int i=0;i<20;i++){
-                    Rat rat = new Rat();
+                    Albino rat = new Albino();
                     rat.pos = 51 + WIDTH*62;
                     GameScene.add(rat);
 
