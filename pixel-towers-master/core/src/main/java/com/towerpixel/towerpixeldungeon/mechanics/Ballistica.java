@@ -129,8 +129,11 @@ public class Ballistica {
 				collide(path.get(path.size() - 1));
 			}
 
+			//collide with the previous cell in case of void jumping
+			if (collisionPos == null && cell != sourcePos && stopVoid && Dungeon.level.pit[cell]) {
+				collide(path.get(path.size() - 1));
+			}
 			path.add(cell);
-
 			if (collisionPos == null && stopTerrain && cell != sourcePos && Dungeon.level.solid[cell]) {
 				if (ignoreSoftSolid && (Dungeon.level.passable[cell] || Dungeon.level.avoid[cell])) {
 					//do nothing
@@ -141,9 +144,7 @@ public class Ballistica {
 			if (collisionPos == null && cell != sourcePos && stopChars && Actor.findChar( cell ) != null) {
 				collide(cell);
 			}
-			if (collisionPos == null && cell != sourcePos && stopVoid && stopChars && Dungeon.level.pit[cell]) {
-				collide(cell);
-			}
+
 			if (collisionPos == null && cell == to && stopTarget){
 				collide(cell);
 			}
