@@ -24,7 +24,7 @@ allprojects {
         appAndroidTargetSDK = 33
 
         gdxVersion = '1.11.0'
-        gdxControllersVersion = '2.2.3-SNAPSHOT'
+        gdxControllersVersion = '2.2.3'
         robovmVersion = '2.3.18'
     }
     version = appVersionName

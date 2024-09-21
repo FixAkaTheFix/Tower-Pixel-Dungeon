@@ -23,11 +23,11 @@ public class TowerTntLog extends TowerCWall{
 
     {
         spriteClass = TowerTntLogSprite.class;
-        HP = HT = 100;
-        cost = 200;
+        HP = HT = 175;
+        cost = 400;
         upgrade1Cost = 150;
         damageMin = 10;
-        damageMax = 30;
+        damageMax = 50;
         defMin = 1;
         defMax = 2;
         upgCount = 0;
@@ -47,7 +47,7 @@ public class TowerTntLog extends TowerCWall{
     public void die(Object cause) {
         int cell;
         Sample.INSTANCE.play(Assets.Sounds.BLAST);
-        for (int i : PathFinder.NEIGHBOURS8){
+        for (int i : PathFinder.NEIGHBOURS25){
             cell = pos + i;
             Char ch = Char.findChar(cell);
             if (ch!=null){

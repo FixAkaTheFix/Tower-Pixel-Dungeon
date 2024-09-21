@@ -24,6 +24,6 @@ public class RogueShadowclone extends HeroSpell {
 
     @Override
     protected int castCost() {
-        return 50 + Dungeon.hero.lvl*30;
+        return 50 + Dungeon.hero.HT * 3;
     }
 }

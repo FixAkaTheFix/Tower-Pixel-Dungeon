@@ -18,6 +18,7 @@ public class TowerPylonBroken extends TowerCShooting {
         damageMin = 0;
         damageMax = 1;
         alignment = Alignment.NEUTRAL;
+        properties.add(Property.IMMOVABLE);
 
     }
 

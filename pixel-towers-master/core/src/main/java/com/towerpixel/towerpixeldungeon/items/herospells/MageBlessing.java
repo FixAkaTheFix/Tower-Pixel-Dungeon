@@ -6,6 +6,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Bless;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
+import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.EnergyParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.custom.CPHeal;
@@ -24,7 +25,7 @@ public class MageBlessing extends HeroSpellTargeted {
                 if (cell!=null) {
                     if (Char.findChar(cell) != null) {
                         Char ch = Char.findChar(cell);
-                        Buff.affect(ch, Bless.class, 50);
+                        if (ch instanceof Hero) Buff.affect(ch, Bless.class, 200); else Buff.affect(ch, Bless.class, 2000);
                         CellEmitter.get(cell).burst(CPLight.DOWN, 10);
                         Dungeon.gold -= castCost();
                         updateQuickslot();
@@ -43,6 +44,6 @@ public class MageBlessing extends HeroSpellTargeted {
 
     @Override
     protected int castCost() {
-        return 20 + Dungeon.depth*5;
+        return 100 + Dungeon.depth*5;
     }
 }

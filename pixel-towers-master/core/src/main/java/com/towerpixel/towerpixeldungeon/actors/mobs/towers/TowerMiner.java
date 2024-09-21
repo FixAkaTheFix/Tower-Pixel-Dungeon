@@ -16,6 +16,7 @@ public class TowerMiner extends TowerNotliving {
         state = PASSIVE;
         alignment = Alignment.ALLY;
         upgCount = 0;
+        properties.add(Property.IMMOVABLE);
     }
 
     public void dropGold(int gold){

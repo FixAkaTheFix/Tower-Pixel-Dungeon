@@ -79,7 +79,7 @@ public class WandOfWarding extends Wand {
 		for (Buff buff : curUser.buffs()){
 			if (buff instanceof Wand.Charger){
 				if (((Charger) buff).wand() instanceof WandOfWarding){
-					maxWardEnergy += 2 + ((Charger) buff).wand().level();
+					maxWardEnergy += 5 + ((Charger) buff).wand().level();
 				}
 			}
 		}
@@ -344,18 +344,9 @@ public class WandOfWarding extends Wand {
 			totalZaps++;
 			switch(tier){
 				case 1: case 2: case 3: default:
-					if (totalZaps >= (2*tier-1)){
+					if (totalZaps >= (2*tier)){
 						die(this);
 					}
-					break;
-				case 4:
-					damage(5, this);
-					break;
-				case 5:
-					damage(6, this);
-					break;
-				case 6:
-					damage(7, this);
 					break;
 			}
 		}

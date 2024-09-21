@@ -28,6 +28,7 @@ public class TowerPylon extends TowerCShooting implements Callback {
         baseAttackDelay = 1.5f;
         damageMin = 10;
         damageMax = 20;
+        properties.add(Property.IMMOVABLE);
     }
 
     @Override

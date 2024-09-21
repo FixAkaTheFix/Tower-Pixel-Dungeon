@@ -132,9 +132,17 @@ import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerLightning;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerTntlog;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
+import com.towerpixel.towerpixeldungeon.items.wands.Wand;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorruption;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfFireblast;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfFrost;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfLivingEarth;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfPrismaticLight;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfSnakes;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfTransfusion;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfWarding;
 import com.towerpixel.towerpixeldungeon.items.weapon.DebugBow;
 import com.towerpixel.towerpixeldungeon.items.weapon.SpiritBow;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Banhammer;
@@ -401,12 +409,6 @@ public enum HeroClass {
 		Banhammer banhammer = new Banhammer();
 		banhammer.upgrade(100);
 
-		Shortsword shortsword = new Shortsword();
-		shortsword.identify().collect();
-
-		PlateArmor arr = new PlateArmor();
-		arr.identify().collect();
-
 		(hero.belongings.weapon = banhammer).identify();
 
 		gold = 100000;
@@ -419,8 +421,6 @@ public enum HeroClass {
 		PlateArmor armor = new PlateArmor();
 		armor.identify().collect();
 		armor.upgrade(150);
-
-		new Amulet().collect();
 
 		WandOfDebug buggo = new WandOfDebug();
 		buggo.identify().collect();
@@ -435,8 +435,8 @@ public enum HeroClass {
 		sbow.identify().collect();
 
 		for (int i = 0; i<=20; i++) {
-			new PotionOfMagicalSight().collect();
-			new ScrollOfTeleportation().collect();
+			new ScrollOfUpgrade().identify().collect();
+			new ScrollOfRecharging().identify().collect();
 			new SpawnerCrossbow().identify().collect();
 			new SpawnerWand().identify().collect();
 			new SpawnerGrave().identify().collect();
@@ -445,47 +445,25 @@ public enum HeroClass {
 			new SpawnerGuard().identify().collect();
 			new SpawnerLightning().identify().collect();
 			new SpawnerDartgun().identify().collect();
-			new SpawnerTntlog().identify().collect();
 			new ScrollOfMagicMapping().identify().collect();
-			new PotionOfToxicGas().identify().collect();
-			new SpawnerDisintegration().identify().collect();
-
 		}
 
+		new WandOfCorruption().identify().collect();
+		new WandOfFireblast().identify().collect();
+		new WandOfFrost().identify().collect();
+		new WandOfLivingEarth().identify().collect();
+		new WandOfPrismaticLight().identify().collect();
+		new WandOfTransfusion().identify().collect();
+		new WandOfWarding().identify().collect();
+
 		//new HeroSpellbook().identify().collect();
-		new WarriorCharge().collect();
 		new WarriorGlowup().collect();
-		new WarriorShield().collect();
-		new WarriorGoldarmor().collect();
-		new MageImmortality().collect();
-		new MageGibberish().collect();
 		new MageBlessing().collect();
 		new MageNecromancy().collect();
-		new RogueDisengage().collect();
 		new RogueSwift().collect();
-		new RogueNoAmulet().collect();
 		new RogueShadowclone().collect();
 		new HuntressOakskin().collect();
-		new HuntressProjectiles().collect();
-		new HuntressRegeneration().collect();
-		new HuntressVision().collect();
 
-
-		DebugBow bow = new DebugBow();
-		bow.identify().collect();
-
-
-
-
-
-
-
-
-		Dungeon.quickslot.setSlot(0, bow);
-
-		new PotionOfHealing().identify();
-		new PotionOfStrength().identify();
-		new ScrollOfUpgrade().identify();
 
 	}
 

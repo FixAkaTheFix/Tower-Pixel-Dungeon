@@ -58,21 +58,12 @@ public class WandOfFireblast extends DamageWand {
 		collisionProperties = Ballistica.WONT_STOP;
 	}
 
-	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public int min(int lvl){
-		return (1+lvl) * chargesPerCast();
+		return 1;
 	}
 
-	//2/4/6 base damage with 1/2/3 charges used, nerfed heavily as fire is insane vs hordes
 	public int max(int lvl){
-		switch (chargesPerCast()){
-			case 1: default:
-				return 2 + lvl;
-			case 2:
-				return 4 + lvl;
-			case 3:
-				return 6 + lvl;
-		}
+		return 3 + lvl + chargesPerCast();
 	}
 
 	ConeAOE cone;
@@ -95,16 +86,14 @@ public class WandOfFireblast extends DamageWand {
 				GameScene.updateMap(cell);
 			}
 
-			//only ignite cells directly near caster if they are flammable or solid
-			if (Dungeon.level.adjacent(bolt.sourcePos, cell)
-					&& !(Dungeon.level.flamable[cell] || Dungeon.level.solid[cell])){
+			if (Dungeon.level.adjacent(bolt.sourcePos, cell)){
 				adjacentCells.add(cell);
 				//do burn any heaps located here though
 				if (Dungeon.level.heaps.get(cell) != null){
 					Dungeon.level.heaps.get(cell).burn();
 				}
 			} else {
-				GameScene.add( Blob.seed( cell, 1+chargesPerCast(), Fire.class ) );
+				GameScene.add( Blob.seed( cell, 1, Fire.class ) );
 			}
 
 			Char ch = Actor.findChar( cell );
@@ -125,7 +114,7 @@ public class WandOfFireblast extends DamageWand {
 				if (Dungeon.level.trueDistance(cell+i, bolt.collisionPos) < Dungeon.level.trueDistance(cell, bolt.collisionPos)
 						&& Dungeon.level.flamable[cell+i]
 						&& Fire.volumeAt(cell+i, Fire.class) == 0){
-					GameScene.add( Blob.seed( cell+i, 1+chargesPerCast(), Fire.class ) );
+					GameScene.add( Blob.seed( cell+i, 3, Fire.class ) );
 				}
 			}
 		}
@@ -135,16 +124,6 @@ public class WandOfFireblast extends DamageWand {
 			ch.damage(damageRoll(), this);
 			if (ch.isAlive()) {
 				Buff.affect(ch, Burning.class).reignite(ch);
-				switch (chargesPerCast()) {
-					case 1:
-						break; //no effects
-					case 2:
-						Buff.affect(ch, Cripple.class, 4f);
-						break;
-					case 3:
-						Buff.affect(ch, Paralysis.class, 4f);
-						break;
-				}
 			}
 		}
 	}
@@ -167,12 +146,12 @@ public class WandOfFireblast extends DamageWand {
 		//need to perform flame spread logic here so we can determine what cells to put flames in.
 
 		// 3 distance
-		int maxDist = 3;
+		int maxDist = 2 + chargesPerCast()*2;
 		int dist = Math.min(bolt.dist, maxDist);
 
 		cone = new ConeAOE( bolt,
 				maxDist,
-				30,
+				10,
 				Ballistica.STOP_TARGET | Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID);
 
 		//cast to cells at the tip, rather than all cells, better performance.
@@ -200,8 +179,8 @@ public class WandOfFireblast extends DamageWand {
 		if (cursed || charger != null && charger.target.buff(WildMagic.WildMagicTracker.class) != null){
 			return 1;
 		}
-		//consumes 30% of current charges, rounded up, with a min of 1 and a max of 3.
-		return (int) GameMath.gate(1, (int)Math.ceil(curCharges*0.3f), 3);
+		//consumes all of current charges.
+		return curCharges;
 	}
 
 	@Override

@@ -48,6 +48,7 @@ import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.towerpixel.towerpixeldungeon.items.wands.CursedWand;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorruption;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfDisintegration;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfFireblast;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfFrost;
@@ -104,6 +105,7 @@ public class DamageSource {
         MAGICAL.add( WandOfTransfusion.class );
         MAGICAL.add( WandOfWarding.Ward.class );
         MAGICAL.add(RunicBlade.class);
+        MAGICAL.add(WandOfCorruption.class);
 
         MAGICAL.add( ElementalStrike.class );
         MAGICAL.add( Blazing.class );
@@ -135,6 +137,8 @@ public class DamageSource {
         MAGICAL.add(TowerDisintegration1.class);
         MAGICAL.add(TowerDisintegration2.class);
         MAGICAL.add(TowerDisintegration3.class);
+
+
     }
 
     public static final HashSet<Class> DRIGNORING = new HashSet<>();//NOT IMPLEMENTED YET

@@ -3,6 +3,7 @@ package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barrier;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Battlecry;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Wraith;
@@ -91,7 +92,7 @@ public abstract class TowerTotem extends TowerCTotem{
         }
         protected void useAbility(int cell){
             Char ch = Char.findChar(cell);
-            Buff.affect(ch, Strength.class, 4);
+            Buff.affect(ch, Battlecry.class, 12);
             CellEmitter.floor(ch.pos).start(CPRed.UP, 0.01f, 30);
         }
         protected void searchAndUse(){

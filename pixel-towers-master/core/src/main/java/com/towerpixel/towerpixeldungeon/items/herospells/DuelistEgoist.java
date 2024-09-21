@@ -4,6 +4,7 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barkskin;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Battlecry;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Bless;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Foresight;
@@ -55,7 +56,7 @@ public class DuelistEgoist extends HeroSpell {
         }
         for (Mob mob : mobsaffected) {
            Buff.affect(mob, Hex.class, 100);
-           Buff.affect(Dungeon.hero, Random.oneOf(Bless.class, Stamina.class, Protected.class, Strength.class, Invisibility.class, MindVision.class, Levitation.class, Foresight.class ), 50);
+           Buff.affect(Dungeon.hero, Random.oneOf(Bless.class, Stamina.class, Protected.class, Strength.class, Battlecry.class, Invisibility.class, MindVision.class, Levitation.class, Foresight.class ), 50);
         }
         Buff.affect(Dungeon.hero, Healing.class).setHeal(1+ mobsaffected.size()*20, 0.05f,5);
         Sample.INSTANCE.play(Assets.Sounds.CURSED);

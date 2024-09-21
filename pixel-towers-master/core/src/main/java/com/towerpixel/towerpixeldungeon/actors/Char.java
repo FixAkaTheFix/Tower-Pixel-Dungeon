@@ -35,6 +35,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.AllyBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ArcaneArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barkskin;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Battlecry;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Berserk;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Bleeding;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Bless;
@@ -65,6 +66,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Poison;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Preparation;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Protected;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Rush;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ShieldBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Slow;
 import com.towerpixel.towerpixeldungeon.actors.buffs.SnipersMark;
@@ -442,6 +444,9 @@ public abstract class Char extends Actor {
 			if ( buff(Strength.class) != null ){
 				dmg *= 1.5f;
 			}
+			if ( buff(Battlecry.class) != null ){
+				dmg *= 1.2f;
+			}
 			//Code for crit procs
 			float critChance = this.critChance();
 			if (critChance < 0) critChance = 0;
@@ -676,6 +681,7 @@ public abstract class Char extends Actor {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
+		if ( buff( Rush.class ) != null) speed *= 5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;

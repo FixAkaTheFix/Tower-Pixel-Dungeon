@@ -255,12 +255,23 @@ public class Arena13 extends Arena {
             if (this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
         }
         this.drop(new Honeypot(), Random.element(candidates));
+        this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
+        this.drop(new MeatPie(), Random.element(candidates));
+        this.drop(new Honeypot(), Random.element(candidates));
         this.drop(new PotionOfHealing(), Random.element(candidates));
+        this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
+        this.drop(new MeatPie(), Random.element(candidates));
+        this.drop(new Honeypot(), Random.element(candidates));
         this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
         this.drop(new MeatPie(), Random.element(candidates));
         this.drop(new MysteryMeat(), Random.element(candidates));
 
-        this.drop(Generator.random(Generator.Category.ARMOR), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.ARTIFACT), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.RING), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.ARTIFACT), Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.RING), Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates)).type = Heap.Type.CHEST;

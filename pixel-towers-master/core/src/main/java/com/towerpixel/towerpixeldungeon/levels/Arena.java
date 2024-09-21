@@ -495,33 +495,33 @@ public class Arena extends Level {
                 case 8055: return 1;
             }
             case 11: switch (wave){
-                case 1: return 20;
-                case 2: return 4;
-                case 3: return 17;
-                case 4: return 6;
-                case 5: return 8;
-                case 6: return 8;
-                case 7: return 20;
-                case 8: return 12;
-                case 9: return 30;
-                case 10: return 15;
-                case 11: return 8;
-                case 12: return 15;
-                case 13: return 40;
-                case 14: return 13;
-                case 15: return 25;
+                case 1: return 10;
+                case 2: return 2;
+                case 3: return 10;
+                case 4: return 3;
+                case 5: return 4;
+                case 6: return 4;
+                case 7: return 10;
+                case 8: return 8;
+                case 9: return 20;
+                case 10: return 10;
+                case 11: return 7;
+                case 12: return 10;
+                case 13: return 30;
+                case 14: return 12;
+                case 15: return 20;
             }
             case 12: switch (wave){
-                case 1: return 10;
-                case 2: return 10;
-                case 3: return 12;
-                case 4: return 15;
-                case 5: return 10;
-                case 6: return 30;
-                case 7: return 21;
-                case 8: return 4;
-                case 9: return 22;
-                case 10: return 40;
+                case 1: return 8;
+                case 2: return 8;
+                case 3: return 9;
+                case 4: return 12;
+                case 5: return 6;
+                case 6: return 13;
+                case 7: return 11;
+                case 8: return 8;
+                case 9: return 7;
+                case 10: return 20;
             }
             case 13: switch (wave){
                 case 1: return 2;

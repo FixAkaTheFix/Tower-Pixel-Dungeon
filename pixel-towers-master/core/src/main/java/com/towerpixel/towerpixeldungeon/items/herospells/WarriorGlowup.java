@@ -4,6 +4,7 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barrier;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Battlecry;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
@@ -27,8 +28,8 @@ public class WarriorGlowup extends HeroSpell {
         for (int i : PathFinder.NEIGHBOURS25) {
             Char ch = Char.findChar(Dungeon.hero.pos + i);
             if (ch != null && ch.alignment== Char.Alignment.ALLY && ch instanceof Tower && !(ch instanceof Arena.AmuletTower)) {
-                Buff.affect(ch, Strength.class, Math.max(1, 8*(200/((Tower) ch).cost)));
-                CellEmitter.floor(ch.pos).start(CPRed.UP, 0.005f, 10);
+                Buff.affect(ch, Battlecry.class, Math.max(10, 30*(200/((Tower) ch).cost)));
+                CellEmitter.floor(ch.pos).start(CPRed.UP, 0.05f, 10);
             }
         }
         Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
@@ -36,6 +37,6 @@ public class WarriorGlowup extends HeroSpell {
 
     @Override
     protected int castCost() {
-        return 150;
+        return 300;
     }
 }

@@ -21,31 +21,36 @@
 
 package com.towerpixel.towerpixeldungeon.actors.buffs;
 
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.ui.BuffIndicator;
+import com.watabou.noosa.Image;
 
-public class Bless extends FlavourBuff {
-	
-	public static final float DURATION	= 30f;
-	
-	{
-		type = buffType.POSITIVE;
-		announced = true;
-	}
+public class Rush extends FlavourBuff {
 
-	@Override
-	public int icon() {
-		return BuffIndicator.BLESS;
-	}
+    public static final float DURATION = 5f;
 
-	@Override
-	public void fx(boolean on) {
-		if (on) target.sprite.aura( 0xFFFFAA );
-		else target.sprite.clearAura();
-	}
+    {
+        type = buffType.POSITIVE;
+    }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.HASTE;
+    }
+
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", dispTurns());
+    }
+
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(0.5f, 1f, 1f);
+    }
+
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+    }
 
 }

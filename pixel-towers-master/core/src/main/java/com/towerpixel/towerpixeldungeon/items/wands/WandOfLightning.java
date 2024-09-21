@@ -56,18 +56,18 @@ public class WandOfLightning extends DamageWand {
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
 	public int min(int lvl){
-		return 2+lvl;
+		return 1;
 	}
 
 	public int max(int lvl){
-		return 5+2*lvl;
+		return 7+6*lvl;
 	}
 	
 	@Override
 	public void onZap(Ballistica bolt) {
 
 		//lightning deals less damage per-target, the more targets that are hit.
-		float multipler = 0.4f + (0.6f/affected.size());
+		float multipler = 0.1f + (0.9f/affected.size());
 		//if the main target is in water, all affected take full damage
 		if (Dungeon.level.water[bolt.collisionPos]) multipler = 1f;
 

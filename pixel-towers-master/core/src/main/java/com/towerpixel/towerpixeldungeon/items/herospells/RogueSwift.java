@@ -5,6 +5,7 @@ import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barrier;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Rush;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Stamina;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
@@ -25,13 +26,13 @@ public class RogueSwift extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, Stamina.class, 20);
+        Buff.affect(Dungeon.hero, Rush.class, 4);
         Sample.INSTANCE.play(Assets.Sounds.TRAMPLE);
         CellEmitter.get(Dungeon.hero.pos).burst(SparkParticle.FACTORY, 10);
     }
 
     @Override
     protected int castCost() {
-        return 50+Dungeon.depth*5;
+        return 30+Dungeon.depth*3;
     }
 }

@@ -17,43 +17,37 @@ import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 
-public class MageNecromancy extends HeroSpellTargeted {
+public class MageNecromancy extends HeroSpell {
     {
         image = ItemSpriteSheet.HEROSPELL_MAGE_NECROMANCY;
-
-        cellCaster = new CellSelector.Listener() {
-            @Override
-            public void onSelect(Integer cell) {
-                if (cell!=null) {
-                    Char ch = Char.findChar(cell);
-                    Skeleton skeletonbud = new Skeleton();
-                    skeletonbud.pos = cell;
-                    skeletonbud.alignment = Char.Alignment.ALLY;
-                    GameScene.add(skeletonbud);
-                    Dungeon.level.occupyCell(skeletonbud);
-                    CellEmitter.get(cell).burst(ShadowParticle.UP, 5);
-                    Sample.INSTANCE.play(Assets.Sounds.CURSED);
-                    if (ch != null){
-                        skeletonbud.die(Dungeon.hero);
-                        Buff.affect(ch, Vertigo.class,2);
-                    }
-                    Dungeon.gold -= castCost();
-                    updateQuickslot();
-                    Dungeon.hero.spendAndNext(1f);
-                }
-
-            }
-            @Override
-            public String prompt() {
-                return "Choose a cell target";
-            }
-        };
     }
 
+    @Override
+    public void cast() {
+        super.cast();
+        Sample.INSTANCE.play(Assets.Sounds.CURSED);
+        for ( int i : PathFinder.NEIGHBOURS4){
+            int cell = Dungeon.hero.pos + i;
+            Char ch = Char.findChar(cell);
+            Skeleton skeletonbud = new Skeleton();
+            skeletonbud.pos = cell;
+            skeletonbud.alignment = Char.Alignment.ALLY;
+            GameScene.add(skeletonbud);
+            Dungeon.level.occupyCell(skeletonbud);
+            CellEmitter.get(cell).burst(ShadowParticle.UP, 5);
+            if (ch != null) {
+                skeletonbud.die(Dungeon.hero);
+                Buff.affect(ch, Vertigo.class, 2);
+            }
+        }
 
+        Dungeon.gold -= castCost();
+        updateQuickslot();
+        Dungeon.hero.spendAndNext(1f);
+    }
 
     @Override
     protected int castCost() {
-        return 150 + Dungeon.depth * 10;
+        return 300;
     }
 }

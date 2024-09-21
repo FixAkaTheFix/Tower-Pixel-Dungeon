@@ -25,7 +25,9 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Chill;
 import com.towerpixel.towerpixeldungeon.actors.buffs.FlavourBuff;
@@ -35,9 +37,11 @@ import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MagesStaff;
 import com.towerpixel.towerpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -52,7 +56,7 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return 8+5*lvl;
+		return 3+2*lvl;
 	}
 
 	@Override
@@ -77,36 +81,36 @@ public class WandOfFrost extends DamageWand {
 			}
 
 		}
+		Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
+		for (int i : PathFinder.NEIGHBOURS9) {
+			Char ch = Actor.findChar(bolt.collisionPos + i);
+			if (ch != null){
 
-		Char ch = Actor.findChar(bolt.collisionPos);
-		if (ch != null){
+				int damage = damageRoll();
 
-			int damage = damageRoll();
+				if (ch.buff(Frost.class) != null){
+					return; //do nothing, can't affect a frozen target
+				}
+				if (ch.buff(Chill.class) != null){
+					//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
+					float chillturns = Math.min(10, ch.buff(Chill.class).cooldown());
+					damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
+				} else {
+					ch.sprite.burst( 0xFF99CCFF, buffedLvl() / 2 + 2 );
+				}
+				GameScene.add(Blob.seed(bolt.collisionPos + i, 2, Freezing.class));
+				wandProc(ch, chargesPerCast());
+				ch.damage(damage, this);
 
-			if (ch.buff(Frost.class) != null){
-				return; //do nothing, can't affect a frozen target
-			}
-			if (ch.buff(Chill.class) != null){
-				//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
-				float chillturns = Math.min(10, ch.buff(Chill.class).cooldown());
-				damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
+
+
+
 			} else {
-				ch.sprite.burst( 0xFF99CCFF, buffedLvl() / 2 + 2 );
+				Dungeon.level.pressCell(bolt.collisionPos);
 			}
 
-			wandProc(ch, chargesPerCast());
-			ch.damage(damage, this);
-			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
-
-			if (ch.isAlive()){
-				if (Dungeon.level.water[ch.pos])
-					Buff.affect(ch, Chill.class, 4+buffedLvl());
-				else
-					Buff.affect(ch, Chill.class, 2+buffedLvl());
-			}
-		} else {
-			Dungeon.level.pressCell(bolt.collisionPos);
 		}
+
 	}
 
 	@Override

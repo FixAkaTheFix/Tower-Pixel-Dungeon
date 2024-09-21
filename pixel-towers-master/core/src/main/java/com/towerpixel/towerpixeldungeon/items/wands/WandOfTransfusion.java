@@ -76,12 +76,12 @@ public class WandOfTransfusion extends Wand {
 			//this wand does different things depending on the target.
 			
 			//heals/shields an ally or a charmed enemy while damaging self
-			if ((ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null ) && !(ch instanceof Arena.AmuletTower)){
+			if ((ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null ) && !(ch instanceof Arena.AmuletTower)&& !(ch instanceof WandOfLivingEarth.EarthGuardian)){
 				
 				// 5% of max hp
 				int selfDmg = Math.round(curUser.HT*0.05f);
 				
-				int healing = selfDmg + 3*buffedLvl();
+				int healing = selfDmg + 6*buffedLvl();
 				int shielding = (ch.HP + healing) - ch.HT;
 				if (shielding > 0){
 					healing -= shielding;
@@ -101,10 +101,10 @@ public class WandOfTransfusion extends Wand {
 					freeCharge = false;
 				}
 
-			} else if (ch instanceof Arena.AmuletTower) {
+			} else if (ch instanceof Arena.AmuletTower || ch instanceof WandOfLivingEarth.EarthGuardian) {
 
 				int selfDmg = Math.round(curUser.HT*0.05f);
-				Buff.affect(ch, Barrier.class).setShield(7);
+				Buff.affect(ch, Barrier.class).setShield(5);
 				damageHero(selfDmg);
 
 				//for enemies...

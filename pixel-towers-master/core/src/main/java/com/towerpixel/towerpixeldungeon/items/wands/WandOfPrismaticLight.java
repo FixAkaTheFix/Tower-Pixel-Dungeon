@@ -83,6 +83,11 @@ public class WandOfPrismaticLight extends DamageWand {
 		}
 	}
 
+	@Override
+	protected int initialCharges() {
+		return 6;
+	}
+
 	private void affectTarget(Char ch){
 		int dmg = damageRoll();
 

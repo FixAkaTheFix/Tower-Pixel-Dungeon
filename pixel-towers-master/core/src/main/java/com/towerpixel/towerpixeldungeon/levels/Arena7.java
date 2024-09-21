@@ -235,6 +235,8 @@ public class Arena7 extends Arena{
             this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.WAND).identify(), Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.WAND).identify(), Random.element(candidates));
             this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));

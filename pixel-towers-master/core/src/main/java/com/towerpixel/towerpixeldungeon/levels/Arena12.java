@@ -35,7 +35,7 @@ public class Arena12 extends Arena{
         color1 = 0x534f3e;
         color2 = 0xb9d661;
 
-        startGold = 2000;
+        startGold = 3000;
         startLvl = 11;
 
         maxWaves = 10;
@@ -191,11 +191,11 @@ public class Arena12 extends Arena{
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T1),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
         this.drop(new CorpseDust(),Random.element(candidates));
         this.drop(new Pickaxe() ,Random.element(candidates));

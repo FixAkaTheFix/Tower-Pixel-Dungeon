@@ -68,7 +68,7 @@ public class WandOfLivingEarth extends DamageWand {
 	public void onZap(Ballistica bolt) {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		int damage = damageRoll();
-		int armorToAdd = damage;
+		int armorToAdd = 4 + 4*level();
 
 		EarthGuardian guardian = null;
 		for (Mob m : Dungeon.level.mobs){
@@ -238,7 +238,7 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		private int armorToGuardian(){
-			return 8 + wandLevel*4;
+			return 4 + wandLevel*4;
 		}
 
 		public int absorb( int damage ) {
@@ -319,11 +319,15 @@ public class WandOfLivingEarth extends DamageWand {
 		public void setInfo(Hero hero, int wandLevel, int healthToAdd){
 			if (wandLevel > this.wandLevel) {
 				this.wandLevel = wandLevel;
-				HT = 16 + 8 * wandLevel;
+				HT = 5 + 2 * wandLevel;
 			}
 			HP = Math.min(HT, HP + healthToAdd);
-			//half of hero's evasion
-			defenseSkill = (hero.lvl + 4)/2;
+			defenseSkill = 5;
+		}
+
+		@Override
+		public void damage(int dmg, Object src) {
+			super.damage(1, src);
 		}
 
 		@Override

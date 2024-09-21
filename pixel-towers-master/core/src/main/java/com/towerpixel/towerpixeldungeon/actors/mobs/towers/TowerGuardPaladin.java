@@ -37,8 +37,12 @@ public class TowerGuardPaladin extends TowerGuard3{
             }
         }
         if (!(candidates.isEmpty())){
-            Buff.affect(Random.element(candidates), Bless.class, 10);
-            Buff.affect(Random.element(candidates), Healing.class).setHeal(10,0.2f,1);
+            Char ch = Random.element(candidates);
+            if (ch != null) {
+                if (ch.buff(Bless.class)!=null) Buff.affect(ch, Bless.class, 10);
+                Buff.affect(ch, Healing.class).setHeal(10,0.2f,1);
+            }
+
         }
         return super.attackProc(enemy, damage);
     }

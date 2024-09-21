@@ -175,7 +175,7 @@ public class Arena20 extends Arena {
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.map[m]==Terrain.EMPTY && distance(amuletCell, m)>30) candidates.add(m);
         }
-        for (int i = 0; i < 30; i++){
+        for (int i = 0; i < 50; i++){
             int x1 = Random.element(candidates);
             this.drop(Random.oneOf(
                             TowerInfo.getTowerSpawner(SPDSettings.towerslot1()),
@@ -186,6 +186,12 @@ public class Arena20 extends Arena {
                             Generator.random(Generator.Category.SCROLL),
                             Generator.random(Generator.Category.STONE),
                             Generator.random(Generator.Category.SEED),
+                            Generator.random(Generator.Category.SEED),
+                            Generator.random(Generator.Category.WAND),
+                            Generator.random(Generator.Category.RING),
+                            Generator.random(Generator.Category.WEP_T4),
+                            Generator.random(Generator.Category.WEP_T5),
+                            Generator.random(Generator.Category.ARMOR),
                             new Gold(Random.Int(100,300)),
                             new Gold(Random.Int(100,300)),
                             new Gold(Random.Int(100,300))),

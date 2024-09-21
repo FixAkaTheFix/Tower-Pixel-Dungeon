@@ -186,6 +186,13 @@ public class Arena19 extends Arena {
         }
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
+        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));

@@ -331,9 +331,11 @@ public class Assets {
 		public static final String TOWERGUARD= "towersplashes/towerguard.png";
 		public static final String TOWERDARTGUN= "towersplashes/towerdartgun.png";
 		public static final String TOWERTNTLOG= "towersplashes/towertntlog.png";
-
 		public static final String TOWERMINER= "towersplashes/towerminer.png";
 		public static final String TOWERPYLON= "towersplashes/towerpylon.png";
+		public static final String TOWERLOCKED= "towersplashes/towerlocked.png";
+		public static final String TOWERUNLOCKED= "towersplashes/towerunlocked.png";
+		public static final String TOWERDUNGEON= "towersplashes/towerdungeon.png";
 
 
 	};

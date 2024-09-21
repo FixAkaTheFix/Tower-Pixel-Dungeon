@@ -30,6 +30,6 @@ public class HuntressVision extends HeroSpell {
 
     @Override
     protected int castCost() {
-        return 40 + Dungeon.depth*5;
+        return 30 + Dungeon.depth*3;
     }
 }

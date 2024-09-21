@@ -54,6 +54,6 @@ public class MageGibberish extends HeroSpellTargeted {
 
     @Override
     protected int castCost() {
-        return 20;
+        return 25;
     }
 }

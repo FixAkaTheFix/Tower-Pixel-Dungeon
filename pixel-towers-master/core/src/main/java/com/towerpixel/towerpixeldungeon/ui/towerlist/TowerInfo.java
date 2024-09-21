@@ -114,9 +114,9 @@ public class TowerInfo extends Component {
             case TOTEM: return new Image(Assets.Splashes.TOWERTOTEM);
             case DARTGUN: return new Image(Assets.Splashes.TOWERDARTGUN);
             case TNTLOG: return new Image(Assets.Splashes.TOWERTNTLOG);
-            case LOCKED: return new Image(Icons.get(Icons.REDLOCK));
-            case DUNGEON: return new Image(Icons.get(Icons.STAIRS));
-            case UNLOCKED: return new Image(Icons.get(Icons.GREENLOCK));
+            case LOCKED: return new Image(Assets.Splashes.TOWERLOCKED);
+            case DUNGEON: return new Image(Assets.Splashes.TOWERDUNGEON);
+            case UNLOCKED: return new Image(Assets.Splashes.TOWERUNLOCKED);
             case MINER: return new Image(Assets.Splashes.TOWERMINER);
             case PYLON: return new Image(Assets.Splashes.TOWERPYLON);
         }

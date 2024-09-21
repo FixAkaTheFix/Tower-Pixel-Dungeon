@@ -82,6 +82,8 @@ public class TowersSelectionScene extends PixelScene {
     private TowerSlotButton slotButton3;
     private TowerSlotButton slotButton4;
 
+
+    private int delta = (int) Math.min(20, (Camera.main.height-36) * 0.08);
     @Override
     public void create() {
         super.create();
@@ -108,13 +110,14 @@ public class TowersSelectionScene extends PixelScene {
         int ph = h - 36;
 
         int rpw = Math.min(w - pw - 5 - 5, 200);
+
         {
             panel.size(pw, ph);
             panel.x = (w - pw - rpw)/2;
             panel.y = title.bottom() + 5;
 
             rightPanel = Chrome.get(Chrome.Type.TOAST);
-            rightPanel.size(rpw, ph-20);
+            rightPanel.size(rpw, ph-delta);
             rightPanel.x = panel.x + panel.width();
             rightPanel.y = panel.y;
             add(rightPanel);
@@ -223,6 +226,11 @@ public class TowersSelectionScene extends PixelScene {
         slotButton3 = new TowerSlotButton(3);
         slotButton4 = new TowerSlotButton(4);
 
+        slotButton1.setSize(delta,delta);
+        slotButton2.setSize(delta,delta);
+        slotButton3.setSize(delta,delta);
+        slotButton4.setSize(delta,delta);
+
         slotButton4.setPos(rightPanel.x + rightPanel.width() - slotButton4.width(), rightPanel.y + rightPanel.height());
         slotButton3.setPos(slotButton4.left()-slotButton3.width(), rightPanel.y + rightPanel.height());
         slotButton2.setPos(slotButton3.left()-slotButton2.width(), rightPanel.y + rightPanel.height());
@@ -236,9 +244,10 @@ public class TowersSelectionScene extends PixelScene {
         remove(equippingBtn);
 
         equippingBtn = new TowerEquipButton(TowerInfo.AllTowers.UNLOCKED);
-        equippingBtn.setSize(rightPanel.width() - slotButton1.width()*4, 20);
+        equippingBtn.setSize(rightPanel.width() - slotButton1.width()*4, delta);
         equippingBtn.setPos(rightPanel.x, rightPanel.y + rightPanel.height());
         add(equippingBtn);
+
 
         Archs archs = new Archs();
         archs.setSize(Camera.main.width, Camera.main.height);
@@ -255,11 +264,10 @@ public class TowersSelectionScene extends PixelScene {
 
 
             towerPreview.copy(new Image(TowerInfo.getTowerPreviewImage(chosenTower)));
-            towerPreview.scale.set(30 / towerPreview.height());
+            towerPreview.scale.set(rightPanel.width() / towerPreview.width());
             towerPreview.x = towerInfoTitle.centerX() - towerPreview.width() / 2;
             towerPreview.y = towerInfoTitle.bottom() + 1;
             align(towerPreview);
-            //if (rightScroll.content().getFirstAvailable(Image.class)!=null) rightScroll.content().getFirstAvailable(Image.class).remove();
             rightScroll.content().add(towerPreview);
 
             towerPreview.update();
@@ -268,7 +276,7 @@ public class TowersSelectionScene extends PixelScene {
             remove(equippingBtn);
 
             equippingBtn = new TowerEquipButton(chosenTower);
-            equippingBtn.setSize(rightPanel.width() - slotButton1.width()*4, 20);
+            equippingBtn.setSize(rightPanel.width() - slotButton1.width()*4, delta);
             equippingBtn.setPos(rightPanel.x, rightPanel.y + rightPanel.height());
             add(equippingBtn);
 
@@ -303,7 +311,8 @@ public class TowersSelectionScene extends PixelScene {
         protected TowerInfo.AllTowers equipTower;
         public TowerEquipButton(TowerInfo.AllTowers sometower) {
 
-            super(Chrome.Type.GREY_BUTTON_TR, Messages.get(TowersSelectionScene.class, "select"));
+            super(Chrome.Type.GREY_BUTTON_TR, Messages.get(TowersSelectionScene.class, "select"),
+                    9);
             if (TowerInfo.getTowerLock(sometower) == TowerInfo.Lock.UNLOCKED){
                 text(Messages.get(TowersSelectionScene.class, "select"));
                 equipTower = sometower;
@@ -348,7 +357,7 @@ public class TowersSelectionScene extends PixelScene {
         public TowerSlotButton(int slotnum) {
             super(Chrome.Type.BLANK, ""/*Messages.get(TowersSelectionScene.class, "select")*/);
             slotNum = slotnum;
-            setSize(20,20);
+            setSize(delta,delta);
             update();
         }
 
@@ -359,28 +368,28 @@ public class TowersSelectionScene extends PixelScene {
                 case 1: {
                     icon(new Image(Icons.get(Icons.SLOT1)));
                     Image x = TowerInfo.getTowerIcon(SPDSettings.towerslot1());
-                    x.scale.set(1.2f);
+                    x.scale.set(delta/x.width());
                     if (SPDSettings.towerslot1()!=null) icon(x);
                     break;
                 }
                 case 2: {
                     icon(new Image(Icons.get(Icons.SLOT2)));
                     Image x = TowerInfo.getTowerIcon(SPDSettings.towerslot2());
-                    x.scale.set(1.2f);
+                    x.scale.set(delta/x.width());
                     if (SPDSettings.towerslot2()!=null) icon(x);
                     break;
                 }
                 case 3: {
                     icon(new Image(Icons.get(Icons.SLOT3)));
                     Image x = TowerInfo.getTowerIcon(SPDSettings.towerslot3());
-                    x.scale.set(1.2f);
+                    x.scale.set(delta/x.width());
                     if (SPDSettings.towerslot3()!=null) icon(x);
                     break;
                 }
                 case 4: {
                     icon(new Image(Icons.get(Icons.SLOT4)));
                     Image x = TowerInfo.getTowerIcon(SPDSettings.towerslot4());
-                    x.scale.set(1.2f);
+                    x.scale.set(delta/x.width());
                     if (SPDSettings.towerslot4()!=null) icon(x);
                     break;
                 }

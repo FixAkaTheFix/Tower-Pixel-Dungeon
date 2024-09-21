@@ -6,6 +6,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Stamina;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vulnerable;
+import com.towerpixel.towerpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.particles.SparkParticle;
@@ -20,8 +21,7 @@ public class DuelistBerserk extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, Vulnerable.class, 20);
-        Buff.affect(Dungeon.hero, Strength.class, 20);
+        Buff.affect(Dungeon.hero, Strength.class, 15);
 
         curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
         Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
@@ -29,6 +29,6 @@ public class DuelistBerserk extends HeroSpell {
 
     @Override
     protected int castCost() {
-        return 100;
+        return 50 + Dungeon.depth*3;
     }
 }

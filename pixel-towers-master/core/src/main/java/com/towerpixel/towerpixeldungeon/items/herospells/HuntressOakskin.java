@@ -24,7 +24,7 @@ public class HuntressOakskin extends HeroSpellTargeted {
                 if (cell!=null) {
                     if (Char.findChar(cell) != null) {
                         Char ch = Char.findChar(cell);
-                        Buff.affect(ch, Barkskin.class).set(Random.Int(3, 7), 10);
+                        Buff.affect(ch, Barkskin.class).set(7, 10);
                         CellEmitter.get(cell).burst(ElmoParticle.FACTORY, 10);
                         Dungeon.gold -= castCost();
                         updateQuickslot();
@@ -43,6 +43,6 @@ public class HuntressOakskin extends HeroSpellTargeted {
 
     @Override
     protected int castCost() {
-        return 50 + Dungeon.depth*5;
+        return 100 + Dungeon.depth*5;
     }
 }

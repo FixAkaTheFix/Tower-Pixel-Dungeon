@@ -73,10 +73,18 @@ import com.watabou.utils.Random;
 
 import java.util.HashMap;
 
-public class WandOfCorruption extends Wand {
+public class WandOfCorruption extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_CORRUPTION;
+	}
+
+	public int min(int lvl){
+		return 2+lvl;
+	}
+
+	public int max(int lvl){
+		return 8+2*lvl;
 	}
 	
 	//Note that some debuffs here have a 0% chance to be applied.
@@ -175,7 +183,7 @@ public class WandOfCorruption extends Wand {
 					debuffEnemy( enemy, MINOR_DEBUFFS);
 				}
 			}
-
+			ch.damage(damageRoll(), this);
 			wandProc(ch, chargesPerCast());
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.8f * Random.Float(0.87f, 1.15f) );
 			
