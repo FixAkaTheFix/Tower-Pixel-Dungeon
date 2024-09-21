@@ -44,6 +44,7 @@ public class Ballistica {
 	public static final int STOP_SOLID = 4;     //ballistica will stop on solid terrain
 	public static final int IGNORE_SOFT_SOLID = 8; //ballistica will ignore soft solid terrain, such as doors and webs
 
+	public static final int STOP_VOID = 16; //ballistica will ignore soft solid terrain, such as doors and webs
 	public static final int PROJECTILE =  	STOP_TARGET	| STOP_CHARS	| STOP_SOLID;
 
 	public static final int MAGIC_BOLT =    STOP_CHARS  | STOP_SOLID;
@@ -60,7 +61,8 @@ public class Ballistica {
 				(params & STOP_TARGET) > 0,
 				(params & STOP_CHARS) > 0,
 				(params & STOP_SOLID) > 0,
-				(params & IGNORE_SOFT_SOLID) > 0);
+				(params & IGNORE_SOFT_SOLID) > 0,
+				(params & STOP_VOID) > 0);
 
 		if (collisionPos != null) {
 			dist = path.indexOf(collisionPos);
@@ -73,7 +75,7 @@ public class Ballistica {
 		}
 	}
 
-	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean ignoreSoftSolid ) {
+	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean ignoreSoftSolid, boolean stopVoid ) {
 		int w = Dungeon.level.width();
 
 		int x0 = from % w;
@@ -137,6 +139,9 @@ public class Ballistica {
 				}
 			}
 			if (collisionPos == null && cell != sourcePos && stopChars && Actor.findChar( cell ) != null) {
+				collide(cell);
+			}
+			if (collisionPos == null && cell != sourcePos && stopVoid && stopChars && Dungeon.level.pit[cell]) {
 				collide(cell);
 			}
 			if (collisionPos == null && cell == to && stopTarget){
