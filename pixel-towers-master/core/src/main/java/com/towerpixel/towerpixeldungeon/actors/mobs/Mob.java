@@ -56,8 +56,10 @@ import com.towerpixel.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCWall;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandPrismatic;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
@@ -380,7 +382,7 @@ public abstract class Mob extends Char {
 				//ADDED BY THEFIX if we are the blinding tower and the foe is blinded. Could make it that it blinds stuff when unfriendly, but its op (the towerpath would make all the towers blind)
 			} else if (this instanceof TowerWandPrismatic && enemy.buff(Blindness.class) !=null){
 				newEnemy = true;
-			} else if (this instanceof TowerDartgun1 && enemy.buff(Poison.class) !=null){
+			} else if (this instanceof TowerDartgun1 && (enemy.buff(Poison.class) !=null)){
 				newEnemy = true;
 			}
 
@@ -440,7 +442,7 @@ public abstract class Mob extends Char {
 			} else if (alignment == Alignment.ENEMY) {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && mob.invisible <= 0)
+					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && !(this instanceof Tower && !(this instanceof TowerGuard1) && !canAttack(mob)) && mob.invisible <= 0)
 						enemies.add(mob);
 
 				//and look for the hero
