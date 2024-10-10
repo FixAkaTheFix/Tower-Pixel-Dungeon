@@ -32,6 +32,7 @@ import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.items.armor.Armor;
 import com.towerpixel.towerpixeldungeon.items.armor.Armor.Glyph;
+import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.noosa.audio.Sample;
@@ -57,7 +58,7 @@ public class Evasion extends Glyph {
         if (Random.Float() < procChance && defender instanceof Hero) {
             ArrayList<Integer> candidates = new ArrayList<>();
             for (int n : PathFinder.NEIGHBOURS8) {
-                if (Dungeon.level.passable[hero.pos+n] && Actor.findChar( hero.pos+n ) == null) {
+                if (Dungeon.level.passable[hero.pos+n] && Actor.findChar( hero.pos+n ) == null && Dungeon.level.map[hero.pos+n]!= Terrain.CHASM) {
                     candidates.add( hero.pos+n );
                 }
             }

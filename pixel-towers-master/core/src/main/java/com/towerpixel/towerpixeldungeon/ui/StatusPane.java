@@ -21,7 +21,13 @@
 
 package com.towerpixel.towerpixeldungeon.ui;
 
+import static com.towerpixel.towerpixeldungeon.scenes.GameScene.TIME_PER_TURN;
+import static com.towerpixel.towerpixeldungeon.scenes.GameScene.timer;
+import static com.towerpixel.towerpixeldungeon.scenes.GameScene.timerPaused;
+import static com.towerpixel.towerpixeldungeon.scenes.PixelScene.uiCamera;
+
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.SPDAction;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
@@ -78,6 +84,7 @@ public class StatusPane extends Component {
 
 	private BusyIndicator busy;
 	private CircleArc counter;
+	public CircleArc timeeCircleArc;
 
 	private static String asset = Assets.Interfaces.STATUS;
 
@@ -170,6 +177,10 @@ public class StatusPane extends Component {
 		counter = new CircleArc(18, 4.25f);
 		counter.color( 0x808080, true );
 		counter.show(this, busy.center(), 0f);
+
+		timeeCircleArc = new CircleArc(20, 6f);
+		timeeCircleArc.color(0xff0000,true);
+		timeeCircleArc.show(this, busy.center(), 0f );
 	}
 
 	@Override
@@ -235,6 +246,7 @@ public class StatusPane extends Component {
 		}
 
 		counter.point(busy.center());
+		timeeCircleArc.point(busy.center());
 	}
 	
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
@@ -318,6 +330,7 @@ public class StatusPane extends Component {
 		}
 
 		counter.setSweep((1f - Actor.now()%1f)%1f);
+
 	}
 
 	public void alpha( float value ){
@@ -334,6 +347,7 @@ public class StatusPane extends Component {
 		compass.alpha(value);
 		busy.alpha(value);
 		counter.alpha(value);
+		timeeCircleArc.alpha(value);
 	}
 
 	public void showStarParticles(){

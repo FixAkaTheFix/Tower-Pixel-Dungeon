@@ -45,6 +45,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Snake;
 import com.towerpixel.towerpixeldungeon.effects.BannerSprites;
 import com.towerpixel.towerpixeldungeon.effects.BlobEmitter;
+import com.towerpixel.towerpixeldungeon.effects.CircleArc;
 import com.towerpixel.towerpixeldungeon.effects.EmoIcon;
 import com.towerpixel.towerpixeldungeon.effects.Flare;
 import com.towerpixel.towerpixeldungeon.effects.FloatingText;
@@ -194,6 +195,8 @@ public class GameScene extends PixelScene {
 	private InventoryPane inventory;
 	private static boolean invVisible = true;
 
+
+
 	private Toolbar toolbar;
 	private Toast prompt;
 
@@ -201,6 +204,14 @@ public class GameScene extends PixelScene {
 	private LootIndicator loot;
 	private ActionIndicator action;
 	private ResumeIndicator resume;
+
+	//added timer to make the game more intense.
+
+	public static float timer = 20;
+	public static float TIME_PER_TURN = 8;
+	public static boolean timerPaused = true;//in case of need to pause the game
+
+
 
 	{
 		inGameScene = true;
@@ -595,6 +606,7 @@ public class GameScene extends PixelScene {
 
 		if (!invVisible) toggleInvPane();
 		fadeIn();
+		timer = TIME_PER_TURN;
 
 		//re-show WndResurrect if needed
 		if (!Dungeon.hero.isAlive()){
@@ -695,6 +707,18 @@ public class GameScene extends PixelScene {
 		}
 
 		super.update();
+
+		if (!timerPaused && Dungeon.hero.ready) {
+			status.timeeCircleArc.visible = true;
+			timer -= Game.elapsed;
+			status.timeeCircleArc.setSweep((1f - (float)(timer/TIME_PER_TURN)) % 1f);
+			if (timer <= 0 && Dungeon.hero.isAlive()) {
+				Dungeon.hero.rest(false);
+				timer = TIME_PER_TURN;
+			}
+		} else {
+			status.timeeCircleArc.visible=false;
+		}
 
 		if (notifyDelay > 0) notifyDelay -= Game.elapsed;
 
@@ -1438,6 +1462,7 @@ public class GameScene extends PixelScene {
 			tagDisappeared = false;
 			updateTags = true;
 		}
+		if (Dungeon.hero.ready) timerPaused = false;
 	}
 
 	public static void checkKeyHold(){

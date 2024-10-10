@@ -749,6 +749,7 @@ public class Hero extends Char {
 	@Override
 	public void spend( float time ) {
 		super.spend(time);
+		GameScene.timer = GameScene.TIME_PER_TURN;
 	}
 
 	@Override
@@ -860,6 +861,7 @@ public class Hero extends Char {
 	
 	public void busy() {
 		ready = false;
+		GameScene.timerPaused = true;
 	}
 	
 	private void ready() {
