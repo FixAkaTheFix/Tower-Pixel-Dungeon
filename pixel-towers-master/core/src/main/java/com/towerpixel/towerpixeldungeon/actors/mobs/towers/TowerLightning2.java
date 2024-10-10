@@ -23,7 +23,7 @@ public class TowerLightning2 extends TowerLightning1 {
         HP = HT = 60;
         spriteClass = TowerLightning2Sprite.class;
 
-        viewDistance = 3;
+        attackRange = 3;
         baseAttackDelay = 4f;
 
         cost = 600;

@@ -23,7 +23,7 @@ public class TowerCannonNuke extends TowerCShooting{
         HP = HT = 100;
         spriteClass = TowerCannonNukeSprite.class;
 
-        viewDistance = 7;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
+        attackRange = 7;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
         baseAttackDelay = 8f;
 
         upgCount = 0;
@@ -89,7 +89,7 @@ public class TowerCannonNuke extends TowerCShooting{
 
     @Override
     protected boolean canAttack( Char enemy ) {
-        return (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos|| level.distance(enemy.pos, this.pos)<=viewDistance);
+        return (new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos && level.distance(enemy.pos, this.pos)<=attackRange);
     }
 
 }

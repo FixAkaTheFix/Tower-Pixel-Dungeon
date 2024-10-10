@@ -144,6 +144,8 @@ public abstract class Char extends Actor {
 	public int HP;
 
 
+
+
 	public float critChance = 0.05f;
 	public float critMult = 1.2f;
 	

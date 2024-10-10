@@ -19,7 +19,7 @@ public class TowerDisintegration1 extends TowerCShooting {
         HP = HT = 50;
         spriteClass = TowerDisintegration1Sprite.class;
 
-        viewDistance = 5;
+        attackRange = 5;
         baseAttackDelay = 1.6f;
 
         cost = 300;
@@ -36,20 +36,20 @@ public class TowerDisintegration1 extends TowerCShooting {
 
     @Override
     public int attackSkill(Char target) {
-        return 1000;
+        return 1000000;
     }
 
     @Override
     protected boolean canAttack( Char enemy ) {//does not attack close foes in melee
-        return (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance);
+        return (Dungeon.level.distance(enemy.pos, this.pos)<=attackRange);
     }
 
 
     @Override
     protected boolean doAttack(Char enemy) {
         Ballistica rayllistica = new Ballistica(pos, enemy.pos, Ballistica.WONT_STOP);
-        sprite.parent.add(new Beam.DeathRay(rayPoint(), DungeonTilemap.raisedTileCenterToWorld(rayllistica.path.get(Math.min(viewDistance, rayllistica.path.size()-1)))));
-        for (int rayPos : rayllistica.subPath(1,viewDistance)) {
+        sprite.parent.add(new Beam.DeathRay(rayPoint(), DungeonTilemap.raisedTileCenterToWorld(rayllistica.path.get(Math.min(attackRange, rayllistica.path.size()-1)))));
+        for (int rayPos : rayllistica.subPath(1,attackRange)) {
             if (rayPos>=0 && rayPos<=Dungeon.level.map.length-1) CellEmitter.center(rayPos).burst(PurpleParticle.BURST, 3);
             Char x = Char.findChar(rayPos);
             if (x!=null && x!=enemy) {

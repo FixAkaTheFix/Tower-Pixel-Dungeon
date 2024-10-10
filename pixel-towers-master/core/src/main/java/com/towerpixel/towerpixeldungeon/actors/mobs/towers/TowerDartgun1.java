@@ -13,7 +13,7 @@ public class TowerDartgun1 extends TowerCShooting {
         HP = HT = 25;
         spriteClass = TowerDartgun1Sprite.class;
 
-        viewDistance = 13;
+        attackRange = 13;
         baseAttackDelay = 1f;
 
         cost = 180;
@@ -21,6 +21,7 @@ public class TowerDartgun1 extends TowerCShooting {
         damageMin = 3;
         damageMax = 7;
         upgradeLevel = 3;
+        excludeBuff = Poison.class;
     }
 
     public int poisonPower = 3;
@@ -33,8 +34,9 @@ public class TowerDartgun1 extends TowerCShooting {
     @Override
     protected boolean canAttack( Char enemy ) {//attacks only foes on the same x or y coordinates
         return (enemy.pos % Dungeon.level.width() == pos % Dungeon.level.width() || enemy.pos / Dungeon.level.width() == pos / Dungeon.level.width())
-                && (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance);
+                && (new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos && Dungeon.level.distance(enemy.pos, this.pos)<=attackRange);
     }
+
 
     @Override
     public int attackProc(Char enemy, int damage) {

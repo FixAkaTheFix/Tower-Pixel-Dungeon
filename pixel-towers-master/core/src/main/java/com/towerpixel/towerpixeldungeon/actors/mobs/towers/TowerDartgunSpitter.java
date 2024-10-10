@@ -18,7 +18,7 @@ public class TowerDartgunSpitter extends TowerDartgun3 {
         HP = HT = 50;
         spriteClass = TowerDartgunSpitterSprite.class;
 
-        viewDistance = 10;
+        attackRange = 10;
         cost = 1610;
         upgCount = 0;
         damageMin = 2;
@@ -27,11 +27,11 @@ public class TowerDartgunSpitter extends TowerDartgun3 {
         poisonPower = 7;
     }
 
-    @Override
-    public int attackProc(Char enemy, int damage) {
 
-        Ballistica poisonSplashLlistica = new Ballistica(pos, enemy.pos, Ballistica.TARGETING_BOLT);
-        for (int splashPos : poisonSplashLlistica.subPath(1,viewDistance)) {
+    @Override
+    public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
+        Ballistica poisonSplashLlistica = new Ballistica(pos, enemy.pos, Ballistica.WONT_STOP);
+        for (int splashPos : poisonSplashLlistica.subPath(1,attackRange)) {
 
             if (splashPos - Dungeon.level.width() >=0) CellEmitter.center(splashPos - Dungeon.level.width()).burst(PoisonParticle.CELLSPLASH, 30);
             Char x = Char.findChar(splashPos);
@@ -41,11 +41,11 @@ public class TowerDartgunSpitter extends TowerDartgun3 {
                 if (Random.Int(5)>2)Buff.affect(x, Slow.class, 2);
             }
         }
-        return super.attackProc(enemy, damage);
+        return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
     }
 
     @Override
     public int attackSkill(Char target) {
-        return 16;
+        return 1000000;
     }
 }

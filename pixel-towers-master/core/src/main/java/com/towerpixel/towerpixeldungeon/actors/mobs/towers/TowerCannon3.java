@@ -7,7 +7,7 @@ public class TowerCannon3 extends TowerCannon2{
         HP = HT = 90;
         spriteClass = TowerCannon3Sprite.class;
 
-        viewDistance = 7;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
+        attackRange = 7;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
         baseAttackDelay = 1.5f;
 
         upgCount = 2;

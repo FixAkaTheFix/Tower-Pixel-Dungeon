@@ -22,7 +22,7 @@ public class TowerPylon extends TowerCShooting implements Callback {
         HP = HT = 300;
         spriteClass = PylonTowerSprite.class;
 
-        viewDistance = 8;
+        attackRange = 8;
         upgCount = 0;
 
         baseAttackDelay = 1.5f;
@@ -38,7 +38,7 @@ public class TowerPylon extends TowerCShooting implements Callback {
 
     @Override
     protected boolean canAttack( Char enemy ) {//does not attack close foes in melee
-        return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance;
+        return new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos&&Dungeon.level.distance(enemy.pos, this.pos)<=attackRange;
     }
     public static class LightningBolt{}
     @Override

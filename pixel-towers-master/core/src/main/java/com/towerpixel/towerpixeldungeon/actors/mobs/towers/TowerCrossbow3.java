@@ -8,7 +8,7 @@ public class TowerCrossbow3 extends TowerCrossbow2{
         HP = HT = 80;
         spriteClass = TowerCrossbow3Sprite.class;
 
-        viewDistance = 8;
+        attackRange = 8;
         baseAttackDelay = 0.5f;
         cost = 1000;
         upgCount=2;

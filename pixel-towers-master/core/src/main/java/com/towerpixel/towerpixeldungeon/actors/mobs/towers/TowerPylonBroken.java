@@ -9,7 +9,7 @@ public class TowerPylonBroken extends TowerCShooting {
         HP = HT = 80;
         spriteClass = PylonTowerBrokenSprite.class;
 
-        viewDistance = 0;
+        attackRange = 0;
         upgCount = 1;
 
         upgrade1Cost = 1000;

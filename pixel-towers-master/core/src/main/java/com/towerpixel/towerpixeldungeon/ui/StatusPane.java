@@ -178,7 +178,7 @@ public class StatusPane extends Component {
 		counter.color( 0x808080, true );
 		counter.show(this, busy.center(), 0f);
 
-		timeeCircleArc = new CircleArc(20, 6f);
+		timeeCircleArc = new CircleArc(20, 5f);
 		timeeCircleArc.color(0xff0000,true);
 		timeeCircleArc.show(this, busy.center(), 0f );
 	}

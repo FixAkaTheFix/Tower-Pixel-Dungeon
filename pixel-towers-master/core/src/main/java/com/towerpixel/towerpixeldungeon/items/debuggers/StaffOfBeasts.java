@@ -18,6 +18,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandPrismatic;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.artifacts.EtherealChains;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -101,7 +102,7 @@ public class StaffOfBeasts extends Item {
                 "GOO",
                 "SWARM",
                 "DWM",
-                "BossRatKing",
+                "Blindtower",
                 "Remac",
                 "OOZE",
                 "TRICKSTER",
@@ -156,7 +157,7 @@ public class StaffOfBeasts extends Item {
                         break;
                     }
                     case 23 : {
-                        z = new BossRatKing();
+                        z = new TowerWandPrismatic();
                         break;
                     }
                     case 24 : {

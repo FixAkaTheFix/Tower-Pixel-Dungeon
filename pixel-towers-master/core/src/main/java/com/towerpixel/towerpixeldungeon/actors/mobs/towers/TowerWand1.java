@@ -10,7 +10,7 @@ public class TowerWand1 extends TowerCShooting {
         HP = HT = 40;
         spriteClass = TowerWand1Sprite.class;
 
-        viewDistance = 6;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
+        attackRange = 6;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
         baseAttackDelay = 2f;
 
         cost = 200;
@@ -26,6 +26,6 @@ public class TowerWand1 extends TowerCShooting {
 
     @Override
     protected boolean canAttack( Char enemy ) {
-        return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance;
+        return new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos&&Dungeon.level.distance(enemy.pos, this.pos)<=attackRange;
     }
 }

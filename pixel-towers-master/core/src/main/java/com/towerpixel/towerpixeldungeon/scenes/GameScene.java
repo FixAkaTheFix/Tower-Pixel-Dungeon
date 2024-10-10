@@ -208,7 +208,7 @@ public class GameScene extends PixelScene {
 	//added timer to make the game more intense.
 
 	public static float timer = 20;
-	public static float TIME_PER_TURN = 8;
+	public static float TIME_PER_TURN = 2;
 	public static boolean timerPaused = true;//in case of need to pause the game
 
 
@@ -708,7 +708,7 @@ public class GameScene extends PixelScene {
 
 		super.update();
 
-		if (!timerPaused && Dungeon.hero.ready) {
+		if (!timerPaused && Dungeon.hero.ready && Dungeon.level.mode == WndModes.Modes.HARDMODE) {
 			status.timeeCircleArc.visible = true;
 			timer -= Game.elapsed;
 			status.timeeCircleArc.setSweep((1f - (float)(timer/TIME_PER_TURN)) % 1f);

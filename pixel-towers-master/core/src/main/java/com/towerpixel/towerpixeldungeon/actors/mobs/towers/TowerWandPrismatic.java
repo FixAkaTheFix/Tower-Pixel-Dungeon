@@ -14,10 +14,12 @@ public class TowerWandPrismatic extends TowerWand3 {
         HP = HT = 80;
         spriteClass = TowerWandPrismaticSprite.class;
 
-        viewDistance = 9;//DPT = 32,5 * 1= 32,5 DPT/C = 32,5/2350 = 0,0138; 0,02346 for undead;
+        attackRange = 9;//DPT = 32,5 * 1= 32,5 DPT/C = 32,5/2350 = 0,0138; 0,02346 for undead;
         upgCount = 0;
 
         baseAttackDelay = 0.5f;
+
+        excludeBuff = Weakness.class;
 
         cost = 2000;
         damageMin = 5;

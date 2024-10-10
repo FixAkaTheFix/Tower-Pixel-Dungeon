@@ -11,7 +11,7 @@ public class TowerWandFireball extends TowerWand3{
         HP = HT = 120;
         spriteClass = TowerWandFireballSprite.class;
 
-        viewDistance = 6;//DPT =70*0.6 + 2 + HT/40 = 44 + HT/40 DPT/C = 0,0187 + HT/94000
+        attackRange = 6;//DPT =70*0.6 + 2 + HT/40 = 44 + HT/40 DPT/C = 0,0187 + HT/94000
         upgCount = 0;
 
         cost = 2000;

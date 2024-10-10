@@ -7,7 +7,7 @@ public class TowerWand2 extends TowerWand1 {
         HP = HT = 50;
         spriteClass = TowerWand2Sprite.class;
 
-        viewDistance = 6;//DPT =13*0.6 = 7.8 DPT/C = 7.8/350 = 0,0223
+        attackRange = 6;//DPT =13*0.6 = 7.8 DPT/C = 7.8/350 = 0,0223
 
         cost = 450;
         upgrade1Cost = 550;

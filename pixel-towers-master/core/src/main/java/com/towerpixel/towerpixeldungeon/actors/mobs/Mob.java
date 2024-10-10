@@ -57,6 +57,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCShooting;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCWall;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
@@ -341,11 +342,8 @@ public abstract class Mob extends Char {
 		} else if (enemy instanceof BossDwarfKing && ((BossDwarfKing)enemy).battleMode==0) {
 			newEnemy = true;
 			//ADDED BY THEFIX We have an enemy but he is out of our reaching distance (used for ballistas and some ranged mobs, that cant aim at close enemies)
-		} else if (!canAttack(enemy)) {
+		} else if (this instanceof Tower && !canAttack(enemy)) {
 			newEnemy = true;
-			//TODO BY THEFIX ...the hero has a volatileAI perk which makes towers target the closest enemy
-			//} else if (this instanceof Tower && Perk.volatileAI) {
-			//	newEnemy = true;
 			//We are amoked and current enemy is the hero
 		} else if (buff( Amok.class ) != null && enemy == Dungeon.hero) {
 			newEnemy = true;
@@ -380,9 +378,9 @@ public abstract class Mob extends Char {
 				if (enemy.isInvulnerable(getClass())){
 				newEnemy = true;
 				//ADDED BY THEFIX if we are the blinding tower and the foe is blinded. Could make it that it blinds stuff when unfriendly, but its op (the towerpath would make all the towers blind)
-			} else if (this instanceof TowerWandPrismatic && enemy.buff(Blindness.class) !=null){
-				newEnemy = true;
-			} else if (this instanceof TowerDartgun1 && (enemy.buff(Poison.class) !=null)){
+			}
+
+				else if (this instanceof TowerCShooting && ((TowerCShooting)this).excludeBuff!=null && (enemy.buff(((TowerCShooting) this).excludeBuff) !=null)){
 				newEnemy = true;
 			}
 
@@ -424,15 +422,8 @@ public abstract class Mob extends Char {
 					if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]
 							&& mob.invisible <= 0 && !mob.isInvulnerable(getClass()))
 							//Prismatic towers do not attack the blinded
-						//TODO crossbow towers which are volatile dont focus on close enemies, so never get stunlocked. Being stulocked by target is not a thing already because of mobs locating several (see above) targets, but a tower, which has the perk, if totally surrounded by 8 rats, wont get stunlocked too
-						//&& !(this instanceof TowerCrossbow1 && distance(mob)==1 && Perk.volatileAI))
-						//intelligent allies do not target mobs which are passive, wandering, or asleep
-
-						if (!(this instanceof TowerWandPrismatic) ||
-								(mob.buff(Blindness.class)==null || enemies.isEmpty()))
-						if (!(this instanceof TowerDartgun1) ||
-							(mob.buff(Poison.class)==null || enemies.isEmpty()))
-
+						if (!(this instanceof TowerCShooting) || ((TowerCShooting)this).excludeBuff==null || (canAttack(mob) &&(mob.buff(((TowerCShooting) this).excludeBuff)==null || (enemies.isEmpty()))))
+							//intelligent allies do not target mobs which are passive, wandering, or asleep
 						if (!intelligentAlly ||
 								(mob.state != mob.SLEEPING && mob.state != mob.PASSIVE && mob.state != mob.WANDERING)) {
 							enemies.add(mob);
@@ -442,7 +433,7 @@ public abstract class Mob extends Char {
 			} else if (alignment == Alignment.ENEMY) {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && !(this instanceof Tower && !(this instanceof TowerGuard1) && !canAttack(mob)) && mob.invisible <= 0)
+					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && mob.invisible <= 0)
 						enemies.add(mob);
 
 				//and look for the hero

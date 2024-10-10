@@ -47,21 +47,21 @@ public class MenuPane extends Component {
 
 	private Image bg;
 
-	private Image depthIcon;
+	private Image      depthIcon;
 	private BitmapText depthText;
 	private BitmapText depthName;
-	private Button depthButton;
+	private Button   depthButton;
 
-	private Image challengeIcon;
+	private Image      challengeIcon;
 	private BitmapText challengeText;
-	private Button challengeButton;
+	private Button   challengeButton;
 
 	private JournalButton btnJournal;
-	private MenuButton btnMenu;
+	private MenuButton       btnMenu;
 
 	private Toolbar.PickedUpItem pickedUp;
 
-	private BitmapText version;
+	private BitmapText            version;
 
 	private DangerIndicator danger;
 
@@ -115,7 +115,7 @@ public class MenuPane extends Component {
 
 		if (Challenges.activeChallenges() > 0){
 			challengeIcon = Icons.get(Icons.CHAL_COUNT);
-			add(challengeIcon);
+			add                         (challengeIcon);
 
 			challengeText = new BitmapText( Integer.toString( Challenges.activeChallenges() ), PixelScene.pixelFont);
 			challengeText.hardlight( 0xCACFC2 );

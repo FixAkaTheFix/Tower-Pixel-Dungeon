@@ -29,7 +29,7 @@ public class TowerCannon1 extends TowerCShooting{
         HP = HT = 30;
         spriteClass = TowerCannon1Sprite.class;
 
-        viewDistance = 7;
+        attackRange = 7;
         baseAttackDelay = 1.5f;
 
         cost = 300;
@@ -90,6 +90,6 @@ public class TowerCannon1 extends TowerCShooting{
 
     @Override
     protected boolean canAttack( Char enemy ) {
-        return (new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos|| level.distance(enemy.pos, this.pos)<=viewDistance);
+        return (new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos && level.distance(enemy.pos, this.pos)<=attackRange);
     }
 }

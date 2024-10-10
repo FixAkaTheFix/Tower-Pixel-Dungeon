@@ -22,7 +22,7 @@ public class TowerWandLightning extends TowerWand3 {
         HP = HT = 80;
         spriteClass = TowerWandLightningSprite.class;
 
-        viewDistance = 7;//DPT = 40 * 0.7= 28 DPT/C = 28/2350 = 0,012;
+        attackRange = 7;//DPT = 40 * 0.7= 28 DPT/C = 28/2350 = 0,012;
         upgCount = 0;
 
         baseAttackDelay = 1.7f;

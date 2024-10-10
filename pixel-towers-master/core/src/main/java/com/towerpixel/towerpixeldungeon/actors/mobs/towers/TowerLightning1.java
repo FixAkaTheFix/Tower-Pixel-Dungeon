@@ -23,7 +23,7 @@ public class TowerLightning1 extends TowerCShooting {
         HP = HT = 40;
         spriteClass = TowerLightning1Sprite.class;
 
-        viewDistance = 3;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
+        attackRange = 3;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
         baseAttackDelay = 4f;
 
         cost = 200;
@@ -36,12 +36,12 @@ public class TowerLightning1 extends TowerCShooting {
 
     @Override
     protected boolean canAttack( Char enemy ) {
-        return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos||Dungeon.level.distance(enemy.pos, this.pos)<=viewDistance;
+        return new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos&&Dungeon.level.distance(enemy.pos, this.pos)<=attackRange;
     }
 
     @Override
     public int attackSkill(Char target) {
-        return 100;
+        return 1000000;
     }
 
     @Override

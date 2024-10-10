@@ -9,7 +9,7 @@ public class TowerDartgun3 extends TowerDartgun2 {
         HP = HT = 50;
         spriteClass = TowerDartgun3Sprite.class;
 
-        viewDistance = 15;
+        attackRange = 15;
         cost = 910;
         upgrade1Cost = 700;
         upgrade2Cost = 700;
