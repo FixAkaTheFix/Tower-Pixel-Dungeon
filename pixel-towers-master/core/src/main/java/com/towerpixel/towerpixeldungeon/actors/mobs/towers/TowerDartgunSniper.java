@@ -4,7 +4,7 @@ import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.sprites.TowerDartgun3Sprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerDartgunSniperSprite;
 
-public class TowerDartgunSniper extends TowerDartgun2 {
+public class TowerDartgunSniper extends TowerDartgun3 {
     {
         HP = HT = 30;
         spriteClass = TowerDartgunSniperSprite.class;
@@ -12,7 +12,7 @@ public class TowerDartgunSniper extends TowerDartgun2 {
         attackRange = 20;
         cost = 1610;
         upgCount = 0;
-        baseAttackDelay = 3f;
+        baseAttackDelay = 3.5f;
         damageMin = 31;
         damageMax = 33;
         upgradeLevel = 8;
@@ -21,6 +21,6 @@ public class TowerDartgunSniper extends TowerDartgun2 {
 
     @Override
     public int attackSkill(Char target) {
-        return 20;
+        return 100000;
     }
 }

@@ -13,17 +13,17 @@ public class TowerDartgun2 extends TowerDartgun1 {
         HP = HT = 35;
         spriteClass = TowerDartgun2Sprite.class;
 
-        attackRange = 14;
+        attackRange = 12;
         cost = 430;
         upgrade1Cost = 480;
         damageMin = 7;
-        damageMax = 13;
+        damageMax = 11;
         upgradeLevel = 8;
         poisonPower = 5;
     }
 
     @Override
     public int attackSkill(Char target) {
-        return 14;
+        return 16;
     }
 }

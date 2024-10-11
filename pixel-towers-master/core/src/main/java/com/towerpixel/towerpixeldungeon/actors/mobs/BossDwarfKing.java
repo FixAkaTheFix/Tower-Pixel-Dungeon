@@ -1,47 +1,31 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
-import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
-import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
-import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
-import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
-import com.towerpixel.towerpixeldungeon.actors.blobs.StenchGas;
 import com.towerpixel.towerpixeldungeon.actors.buffs.AnkhInvulnerability;
-import com.towerpixel.towerpixeldungeon.actors.buffs.Berserk;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.LifeLink;
-import com.towerpixel.towerpixeldungeon.actors.buffs.ShieldBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGrave1;
 import com.towerpixel.towerpixeldungeon.effects.Beam;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
-import com.towerpixel.towerpixeldungeon.items.Amulet;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.towerpixel.towerpixeldungeon.items.wands.Wand;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
-import com.towerpixel.towerpixeldungeon.sprites.BossNecromancerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
-import com.towerpixel.towerpixeldungeon.sprites.GuardSprite;
 import com.towerpixel.towerpixeldungeon.sprites.KingSprite;
-import com.towerpixel.towerpixeldungeon.sprites.SkeletonSprite;
-import com.towerpixel.towerpixeldungeon.sprites.TowerGraveEliteSprite;
 import com.towerpixel.towerpixeldungeon.ui.BossHealthBar;
-import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
@@ -402,7 +386,7 @@ public class BossDwarfKing extends Mob{
     public void hordeOfUndead() {
         spend(1f);
         Sample.INSTANCE.play(Assets.Sounds.CURSED);
-        for (int i : PathFinder.FARCROSS) for (int x : PathFinder.NEIGHBOURS8){
+        for (int i : PathFinder.FAR2TILES) for (int x : PathFinder.NEIGHBOURS8){
             Skeleton skelly = new Skeleton();
             skelly.pos = this.pos + i + x;
             CellEmitter.get(skelly.pos).burst(ShadowParticle.UP, 5);

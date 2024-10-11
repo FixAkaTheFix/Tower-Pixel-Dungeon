@@ -40,14 +40,14 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         minionCooldownLeft = 1000000;
 
         minionHP = 1;
-        minionDamageMin = 16;
-        minionDamageMax = 30;
+        minionDamageMin = 25;
+        minionDamageMax = 52;
 
         minionAttackSkill = 1000000;
         minionDefenseSkill = 7;
         minionDR = 0;
 
-        cost = 2800;
+        cost = 2300;
 
         upgCount = 0;
 
@@ -80,6 +80,7 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         minion.state = minion.WANDERING;
         CellEmitter.get(this.pos).burst(SmokeParticle.SPEW, 5);
         CellEmitter.get(minion.pos).burst(SmokeParticle.FACTORY, 10);
+        spend(1f);
     }
 
     public static class RocketMinion extends Mob{

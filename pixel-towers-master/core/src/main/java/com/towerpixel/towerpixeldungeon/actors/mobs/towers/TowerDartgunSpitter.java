@@ -18,7 +18,7 @@ public class TowerDartgunSpitter extends TowerDartgun3 {
         HP = HT = 50;
         spriteClass = TowerDartgunSpitterSprite.class;
 
-        attackRange = 10;
+        attackRange = 11;
         cost = 1610;
         upgCount = 0;
         damageMin = 2;

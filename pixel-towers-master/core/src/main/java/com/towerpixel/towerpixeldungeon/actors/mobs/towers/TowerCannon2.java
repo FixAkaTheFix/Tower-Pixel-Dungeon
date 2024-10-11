@@ -10,7 +10,7 @@ public class TowerCannon2 extends TowerCannon1{
         HP = HT = 60;
         spriteClass = TowerCannon2Sprite.class;
 
-        attackRange = 7;//DPT =15*0.66 = 10;DPT/C=10:450=0.02222
+        attackRange = 6;//DPT =15*0.66 = 10;DPT/C=10:450=0.02222
         baseAttackDelay = 1.5f;
 
         upgradeLevel = 8;

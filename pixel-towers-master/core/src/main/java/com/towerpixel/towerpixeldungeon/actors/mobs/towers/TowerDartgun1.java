@@ -13,13 +13,13 @@ public class TowerDartgun1 extends TowerCShooting {
         HP = HT = 25;
         spriteClass = TowerDartgun1Sprite.class;
 
-        attackRange = 13;
+        attackRange = 11;
         baseAttackDelay = 1f;
 
         cost = 180;
         upgrade1Cost = 250;
         damageMin = 3;
-        damageMax = 7;
+        damageMax = 6;
         upgradeLevel = 3;
         excludeBuff = Poison.class;
     }
@@ -28,7 +28,7 @@ public class TowerDartgun1 extends TowerCShooting {
 
     @Override
     public int attackSkill(Char target) {
-        return 12;
+        return 15;
     }
 
     @Override

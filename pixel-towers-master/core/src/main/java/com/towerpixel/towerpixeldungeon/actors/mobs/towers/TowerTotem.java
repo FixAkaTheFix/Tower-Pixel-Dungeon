@@ -5,7 +5,6 @@ import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Barrier;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Battlecry;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
-import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Wraith;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
@@ -43,7 +42,7 @@ public abstract class TowerTotem extends TowerCTotem{
             }
         }
         protected void searchAndUse(){
-            for (int i : PathFinder.FARCROSS) for (int c : PathFinder.NEIGHBOURS25)if (Char.findChar(pos+i+c)!=null){
+            for (int i : PathFinder.FAR2TILES) for (int c : PathFinder.NEIGHBOURS25)if (Char.findChar(pos+i+c)!=null){
                 if (Char.findChar(pos+i+c).alignment!=this.alignment) useAbility(pos+i+c);
             }
         }

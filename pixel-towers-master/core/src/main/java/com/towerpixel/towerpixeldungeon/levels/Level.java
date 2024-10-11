@@ -52,6 +52,8 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Piranha;
 import com.towerpixel.towerpixeldungeon.actors.mobs.YogFist;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Sheep;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun3;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlowParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.WindParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
@@ -1249,6 +1251,12 @@ public abstract class Level implements Bundlable {
 			}
 			
 			ShadowCaster.castShadow( cx, cy, fieldOfView, blocking, viewDist );
+			//I am sorry for such an implemetation, but Char class has no methods to regulate fov, somehow
+			if (c instanceof TowerDartgun1){
+				for (int i = 0; i < fieldOfView.length;i++){
+					if (!(i/Dungeon.level.width() == cy || i%Dungeon.level.width() == cx)) fieldOfView[i] = false;
+				}
+			}
 		} else {
 			BArray.setFalse(fieldOfView);
 		}

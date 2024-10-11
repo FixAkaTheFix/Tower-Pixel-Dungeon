@@ -6,7 +6,6 @@ public class TowerCrossbow2 extends TowerCrossbow1{
         HP = HT = 55;
         spriteClass = TowerCrossbow2Sprite.class;
 
-        attackRange = 8;
 
         baseAttackDelay = 0.65f;
 

@@ -422,7 +422,7 @@ public abstract class Mob extends Char {
 					if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]
 							&& mob.invisible <= 0 && !mob.isInvulnerable(getClass()))
 							//Prismatic towers do not attack the blinded
-						if (!(this instanceof TowerCShooting) || ((TowerCShooting)this).excludeBuff==null || (canAttack(mob) &&(mob.buff(((TowerCShooting) this).excludeBuff)==null || (enemies.isEmpty()))))
+						if (!(this instanceof TowerCShooting) || ((TowerCShooting)this).excludeBuff==null ||(mob.buff(((TowerCShooting) this).excludeBuff)==null || (enemies.isEmpty())))
 							//intelligent allies do not target mobs which are passive, wandering, or asleep
 						if (!intelligentAlly ||
 								(mob.state != mob.SLEEPING && mob.state != mob.PASSIVE && mob.state != mob.WANDERING)) {

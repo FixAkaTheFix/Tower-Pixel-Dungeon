@@ -5,13 +5,13 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
 import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbowBallistaSprite;
 
-public class TowerCrossbowBallista extends TowerCrossbow2{
+public class TowerCrossbowBallista extends TowerCrossbow3{
 
     {
         HP = HT = 100;
         spriteClass = TowerCrossbowBallistaSprite.class;
 
-        attackRange = 10;//DPT =0.2*150 =30 DPT/C = 33/1850= 0.01622
+        attackRange = 9;//DPT =0.2*150 =30 DPT/C = 33/1850= 0.01622
         baseAttackDelay = 5f;
         cost = 2000;
 

@@ -45,7 +45,7 @@ public class PathFinder {
 	public static int[] NEIGHBOURS8;
 	public static int[] NEIGHBOURS9;
 	public static int[] NEIGHBOURS25;
-	public static int[] FARCROSS;
+	public static int[] FAR2TILES;
 
 
 	//similar to their equivalent neighbour arrays, but the order is clockwise.
@@ -73,8 +73,7 @@ public class PathFinder {
 		NEIGHBOURS8 = new int[]{-width-1, -width, -width+1, -1, +1, +width-1, +width, +width+1};
 		NEIGHBOURS9 = new int[]{-width-1, -width, -width+1, -1, 0, +1, +width-1, +width, +width+1};
 		NEIGHBOURS25 = new int[]{-width-width-2,-width-width-1,-width-width,-width-width+1,-width-width+2,-width-2,-width-1,-width,-width+1,-width+2,-2,-1,0,+1,+2,+width+width-2,+width+width-1,+width+width,+width+width+1,+width+width+2,+width-2,+width-1,+width,+width+1,+width+2};
-		FARCROSS = new int[]{-width-width-2,-width-width+2,+width+width-2,+width+width+2};
-
+		FAR2TILES = new int[]{-width-width-2,-width-width+2,+width+width-2,+width+width+2};
 		CIRCLE4 = new int[]{-width, +1, +width, -1};
 		CIRCLE8 = new int[]{-width-1, -width, -width+1, +1, +width+1, +width, +width-1, -1};
 	}
