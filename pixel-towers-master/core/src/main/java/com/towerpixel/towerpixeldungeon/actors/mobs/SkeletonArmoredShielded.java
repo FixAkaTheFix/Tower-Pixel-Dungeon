@@ -11,11 +11,13 @@ public class SkeletonArmoredShielded extends SkeletonArmored{
         HP = HT = 150;
         defenseSkill = 4;
         spriteClass = SkeletonWarriorShieldedSprite.class;
+        baseSpeed = 1.02f;
+        targetingPreference = TargetingPreference.NOT_WALLS;
     }
 
     @Override
     public int drRoll() {
-        return super.drRoll() + Random.NormalIntRange(26, 50);
+        return super.drRoll() + Random.NormalIntRange(50, 100);
     }
 
 

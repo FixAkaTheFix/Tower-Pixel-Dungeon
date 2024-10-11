@@ -45,6 +45,8 @@ public class MagiCrab extends Crab {
         loot = new MysteryMeat().quantity(2);
         lootChance = 1f;
 
+        targetingPreference = TargetingPreference.NOT_HERO;
+
         properties.add(Property.MINIBOSS);
     }
 

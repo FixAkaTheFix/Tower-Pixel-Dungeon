@@ -40,6 +40,7 @@ public class SpectralNecromancer extends Necromancer {
 
 	{
 		spriteClass = SpectralNecromancerSprite.class;
+		targetingPreference = TargetingPreference.NOT_WALLS;
 	}
 
 	private ArrayList<Integer> wraithIDs = new ArrayList<>();
@@ -136,6 +137,7 @@ public class SpectralNecromancer extends Necromancer {
 
 		Wraith wraith = Wraith.spawnAt(summoningPos);
 		wraith.adjustStats(0);
+		wraith.targetingPreference = TargetingPreference.NOT_WALLS;
 		Dungeon.level.occupyCell( wraith );
 		((SpectralNecromancerSprite)sprite).finishSummoning();
 

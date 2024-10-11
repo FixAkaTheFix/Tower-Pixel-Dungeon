@@ -14,7 +14,7 @@ public class DMWMinion extends Mob {
     {
         spriteClass = DMWMinionSprite.class;
 
-        HP = HT = 15;
+        HP = HT = 20;
         defenseSkill = 100;
 
         EXP = 1;
@@ -28,7 +28,7 @@ public class DMWMinion extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 60, 80 );
+        return Random.NormalIntRange( 150, 200 );
     }
     @Override
     public int attackProc( Char enemy, int damage ) {
@@ -46,7 +46,7 @@ public class DMWMinion extends Mob {
 
     @Override
     public int drRoll() {
-        return super.drRoll() + Random.NormalIntRange(5, 6);
+        return super.drRoll() + Random.NormalIntRange(5, 15);
     }
 }
 
