@@ -88,6 +88,9 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Elemental;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Tengu;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
+import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
+import com.towerpixel.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Potential;
@@ -124,9 +127,12 @@ import com.towerpixel.towerpixeldungeon.sprites.BossRatKingSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
+import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -142,10 +148,6 @@ public abstract class Char extends Actor {
 
 	public int HT;
 	public int HP;
-
-
-
-
 	public float critChance = 0.05f;
 	public float critMult = 1.2f;
 	
@@ -694,6 +696,9 @@ public abstract class Char extends Actor {
 	public boolean canSurpriseAttack(){
 		return true;
 	}
+	public boolean canGetSurpriseAttacked(){
+		return true;
+	}
 	
 	//used so that buffs(Shieldbuff.class) isn't called every time unnecessarily
 	private int cachedShield = 0;
@@ -899,6 +904,19 @@ public abstract class Char extends Actor {
 		destroy();
 		if (src != Chasm.class) sprite.die();
 
+	}
+
+	public void damagePortal(int postp){
+		CellEmitter.get(postp).burst(SacrificialParticle.FACTORY, 3);
+		Camera.main.panFollow(sprite,2f);
+		sprite.jump(this.pos, postp, 5,0.5f, new Callback() {
+			@Override
+			public void call() {
+				sprite.killAndErase();
+				destroy();
+				Sample.INSTANCE.play(Assets.Sounds.CHARGEUP,1f,2f);
+			}
+		});
 	}
 
 	//we cache this info to prevent having to call buff(...) in isAlive.

@@ -5,7 +5,9 @@ import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
@@ -45,6 +47,8 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
         immunities.add(Slow.class);
         immunities.add(Frost.class);
         immunities.add(Freezing.class);
+        immunities.add(Fire.class);
+        immunities.add(Burning.class);
 
         alignment = Alignment.ALLY;
     }
@@ -74,6 +78,7 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
     public void damage(int dmg, Object src) {
         ((Arena)level).amuletTower.damage(1, src);//all the damage is referred to the main tower
         HP = ((Arena)level).amuletTower.HP;
+        if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) ((Char)src).damagePortal(pos);
     }
 
     @Override

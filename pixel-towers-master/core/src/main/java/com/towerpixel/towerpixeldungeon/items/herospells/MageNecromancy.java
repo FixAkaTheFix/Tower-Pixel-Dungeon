@@ -28,17 +28,20 @@ public class MageNecromancy extends HeroSpell {
         Sample.INSTANCE.play(Assets.Sounds.CURSED);
         for ( int i : PathFinder.NEIGHBOURS4){
             int cell = Dungeon.hero.pos + i;
-            Char ch = Char.findChar(cell);
-            Skeleton skeletonbud = new Skeleton();
-            skeletonbud.pos = cell;
-            skeletonbud.alignment = Char.Alignment.ALLY;
-            GameScene.add(skeletonbud);
-            Dungeon.level.occupyCell(skeletonbud);
-            CellEmitter.get(cell).burst(ShadowParticle.UP, 5);
-            if (ch != null) {
-                skeletonbud.die(Dungeon.hero);
-                Buff.affect(ch, Vertigo.class, 2);
+            if (Dungeon.level.passable[cell]){
+                Char ch = Char.findChar(cell);
+                Skeleton skeletonbud = new Skeleton();
+                skeletonbud.pos = cell;
+                skeletonbud.alignment = Char.Alignment.ALLY;
+                GameScene.add(skeletonbud);
+                Dungeon.level.occupyCell(skeletonbud);
+                CellEmitter.get(cell).burst(ShadowParticle.UP, 5);
+                if (ch != null) {
+                    skeletonbud.die(Dungeon.hero);
+                    Buff.affect(ch, Vertigo.class, 2);
+                }
             }
+
         }
 
         Dungeon.gold -= castCost();

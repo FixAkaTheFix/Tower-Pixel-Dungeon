@@ -56,6 +56,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCShooting;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCWall;
@@ -433,7 +434,9 @@ public abstract class Mob extends Char {
 			} else if (alignment == Alignment.ENEMY) {
 				//look for ally mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob.alignment == Alignment.ALLY && fieldOfView[mob.pos] && mob.invisible <= 0)
+					if (mob.alignment == Alignment.ALLY &&
+							fieldOfView[mob.pos] && mob.invisible <= 0 &&
+							(!((mob instanceof Arena.AmuletTower || mob instanceof SubAmuletTower) && distance(mob)>1)) )
 						enemies.add(mob);
 
 				//and look for the hero
@@ -464,6 +467,9 @@ public abstract class Mob extends Char {
 					filteredEnemies.add(curr);
 				}
 				if ((targetingPreference==TargetingPreference.NOT_WALLS) && (curr instanceof TowerCWall)){
+					filteredEnemies.add(curr);
+				}
+				if ((targetingPreference==TargetingPreference.ONLY_AMULET) && !(curr instanceof Arena.AmuletTower || curr instanceof SubAmuletTower)){
 					filteredEnemies.add(curr);
 				}
 			}
@@ -815,7 +821,7 @@ public abstract class Mob extends Char {
 	public boolean surprisedBy( Char enemy, boolean attacking ){
 		return enemy == Dungeon.hero
 				&& (enemy.invisible > 0 || !enemySeen || (fieldOfView != null && fieldOfView.length == Dungeon.level.length() && !fieldOfView[enemy.pos]))
-				&& (!attacking || enemy.canSurpriseAttack());
+				&& (!attacking || (enemy.canSurpriseAttack() && canGetSurpriseAttacked()));
 	}
 
 	public void aggro( Char ch ) {

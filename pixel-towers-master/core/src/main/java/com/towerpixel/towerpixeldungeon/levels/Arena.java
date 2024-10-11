@@ -15,6 +15,7 @@ import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Freezing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 
@@ -2007,6 +2008,9 @@ public class Arena extends Level {
             immunities.add(Frost.class);
             immunities.add(Freezing.class);
 
+            immunities.add(Fire.class);
+            immunities.add(Burning.class);
+
             alignment = Alignment.ALLY;
         }
         public int counter = 0;
@@ -2089,6 +2093,7 @@ public class Arena extends Level {
         @Override
         public void damage(int dmg, Object src) {
             super.damage(1, src);
+            if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) ((Char)src).damagePortal(pos);
         }
 
         @Override

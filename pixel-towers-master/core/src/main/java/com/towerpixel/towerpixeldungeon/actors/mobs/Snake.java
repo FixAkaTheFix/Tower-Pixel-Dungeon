@@ -46,7 +46,7 @@ public class Snake extends Mob {
 		loot = Generator.Category.SEED;
 		lootChance = 0.25f;
 
-		targetingPreference = TargetingPreference.NOT_HERO;
+		targetingPreference = TargetingPreference.ONLY_AMULET;
 	}
 	
 	@Override
@@ -60,6 +60,11 @@ public class Snake extends Mob {
 	}
 
 	private static int dodges = 0;
+
+	@Override
+	public boolean canGetSurpriseAttacked() {
+		return false;
+	}
 
 	@Override
 	public String defenseVerb() {
