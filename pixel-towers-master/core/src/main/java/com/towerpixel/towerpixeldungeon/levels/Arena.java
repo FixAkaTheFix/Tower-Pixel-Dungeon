@@ -102,6 +102,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Wraith;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannon1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCannonMissileLauncher;
@@ -135,6 +136,8 @@ import com.towerpixel.towerpixeldungeon.sprites.AmuletTowerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.GoblinFatSprite;
 import com.towerpixel.towerpixeldungeon.sprites.MissileSprite;
+import com.towerpixel.towerpixeldungeon.sprites.PortalSprite;
+import com.towerpixel.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbow1Sprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerGuard1Sprite;
 import com.towerpixel.towerpixeldungeon.sprites.walls.TowerWall1Sprite;
@@ -1978,9 +1981,9 @@ public class Arena extends Level {
     public static class AmuletTower extends Mob {//this is the must-kill tower and the wave handler class at the same time
 
         {
-            spriteClass = AmuletTowerSprite.class;
+            spriteClass = PortalSprite.class;
 
-            HP = HT = 50;
+            HP = HT = 20;
 
             viewDistance = 3;
 
@@ -2022,7 +2025,7 @@ public class Arena extends Level {
 
             counter++;
             if (Dungeon.depth == 18) GameScene.updateFog(pos, 8);
-            else GameScene.updateFog(pos, 3);
+            else GameScene.updateFog(pos, 5);
 
             for (Mob mob : level.mobs.toArray( new Mob[0] )) {
                 if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
@@ -2052,7 +2055,7 @@ public class Arena extends Level {
             state = PASSIVE;
             for (Mob mob : mobs.toArray( new Mob[0] )) {
                 if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
-                if (mob.alignment==Alignment.ENEMY && !(mob instanceof Tower) && !(mob instanceof Piranha) && !(mob instanceof RotLasher) && !(mob instanceof Mimic) && !(mob instanceof Bee)&& !(mob instanceof BossDwarfKing)) enemyspotted = true;
+                if (mob.alignment==Alignment.ENEMY && !(mob instanceof Tower) && !(mob instanceof SubAmuletTower) && !(mob instanceof Piranha) && !(mob instanceof RotLasher) && !(mob instanceof Mimic) && !(mob instanceof Bee)&& !(mob instanceof BossDwarfKing)) enemyspotted = true;
             }
             if (Dungeon.depth==11 && Math.random()*1000+level.wave>999){
                 if (mobs!=null && hero.buff(WaveCooldownBuff.class)==null) Arena11.dropRock(Random.element(mobs));

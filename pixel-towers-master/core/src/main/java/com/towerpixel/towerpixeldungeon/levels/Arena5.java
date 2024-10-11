@@ -15,6 +15,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Goo;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Ripple;
@@ -79,10 +80,10 @@ public class Arena5 extends Arena{
 
         maxWaves= 25;
 
-        amuletCell = 52 + WIDTH*25;
+        amuletCell = 52 + WIDTH*28;
         exitCell = amuletCell;
-        towerShopKeeperCell = amuletCell-11 - WIDTH*4;
-        normalShopKeeperCell = amuletCell-11 + WIDTH*4;
+        towerShopKeeperCell = amuletCell-11 - WIDTH*7;
+        normalShopKeeperCell = amuletCell-11 + WIDTH*1;
 
         towerShopKeeper.vertical = NewShopKeeper.ShopDirection.DOWN;
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.UP;
@@ -122,7 +123,6 @@ public class Arena5 extends Arena{
 
         Painter.fillDiamond(this,44,17,17,17,Terrain.EMPTY_SP);
         Painter.fillDiamond(this,46,19,13,13,Terrain.EMPTY);
-        if (mode != WndModes.Modes.CHALLENGE) Painter.fillDiamond(this,48,21,9,9,Terrain.WATER);
 
         Painter.fill(this, 38,24,12,3,Terrain.EMPTY);
 
@@ -138,8 +138,7 @@ public class Arena5 extends Arena{
         Painter.fill(this, 35,19,9,1,Terrain.EMPTY);
         Painter.fill(this, 35,20,9,1,Terrain.WALL);
 
-        Painter.fill(this, 52,22,1,1,Terrain.STATUE);
-        Painter.fill(this, 52,28,1,1,Terrain.STATUE);
+
         Painter.fill(this, 59,22,1,1,Terrain.STATUE);
         Painter.fill(this, 59,28,1,1,Terrain.STATUE);
         Painter.fill(this, 66,22,1,1,Terrain.STATUE);
@@ -199,7 +198,7 @@ public class Arena5 extends Arena{
         transitions.add(exit);
 
         this.map[exitCell] = Terrain.EXIT;
-        this.map[amuletCell] = Terrain.PEDESTAL;
+        this.map[amuletCell] = Terrain.EMPTY;
 
         return true;
     }
@@ -370,10 +369,15 @@ public class Arena5 extends Arena{
 
     @Override
     public void initNpcs() {
+        super.initNpcs();
         TowerCrossbow1 tower = new TowerCrossbow1();
         tower.pos = amuletCell+WIDTH;
         GameScene.add(tower);
-        super.initNpcs();
+        SubAmuletTower subAmuletTower = new SubAmuletTower();
+        subAmuletTower.pos = 52 + WIDTH*22;
+        Dungeon.level.mobs.add(subAmuletTower);
+        GameScene.add(subAmuletTower);
+
     }
 
     @Override

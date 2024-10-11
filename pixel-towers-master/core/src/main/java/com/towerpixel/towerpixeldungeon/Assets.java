@@ -442,6 +442,8 @@ public class Assets {
 		public static final String RIPPER   = "sprites/ripper.png";
 		public static final String SPAWNER  = "sprites/spawner.png";
 		public static final String DM100    = "sprites/dm100.png";
+		public static final String PORTAL   = "sprites/portal.png";
+		public static final String PORTALUNSTABLE   = "sprites/portalunstable.png";
 		public static final String PYLON    = "sprites/pylon.png";
 		public static final String DM200    = "sprites/dm200.png";
 		public static final String LOTUS    = "sprites/lotus.png";
