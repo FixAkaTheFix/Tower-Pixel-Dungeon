@@ -55,13 +55,13 @@ public class Succubus extends Mob {
 		
 		HP = HT = 80;
 		defenseSkill = 5;
-		viewDistance = Light.DISTANCE;
+		viewDistance = 7;
 		
 		EXP = 12;
 		maxLvl = 25;
 		
 		loot = Generator.Category.SCROLL;
-		lootChance = 0.33f;
+		lootChance = 0.1f;
 
 		properties.add(Property.DEMONIC);
 	}
