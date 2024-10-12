@@ -12,7 +12,6 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard3;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuardPaladin;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlameParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Gold;
@@ -32,7 +31,6 @@ import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.GuardSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerGuard3Sprite;
-import com.towerpixel.towerpixeldungeon.sprites.TowerGuard3UpgradedSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
@@ -629,7 +627,7 @@ public class Arena6 extends Arena {
                         new byte[]{
                                 WndDialogueWithPic.IDLE
                         },
-                        WndDialogueWithPic.WndType.FINAL);
+                        WndDialogueWithPic.WndType.FINAL, new ArrayList<>());
             } else {
                 WndDialogueWithPic.dialogue(new GuardSprite(), "Prison warden",
                         new String[]{
@@ -646,7 +644,7 @@ public class Arena6 extends Arena {
                         new byte[]{
                                 WndDialogueWithPic.IDLE
                         },
-                        WndDialogueWithPic.WndType.FINAL);
+                        WndDialogueWithPic.WndType.FINAL, new ArrayList<>());
             }
         super.doStuffEndwave(wave);
     }

@@ -466,7 +466,7 @@ public class BossDwarfKing extends Mob{
                 new byte[]{
                         WndDialogueWithPic.IDLE
                 },
-                WndDialogueWithPic.WndType.FINAL);
+                WndDialogueWithPic.WndType.FINAL, new ArrayList<>());
         super.die(cause);
     }
     private static final String BATTLEMODE = "battlemode";

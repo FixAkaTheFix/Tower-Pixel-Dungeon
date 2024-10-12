@@ -5,6 +5,7 @@ import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
@@ -47,6 +48,7 @@ public class Arena1 extends Arena{
         waveCooldownNormal = 5;
         waveCooldownBoss = 30;
     }
+
 
     @Override
     public int mobsToDeploy(int wave) {

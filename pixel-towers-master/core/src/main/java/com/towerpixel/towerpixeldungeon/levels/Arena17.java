@@ -21,98 +21,46 @@
 
 package com.towerpixel.towerpixeldungeon.levels;
 
-import static com.towerpixel.towerpixeldungeon.Dungeon.level;
-import static com.towerpixel.towerpixeldungeon.levels.rooms.special.SacrificeRoom.prize;
-
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.actors.Char;
-import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
-import com.towerpixel.towerpixeldungeon.actors.blobs.SacrificialFire;
-import com.towerpixel.towerpixeldungeon.actors.mobs.Goo;
 import com.towerpixel.towerpixeldungeon.actors.mobs.RatKingAvatar;
 import com.towerpixel.towerpixeldungeon.actors.mobs.YogDzewa;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow2;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow3;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun3;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgunSniper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDisintegration3;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuardSpearman;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerTotem;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWall1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWall2;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWall3;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWallRunic;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand3;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
-import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Gold;
 import com.towerpixel.towerpixeldungeon.items.Heap;
-import com.towerpixel.towerpixeldungeon.items.Item;
-import com.towerpixel.towerpixeldungeon.items.food.Berry;
-import com.towerpixel.towerpixeldungeon.items.potions.AlchemicalCatalyst;
-import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHaste;
-import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
-import com.towerpixel.towerpixeldungeon.items.potions.brews.InfernalBrew;
-import com.towerpixel.towerpixeldungeon.items.potions.brews.ShockingBrew;
-import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
-import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfArcaneArmor;
-import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
-import com.towerpixel.towerpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
-import com.towerpixel.towerpixeldungeon.items.spells.ArcaneCatalyst;
-import com.towerpixel.towerpixeldungeon.items.spells.CurseInfusion;
-import com.towerpixel.towerpixeldungeon.items.spells.MagicalInfusion;
-import com.towerpixel.towerpixeldungeon.items.spells.SummonElemental;
-import com.towerpixel.towerpixeldungeon.items.spells.WildEnergy;
-import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGrave;
-import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerTotemNecrotic;
-import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerTotemShield;
-import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
-import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
-import com.towerpixel.towerpixeldungeon.items.wands.WandOfWarding;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
 import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
-import com.towerpixel.towerpixeldungeon.levels.rooms.special.SentryRoom;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
-import com.towerpixel.towerpixeldungeon.plants.Plant;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
-import com.towerpixel.towerpixeldungeon.sprites.GooSprite;
-import com.towerpixel.towerpixeldungeon.sprites.GuardSprite;
 import com.towerpixel.towerpixeldungeon.sprites.RatKingAvatarSprite;
-import com.towerpixel.towerpixeldungeon.sprites.TowerGuard3UpgradedSprite;
-import com.towerpixel.towerpixeldungeon.sprites.WandmakerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.YogSprite;
 import com.towerpixel.towerpixeldungeon.tiles.DungeonTilemap;
 import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
-import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.towerpixel.towerpixeldungeon.windows.WndModes;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.particles.Emitter;
-import com.watabou.noosa.particles.PixelParticle;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Arena17 extends Arena {
 
@@ -415,7 +363,7 @@ public class Arena17 extends Arena {
                     new byte[]{
                             WndDialogueWithPic.IDLE
                     },
-                    WndDialogueWithPic.WndType.FINAL);
+                    WndDialogueWithPic.WndType.FINAL, new ArrayList<>());
         }
 
 

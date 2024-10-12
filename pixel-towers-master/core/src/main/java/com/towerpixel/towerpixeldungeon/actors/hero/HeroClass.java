@@ -198,6 +198,8 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
+		new Amulet().collect();
+
 		switch (this) {
 			case FIX:
 				initFix( hero );

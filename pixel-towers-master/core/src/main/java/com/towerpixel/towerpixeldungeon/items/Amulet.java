@@ -45,7 +45,7 @@ public class Amulet extends Item {
 		unique = true;
 	}
 	
-	@Override
+	/*@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (hero.buff(AscensionChallenge.class) != null){
@@ -64,7 +64,7 @@ public class Amulet extends Item {
 		if (action.equals(AC_END)) {
 			showAmuletScene( false );
 		}
-	}
+	}*/
 	
 	private void showAmuletScene( boolean showText ) {
 		AmuletScene.noText = !showText;

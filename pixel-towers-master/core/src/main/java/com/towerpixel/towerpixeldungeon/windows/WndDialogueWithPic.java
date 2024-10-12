@@ -1,26 +1,16 @@
 package com.towerpixel.towerpixeldungeon.windows;
 
-import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.Dungeon.win;
 
 import com.badlogic.gdx.utils.Timer;
-import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
-import com.towerpixel.towerpixeldungeon.actors.buffs.WaveBuff;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
-import com.towerpixel.towerpixeldungeon.levels.Arena;
-import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.scenes.PixelScene;
 import com.towerpixel.towerpixeldungeon.scenes.RankingsScene;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
-import com.towerpixel.towerpixeldungeon.sprites.GorematiaSpiritSprite;
-import com.towerpixel.towerpixeldungeon.sprites.RatKingAvatarSprite;
-import com.towerpixel.towerpixeldungeon.sprites.RatKingSprite;
 import com.towerpixel.towerpixeldungeon.ui.RenderedTextBlock;
 import com.towerpixel.towerpixeldungeon.ui.Window;
 import com.watabou.input.PointerEvent;
@@ -28,9 +18,8 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.PointerArea;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
-import java.util.Locale;
+import java.util.ArrayList;
 
 
 public class WndDialogueWithPic extends Window {
@@ -40,6 +29,8 @@ public class WndDialogueWithPic extends Window {
     private RenderedTextBlock ttl;
     private RenderedTextBlock tf;
     private static final int MARGIN = 2;
+
+    ArrayList<Runnable> runnableArrayList;
 
 
     private int textNum = 0;
@@ -72,9 +63,9 @@ public class WndDialogueWithPic extends Window {
     }
 
     public static void dialogue(CharSprite icon, String title, String[] text, byte spriteActionIndexes[]) {
-        dialogue(icon, title, text, spriteActionIndexes, WndType.NORMAL);
+        dialogue(icon, title, text, spriteActionIndexes, WndType.NORMAL, new ArrayList<>());
     }
-    public static void dialogue(CharSprite icon, String title, String[] text, byte spriteActionIndexes[], WndType type) {
+    public static void dialogue(CharSprite icon, String title, String[] text, byte[] spriteActionIndexes, WndType type, ArrayList<Runnable> runnableArrayList) {
 
         if (Dungeon.level.mode == WndModes.Modes.NORMAL || type == WndType.FINAL) {
             Game.runOnRenderThread(new Callback() {
@@ -82,6 +73,7 @@ public class WndDialogueWithPic extends Window {
                 public void call() {
                     WndDialogueWithPic wnd = new WndDialogueWithPic(icon, title, text, spriteActionIndexes);
                     if (type == WndType.FINAL) wnd.lastDialogue = true;
+                    wnd.runnableArrayList = runnableArrayList;
                     GameScene.show(wnd);
                 }
             });
@@ -228,6 +220,9 @@ public class WndDialogueWithPic extends Window {
         typing = true;
         timer.clear();
         timer.start();
+        try {
+            runnableArrayList.get(textNum).run();
+        } catch (Exception ignored){}
         if (textNum < spriteActionIndexes.length) switch (spriteActionIndexes[textNum]) {
             case 0:
             default:

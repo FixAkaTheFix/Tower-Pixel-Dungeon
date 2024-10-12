@@ -140,6 +140,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.melee.Scimitar;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.towerpixel.towerpixeldungeon.journal.Document;
 import com.towerpixel.towerpixeldungeon.journal.Notes;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.levels.features.Chasm;
@@ -1914,7 +1915,7 @@ public class Hero extends Char {
 		
 		Actor.fixTime();
 		super.die( cause );
-		reallyDie( cause );
+		if (cause != Arena.AmuletTower.class) reallyDie( cause );
 	}
 	
 	public static void reallyDie( Object cause ) {

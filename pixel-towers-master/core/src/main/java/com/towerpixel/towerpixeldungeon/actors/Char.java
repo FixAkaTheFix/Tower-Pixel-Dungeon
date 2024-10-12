@@ -24,6 +24,7 @@ package com.towerpixel.towerpixeldungeon.actors;
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Challenges;
@@ -909,14 +910,18 @@ public abstract class Char extends Actor {
 	public void damagePortal(int postp){
 		CellEmitter.get(postp).burst(SacrificialParticle.FACTORY, 3);
 		Camera.main.panFollow(sprite,2f);
-		sprite.jump(this.pos, postp, 5,0.5f, new Callback() {
+
+		CharSprite s = sprite;
+		destroy();
+
+		s.jump(this.pos, postp, 5,0.5f, new Callback() {
 			@Override
 			public void call() {
-				sprite.killAndErase();
-				destroy();
+				s.killAndErase();
 				Sample.INSTANCE.play(Assets.Sounds.CHARGEUP,1f,2f);
 			}
 		});
+
 	}
 
 	//we cache this info to prevent having to call buff(...) in isAlive.

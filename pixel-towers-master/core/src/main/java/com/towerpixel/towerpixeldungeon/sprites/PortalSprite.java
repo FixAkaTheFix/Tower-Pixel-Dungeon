@@ -4,6 +4,8 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.watabou.noosa.TextureFilm;
 
 public class PortalSprite  extends MobSprite{
+
+    public Animation collapse;
     public PortalSprite() {
         super();
 
@@ -17,9 +19,11 @@ public class PortalSprite  extends MobSprite{
         run = idle.clone();
 
         attack = idle.clone();
+        collapse = new Animation(2, true);
+        collapse.frames(frames,8,9,10,11,12,12,11,10,9,8);
 
-        die = new Animation( 1, false );
-        die.frames( frames, 1 );
+        die = new Animation( 8, false );
+        die.frames( frames, 13,14,15 );
 
         play( idle );
     }

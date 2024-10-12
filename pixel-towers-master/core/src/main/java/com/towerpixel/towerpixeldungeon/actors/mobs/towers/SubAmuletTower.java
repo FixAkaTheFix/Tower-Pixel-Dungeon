@@ -11,6 +11,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
+import com.towerpixel.towerpixeldungeon.actors.buffs.ShieldBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Slow;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
@@ -24,7 +25,7 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
     {
         spriteClass = PortalUnstableSprite.class;
 
-        HP = HT = 20;
+        HP = HT = 10;
 
         viewDistance = 3;
 
@@ -42,6 +43,7 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
 
         immunities.add(Healing.class);
         immunities.add(Sungrass.Health.class);
+        immunities.add(ShieldBuff.class);
 
         immunities.add(Paralysis.class);
         immunities.add(Slow.class);
@@ -76,9 +78,16 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
 
     @Override
     public void damage(int dmg, Object src) {
-        ((Arena)level).amuletTower.damage(1, src);//all the damage is referred to the main tower
+        if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) {
+            Char chsrc = (Char)src;
+            chsrc.damagePortal(pos);
+            if (chsrc.properties().contains(Property.BOSS)){
+                ((Arena)level).amuletTower.damage(100, src);
+            } else if (chsrc.properties().contains(Property.BOSS)){
+                ((Arena)level).amuletTower.damage(5, src);
+            } else ((Arena)level).amuletTower.damage(1, src);
+        };
         HP = ((Arena)level).amuletTower.HP;
-        if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) ((Char)src).damagePortal(pos);
     }
 
     @Override

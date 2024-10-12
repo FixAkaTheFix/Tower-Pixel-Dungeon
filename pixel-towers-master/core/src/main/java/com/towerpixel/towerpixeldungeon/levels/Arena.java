@@ -28,6 +28,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Healing;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Levitation;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
+import com.towerpixel.towerpixeldungeon.actors.buffs.ShieldBuff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Slow;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Speed;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Strength;
@@ -125,6 +126,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWand1;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.MagicMissile;
 import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
+import com.towerpixel.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.levels.features.LevelTransition;
@@ -132,6 +134,7 @@ import com.towerpixel.towerpixeldungeon.levels.painters.Painter;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Sungrass;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.scenes.PixelScene;
 import com.towerpixel.towerpixeldungeon.scenes.RankingsScene;
 import com.towerpixel.towerpixeldungeon.sprites.AmuletTowerSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
@@ -145,9 +148,14 @@ import com.towerpixel.towerpixeldungeon.sprites.walls.TowerWall1Sprite;
 import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndModes;
+import com.watabou.input.PointerEvent;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.audio.Music;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 import com.watabou.utils.Rect;
 import com.watabou.utils.Reflection;
@@ -1467,6 +1475,9 @@ public class Arena extends Level {
         }
     }
 
+    public void deployMobsOnPortal(int portalPos){
+
+    }
     public void deployMobs(int wave) {
         deploymobs(wave, Direction.RANDOM,0);
     }
@@ -1582,7 +1593,7 @@ public class Arena extends Level {
         {
             spriteClass = PortalSprite.class;
 
-            HP = HT = 20;
+            HP = HT = 10;
 
             viewDistance = 3;
 
@@ -1600,6 +1611,7 @@ public class Arena extends Level {
 
             immunities.add(Healing.class);
             immunities.add(Sungrass.Health.class);
+            immunities.add(ShieldBuff.class);
 
             immunities.add(Paralysis.class);
             immunities.add(Slow.class);
@@ -1615,9 +1627,36 @@ public class Arena extends Level {
 
         @Override
         public void die(Object cause) {
-            hero.die(this);
-            GLog.cursed("Amulet was lost...");
-            super.die(cause);
+            if (cause == AmuletTower.class) super.die(cause);
+            else {
+                Dungeon.deleteGame(GamesInProgress.curSlot, true);
+                Camera.main.panFollow(sprite, 2f);
+                CellEmitter.get(pos).start(SacrificialParticle.FACTORY, 0.01f, 300);
+                GameScene.updateFog(pos,5);
+                hero.die(AmuletTower.class);
+                sprite.play(((PortalSprite)sprite).collapse);
+                GameScene.updateFog(pos,5);
+
+                this.sprite.jump(pos, pos, 0, 3f, new Callback() {
+                    @Override
+                    public void call() {
+                        Game.runOnRenderThread(new Callback() {
+                            @Override
+                            public void call() {
+
+                                GameScene.gameOver();
+                                GameScene.updateFog(pos,5);
+                                GLog.cursed("The portal was destroyed...");
+                                Sample.INSTANCE.play(Assets.Sounds.DEATH);
+                                Hero.reallyDie(cause);
+                                (AmuletTower.this).die(AmuletTower.class);
+                                GameScene.updateFog(pos,5);
+                                CellEmitter.get(pos).burst(SacrificialParticle.FACTORY,  300);
+                            }
+                        });
+                    }
+                });
+            }
         }
         public boolean itWasAWave = false;
         @Override
@@ -1690,8 +1729,16 @@ public class Arena extends Level {
 
         @Override
         public void damage(int dmg, Object src) {
-            super.damage(1, src);
-            if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) ((Char)src).damagePortal(pos);
+
+            if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) {
+                Char chsrc = (Char)src;
+                chsrc.damagePortal(pos);
+                if (chsrc.properties().contains(Property.BOSS)){
+                    super.damage(100, src);
+                } else if (chsrc.properties().contains(Property.BOSS)){
+                    super.damage(5, src);
+                } else super.damage(1, src);
+            };
         }
 
         @Override
