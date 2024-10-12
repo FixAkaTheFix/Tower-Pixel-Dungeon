@@ -409,7 +409,7 @@ public enum HeroClass {
 	private static void initFix(Hero hero){
 
 		Banhammer banhammer = new Banhammer();
-		banhammer.upgrade(100);
+		banhammer.upgrade(10000);
 
 		(hero.belongings.weapon = banhammer).identify();
 

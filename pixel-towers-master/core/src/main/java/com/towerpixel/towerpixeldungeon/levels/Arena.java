@@ -42,6 +42,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Bat;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bee;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossDwarfKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossNecromancer;
+import com.towerpixel.towerpixeldungeon.actors.mobs.BossOoze;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.BossTroll;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Brute;
@@ -1435,7 +1436,7 @@ public class Arena extends Level {
         int grouppos = -1;
         int mobsDeployed = 0;
         int mobsToDeployFinal = mobsToDeploy(wave);
-        if (Dungeon.level.mode == WndModes.Modes.HARDMODE) {
+        if (Dungeon.level.mode == WndModes.Modes.HARDMODE ) {
             mobsToDeployFinal = mobsToDeployFinal + mobsToDeployFinal*2*(wave*wave/maxWaves/maxWaves);
         }
         float onexd = ((float)mobsToDeployFinal/groupnum);
@@ -1444,7 +1445,7 @@ public class Arena extends Level {
             grouppos = Random.element(candidatecells);
             while ((float)mobsDeployed<onexdsum) {
                 Mob mob = chooseMob(wave);
-                if (Dungeon.level.mode == WndModes.Modes.HARDMODE && mobsDeployed % 8 == 1){
+                if (Dungeon.level.mode == WndModes.Modes.HARDMODE && mobsDeployed % 8 == 1 && !(mob instanceof BossOoze)){
                     int r = Random.Int(6);
                     switch (r){
                         case 0: Buff.affect(mob, ChampionEnemy.Blazing.class); break;
@@ -1634,7 +1635,7 @@ public class Arena extends Level {
                 CellEmitter.get(pos).start(SacrificialParticle.FACTORY, 0.01f, 300);
                 GameScene.updateFog(pos,5);
                 hero.die(AmuletTower.class);
-                sprite.play(((PortalSprite)sprite).collapse);
+                sprite.play(((PortalSprite)sprite).collapse, true);
                 GameScene.updateFog(pos,5);
 
                 this.sprite.jump(pos, pos, 0, 3f, new Callback() {
@@ -1694,9 +1695,29 @@ public class Arena extends Level {
                 }
             }
             state = PASSIVE;
+            ArrayList<Integer> posesToBeckon = new ArrayList<>();
+            for (Mob mob2 : mobs){
+                if (mob2 instanceof AmuletTower || mob2 instanceof SubAmuletTower) posesToBeckon.add(mob2.pos);
+            }
             for (Mob mob : mobs.toArray( new Mob[0] )) {
-                if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
-                if (mob.alignment==Alignment.ENEMY && !(mob instanceof Tower) && !(mob instanceof SubAmuletTower) && !(mob instanceof Piranha) && !(mob instanceof RotLasher) && !(mob instanceof Mimic) && !(mob instanceof Bee)&& !(mob instanceof BossDwarfKing)) enemyspotted = true;
+
+                int beckoncell = this.pos;
+                for (int posvar : posesToBeckon){
+                    if (Dungeon.level.distance(mob.pos, posvar) < Dungeon.level.distance(mob.pos, beckoncell)) beckoncell = posvar;
+                }
+
+
+                if (mob.alignment!=Alignment.ALLY) mob.beckon( beckoncell );
+
+
+                if (mob.alignment==Alignment.ENEMY &&
+                        !(mob instanceof Tower) &&
+                        !(mob instanceof SubAmuletTower) &&
+                        !(mob instanceof Piranha) &&
+                        !(mob instanceof RotLasher) &&
+                        !(mob instanceof Mimic) &&
+                        !(mob instanceof Bee) &&
+                        !(mob instanceof BossDwarfKing)) enemyspotted = true;
             }
             if (Dungeon.depth==11 && Math.random()*1000+level.wave>999){
                 if (mobs!=null && hero.buff(WaveCooldownBuff.class)==null) Arena11.dropRock(Random.element(mobs));

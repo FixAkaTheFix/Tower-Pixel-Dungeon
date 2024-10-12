@@ -372,6 +372,12 @@ public class Arena5 extends Arena{
 
         }
         if (wave==maxWaves) {
+
+            if (mode == WndModes.Modes.HARDMODE){
+                BossOoze ooze = new BossOoze();
+                ooze.pos = 25*WIDTH+94;
+                GameScene.add(ooze);
+            }
             BossOoze ooze = new BossOoze();
             ooze.pos = 25*WIDTH+96;
             GameScene.add(ooze);

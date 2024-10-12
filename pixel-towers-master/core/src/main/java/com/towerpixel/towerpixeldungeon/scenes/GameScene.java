@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.scenes;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Challenges;
@@ -39,6 +40,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
+import com.towerpixel.towerpixeldungeon.actors.mobs.BossImage;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DemonSpawner;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Ghoul;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
@@ -69,6 +71,7 @@ import com.towerpixel.towerpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.towerpixel.towerpixeldungeon.levels.traps.Trap;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Plant;
+import com.towerpixel.towerpixeldungeon.sprites.AlmostEmptySprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.DiscardedItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.DrillBigSprite;
@@ -1400,6 +1403,7 @@ public class GameScene extends PixelScene {
 	}
 
 	public static void selectCell( CellSelector.Listener listener ) {
+		GameScene.timer = TIME_PER_TURN + 2;
 		if (cellSelector.listener != null && cellSelector.listener != defaultCellListener){
 			cellSelector.listener.onSelect(null);
 		}

@@ -1288,6 +1288,7 @@ public class Hero extends Char {
 	}
 	
 	public void rest( boolean fullRest ) {
+		GameScene.timer = GameScene.TIME_PER_TURN;
 		spendAndNextConstant( TIME_TO_REST );
 		if (hasTalent(Talent.HOLD_FAST)){
 			Buff.affect(this, HoldFast.class).pos = pos;

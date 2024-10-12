@@ -48,7 +48,7 @@ public class BossOoze extends Mob {
         viewDistance = 10;
 
 
-        HP = HT = 3000;
+        HP = HT = 4000;
         defenseSkill = 5;
 
         EXP = 100;
@@ -235,10 +235,6 @@ public class BossOoze extends Mob {
             return false;
 
         } catch (Exception ignored) {}
-        if( Dungeon.depth==5 && callForHelpTimer>=callForHelpTime ){
-            ((Arena)Dungeon.level).deploymobs(8055, Arena.Direction.RANDOM, 1);
-            callForHelpTimer=0;
-        }
 
 
         if (!imagesAdded) {
@@ -447,32 +443,58 @@ public class BossOoze extends Mob {
             dmg = 9 + (int) (Math.sqrt(dmg - 9));
         }
         int x = 1;
-        if (HP - dmg <= 2100) x = 2;
-        if (HP - dmg <= 1300) x = 3;
-        if (HP - dmg <= 700) x = 4;
+        if (HP - dmg <= 3000) x = 2;
+        if (HP - dmg <= 2000) x = 3;
+        if (HP - dmg <= 1000) x = 4;
         if (phase != x) setPhase(x);
         super.damage(dmg, src);
     }
 
     @Override
     public void die(Object cause) {
-        hero.buffs().clear();
-        hero.next();
-        Badges.validateBossSlain();
-        Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 2, 0.2f);
-        BossOoze.this.sprite.die();
-        this.sprite.jump(pos, pos, 0, 3, new Callback() {
-            @Override
-            public void call() {
-                BossOoze.this.die(cause);
-                for (BossImage image : images) {
-                    image.die(this);
-                }
-                Dungeon.win(Amulet.class);
-                Dungeon.deleteGame( GamesInProgress.curSlot, true );
-                Game.switchScene( RankingsScene.class );
+        boolean lastOozeOnLevelfive = true;
+        for (Mob mob : level.mobs){
+            if (mob instanceof BossOoze && mob != this) {
+                lastOozeOnLevelfive = false;
+                break;
             }
-        });
+        }
+        for (BossImage image : images) {
+            image.die(this);
+        }
+        Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 2, 0.2f);
+
+
+        if (!lastOozeOnLevelfive || Dungeon.depth!=5){
+            super.die(cause);
+        } else {
+            hero.buffs().clear();
+            hero.next();
+
+            Camera.main.panFollow(BossOoze.this.sprite,2f);
+
+            BossOoze.this.sprite.die();
+            hero.die(Arena.AmuletTower.class);
+            hero.sprite.play(hero.sprite.idle, true);
+
+            boolean finalLastOozeOnLevelfive = lastOozeOnLevelfive;
+            this.sprite.jump(pos, pos, 0, 3, new Callback() {
+                @Override
+                public void call() {
+
+                    BossOoze.this.die(cause);
+
+
+                    if (finalLastOozeOnLevelfive && Dungeon.depth==5){
+                        Dungeon.win(Amulet.class);
+                        Dungeon.deleteGame( GamesInProgress.curSlot, true );
+                        Game.switchScene( RankingsScene.class );
+                        Badges.validateBossSlain();
+                    }
+
+                }
+            });
+        }
     }
     private final String PHASE = "phase";
     private final String CALLFORHELPTIMER = "callforhelptimer";
