@@ -26,6 +26,7 @@ import static com.towerpixel.towerpixeldungeon.scenes.GameScene.timer;
 import static com.towerpixel.towerpixeldungeon.scenes.GameScene.timerPaused;
 import static com.towerpixel.towerpixeldungeon.scenes.PixelScene.uiCamera;
 
+import com.badlogic.gdx.utils.Array;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
@@ -85,13 +86,15 @@ public class StatusPane extends Component {
 	private BusyIndicator busy;
 	private CircleArc counter;
 	public CircleArc timeeCircleArc;
-
+	public Array<Compass> heroCompasses;
 	private static String asset = Assets.Interfaces.STATUS;
 
 	private boolean large;
 
 	public StatusPane( boolean large ){
 		super();
+
+		heroCompasses = new Array<>();
 
 		this.large = large;
 
@@ -181,6 +184,7 @@ public class StatusPane extends Component {
 		timeeCircleArc = new CircleArc(20, 5f);
 		timeeCircleArc.color(0xff0000,true);
 		timeeCircleArc.show(this, busy.center(), 0f );
+
 	}
 
 	@Override
@@ -202,6 +206,10 @@ public class StatusPane extends Component {
 		compass.x = avatar.x + avatar.width / 2f - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2f - compass.origin.y;
 		PixelScene.align(compass);
+
+		for (Compass comp : heroCompasses){
+			comp.point();
+		}
 
 		if (large) {
 			exp.x = x + 30;
@@ -244,6 +252,8 @@ public class StatusPane extends Component {
 			busy.x = x + 1;
 			busy.y = y + 33;
 		}
+
+
 
 		counter.point(busy.center());
 		timeeCircleArc.point(busy.center());
