@@ -30,6 +30,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Barrier;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Charm;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.towerpixel.towerpixeldungeon.effects.Beam;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
@@ -101,7 +102,10 @@ public class WandOfTransfusion extends Wand {
 					freeCharge = false;
 				}
 
-			} else if (ch instanceof Arena.AmuletTower || ch instanceof WandOfLivingEarth.EarthGuardian) {
+			} else if (ch instanceof Arena.AmuletTower || ch instanceof SubAmuletTower) {
+				//nope
+				ch.damage(1, Dungeon.hero);
+			}else if (ch instanceof WandOfLivingEarth.EarthGuardian) {
 
 				int selfDmg = Math.round(curUser.HT*0.05f);
 				Buff.affect(ch, Barrier.class).setShield(5);

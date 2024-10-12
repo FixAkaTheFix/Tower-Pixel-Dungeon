@@ -1760,7 +1760,7 @@ public class Arena extends Level {
                 } else if (chsrc.properties().contains(Property.BOSS)){
                     super.damage(5, src);
                 } else super.damage(1, src);
-            };
+            } else super.damage(1, src);
         }
 
         @Override
