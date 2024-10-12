@@ -28,6 +28,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.PoisonParticle;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.ui.BuffIndicator;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
@@ -119,5 +120,11 @@ public class Poison extends Buff implements Hero.Doom {
 		
 		Dungeon.fail( getClass() );
 		GLog.n( Messages.get(this, "ondeath") );
+	}
+
+	@Override
+	public void fx(boolean on) {
+		if (on) target.sprite.add(CharSprite.State.POISONED);
+		else target.sprite.remove(CharSprite.State.POISONED);
 	}
 }

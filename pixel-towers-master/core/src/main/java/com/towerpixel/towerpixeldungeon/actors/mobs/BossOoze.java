@@ -465,7 +465,7 @@ public class BossOoze extends Mob {
         Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 2, 0.2f);
 
 
-        if (!lastOozeOnLevelfive || Dungeon.depth!=5){
+        if (!lastOozeOnLevelfive || Dungeon.depth!=5 || cause == Arena.AmuletTower.class){
             super.die(cause);
         } else {
             hero.buffs().clear();

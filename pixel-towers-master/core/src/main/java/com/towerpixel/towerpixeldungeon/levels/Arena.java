@@ -1635,6 +1635,7 @@ public class Arena extends Level {
                 CellEmitter.get(pos).start(SacrificialParticle.FACTORY, 0.01f, 300);
                 GameScene.updateFog(pos,5);
                 hero.die(AmuletTower.class);
+                hero.sprite.play(hero.sprite.idle, true);
                 sprite.play(((PortalSprite)sprite).collapse, true);
                 GameScene.updateFog(pos,5);
 

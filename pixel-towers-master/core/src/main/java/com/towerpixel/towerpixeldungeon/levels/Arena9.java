@@ -59,8 +59,8 @@ public class Arena9 extends Arena{
 
         amuletCell = 25 + WIDTH*6;
         exitCell = amuletCell;
-        towerShopKeeperCell = amuletCell-2-5*WIDTH;;
-        normalShopKeeperCell = amuletCell+2-5*WIDTH;
+        towerShopKeeperCell = amuletCell-3-5*WIDTH;;
+        normalShopKeeperCell = amuletCell+3-5*WIDTH;
     }
 
     @Override

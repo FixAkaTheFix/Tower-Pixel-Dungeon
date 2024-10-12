@@ -70,6 +70,7 @@ public class Speck extends Image {
 	public static final int BLIZZARD    = 119;
 
 	public static final int FROST       = 120;
+	public  static final int POISON     = 121;
 	
 	private static final int SIZE = 7;
 	
@@ -125,6 +126,9 @@ public class Speck extends Image {
 			break;
 		case RATTLE:
 			frame( film.get( BONE ) );
+			break;
+		case POISON:
+			frame(film.get(BUBBLE));
 			break;
 		case JET:
 		case TOXIC:
@@ -317,6 +321,12 @@ public class Speck extends Image {
 			angle = Random.Float( 360 );
 			lifespan = Random.Float( 1f, 3f );
 			break;
+		case POISON:
+			hardlight( 0x00AA00 );
+			angularSpeed = 30;
+			angle = Random.Float( 360 );
+			lifespan = Random.Float( 1f, 3f );
+			break;
 			
 		case PARALYSIS:
 			hardlight( 0xFFFF66 );
@@ -474,7 +484,9 @@ public class Speck extends Image {
 				scale.set( 1 - p );
 				am = 1 - p * p;
 				break;
-				
+			case POISON:
+				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 0.5f );
+				break;
 			case BUBBLE:
 				am = p < 0.2f ? p * 5 : 1;
 				break;
@@ -486,7 +498,7 @@ public class Speck extends Image {
 			case STORM:
 			case BLIZZARD:
 			case INFERNO:
-				case FROST:
+			case FROST:
 			case DUST:
 				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 0.5f );
 				scale.set( 1 + p );

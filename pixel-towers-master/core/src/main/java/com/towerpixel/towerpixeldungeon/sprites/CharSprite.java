@@ -36,6 +36,7 @@ import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.Splash;
 import com.towerpixel.towerpixeldungeon.effects.TorchHalo;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlameParticle;
+import com.towerpixel.towerpixeldungeon.effects.particles.PoisonParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShadowParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.SnowParticle;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -96,7 +97,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, POISONED
 	}
 	private int stunStates = 0;
 	
@@ -115,6 +116,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected PosTweener motion;
 	
 	protected Emitter burning;
+	protected Emitter poisoned;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -400,6 +402,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					Sample.INSTANCE.play( Assets.Sounds.BURNING );
 				}
 				break;
+			case POISONED:
+				poisoned = emitter();
+				poisoned.pour(Speck.factory( Speck.POISON ), 0.4f);
+				break;
 			case LEVITATING:
 				levitation = emitter();
 				levitation.pour( Speck.factory( Speck.JET ), 0.02f );
@@ -408,7 +414,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (invisible != null) {
 					invisible.killAndErase();
 				}
-				invisible = new AlphaTweener( this, ch.alignment== Char.Alignment.ALLY ? 0.4f : 0f, 0.4f );
+				invisible = new AlphaTweener( this, ch.alignment== Char.Alignment.ALLY ? 0.4f : 0.1f, 0.4f );
 				if (parent != null){
 					parent.add(invisible);
 				} else
@@ -457,6 +463,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (burning != null) {
 					burning.on = false;
 					burning = null;
+				}
+				break;
+			case POISONED:
+				if (poisoned != null) {
+					poisoned.on = false;
+					poisoned = null;
 				}
 				break;
 			case LEVITATING:
