@@ -47,6 +47,18 @@ public class Compass extends Image {
 		cellCenter = DungeonTilemap.tileCenterToWorld( cell );
 		visible = false;
 	}
+	public Compass( int cell, int color) {
+
+		super();
+		Image im = new Image(Icons.COMPASS.get());
+		copy( im);
+		hardlight(color);
+		origin.set( width / 2, RADIUS );
+
+		this.cell = cell;
+		cellCenter = DungeonTilemap.tileCenterToWorld( cell );
+		visible = false;
+	}
 	
 	@Override
 	public void update() {
@@ -58,7 +70,7 @@ public class Compass extends Image {
 		}
 		
 		if (!visible) {
-			visible = Dungeon.level.visited[cell] || Dungeon.level.mapped[cell];
+			visible = true;
 		}
 		
 		if (visible) {

@@ -71,6 +71,8 @@ public class DMW extends Mob {
         immunities.add(Amok.class);
         immunities.add(Hex.class);
 
+        ranged = true;
+
         viewDistance = 1000;
 
     }

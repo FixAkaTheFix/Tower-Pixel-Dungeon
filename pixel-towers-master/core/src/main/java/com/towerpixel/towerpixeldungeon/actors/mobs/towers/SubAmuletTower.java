@@ -78,7 +78,8 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
 
     @Override
     public void damage(int dmg, Object src) {
-        if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) {
+        //can only be damaged by chars in melee (by jumping into it). Melee enemies attack it directly, while any mob marked as ranged can attack it only in close quarters. See Mob
+        if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY && (distance(((Char)src))<=1 || (src instanceof Mob && !((Mob)src).ranged))) {
             Char chsrc = (Char)src;
             chsrc.damagePortal(pos);
             if (chsrc.properties().contains(Property.BOSS)){

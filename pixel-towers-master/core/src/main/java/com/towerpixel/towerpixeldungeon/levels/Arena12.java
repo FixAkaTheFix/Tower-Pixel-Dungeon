@@ -40,10 +40,10 @@ public class Arena12 extends Arena{
 
         maxWaves = 10;
 
-        amuletCell = WIDTH/2 +WIDTH*HEIGHT/2 + 3;
+        amuletCell = WIDTH/2 +WIDTH*HEIGHT/2 + 4;
         exitCell = amuletCell;
-        towerShopKeeperCell = amuletCell - 10*WIDTH - 6;
-        normalShopKeeperCell = amuletCell - 10*WIDTH - 1;
+        towerShopKeeperCell = amuletCell - 10*WIDTH - 7;
+        normalShopKeeperCell = amuletCell - 10*WIDTH - 2;
 
         waveCooldownNormal = 5;
         waveCooldownBoss = 50;
@@ -60,16 +60,16 @@ public class Arena12 extends Arena{
     @Override
     public int mobsToDeploy(int wave) {
         switch (wave){
-            case 1: return 8;
-            case 2: return 8;
-            case 3: return 9;
-            case 4: return 12;
-            case 5: return 6;
-            case 6: return 13;
-            case 7: return 11;
-            case 8: return 8;
-            case 9: return 7;
-            case 10: return 20;
+            case 1: return 12;
+            case 2: return 12;
+            case 3: return 13;
+            case 4: return 16;
+            case 5: return 8;
+            case 6: return 17;
+            case 7: return 16;
+            case 8: return 12;
+            case 9: return 11;
+            case 10: return 30;
         }
         return 1;
     }
@@ -78,8 +78,7 @@ public class Arena12 extends Arena{
     public void deploymobs(int wave, Direction direction, int group) {
         if (wave % 2 == 1) {
             super.deploymobs(wave, Direction.TOORIGHT, 1);
-        }
-        super.deploymobs(wave, Direction.TOOLEFT, 1);
+        } else super.deploymobs(wave, Direction.TOOLEFT, 1);
     }
 
     @Override
@@ -186,7 +185,7 @@ public class Arena12 extends Arena{
     public void initNpcs() {
         super.initNpcs();
         TowerMiner miner1 = new TowerMiner();
-        miner1.pos = amuletCell - 6;
+        miner1.pos = amuletCell - 9;
         GameScene.add(miner1);
     }
 

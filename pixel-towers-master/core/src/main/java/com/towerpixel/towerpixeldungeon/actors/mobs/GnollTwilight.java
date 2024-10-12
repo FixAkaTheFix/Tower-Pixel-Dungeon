@@ -33,6 +33,8 @@ public class GnollTwilight extends Gnoll {
 
         state = WANDERING;
 
+        ranged = true;
+
         //at half quantity, see createLoot()
         loot = Generator.Category.MISSILE;
         lootChance = 1f;

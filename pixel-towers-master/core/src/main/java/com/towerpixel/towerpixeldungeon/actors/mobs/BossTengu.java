@@ -68,6 +68,7 @@ public class BossTengu extends Mob {
         immunities.add( Charm.class );
         immunities.add( Blindness.class );
         immunities.add( Burning.class) ;
+        ranged = true;
     }
 
     public int phase = 1;

@@ -115,6 +115,7 @@ public abstract class Mob extends Char {
 	//endless mode charachteristics
 
 	public int powerlevel;
+	public boolean ranged = false;
 
 	public enum TargetingPreference {
 		NORMAL,
@@ -436,7 +437,8 @@ public abstract class Mob extends Char {
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob.alignment == Alignment.ALLY &&
 							fieldOfView[mob.pos] && mob.invisible <= 0 &&
-							(!((mob instanceof Arena.AmuletTower || mob instanceof SubAmuletTower) && distance(mob)>1)) )
+							//ranged mobs must be close to the portal to be able to notice it
+							(!((mob instanceof Arena.AmuletTower || mob instanceof SubAmuletTower) && this.ranged && distance(mob)>1 )) )
 						enemies.add(mob);
 
 				//and look for the hero

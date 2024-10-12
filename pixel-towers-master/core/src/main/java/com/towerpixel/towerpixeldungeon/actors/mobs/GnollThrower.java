@@ -36,6 +36,8 @@ public class GnollThrower extends Gnoll {
         defenseSkill = 5;
 
         EXP = 2;
+
+        ranged = true;
     }
 
     @Override

@@ -54,7 +54,7 @@ import com.watabou.utils.GameMath;
 public class StatusPane extends Component {
 
 	private NinePatch bg;
-	private Image avatar;
+	public Image avatar;
 	private Button heroInfo;
 	public static float talentBlink;
 	private float warning;
@@ -87,6 +87,7 @@ public class StatusPane extends Component {
 	private CircleArc counter;
 	public CircleArc timeeCircleArc;
 	public Array<Compass> heroCompasses;
+	public Array<Compass> heroCompassesAddedLinks;
 	private static String asset = Assets.Interfaces.STATUS;
 
 	private boolean large;
@@ -95,6 +96,7 @@ public class StatusPane extends Component {
 		super();
 
 		heroCompasses = new Array<>();
+		heroCompassesAddedLinks = new Array<>();
 
 		this.large = large;
 
@@ -128,6 +130,7 @@ public class StatusPane extends Component {
 
 		compass = new Compass(Dungeon.level.entrance());
 		add( compass );
+
 
 		if (large)  rawShielding = new Image(asset, 0, 112, 128, 9);
 		else        rawShielding = new Image(asset, 0, 40, 50, 4);
@@ -208,8 +211,8 @@ public class StatusPane extends Component {
 		PixelScene.align(compass);
 
 		for (Compass comp : heroCompasses){
-			comp.x = avatar.x + avatar.width / 2f - compass.origin.x;
-			comp.y = avatar.y + avatar.height / 2f - compass.origin.y;
+			comp.x = avatar.x + avatar.width / 2f - comp.origin.x;
+			comp.y = avatar.y + avatar.height / 2f - comp.origin.y;
 			PixelScene.align(comp);
 		}
 
@@ -270,6 +273,14 @@ public class StatusPane extends Component {
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
+
+		for (Compass compassExisting : heroCompassesAddedLinks){
+			remove(compassExisting);
+		}
+		for (Compass compass1 : heroCompasses){
+			add(compass1);
+			heroCompassesAddedLinks.add(compass1);
+		}
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
@@ -357,6 +368,9 @@ public class StatusPane extends Component {
 		if (expText != null) expText.alpha(0.6f*value);
 		level.alpha(value);
 		compass.alpha(value);
+		for (Compass compass1 : heroCompasses){
+			compass1.alpha(value);
+		}
 		busy.alpha(value);
 		counter.alpha(value);
 		timeeCircleArc.alpha(value);

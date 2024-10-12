@@ -50,6 +50,8 @@ public class Scorpio extends Mob {
 		loot = Generator.Category.POTION;
 		lootChance = 0.5f;
 
+		ranged = true;
+
 		properties.add(Property.DEMONIC);
 	}
 	

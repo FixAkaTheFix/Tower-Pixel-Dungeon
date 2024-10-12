@@ -30,6 +30,8 @@ public class Shinobi extends Mob {
 		immunities.add( Paralysis.class );
 		immunities.add( Charm.class );
 		immunities.add( Blindness.class );
+
+		ranged = true;
 	}
 
 	@Override

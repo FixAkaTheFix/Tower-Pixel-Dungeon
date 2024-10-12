@@ -154,7 +154,7 @@ import java.util.Locale;
 
 public class GameScene extends PixelScene {
 
-	static GameScene scene;
+	public static GameScene scene;
 
 	private SkinnedBlock water;
 	private DungeonTerrainTilemap tiles;
@@ -167,7 +167,7 @@ public class GameScene extends PixelScene {
 	private HeroSprite hero;
 
 	private MenuPane menu;
-	private StatusPane status;
+	public StatusPane status;
 
 	private BossHealthBar boss;
 

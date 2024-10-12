@@ -67,6 +67,7 @@ public class Eye extends Mob {
 		maxLvl = 25;
 
 		viewDistance = 5;
+		ranged = true;
 
 		properties.add(Property.DEMONIC);
 	}

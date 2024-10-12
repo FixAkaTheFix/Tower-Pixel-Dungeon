@@ -146,6 +146,7 @@ import com.towerpixel.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerCrossbow1Sprite;
 import com.towerpixel.towerpixeldungeon.sprites.TowerGuard1Sprite;
 import com.towerpixel.towerpixeldungeon.sprites.walls.TowerWall1Sprite;
+import com.towerpixel.towerpixeldungeon.ui.Compass;
 import com.towerpixel.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndModes;
@@ -1330,6 +1331,7 @@ public class Arena extends Level {
     private boolean bossSpawned = false;
 
     public void deploymobs(int wave, Direction direction, int groupnum){
+
         ArrayList<Integer> candidatecells = new ArrayList<>();
         for (int x = 0; x < WIDTH;x++) for (int y = 0; y < HEIGHT; y++){
             switch (direction) {
@@ -1443,6 +1445,13 @@ public class Arena extends Level {
         float onexdsum = onexd;
         while (mobsDeployed<mobsToDeployFinal) {
             grouppos = Random.element(candidatecells);
+            GameScene.scene.status.heroCompasses.clear();
+            GameScene.scene.status.heroCompasses.add(new Compass(grouppos, 0xff0000));
+            for (Compass comp : GameScene.scene.status.heroCompasses){
+                comp.x = GameScene.scene.status.avatar.x + GameScene.scene.status.avatar.width / 2f - comp.origin.x;
+                comp.y = GameScene.scene.status.avatar.y + GameScene.scene.status.avatar.height / 2f - comp.origin.y;
+                PixelScene.align(comp);
+            }
             while ((float)mobsDeployed<onexdsum) {
                 Mob mob = chooseMob(wave);
                 if (Dungeon.level.mode == WndModes.Modes.HARDMODE && mobsDeployed % 8 == 1 && !(mob instanceof BossOoze)){
