@@ -69,6 +69,34 @@ public class Arena8 extends Arena{
                 false);
     }
 
+    @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 2;
+            case 2: return 10;
+            case 3: return 8;
+            case 4: return 10;
+            case 5: return 6;
+            case 6: return 11;
+            case 7: return 16;
+            case 8: return 14;
+            case 9: return 17;
+            case 10: return 24;
+            case 11: return 25;
+            case 12: return 29;
+            case 13: return 25;
+            case 14: return 10;
+            case 15: return 30;
+            case 16: return 40;
+            case 17: return 42;
+            case 18: return 15;
+            case 19: return 12;
+            case 20: return 20;
+            case 8055: return 1;
+        }
+        return 1;
+    }
+
     int caveY = Random.Int(5,60);
 
     @Override

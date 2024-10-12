@@ -71,6 +71,28 @@ public class Arena13 extends Arena {
         waveCooldownBoss = 100;
     }
 
+    @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 2;
+            case 2: return 5;
+            case 3: return 3;
+            case 4: return 13;
+            case 5: return 8;
+            case 6: return 9;
+            case 7: return 10;
+            case 8: return 7;
+            case 9: return 8;
+            case 10: return 13;
+            case 11: return 7;
+            case 12: return 11;
+            case 13: return 15;
+            case 14: return 17;
+            case 15: return 15;
+        }
+        return 1;
+    }
+
     public void deploymobs(int wave, Direction direction, int group) {
         switch (wave) {
             case 1:

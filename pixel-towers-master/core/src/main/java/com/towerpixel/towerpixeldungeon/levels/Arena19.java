@@ -103,6 +103,18 @@ public class Arena19 extends Arena {
                 new float[]{1},
                 false);
     }
+
+    @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave % 4){
+            case 0: return wave * 3;
+            case 1: return wave * 3;
+            case 2: return wave;
+            case 3: return (int) (wave * 1.5f);
+        }
+        return 1;
+    }
+
     @Override
     public void doStuffEndwave(int wave) {
         int goldAdd = 500;

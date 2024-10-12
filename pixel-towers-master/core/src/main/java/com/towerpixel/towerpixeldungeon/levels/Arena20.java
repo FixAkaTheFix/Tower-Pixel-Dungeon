@@ -104,6 +104,51 @@ public class Arena20 extends Arena {
     private final int kingCell = 25 + WIDTH*35;
 
     @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 70;
+            case 2: return 15;
+            case 3: return 7;
+            case 4: return 15;
+            case 5002:
+            case 5003:
+            case 5006:
+            case 5007:
+            case 5008: return 17;
+            case 5001:
+            case 5004:
+            case 5005: return 14;
+            case 5009: return 8;
+            case 5010: return 120;
+            case 6: return 25;
+            case 7: return 60;
+            case 8: return 23;
+            case 9: return 30;
+            case 10001: return 31;
+            case 10002: return 32;
+            case 10003: return 33;
+            case 11: return 38;
+            case 12: return 39;
+            case 13: return 25;
+            case 14: return 20;
+            case 15: return 43;
+            case 16: return 20;
+            case 17001: return 40;
+            case 17002: return 40;
+            case 17003: return 40;
+            case 18: return 50;
+            case 19: return 30;
+            case 20: return 50;
+            case 21: return 35;
+            case 22: return 25;
+            case 23: return 55;
+            case 24: return 45;
+            case 25: return 200;
+        }
+        return 1;
+    }
+
+    @Override
     protected boolean build() {
 
         //base room

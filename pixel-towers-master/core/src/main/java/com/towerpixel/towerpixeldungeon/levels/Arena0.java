@@ -374,7 +374,6 @@ public class Arena0 extends Arena {
         }
     }
 
-
     @Override
     public String tilesTex() {
         return Assets.Environment.TILES_SEWERS;

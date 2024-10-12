@@ -57,6 +57,28 @@ public class Arena7 extends Arena{
     }
 
     @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 3;
+            case 2: return 3;
+            case 3: return 10;
+            case 4: return 7;
+            case 5: return 4;
+            case 6: return 9;
+            case 7: return 9;
+            case 8: return 30;
+            case 9: return 5;
+            case 10: return 3;
+            case 11: return 12;
+            case 12: return 12;
+            case 13: return 16;
+            case 14: return 12;
+            case 15: return 20;
+        }
+        return 1;
+    }
+
+    @Override
     public String tilesTex() {
         return Assets.Environment.TILES_PRISON;
     }

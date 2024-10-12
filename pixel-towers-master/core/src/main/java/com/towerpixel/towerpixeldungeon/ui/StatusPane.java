@@ -208,7 +208,9 @@ public class StatusPane extends Component {
 		PixelScene.align(compass);
 
 		for (Compass comp : heroCompasses){
-			comp.point();
+			comp.x = avatar.x + avatar.width / 2f - compass.origin.x;
+			comp.y = avatar.y + avatar.height / 2f - compass.origin.y;
+			PixelScene.align(comp);
 		}
 
 		if (large) {

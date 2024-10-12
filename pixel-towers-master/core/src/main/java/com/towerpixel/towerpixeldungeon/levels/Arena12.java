@@ -58,6 +58,23 @@ public class Arena12 extends Arena{
     }
 
     @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 8;
+            case 2: return 8;
+            case 3: return 9;
+            case 4: return 12;
+            case 5: return 6;
+            case 6: return 13;
+            case 7: return 11;
+            case 8: return 8;
+            case 9: return 7;
+            case 10: return 20;
+        }
+        return 1;
+    }
+
+    @Override
     public void deploymobs(int wave, Direction direction, int group) {
         if (wave % 2 == 1) {
             super.deploymobs(wave, Direction.TOORIGHT, 1);

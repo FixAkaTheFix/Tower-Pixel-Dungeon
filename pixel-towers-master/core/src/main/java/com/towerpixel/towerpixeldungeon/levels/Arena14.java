@@ -73,6 +73,28 @@ public class Arena14 extends Arena{
         waveCooldownBoss = 400;
     }
 
+    @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 10;//gobs
+            case 2: return 20;//gobs
+            case 3: return 20;//gobs and shaman
+            case 4: return 20;//gobs and gigas
+            case 5: return 11;//gigas
+            case 6: return 15;//shamans, gobs and gigas
+            case 7: return 20;//ninja gobs
+            case 8: return 41;//gobs and sand gobs
+            case 9: return 20;//shamans and gigas
+            case 10: return 15;//gigas and a troll
+            case 11: return 70;//gobs
+            case 12: return 75;//gobs and sand gobs
+            case 13: return 40;//gigas
+            case 14: return 50;//gigas and shamans
+            case 15: return 7;//trolls
+        }
+        return 1;
+    }
+
     public void deploymobs(int wave, Direction direction, int group) {
 
         if (wave == 10) super.deploymobs(wave, Direction.RIGHT, 6);

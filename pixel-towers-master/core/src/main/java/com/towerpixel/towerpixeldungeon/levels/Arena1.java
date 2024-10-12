@@ -49,6 +49,28 @@ public class Arena1 extends Arena{
     }
 
     @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave) {
+            case 1: return 3;
+            case 2: return 5;
+            case 3: return 8;
+            case 4: return 10;
+            case 5: return 8;
+            case 6: return 10;
+            case 7: return 25;
+            case 8: return 20;
+            case 9: return 13;
+            case 10: return 17;
+            case 11: return 18;
+            case 12: return 19;
+            case 13: return 21;
+            case 14: return 70;
+            case 15: return 50;
+        }
+        return 1;
+    }
+
+    @Override
     public void playLevelMusic() {
         Music.INSTANCE.playTracks(
                 new String[]{Assets.Music.CITY_BOSS},

@@ -101,6 +101,43 @@ public class Arena16 extends Arena {
     }
 
     @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave) {
+            case 1:
+                return 20;
+            case 2:
+                return 6;
+            case 3:
+                return 25;
+            case 4:
+                return 7;
+            case 5:
+                return 20;
+            case 6:
+                return 13;
+            case 7:
+                return 40;
+            case 8:
+                return 10;
+            case 9:
+                return 25;
+            case 10:
+                return 100;
+            case 11:
+                return 30;
+            case 12:
+                return 40;
+            case 13:
+                return 100;
+            case 14:
+                return 23;
+            case 15:
+                return 50;
+        }
+        return 1;
+    }
+
+    @Override
     protected boolean build() {
 
         //base room
