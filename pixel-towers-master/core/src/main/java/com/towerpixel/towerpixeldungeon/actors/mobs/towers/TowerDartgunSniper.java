@@ -9,7 +9,7 @@ public class TowerDartgunSniper extends TowerDartgun3 {
         HP = HT = 30;
         spriteClass = TowerDartgunSniperSprite.class;
 
-        attackRange = 20;
+        attackRange = 18;
         cost = 1610;
         upgCount = 0;
         baseAttackDelay = 3.5f;

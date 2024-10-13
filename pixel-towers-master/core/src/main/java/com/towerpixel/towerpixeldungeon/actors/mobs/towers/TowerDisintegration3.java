@@ -9,7 +9,7 @@ public class TowerDisintegration3 extends TowerDisintegration2 {
         HP = HT = 100;
         spriteClass = TowerDisintegration3Sprite.class;
 
-        viewDistance = 7;//DPT =3.5*1.1 = 3.85 DPT/C = 3.85/100 = 0,0385
+        attackRange = 8;
         baseAttackDelay = 1.6f;
 
         cost = 2000;

@@ -25,7 +25,7 @@ public class TowerCannonNuke extends TowerCShooting{
         HP = HT = 100;
         spriteClass = TowerCannonNukeSprite.class;
 
-        attackRange = 7;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
+        attackRange = 8;//DPT =32.5*0.66 = 21.45;DPT/C=21,45:1150=0.0187
         baseAttackDelay = 25f;
 
         upgCount = 0;

@@ -10,7 +10,7 @@ public class TowerCrossbow1 extends TowerCShooting {
         HP = HT = 30;
         spriteClass = TowerCrossbow1Sprite.class;
 
-        attackRange = 7;//DPT =3.5*1.1 = 3.85 DPT/C = 3.85/100 = 0,0385
+        attackRange = 8;//DPT =3.5*1.1 = 3.85 DPT/C = 3.85/100 = 0,0385
         baseAttackDelay = 0.9f;
 
         cost = 200;

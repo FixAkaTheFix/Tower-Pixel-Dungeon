@@ -28,8 +28,8 @@ public class TowerLightning1 extends TowerCShooting {
 
         cost = 200;
         upgrade1Cost = 400;
-        damageMin = 9;
-        damageMax = 22;
+        damageMin = 7;
+        damageMax = 18;
         upgradeLevel = 3;
     }
     public int maxChainLength = 4;

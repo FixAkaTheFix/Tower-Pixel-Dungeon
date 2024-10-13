@@ -10,7 +10,7 @@ public class TowerWand1 extends TowerCShooting {
         HP = HT = 40;
         spriteClass = TowerWand1Sprite.class;
 
-        attackRange = 5;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
+        attackRange = 7;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
         baseAttackDelay = 2f;
 
         cost = 200;
