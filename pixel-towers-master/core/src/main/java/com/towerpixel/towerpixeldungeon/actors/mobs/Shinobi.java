@@ -24,7 +24,7 @@ public class Shinobi extends Mob {
 
 		HP = HT = 80;
 		defenseSkill = 8;
-		viewDistance = 5;
+		viewDistance = 4;
 		EXP = 7;
 
 		immunities.add( Paralysis.class );
