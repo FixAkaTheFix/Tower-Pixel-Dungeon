@@ -462,7 +462,7 @@ public abstract class Mob extends Char {
 			}
 			HashSet<Char> filteredEnemies = new HashSet<>();
 			for (Char curr : enemies) {
-				if ((targetingPreference==TargetingPreference.NOT_AMULET) && (curr instanceof Arena.AmuletTower)){
+				if ((targetingPreference==TargetingPreference.NOT_AMULET) && (curr instanceof Arena.AmuletTower || curr instanceof  SubAmuletTower)){
 					filteredEnemies.add(curr);
 				}
 				if ((targetingPreference==TargetingPreference.NOT_HERO) && (curr instanceof Hero)){

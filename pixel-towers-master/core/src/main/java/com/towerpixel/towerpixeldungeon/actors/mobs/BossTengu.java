@@ -29,6 +29,7 @@ import com.towerpixel.towerpixeldungeon.effects.particles.SmokeParticle;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
+import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfToxicGas;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
@@ -204,9 +205,6 @@ public class BossTengu extends Mob {
         if( snekTimer >= snekTime){
             Snake snek = new Snake();
             snek.pos = pos;
-            for (Mob mob : Dungeon.level.mobs) if (mob.alignment!=this.alignment){
-                mob.enemy = null;
-            }
             if (enemy == null) enemy = hero;
             snek.alignment = Alignment.ENEMY;
             GameScene.add(snek);
@@ -217,8 +215,6 @@ public class BossTengu extends Mob {
                 ScrollOfTeleportation.appear( this, Random.element(cellsToWarp) );
                 Dungeon.level.occupyCell( this );
             }
-            GameScene.add(snek);
-            Dungeon.level.occupyCell(snek);
         }
         return super.act();
     }
@@ -232,9 +228,9 @@ public class BossTengu extends Mob {
             cell = enemy.pos + i;
             if (Actor.findChar(cell)!=null){
                 if (Actor.findChar(enemy.pos).alignment == Alignment.ENEMY){
-                    Actor.findChar(cell).damage (Math.round(damageRoll()*0.05f) - enemy.drRoll(),this);//his minions receive 5% damage only
+                    Actor.findChar(cell).damage (Math.round(damageRoll()*0.05f) - enemy.drRoll(), Bomb.class);//his minions receive 5% damage only
                 } else if (Actor.findChar(enemy.pos)==Actor.findChar(cell)) {
-                } else Actor.findChar(cell).damage (Math.round(damageRoll()*0.3f) - enemy.drRoll(),this);//damages foes nearby, with lowered damage
+                } else Actor.findChar(cell).damage (Math.round(damageRoll()*0.3f) - enemy.drRoll(),Bomb.class);//damages foes nearby, with lowered damage
             }
             if (Dungeon.level.heroFOV[enemy.pos+i]) {
                 CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
