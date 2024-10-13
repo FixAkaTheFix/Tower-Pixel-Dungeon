@@ -53,7 +53,7 @@ public class MagiCrab extends Crab {
     @Override
     public void damage( int dmg, Object src ){
         //crab blocks all magical or elemental damage
-        if (DamageSource.MAGICAL.contains(src.getClass())&&!DamageSource.ELEMENTAL.contains(src.getClass()))
+        if (DamageSource.MAGICAL.contains(src.getClass()))
         {
             sprite.showStatus( CharSprite.MYSTERIOUS, Messages.get(this, "def_verb") );
             Sample.INSTANCE.play( Assets.Sounds.CURSED, 1, Random.Float(0.96f, 1.05f));
