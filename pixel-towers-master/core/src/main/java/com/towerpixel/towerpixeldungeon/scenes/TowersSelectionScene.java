@@ -258,13 +258,14 @@ public class TowersSelectionScene extends PixelScene {
 
     private void updateTowerDescription(TowerInfo.AllTowers chosenTower) {
         if (chosenTower != null){
-            towerInfoTitle.setPos(towerInfoTitle.left(), towerInfoTitle.top());
             towerInfoTitle.label(TowerInfo.getTowerName(chosenTower));
             towerInfoTitle.icon(Reflection.newInstance(TowerInfo.getTowerClass(chosenTower)).sprite());
+            towerInfoTitle.setPos(towerInfoTitle.left(), towerInfoTitle.top());
 
 
             towerPreview.copy(new Image(TowerInfo.getTowerPreviewImage(chosenTower)));
-            towerPreview.scale.set(rightPanel.width() / towerPreview.width());
+
+            towerPreview.scale.set(0.8f * rightPanel.width() / towerPreview.width());
             towerPreview.x = towerInfoTitle.centerX() - towerPreview.width() / 2;
             towerPreview.y = towerInfoTitle.bottom() + 1;
             align(towerPreview);
