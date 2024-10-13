@@ -1435,11 +1435,11 @@ public class Arena extends Level {
             }
         }
         bossSpawned = false;
-        int grouppos = -1;
+        int grouppos = 0;
         int mobsDeployed = 0;
         int mobsToDeployFinal = mobsToDeploy(wave);
         if (Dungeon.level.mode == WndModes.Modes.HARDMODE ) {
-            mobsToDeployFinal = mobsToDeployFinal + mobsToDeployFinal*2*(wave*wave/maxWaves/maxWaves);
+            mobsToDeployFinal = mobsToDeployFinal + mobsToDeployFinal*2*(level.wave*level.wave/maxWaves/maxWaves);
         }
         float onexd = ((float)mobsToDeployFinal/groupnum);
         float onexdsum = onexd;

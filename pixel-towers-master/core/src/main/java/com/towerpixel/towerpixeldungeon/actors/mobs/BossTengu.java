@@ -22,7 +22,6 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Frost;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Weakness;
-import com.towerpixel.towerpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.BlastParticle;
@@ -43,6 +42,7 @@ import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.towerpixel.towerpixeldungeon.sprites.MissileSprite;
 import com.towerpixel.towerpixeldungeon.sprites.TenguSprite;
 import com.towerpixel.towerpixeldungeon.ui.BossHealthBar;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -128,8 +128,8 @@ public class BossTengu extends Mob {
     private final int warpTime=10;
     private int warpTimer=0;
 
-    private final int logTime=33;
-    private int logTimer=0;
+    private final int snekTime =33;
+    private int snekTimer =0;
 
     private final int gasTime =16;
     private int gasTimer =0;
@@ -144,14 +144,13 @@ public class BossTengu extends Mob {
         if (phase != x) setPhase(x);
         callForHelpTimer++;
         warpTimer++;
-        logTimer++;
+        snekTimer++;
         gasTimer++;
         if( Dungeon.depth==10 && callForHelpTimer>=callForHelpTime ){
             ((Arena)Dungeon.level).deploymobs(8055, Arena.Direction.RIGHT, 1);
             callForHelpTimer=0;
         }
         if( warpTimer>=warpTime){
-            if (enemy == null) enemy = Char.findChar(((Arena)level).amuletCell);
             if (enemy == null) enemy = hero;
             warpTimer = 0;
             ArrayList<Integer> cellsToWarp = new ArrayList<>();
@@ -176,8 +175,6 @@ public class BossTengu extends Mob {
             }
         }
         if( gasTimer >= gasTime){
-
-            if (enemy == null) enemy = Char.findChar(((Arena)level).amuletCell);
             if (enemy == null) enemy = hero;
             gasTimer = 0;
             if (enemy!=null) {
@@ -203,26 +200,24 @@ public class BossTengu extends Mob {
                         });
             }
         }
-        if( logTimer>=logTime){
-            SmokeBomb.NinjaLog log = new SmokeBomb.NinjaLog();
-            log.pos = pos;
+        if( snekTimer >= snekTime){
+            Snake snek = new Snake();
+            snek.pos = pos;
             for (Mob mob : Dungeon.level.mobs) if (mob.alignment!=this.alignment){
                 mob.enemy = null;
             }
-            if (enemy == null) enemy = Char.findChar(((Arena)level).amuletCell);
             if (enemy == null) enemy = hero;
-            log.alignment = Alignment.ENEMY;
-            GameScene.add(log);
-            log.HP = log.HT = 100;
-            logTimer = 0;
+            snek.alignment = Alignment.ENEMY;
+            GameScene.add(snek);
+            snekTimer = 0;
             ArrayList<Integer> cellsToWarp = new ArrayList<>();
             for (int seen = 1; seen < level.width()*level.height()-5; seen++) if (Dungeon.level.distance(((Arena)level).amuletCell, seen) <= 8 && Char.findChar(seen)==null && level.passable[seen]) cellsToWarp.add(seen);
             if (!cellsToWarp.isEmpty()){
                 ScrollOfTeleportation.appear( this, Random.element(cellsToWarp) );
                 Dungeon.level.occupyCell( this );
             }
-            GameScene.add(log);
-            Dungeon.level.occupyCell(log);
+            GameScene.add(snek);
+            Dungeon.level.occupyCell(snek);
         }
         return super.act();
     }
@@ -392,20 +387,46 @@ public class BossTengu extends Mob {
 
     @Override
     public void die(Object cause) {
-        hero.buffs().clear();
-        hero.next();
-        Badges.validateBossSlain();
-        Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 2, 0.4f);
-        BossTengu.this.sprite.die();
-        this.sprite.jump(pos, pos, 0, 3, new Callback() {
-            @Override
-            public void call() {
-                BossTengu.this.die(cause);
-                Dungeon.win(Amulet.class);
-                Dungeon.deleteGame( GamesInProgress.curSlot, true );
-                Game.switchScene( RankingsScene.class );
+        boolean lastTenguOnLevel10 = true;
+        for (Mob mob : level.mobs){
+            if (mob instanceof BossTengu && mob != this) {
+                lastTenguOnLevel10 = false;
+                break;
             }
-        });
+        }
+        Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 2, 0.8f);
+
+
+        if (!lastTenguOnLevel10 || Dungeon.depth!=10 || cause == Arena.AmuletTower.class){
+            super.die(cause);
+        } else {
+            hero.buffs().clear();
+            hero.next();
+
+            Camera.main.panFollow(BossTengu.this.sprite,2f);
+
+            BossTengu.this.sprite.die();
+            hero.die(Arena.AmuletTower.class);
+            hero.sprite.play(hero.sprite.idle, true);
+
+            boolean finalLastTenguOnLevel10 = lastTenguOnLevel10;
+            this.sprite.jump(pos, pos, 0, 3, new Callback() {
+                @Override
+                public void call() {
+
+                    BossTengu.this.die(cause);
+
+
+                    if (finalLastTenguOnLevel10 && Dungeon.depth==5){
+                        Dungeon.win(Amulet.class);
+                        Dungeon.deleteGame( GamesInProgress.curSlot, true );
+                        Game.switchScene( RankingsScene.class );
+                        Badges.validateBossSlain();
+                    }
+
+                }
+            });
+        }
     }
 
 
@@ -422,7 +443,7 @@ public class BossTengu extends Mob {
         super.storeInBundle(bundle);
         bundle.put(PHASE, phase);
         bundle.put(DAMAGE_RECEIVED, damageReceived);
-        bundle.put(LOGTIMER, logTimer);
+        bundle.put(LOGTIMER, snekTimer);
         bundle.put(WARPTIMER, warpTimer);
         bundle.put(CALLFORHELPTIMER, callForHelpTimer);
     }
@@ -431,7 +452,7 @@ public class BossTengu extends Mob {
         super.restoreFromBundle(bundle);
         phase = bundle.getInt(PHASE);
         damageReceived = bundle.getInt(DAMAGE_RECEIVED);
-        logTimer = bundle.getInt(LOGTIMER);
+        snekTimer = bundle.getInt(LOGTIMER);
         warpTimer = bundle.getInt(WARPTIMER);
         callForHelpTimer = bundle.getInt(CALLFORHELPTIMER);
 

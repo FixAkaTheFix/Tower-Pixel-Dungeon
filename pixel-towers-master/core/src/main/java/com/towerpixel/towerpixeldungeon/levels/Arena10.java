@@ -101,7 +101,7 @@ public class Arena10 extends Arena{
             case 18: return 90;
             case 19: return 20;
             case 20: return 10;
-            case 8055: return 1;
+            case 8055: return 5;
         }
         return 1;
     }
@@ -322,7 +322,11 @@ public class Arena10 extends Arena{
             this.map[75+11*WIDTH]=Terrain.EMBERS;
             bossTengu.pos = 75+11*WIDTH;
             GameScene.add(bossTengu);
-            Camera.main.snapTo(bossTengu.sprite.center());
+            if (mode == WndModes.Modes.HARDMODE){
+                BossTengu bossTengu2 = new BossTengu();
+                bossTengu2.pos = 75+12*WIDTH;
+                GameScene.add(bossTengu2);
+            }
             for (int i : PathFinder.NEIGHBOURS25){
                 CellEmitter.floor(bossTengu.pos+i).start(SmokeParticle.FACTORY,0.03f, 50);
             }
