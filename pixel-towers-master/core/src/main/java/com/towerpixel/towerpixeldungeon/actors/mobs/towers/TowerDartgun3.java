@@ -15,7 +15,7 @@ public class TowerDartgun3 extends TowerDartgun2 {
         upgrade2Cost = 700;
         damageMin = 15;
         damageMax = 22;
-        upgradeLevel = 8;
+        upgradeLevel = 12;
         poisonPower = 7;
         upgCount = 2;
     }
