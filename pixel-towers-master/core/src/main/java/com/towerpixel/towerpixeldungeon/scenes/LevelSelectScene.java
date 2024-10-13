@@ -471,7 +471,7 @@ public class LevelSelectScene extends PixelScene {
         btnTowers.setSize(20, 20);
         btnTowers.setPos(startBtn.right(), startBtn.centerY() - btnTowers.height()/2);
         align(btnTowers);
-        if (SPDSettings.maxlevelunlocked()>=4) add(btnTowers);
+        if (SPDSettings.maxlevelunlocked()>=4 || DeviceCompat.isDebug()) add(btnTowers);
 
         Icons icon;
         switch (SPDSettings.mode()){

@@ -57,7 +57,7 @@ public class BossTengu extends Mob {
     {
         spriteClass = TenguSprite.class;
 
-        HP = HT = 3000;
+        HP = HT = 2500;
         defenseSkill = 8;
         viewDistance = 4;
 
@@ -68,6 +68,7 @@ public class BossTengu extends Mob {
         immunities.add( Charm.class );
         immunities.add( Blindness.class );
         immunities.add( Burning.class) ;
+        targetingPreference = TargetingPreference.NOT_AMULET;
         ranged = true;
     }
 
@@ -128,7 +129,7 @@ public class BossTengu extends Mob {
     private final int warpTime=10;
     private int warpTimer=0;
 
-    private final int snekTime =33;
+    private final int snekTime =14;
     private int snekTimer =0;
 
     private final int gasTime =16;
@@ -138,8 +139,8 @@ public class BossTengu extends Mob {
     @Override
     protected boolean act() {
         int x = 1;
-        if (HP<= 2000) x = 2;
-        if (HP<= 1000) x = 3;
+        if (HP<= 1700) x = 2;
+        if (HP<= 800) x = 3;
         if (HP <= 200) x = 4;
         if (phase != x) setPhase(x);
         callForHelpTimer++;

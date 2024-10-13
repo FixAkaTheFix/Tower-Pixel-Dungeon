@@ -313,13 +313,13 @@ public class TowersSelectionScene extends PixelScene {
         public TowerEquipButton(TowerInfo.AllTowers sometower) {
 
             super(Chrome.Type.GREY_BUTTON_TR, Messages.get(TowersSelectionScene.class, "select"),
-                    9);
+                    7);
             if (TowerInfo.getTowerLock(sometower) == TowerInfo.Lock.UNLOCKED){
                 text(Messages.get(TowersSelectionScene.class, "select"));
                 equipTower = sometower;
                 icon(new Image(Icons.get(Icons.ARROW)));
             } else {
-                text(Messages.get(TowersSelectionScene.class, "no_select"));
+                text(Messages.get(TowersSelectionScene.class, "select"));
                 text.hardlight(0xAAAAAA);
                 equipTower = null;
                 icon(new Image(Icons.get(Icons.CROSS)));

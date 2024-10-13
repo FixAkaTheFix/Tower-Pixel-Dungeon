@@ -66,7 +66,7 @@ public class StyledButton extends Button {
 		
 		if (icon != null) componentWidth += icon.width() + 2;
 		
-		if (text != null && !text.text().equals("")){
+		if (text != null){
 			if (multiline) text.maxWidth( (int)(width - componentWidth - bg.marginHor() - 2));
 			componentWidth += text.width() + 2;
 
