@@ -402,7 +402,7 @@ public class BossTengu extends Mob {
 
             Camera.main.panFollow(BossTengu.this.sprite,2f);
 
-            BossTengu.this.sprite.die();
+            BossTengu.this.sprite.play(BossTengu.this.sprite.die, true);
             hero.die(Arena.AmuletTower.class);
             hero.sprite.play(hero.sprite.idle, true);
 
@@ -411,10 +411,8 @@ public class BossTengu extends Mob {
                 @Override
                 public void call() {
 
-                    BossTengu.this.die(cause);
-
-
-                    if (finalLastTenguOnLevel10 && Dungeon.depth==5){
+                    BossTengu.this.die(Arena.AmuletTower.class);
+                    if (finalLastTenguOnLevel10 && Dungeon.depth==10){
                         Dungeon.win(Amulet.class);
                         Dungeon.deleteGame( GamesInProgress.curSlot, true );
                         Game.switchScene( RankingsScene.class );
