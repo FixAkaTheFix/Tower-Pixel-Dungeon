@@ -31,6 +31,7 @@ import com.towerpixel.towerpixeldungeon.sprites.GorematiaSpiritSprite;
 import com.towerpixel.towerpixeldungeon.sprites.HeroSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.towerpixel.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.towerpixel.towerpixeldungeon.sprites.RatKingAvatarSprite;
 import com.towerpixel.towerpixeldungeon.sprites.YogSprite;
 import com.towerpixel.towerpixeldungeon.ui.Icons;
@@ -46,6 +47,7 @@ public class vTowersNewChanges {
 		add_Coming_Soon(changeInfos);
 		add_v010_Changes(changeInfos);
 		add_v020_Changes(changeInfos);
+		add_v030_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -155,6 +157,30 @@ public class vTowersNewChanges {
 						"#I WON'T BE DELETED THAT EASILY!!!#",
 						"#YOU WON'T DARE TO...#")));*/
 
+
+	}
+	public static void add_v030_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+		ChangeInfo changes = new ChangeInfo("v0.3.0", false, null);
+		changes.hardlight(CharSprite.MYSTERIOUS);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new PortalUnstableSprite(), "Additions",
+				"\n\n" +
+						"All new content added in ver-0.3.0 includes:\n" +
+						"- Switched the Amulet tower to portals, which have less HP, but the enemy disappears upon entering them, allowing for early dif buffer \n" +
+						"- AI of some monsters had some changes, for example: snakes ignore towers and run directly to the amulet\n" +
+						"- Portals, bosses dying or being hurt have cool animations\n" +
+						"- Magicrabs are immune to lightning now\n" +
+						"- Poison effect has a visual of green bubbles emitting"));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs and balancing",
+				"Bugs removed:\n" +
+						"- Fixed bosses crashing on summoning minions\n" +
+						"- Fixed a lot of ui bugs for Tower Selection scene, including button and picture alignment\n" +
+						"- Fixed mage's necromancy skeleton placement\n" +
+						"- Fixed tower ai, including their targeting, especially dartguns targeting, which got reworked a bit to actually work as intended\n" +
+						"- Some bosses don't end the game directly. That is useful for putting several of them into the level, and for future development"));
 
 	}
 
