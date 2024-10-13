@@ -46,7 +46,7 @@ public class TowerGrave3 extends TowerCSpawning{
         upgrade1Cost = 1000;
         upgrade2Cost = 1500;
 
-        upgradeLevel = 3;
+        upgradeLevel = 13;
         upgCount = 2;
     }
 
