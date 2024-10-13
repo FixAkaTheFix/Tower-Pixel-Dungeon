@@ -43,6 +43,7 @@ public class Arena11 extends Arena{
 
         startGold = 1500;
         startLvl = 11;
+        viewDistance = 15;
 
         maxWaves = 15;
 

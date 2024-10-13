@@ -69,12 +69,13 @@ public class Arena17 extends Arena {
 
         color1 = 0x00DD00;
         color2 = 0x218521;
-        viewDistance = 25;
+        viewDistance = 50;
         WIDTH = 51;
         HEIGHT = 51;
 
         startGold = 0;
         startLvl = 20;
+
 
         maxWaves = 22;
 

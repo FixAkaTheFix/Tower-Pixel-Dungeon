@@ -53,7 +53,7 @@ public class Arena6 extends Arena {
 
         color1 = 0x6a723d;
         color2 = 0x88924c;
-        viewDistance = 13;
+        viewDistance = 16;
         WIDTH = 101;
         HEIGHT = 101;
 
