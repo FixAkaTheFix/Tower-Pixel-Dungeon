@@ -15,7 +15,7 @@ public class TowerLightning3 extends TowerLightning2 {
         upgCount = 0;
         damageMin = 35;
         damageMax = 95;
-        upgradeLevel = 3;
+        upgradeLevel = 12;
         maxChainLength = 8;
     }
 }

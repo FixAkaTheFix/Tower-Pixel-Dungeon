@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.levels.rooms.special.GardenRoom;
 import com.towerpixel.towerpixeldungeon.sprites.AlmostEmptySprite;
 import com.watabou.utils.Bundle;
 
@@ -97,8 +98,8 @@ public class BossImage extends Mob{ //an image of the mob - an invisible and unk
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
+        /*super.restoreFromBundle(bundle);
         this.pos = 1;
-        destroy();//see restoreFromBundle in BossOoze
+        destroy();//see restoreFromBundle in BossOoze*/
     }
 }

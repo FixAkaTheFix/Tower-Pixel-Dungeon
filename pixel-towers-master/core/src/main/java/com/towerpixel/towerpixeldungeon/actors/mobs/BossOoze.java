@@ -17,6 +17,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Ooze;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Paralysis;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.BlastParticle;
@@ -159,16 +160,16 @@ public class BossOoze extends Mob {
     public void moveImages(){
         int i = 0;
         for (BossImage image : images) {
+            try{
+                image.sprite.move(image.pos, pos+PathFinder.NEIGHBOURS8[i] );
+            } catch (Exception ignored){} // in some cases, in the beginning for example,
             image.pos=pos+PathFinder.NEIGHBOURS8[i];
+
+            level.occupyCell(image);
             i++;
         }
     }
-    public void positionImages(){
-        for (BossImage image : images) {
-            Dungeon.level.occupyCell(image);//changes the images position to its "pos"
-            GameScene.add(image); //this moves both the image and its sprite
-        }
-    }
+
 
     public void deleteImages(){
         for (BossImage image : images) {
@@ -208,6 +209,7 @@ public class BossOoze extends Mob {
 
     @Override
     protected boolean act() {
+        moveImages();
 
         spend(0.5f);
         GameScene.updateFog(pos, 3);
@@ -227,8 +229,9 @@ public class BossOoze extends Mob {
             sprite.jump(pos, newpos, 20, 0.3f, new Callback() {
                 @Override
                 public void call() {
-                    Dungeon.level.occupyCell(BossOoze.this);
                     pos = newpos;
+                    Dungeon.level.occupyCell(BossOoze.this);
+                    moveImages();
                     next();
                 }
             });
@@ -238,9 +241,8 @@ public class BossOoze extends Mob {
 
 
         if (!imagesAdded) {
-            moveImages();//sets images' pos'
             addImages();//adds images to the game
-            positionImages();//puts images to positions
+            moveImages();//sets images' pos'
             imagesAdded = true;
         }
         deleteImages();//make some free space for the ooze to move, temporarily
@@ -298,7 +300,7 @@ public class BossOoze extends Mob {
                         for (int i = 0; i<Dungeon.level.width()*Dungeon.level.height();i++)
                             try {
                                 Char ch = Actor.findChar(i);
-                                if (ch != null && ch!=BossOoze.this&& !(ch instanceof BossImage)) {
+                                if (ch != null && ch!=BossOoze.this && !(ch instanceof Arena.AmuletTower || ch instanceof SubAmuletTower) && !(ch instanceof BossImage)) {
 
                                     if (ch.alignment != Char.Alignment.ALLY)
                                         ch.damage(damageRoll(), this);
@@ -315,11 +317,10 @@ public class BossOoze extends Mob {
                             } catch (Exception ignored) {
                             }
                         hero.spendAndNextConstant(1f);
+                        moveImages();
+                        collisionDamageCheck();
                     }
                 });
-                moveImages();
-                positionImages();
-                collisionDamageCheck();
                 return true;
             }
         } else if (Math.random()>0.2 && phase == 3) {
@@ -329,7 +330,6 @@ public class BossOoze extends Mob {
         }
         super.act();//we need to do the usual acting without returning anything;
         moveImages();
-        positionImages();
         collisionDamageCheck();
         return true;
     }
@@ -515,7 +515,11 @@ public class BossOoze extends Mob {
         images = new BossImage[]{
                 new BossImage(),new BossImage(),new BossImage(),new BossImage(),new BossImage()
         };
-        moveImages();//sets images' pos'
+        int i = 0;
+        for (BossImage image : images) {
+            image.pos=pos+PathFinder.NEIGHBOURS8[i];
+            i++;
+        }
         addImages();//adds images to the game. Necessary for the Boss to restore its hitbox
         phase = bundle.getInt(PHASE);
         callForHelpTimer = bundle.getInt(CALLFORHELPTIMER);

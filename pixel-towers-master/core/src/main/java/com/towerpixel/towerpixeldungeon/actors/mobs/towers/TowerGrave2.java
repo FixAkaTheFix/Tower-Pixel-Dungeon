@@ -42,7 +42,7 @@ public class TowerGrave2 extends TowerCSpawning{
 
         upgrade1Cost = 500;
 
-        upgradeLevel = 3;
+        upgradeLevel = 8;
     }
 
     @Override
