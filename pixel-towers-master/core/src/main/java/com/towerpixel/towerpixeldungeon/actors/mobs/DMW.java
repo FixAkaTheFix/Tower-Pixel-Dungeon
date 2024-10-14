@@ -395,7 +395,7 @@ public class DMW extends Mob {
                                 //don't want to overly punish players with slow move or attack speed
                                 spend(3);
                                 if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[chargePos]) {
-                                    GLog.w(Messages.get(DMW.this, "leap"));
+                                    GLog.w(Messages.get(DMW.class, "leap"));
                                     sprite.parent.addToBack(new TargetedCell(chargePos, 0xFF0000));
                                     ((DMWSprite) sprite).chargePrep(chargePos);
                                     Dungeon.hero.interrupt();

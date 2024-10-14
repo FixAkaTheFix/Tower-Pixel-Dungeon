@@ -65,7 +65,6 @@ public class DMWSprite extends MobSprite {
                         }
                     } );
             Sample.INSTANCE.play( Assets.Sounds.GAS );
-            GLog.w(Messages.get(DMW.class, "vent"));
         }
 
         @Override
