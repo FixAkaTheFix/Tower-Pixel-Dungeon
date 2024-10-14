@@ -235,7 +235,7 @@ public class BossOoze extends Mob {
                     next();
                 }
             });
-            return false;
+            return true;
 
         } catch (Exception ignored) {}
 
