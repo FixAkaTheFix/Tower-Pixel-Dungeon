@@ -1761,7 +1761,9 @@ public class Arena extends Level {
         @Override
         public void damage(int dmg, Object src) {
 
-            if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) {
+            if(src == SubAmuletTower.class){
+                super.damage(dmg,src);
+            } else if (src instanceof Char && ((Char)src).alignment==Alignment.ENEMY) {
                 Char chsrc = (Char)src;
                 chsrc.damagePortal(pos);
                 if (chsrc.properties().contains(Property.BOSS)){

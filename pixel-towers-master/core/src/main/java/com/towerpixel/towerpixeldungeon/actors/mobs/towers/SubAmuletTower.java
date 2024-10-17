@@ -83,11 +83,11 @@ public class SubAmuletTower extends Mob {//this is the secondary tower to kill
             Char chsrc = (Char)src;
             chsrc.damagePortal(pos);
             if (chsrc.properties().contains(Property.BOSS)){
-                ((Arena)level).amuletTower.damage(100, src);
+                ((Arena)level).amuletTower.damage(100, SubAmuletTower.class);
             } else if (chsrc.properties().contains(Property.BOSS)){
-                ((Arena)level).amuletTower.damage(5, src);
-            } else ((Arena)level).amuletTower.damage(1, src);
-        } else super.damage(1, src);
+                ((Arena)level).amuletTower.damage(5, SubAmuletTower.class);
+            } else ((Arena)level).amuletTower.damage(1, SubAmuletTower.class);
+        } else super.damage(1, SubAmuletTower.class);
         HP = ((Arena)level).amuletTower.HP;
     }
 
