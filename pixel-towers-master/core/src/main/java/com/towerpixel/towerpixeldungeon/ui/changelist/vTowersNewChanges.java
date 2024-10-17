@@ -27,6 +27,7 @@ import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.ChangesScene;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
+import com.towerpixel.towerpixeldungeon.sprites.GooSprite;
 import com.towerpixel.towerpixeldungeon.sprites.GorematiaSpiritSprite;
 import com.towerpixel.towerpixeldungeon.sprites.HeroSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
@@ -48,6 +49,7 @@ public class vTowersNewChanges {
 		add_v010_Changes(changeInfos);
 		add_v020_Changes(changeInfos);
 		add_v030_Changes(changeInfos);
+		add_v031_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -181,6 +183,23 @@ public class vTowersNewChanges {
 						"- Fixed mage's necromancy skeleton placement\n" +
 						"- Fixed tower ai, including their targeting, especially dartguns targeting, which got reworked a bit to actually work as intended\n" +
 						"- Some bosses don't end the game directly. That is useful for putting several of them into the level, and for future development"));
+
+	}
+	public static void add_v031_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+		ChangeInfo changes = new ChangeInfo("v0.3.1", false, null);
+		changes.hardlight(CharSprite.MYSTERIOUS);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new GooSprite(), "Additions",
+				"-Released 17.01.2024-\n" +
+						"All new content added in ver-0.3.1 includes:\n" +
+						"- Ooze does not damage the portal with it's jumps anymore"));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs and balancing",
+				"Bugs removed:\n" +
+						"- Ooze collision, effect display and sprite showing partially fixed\n" +
+						"- Attack range display values in tower selection scene fixed"));
 
 	}
 
