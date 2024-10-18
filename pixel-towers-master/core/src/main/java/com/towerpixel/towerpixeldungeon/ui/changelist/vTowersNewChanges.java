@@ -26,6 +26,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.HeroClass;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.ChangesScene;
+import com.towerpixel.towerpixeldungeon.sprites.CausticSlimeSprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.GooSprite;
 import com.towerpixel.towerpixeldungeon.sprites.GorematiaSpiritSprite;
@@ -191,8 +192,8 @@ public class vTowersNewChanges {
 		changes.hardlight(CharSprite.MYSTERIOUS);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new GooSprite(), "Additions",
-				"-Released 17.01.2024-\n" +
+		changes.addButton(new ChangeButton(new CausticSlimeSprite(), "Additions",
+				"-Released 17.10.2024-\n" +
 						"All new content added in ver-0.3.1 includes:\n" +
 						"- Ooze does not damage the portal with it's jumps anymore"));
 
