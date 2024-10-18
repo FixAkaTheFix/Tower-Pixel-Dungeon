@@ -52,6 +52,7 @@ public class vTowersNewChanges {
 		add_v020_Changes(changeInfos);
 		add_v030_Changes(changeInfos);
 		add_v031_Changes(changeInfos);
+		add_v032_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
