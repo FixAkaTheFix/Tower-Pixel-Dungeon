@@ -35,6 +35,7 @@ import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.towerpixel.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.towerpixel.towerpixeldungeon.sprites.RatKingAvatarSprite;
+import com.towerpixel.towerpixeldungeon.sprites.RatSprite;
 import com.towerpixel.towerpixeldungeon.sprites.YogSprite;
 import com.towerpixel.towerpixeldungeon.ui.Icons;
 import com.towerpixel.towerpixeldungeon.ui.Window;
@@ -201,6 +202,21 @@ public class vTowersNewChanges {
 				"Bugs removed:\n" +
 						"- Ooze collision, effect display and sprite showing partially fixed\n" +
 						"- Attack range display values in tower selection scene fixed"));
+
+	}
+	public static void add_v032_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+		ChangeInfo changes = new ChangeInfo("v0.3.2", false, null);
+		changes.hardlight(CharSprite.MYSTERIOUS);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new RatSprite(), "Additions",
+				"-Released 18.10.2024-\n" +
+						"- No additions overall. A small bugfix only"));
+
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs and balancing",
+				"Bugs removed:\n" +
+						"- Changes scene crash removed"));
 
 	}
 
