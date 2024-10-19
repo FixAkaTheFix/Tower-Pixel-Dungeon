@@ -70,8 +70,7 @@ public class TowerCannonNuke extends TowerCShooting{
             Char ch = Actor.findChar(cell);
             if (ch!=null){
                 if (ch.alignment == Alignment.ALLY){
-                    ch.damage (Math.round(damageRoll()*0.05f) - enemy.drRoll(),this);//friends receive 5% damage only
-                } else if (Actor.findChar(enemy.pos)==ch) {
+                } else if (Actor.findChar(enemy.pos)==ch) {//to not double-damage the foe
                 } else ch.damage (Math.round(damageRoll()*damageExplosionMult) - enemy.drRoll(),this);//damages foes nearby, with lowered damage
 
 
