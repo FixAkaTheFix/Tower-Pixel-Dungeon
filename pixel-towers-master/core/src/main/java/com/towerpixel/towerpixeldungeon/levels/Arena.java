@@ -194,10 +194,10 @@ public class Arena extends Level {
 
     public String name = "Testers' Chamber";
 
-    int exitCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH+1;//center
+    public int exitCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH+1;//center
     public int amuletCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH;//where is the amulet mob
-    int towerShopKeeperCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH - WIDTH*3;//3 cells under the amulet for now
-    int normalShopKeeperCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH - WIDTH*3-6;//3 cells under the amulet for now
+    public int towerShopKeeperCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH - WIDTH*3;//3 cells under the amulet for now
+    public int normalShopKeeperCell = Math.round(WIDTH*0.5f)+ Math.round(HEIGHT*0.5f)*WIDTH - WIDTH*3-6;//3 cells under the amulet for now
 
     private Rect fullArena = new Rect(2,2,WIDTH-1,HEIGHT-1);//the whole arena rect
     private Rect barrierArena = new Rect(9,9,WIDTH-8,HEIGHT-8);//used for restricting, to be placed around the playerArena, where the enemies can't spawn
@@ -1685,9 +1685,8 @@ public class Arena extends Level {
                     if (!(level.mode == WndModes.Modes.CHALLENGE && depth==15)) mob.damage(1, Corrosion.class);
                     else if (mob.alignment == Alignment.ALLY) mob.damage(3, Corrosion.class);
                 }
-
             }
-            if (((Arena)level).waterIsToxic && level.map[hero.pos] == Terrain.WATER && !hero.buffs().contains(Levitation.class)){
+            if (((Arena)level).waterIsToxic && level.map[hero.pos] == Terrain.WATER && hero.buff(Levitation.class)==null){
                 hero.damage((level.mode == WndModes.Modes.CHALLENGE && depth==15) ? 3 : 1, Corrosion.class);
             }
             if (depth==5 && level.mode == WndModes.Modes.CHALLENGE){

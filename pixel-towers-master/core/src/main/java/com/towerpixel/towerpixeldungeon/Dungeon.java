@@ -171,8 +171,9 @@ public class Dungeon {
 	public static QuickSlot quickslot = new QuickSlot();
 	
 	public static int depth;
-	//determines path the hero is on. Current uses:
-	// 0 is the default path
+	//determines the mode the hero is on
+	// 0 is the story
+	// 1 is the endless mode
 	// Other numbers are currently unused
 	public static int branch;
 
