@@ -40,19 +40,19 @@ public class StableTeleportScroll extends Item {
     public void execute(Hero hero, String action) {
         super.execute(hero, action);
         if (action == AC_RESET) {
-            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.branch, null);
+            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.gamemode, null);
             InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
             Game.switchScene( InterlevelScene.class );
         }
         if (action == AC_ASCEND) {
             depth--;
-            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.branch, null);
+            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.gamemode, null);
             InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
             Game.switchScene(InterlevelScene.class);
         }
         if (action == AC_DESCEND) {
             depth++;
-            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.branch, null);
+            InterlevelScene.curTransition = new LevelTransition(Dungeon.level, -1, LevelTransition.Type.REGULAR_EXIT, depth, Dungeon.gamemode, null);
             InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
             Game.switchScene(InterlevelScene.class);
         }

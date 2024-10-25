@@ -16,6 +16,7 @@ public class WaveCooldownBuff extends FlavourBuff {
 
     @Override
     public String desc() {
+        if (((Arena)Dungeon.level).maxWaves > 1000) return Messages.get(this, "descnomax", Dungeon.level.wave + 1, this.dispTurns());
         return Messages.get(this, "desc", Dungeon.level.wave + 1, ((Arena)Dungeon.level).maxWaves, this.dispTurns());
     }
     @Override

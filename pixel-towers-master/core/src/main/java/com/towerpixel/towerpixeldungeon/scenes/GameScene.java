@@ -21,7 +21,6 @@
 
 package com.towerpixel.towerpixeldungeon.scenes;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Challenges;
@@ -40,14 +39,12 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
-import com.towerpixel.towerpixeldungeon.actors.mobs.BossImage;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DemonSpawner;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Ghoul;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Snake;
 import com.towerpixel.towerpixeldungeon.effects.BannerSprites;
 import com.towerpixel.towerpixeldungeon.effects.BlobEmitter;
-import com.towerpixel.towerpixeldungeon.effects.CircleArc;
 import com.towerpixel.towerpixeldungeon.effects.EmoIcon;
 import com.towerpixel.towerpixeldungeon.effects.Flare;
 import com.towerpixel.towerpixeldungeon.effects.FloatingText;
@@ -71,7 +68,6 @@ import com.towerpixel.towerpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.towerpixel.towerpixeldungeon.levels.traps.Trap;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Plant;
-import com.towerpixel.towerpixeldungeon.sprites.AlmostEmptySprite;
 import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.sprites.DiscardedItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.DrillBigSprite;
@@ -110,7 +106,6 @@ import com.towerpixel.towerpixeldungeon.ui.Toolbar;
 import com.towerpixel.towerpixeldungeon.ui.Window;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndBag;
-import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.towerpixel.towerpixeldungeon.windows.WndGame;
 import com.towerpixel.towerpixeldungeon.windows.WndHero;
 import com.towerpixel.towerpixeldungeon.windows.WndInfoCell;
@@ -529,7 +524,7 @@ public class GameScene extends PixelScene {
 			}
 
 			if (Dungeon.hero.hasTalent(Talent.ROGUES_FORESIGHT)
-					&& Dungeon.level instanceof RegularLevel && Dungeon.branch == 0){
+					&& Dungeon.level instanceof RegularLevel && Dungeon.gamemode == 0){
 				int reqSecrets = Dungeon.level.feeling == Level.Feeling.SECRETS ? 2 : 1;
 				for (Room r : ((RegularLevel) Dungeon.level).rooms()){
 					if (r instanceof SecretRoom) reqSecrets--;

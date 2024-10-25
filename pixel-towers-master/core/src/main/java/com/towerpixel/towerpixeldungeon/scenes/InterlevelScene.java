@@ -383,7 +383,7 @@ public class InterlevelScene extends PixelScene {
 
 			Level level;
 			Dungeon.depth = curTransition.destDepth;
-			Dungeon.branch = curTransition.destBranch;
+			Dungeon.gamemode = curTransition.destBranch;
 			//TODO this is brittle atm, assumes we're always going down in depth 1 at a time
 			if (curTransition.destDepth > Statistics.deepestFloor) {
 				level = Dungeon.newLevel();
@@ -422,7 +422,7 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.saveAll();
 		Dungeon.depth = curTransition.destDepth;
-		Dungeon.branch = curTransition.destBranch;
+		Dungeon.gamemode = curTransition.destBranch;
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 
 		LevelTransition destTransition = level.getTransition(curTransition.destType);
@@ -436,7 +436,7 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.saveAll();
 		Dungeon.depth = returnDepth;
-		Dungeon.branch = returnBranch;
+		Dungeon.gamemode = returnBranch;
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		Dungeon.switchLevel( level, returnPos );
 	}

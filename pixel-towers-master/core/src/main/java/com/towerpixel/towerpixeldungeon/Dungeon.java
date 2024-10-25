@@ -175,7 +175,7 @@ public class Dungeon {
 	// 0 is the story
 	// 1 is the endless mode
 	// Other numbers are currently unused
-	public static int branch;
+	public static int gamemode;
 
 	public static int gold;
 	public static int energy;
@@ -238,7 +238,7 @@ public class Dungeon {
 		Toolbar.swappedQuickslots = false;
 		
 		depth = 1;
-		branch = 0;
+		gamemode = 0;
 
 		gold = 0;
 		energy = 0;
@@ -276,7 +276,7 @@ public class Dungeon {
 		}
 		
 		Level level;
-		if (branch == 0) {
+		if (gamemode == 0) {
 			switch (depth) {
 				case 0: level = new Arena0(); break;
 				case 1: level = new Arena1(); break;
@@ -331,7 +331,7 @@ public class Dungeon {
 	}
 
 	public static long seedCurDepth(){
-		return seedForDepth(depth, branch);
+		return seedForDepth(depth, gamemode);
 	}
 
 	public static long seedForDepth(int depth, int branch){
@@ -517,7 +517,7 @@ public class Dungeon {
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
-			bundle.put( BRANCH, branch );
+			bundle.put( BRANCH, gamemode);
 
 			bundle.put( GOLD, gold );
 			bundle.put( ENERGY, energy );
@@ -576,7 +576,7 @@ public class Dungeon {
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, level );
 		
-		FileUtils.bundleToFile(GamesInProgress.depthFile( save, depth, branch ), bundle);
+		FileUtils.bundleToFile(GamesInProgress.depthFile( save, depth, gamemode), bundle);
 	}
 	
 	public static void saveAll() throws IOException {
@@ -676,7 +676,7 @@ public class Dungeon {
 		hero = (Hero)bundle.get( HERO );
 		
 		depth = bundle.getInt( DEPTH );
-		branch = bundle.getInt( BRANCH );
+		gamemode = bundle.getInt( BRANCH );
 
 		gold = bundle.getInt( GOLD );
 		energy = bundle.getInt( ENERGY );
@@ -705,7 +705,7 @@ public class Dungeon {
 		Dungeon.level = null;
 		Actor.clear();
 
-		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.depthFile( save, depth, branch ));
+		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.depthFile( save, depth, gamemode));
 
 		Level level = (Level)bundle.get( LEVEL );
 
@@ -778,7 +778,7 @@ public class Dungeon {
 	}
 
 	public static void updateLevelExplored(){
-		if (branch == 0 && level instanceof RegularLevel && !Dungeon.bossLevel()){
+		if (gamemode == 0 && level instanceof RegularLevel && !Dungeon.bossLevel()){
 			Statistics.floorsExplored.put( depth, level.isLevelExplored(depth));
 		}
 	}

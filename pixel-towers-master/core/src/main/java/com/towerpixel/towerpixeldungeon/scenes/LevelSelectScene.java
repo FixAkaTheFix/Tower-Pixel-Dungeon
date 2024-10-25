@@ -47,9 +47,10 @@ public class LevelSelectScene extends PixelScene {
     private IconButton btnModes;
 
     int chosenLevel = Statistics.chosenLevel;
+    int gamemode = Dungeon.gamemode;
 
     public String backgroundArt() {
-        switch (chosenLevel) {
+        if (gamemode == 0) switch (chosenLevel) {
             default:
                 return Assets.Splashes.MAINWINDOW;
             case 1:
@@ -103,8 +104,11 @@ public class LevelSelectScene extends PixelScene {
             case 25:
                 return Assets.Splashes.ARENA25;
 */
-
+        } else if (gamemode == 1) switch (chosenLevel) {
+            default:
+                return Assets.Splashes.MAINWINDOW;
         }
+        return Assets.Splashes.MAINWINDOW;
     }
 
     public String mainWindow() {// for future, if i want to change the window view for some levels

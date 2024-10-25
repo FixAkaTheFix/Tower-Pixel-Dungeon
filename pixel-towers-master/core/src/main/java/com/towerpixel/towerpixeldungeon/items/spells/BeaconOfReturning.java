@@ -96,7 +96,7 @@ public class BeaconOfReturning extends Spell {
 	
 	private void setBeacon(Hero hero ){
 		returnDepth = Dungeon.depth;
-		returnBranch = Dungeon.branch;
+		returnBranch = Dungeon.gamemode;
 		returnPos = hero.pos;
 		
 		hero.spend( 1f );
@@ -111,7 +111,7 @@ public class BeaconOfReturning extends Spell {
 	
 	private void returnBeacon( Hero hero ){
 		
-		if (returnDepth == Dungeon.depth && returnBranch == Dungeon.branch) {
+		if (returnDepth == Dungeon.depth && returnBranch == Dungeon.gamemode) {
 
 			Char existing = Actor.findChar(returnPos);
 			if (existing != null && existing != hero){
