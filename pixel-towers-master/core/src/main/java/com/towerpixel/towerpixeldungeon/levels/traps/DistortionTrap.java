@@ -29,7 +29,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Acidic;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Albino;
 import com.towerpixel.towerpixeldungeon.actors.mobs.ArmoredBrute;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Bandit;
-import com.towerpixel.towerpixeldungeon.actors.mobs.Bestiary;
+import com.towerpixel.towerpixeldungeon.actors.mobs.MobSpawner;
 import com.towerpixel.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DM201;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Elemental;
@@ -111,7 +111,7 @@ public class DistortionTrap extends Trap{
 					do {
 						floor = Random.Int(25);
 					} while( Dungeon.bossLevel(floor));
-					mob = Reflection.newInstance(Bestiary.getMobRotation(floor).get(0));
+					mob = Reflection.newInstance(MobSpawner.getMobRotation(floor).get(0));
 					break;
 				case 2:
 					switch (Random.Int(4)){

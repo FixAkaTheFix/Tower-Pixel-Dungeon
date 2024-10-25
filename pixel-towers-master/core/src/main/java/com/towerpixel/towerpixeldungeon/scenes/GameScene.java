@@ -58,6 +58,7 @@ import com.towerpixel.towerpixeldungeon.items.artifacts.DriedRose;
 import com.towerpixel.towerpixeldungeon.items.journal.Guidebook;
 import com.towerpixel.towerpixeldungeon.items.potions.Potion;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.towerpixel.towerpixeldungeon.journal.Bestiary;
 import com.towerpixel.towerpixeldungeon.journal.Document;
 import com.towerpixel.towerpixeldungeon.journal.Journal;
 import com.towerpixel.towerpixeldungeon.levels.Level;
@@ -1550,8 +1551,12 @@ public class GameScene extends PixelScene {
 			GameScene.show(new WndInfoItem((Heap)o));
 		} else if ( o instanceof Plant ){
 			GameScene.show( new WndInfoPlant((Plant) o) );
+			//plants can be harmful to trample, so let the player ID just by examine
+			Bestiary.setSeen(o.getClass());
 		} else if ( o instanceof Trap ){
 			GameScene.show( new WndInfoTrap((Trap) o));
+			//traps are often harmful to trigger, so let the player ID just by examine
+			Bestiary.setSeen(o.getClass());
 		} else {
 			GameScene.show( new WndMessage( Messages.get(GameScene.class, "dont_know") ) ) ;
 		}

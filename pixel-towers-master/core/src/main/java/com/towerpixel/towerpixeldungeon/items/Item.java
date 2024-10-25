@@ -83,7 +83,7 @@ public class Item implements Bundlable {
 	
 	private int level = 0;
 
-	public boolean levelKnown = false;
+	public boolean levelKnown = true;
 	
 	public boolean cursed;
 	public boolean cursedKnown;
@@ -106,6 +106,7 @@ public class Item implements Bundlable {
 			return Generator.Category.order( lhs ) - Generator.Category.order( rhs );
 		}
 	};
+
 
 	public void changeTo(Item appearing) {
 
@@ -246,6 +247,7 @@ public class Item implements Bundlable {
 		if (quantity <= 0){
 			return true;
 		}
+		Catalog.setSeen(getClass());
 
 		ArrayList<Item> items = container.items;
 
@@ -466,7 +468,7 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean isIdentified() {
-		return levelKnown && cursedKnown;
+		return true;
 	}
 	
 	public boolean isEquipped( Hero hero ) {

@@ -590,12 +590,12 @@ public class Badges {
 	public static void validateItemsIdentified() {
 		
 		for (Catalog cat : Catalog.values()){
-			if (cat.allSeen()){
-				Badge b = Catalog.catalogBadges.get(cat);
-				if (!isUnlocked(b)){
-					displayBadge(b);
-				}
+
+			Badge b = Catalog.catalogBadges.get(cat);
+			if (!isUnlocked(b)){
+				displayBadge(b);
 			}
+
 		}
 		
 		if (isUnlocked( Badge.ALL_WEAPONS_IDENTIFIED ) &&

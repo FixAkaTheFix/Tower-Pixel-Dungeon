@@ -23,6 +23,7 @@ package com.towerpixel.towerpixeldungeon.levels.traps;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.journal.Bestiary;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -91,6 +92,7 @@ public abstract class Trap implements Bundlable {
 			if (Dungeon.level.heroFOV[pos]) {
 				Sample.INSTANCE.play(Assets.Sounds.TRAP);
 			}
+			Bestiary.setSeen(getClass());
 			if (disarmedByActivation) disarm();
 			Dungeon.level.discover(pos);
 			activate();

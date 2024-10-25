@@ -80,6 +80,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.Weapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Lucky;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.towerpixel.towerpixeldungeon.journal.Bestiary;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.levels.features.Chasm;
@@ -264,6 +265,8 @@ public abstract class Mob extends Char {
 
 		boolean justAlerted = alerted;
 		alerted = false;
+
+		Bestiary.setSeen(getClass());
 
 		if (justAlerted){
 			sprite.showAlert();

@@ -101,6 +101,13 @@ public class Image extends Visual {
 		height = other.height;
 
 		scale = other.scale;
+		bm = other.bm;
+		gm = other.gm;
+		rm = other.rm;
+
+		ba = other.ba;
+		ga = other.ga;
+		ra = other.ra;
 		
 		updateFrame();
 		updateVertices();

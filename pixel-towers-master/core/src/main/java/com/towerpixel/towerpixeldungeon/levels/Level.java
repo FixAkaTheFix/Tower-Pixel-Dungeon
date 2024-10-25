@@ -46,14 +46,13 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
-import com.towerpixel.towerpixeldungeon.actors.mobs.Bestiary;
+import com.towerpixel.towerpixeldungeon.actors.mobs.MobSpawner;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Piranha;
 import com.towerpixel.towerpixeldungeon.actors.mobs.YogFist;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Sheep;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun1;
-import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerDartgun3;
 import com.towerpixel.towerpixeldungeon.effects.particles.FlowParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.WindParticle;
 import com.towerpixel.towerpixeldungeon.items.Generator;
@@ -502,7 +501,7 @@ public abstract class Level implements Bundlable {
 	
 	public Mob createMob() {
 		if (mobsToSpawn == null || mobsToSpawn.isEmpty()) {
-			mobsToSpawn = Bestiary.getMobRotation(Dungeon.depth);
+			mobsToSpawn = MobSpawner.getMobRotation(Dungeon.depth);
 		}
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));

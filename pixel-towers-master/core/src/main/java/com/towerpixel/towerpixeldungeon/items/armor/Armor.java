@@ -60,7 +60,9 @@ import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Stone;
 import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Swiftness;
 import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Thorns;
 import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Viscosity;
+import com.towerpixel.towerpixeldungeon.items.bags.Bag;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfArcana;
+import com.towerpixel.towerpixeldungeon.journal.Catalog;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.HeroSprite;
@@ -259,7 +261,7 @@ public class Armor extends EquipableItem {
 		return seal;
 	}
 
-	@Override
+
 	protected float time2equip( Hero hero ) {
 		return 2 / hero.speed();
 	}
@@ -280,6 +282,17 @@ public class Armor extends EquipableItem {
 
 			return false;
 
+		}
+	}
+	@Override
+	public boolean collect(Bag container) {
+		if(super.collect(container)){
+			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && glyph != null){
+				Catalog.setSeen(glyph.getClass());
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -340,6 +353,7 @@ public class Armor extends EquipableItem {
 		
 		return evasion + augment.evasionFactor(buffedLvl());
 	}
+
 	
 	public float speedFactor( Char owner, float speed ){
 		
@@ -604,6 +618,10 @@ public class Armor extends EquipableItem {
 		if (seal != null){
 			seal.setGlyph(glyph);
 		}
+		if (glyph != null && isIdentified() && Dungeon.hero != null
+				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
+			Catalog.setSeen(glyph.getClass());
+		}
 		return this;
 	}
 
@@ -635,14 +653,14 @@ public class Armor extends EquipableItem {
 	
 	public static abstract class Glyph implements Bundlable {
 		
-		private static final Class<?>[] common = new Class<?>[]{
+		public static final Class<?>[] common = new Class<?>[]{
 				Obfuscation.class, Swiftness.class, Viscosity.class, Potential.class };
 		
-		private static final Class<?>[] uncommon = new Class<?>[]{
+		public static final Class<?>[] uncommon = new Class<?>[]{
 				Brimstone.class, Stone.class, Entanglement.class,
 				Repulsion.class, Camouflage.class, Flow.class, Holy.class};
 		
-		private static final Class<?>[] rare = new Class<?>[]{
+		public static final Class<?>[] rare = new Class<?>[]{
 				Affection.class, AntiMagic.class, Thorns.class, Evasion.class };
 		
 		private static final float[] typeChances = new float[]{
@@ -651,7 +669,7 @@ public class Armor extends EquipableItem {
 				10  //3.33% each
 		};
 
-		private static final Class<?>[] curses = new Class<?>[]{
+		public static final Class<?>[] curses = new Class<?>[]{
 				AntiEntropy.class, Corrosion.class, Displacement.class, Metabolism.class,
 				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class, Unreliable.class
 		};

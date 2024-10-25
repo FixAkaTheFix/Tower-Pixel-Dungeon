@@ -24,6 +24,7 @@ package com.towerpixel.towerpixeldungeon.items.weapon;
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 
 import com.towerpixel.towerpixeldungeon.Badges;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Berserk;
 import com.towerpixel.towerpixeldungeon.actors.buffs.MagicImmune;
@@ -34,6 +35,7 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.KindOfWeapon;
+import com.towerpixel.towerpixeldungeon.items.bags.Bag;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfArcana;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfForce;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfFuror;
@@ -64,6 +66,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MagesStaff;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.RunicBlade;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Scimitar;
+import com.towerpixel.towerpixeldungeon.journal.Catalog;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
@@ -193,6 +196,17 @@ abstract public class Weapon extends KindOfWeapon {
 		super.reset();
 		usesLeftToID = USES_TO_ID;
 		availableUsesToID = USES_TO_ID/2f;
+	}
+	@Override
+	public boolean collect(Bag container) {
+		if(super.collect(container)){
+			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && enchantment != null){
+				Catalog.setSeen(enchantment.getClass());
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
@@ -344,11 +358,15 @@ abstract public class Weapon extends KindOfWeapon {
 
 		return this;
 	}
-	
+
 	public Weapon enchant( Enchantment ench ) {
 		if (ench == null || !ench.curse()) curseInfusionBonus = false;
 		enchantment = ench;
 		updateQuickslot();
+		if (ench != null && isIdentified() && Dungeon.hero != null
+				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
+			Catalog.setSeen(ench.getClass());
+		}
 		return this;
 	}
 
@@ -444,15 +462,15 @@ abstract public class Weapon extends KindOfWeapon {
 
 	public static abstract class Enchantment implements Bundlable {
 		
-		private static final Class<?>[] common = new Class<?>[]{
+		public static final Class<?>[] common = new Class<?>[]{
 				Blazing.class, Chilling.class, Kinetic.class, Shocking.class};
 		
-		private static final Class<?>[] uncommon = new Class<?>[]{
+		public static final Class<?>[] uncommon = new Class<?>[]{
 				Blocking.class, Blooming.class, Elastic.class,
 				Lucky.class, Projecting.class, Unstable.class,
 				Empowering.class};
 		
-		private static final Class<?>[] rare = new Class<?>[]{
+		public static final Class<?>[] rare = new Class<?>[]{
 				Corrupting.class, Grim.class, Vampiric.class, Pure.class};
 		
 		private static final float[] typeChances = new float[]{
@@ -461,7 +479,7 @@ abstract public class Weapon extends KindOfWeapon {
 				10  //3.33% each
 		};
 		
-		private static final Class<?>[] curses = new Class<?>[]{
+		public static final Class<?>[] curses = new Class<?>[]{
 				Annoying.class, Displacing.class, Dazzling.class, Explosive.class,
 				Sacrificial.class, Wayward.class, Polarized.class, Friendly.class, Degrading.class
 		};

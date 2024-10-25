@@ -35,6 +35,7 @@ import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.LeafParticle;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfRegrowth;
+import com.towerpixel.towerpixeldungeon.journal.Bestiary;
 import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -63,6 +64,7 @@ public abstract class Plant implements Bundlable {
 		if (ch instanceof Hero){
 			((Hero) ch).interrupt();
 		}
+		Bestiary.setSeen(getClass());
 
 		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.hasTalent(Talent.NATURES_AID)){
 			// 3/5 turns based on talent points spent
