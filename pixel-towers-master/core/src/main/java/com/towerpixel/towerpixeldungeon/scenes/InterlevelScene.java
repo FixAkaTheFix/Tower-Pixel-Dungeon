@@ -21,6 +21,8 @@
 
 package com.towerpixel.towerpixeldungeon.scenes;
 
+import static com.towerpixel.towerpixeldungeon.Dungeon.level;
+
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.Dungeon;
@@ -32,6 +34,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.LostBackpack;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.levels.features.Chasm;
@@ -55,6 +58,7 @@ import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Reflection;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -374,7 +378,7 @@ public class InterlevelScene extends PixelScene {
 			Mob.clearHeldAllies();
 			Dungeon.init();
 			GameLog.wipe();
-			Dungeon.depth = Statistics.chosenLevel;
+			Dungeon.depth = Reflection.newInstance(LevelSelectScene.chosenClass).arenaDepth;
 			Level level = Dungeon.newLevel();
 			Dungeon.switchLevel( level, -1 );
 		} else {
@@ -383,7 +387,7 @@ public class InterlevelScene extends PixelScene {
 
 			Level level;
 			Dungeon.depth = curTransition.destDepth;
-			Dungeon.gamemode = curTransition.destBranch;
+			Dungeon.branch = curTransition.destBranch;
 			//TODO this is brittle atm, assumes we're always going down in depth 1 at a time
 			if (curTransition.destDepth > Statistics.deepestFloor) {
 				level = Dungeon.newLevel();
@@ -422,7 +426,7 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.saveAll();
 		Dungeon.depth = curTransition.destDepth;
-		Dungeon.gamemode = curTransition.destBranch;
+		Dungeon.branch = curTransition.destBranch;
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 
 		LevelTransition destTransition = level.getTransition(curTransition.destType);
@@ -436,7 +440,7 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.saveAll();
 		Dungeon.depth = returnDepth;
-		Dungeon.gamemode = returnBranch;
+		Dungeon.branch = returnBranch;
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		Dungeon.switchLevel( level, returnPos );
 	}

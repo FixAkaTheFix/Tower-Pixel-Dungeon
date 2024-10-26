@@ -114,7 +114,7 @@ public class WarpBeacon extends ArmorAbility {
 						armor.charge -= chargeNeeded;
 						armor.updateQuickslot();
 
-						if (tracker.depth == Dungeon.depth && tracker.branch == Dungeon.gamemode){
+						if (tracker.depth == Dungeon.depth && tracker.branch == Dungeon.branch){
 							Char existing = Actor.findChar(tracker.pos);
 
 							if (existing != null && existing != hero){
@@ -213,7 +213,7 @@ public class WarpBeacon extends ArmorAbility {
 			WarpBeaconTracker tracker = new WarpBeaconTracker();
 			tracker.pos = target;
 			tracker.depth = Dungeon.depth;
-			tracker.branch = Dungeon.gamemode;
+			tracker.branch = Dungeon.branch;
 			tracker.attachTo(hero);
 
 			hero.sprite.operate(target);

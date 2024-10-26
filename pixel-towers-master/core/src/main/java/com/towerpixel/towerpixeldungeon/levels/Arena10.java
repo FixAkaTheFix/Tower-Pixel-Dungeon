@@ -58,6 +58,7 @@ public class Arena10 extends Arena{
         HEIGHT = 21;
         startLvl = 10;
         startGold = 1000;
+        arenaDepth = 10;
 
         maxWaves=20;
 

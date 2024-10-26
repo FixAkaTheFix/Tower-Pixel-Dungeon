@@ -43,6 +43,8 @@ public class Arena1 extends Arena{
         towerShopKeeperCell = 6 + 21*WIDTH;
         normalShopKeeperCell = 11 + 21*WIDTH;
 
+        arenaDepth = 1;
+
         startGold = 500;
         maxWaves = 15;
         waveCooldownNormal = 5;

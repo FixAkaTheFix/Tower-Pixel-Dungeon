@@ -59,6 +59,7 @@ import com.towerpixel.towerpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.towerpixel.towerpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
+import com.towerpixel.towerpixeldungeon.scenes.LevelSelectScene;
 import com.towerpixel.towerpixeldungeon.ui.QuickSlotButton;
 import com.towerpixel.towerpixeldungeon.ui.Toolbar;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
@@ -70,6 +71,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.Reflection;
 import com.watabou.utils.SparseArray;
 
 import java.io.IOException;
@@ -175,7 +177,7 @@ public class Dungeon {
 	// 0 is the story
 	// 1 is the endless mode
 	// Other numbers are currently unused
-	public static int gamemode;
+	public static int branch;
 
 	public static int gold;
 	public static int energy;
@@ -238,7 +240,7 @@ public class Dungeon {
 		Toolbar.swappedQuickslots = false;
 		
 		depth = 1;
-		gamemode = 0;
+		branch = 0;
 
 		gold = 0;
 		energy = 0;
@@ -271,47 +273,15 @@ public class Dungeon {
 		Dungeon.level = null;
 		Actor.clear();
 
+		int chosenLevel = LevelSelectScene.chosenLevel;
+
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
 		}
 		
 		Level level;
-		if (gamemode == 0) {
-			switch (depth) {
-				case 0: level = new Arena0(); break;
-				case 1: level = new Arena1(); break;
-				case 2: level = new Arena2(); break;
-				case 3: level = new Arena3(); break;
-				case 4: level = new Arena4(); break;
-				case 5: level = new Arena5(); break;
-				case 6: level = new Arena6(); break;
-				case 7: level = new Arena7(); break;
-				case 8: level = new Arena8(); break;
-				case 9: level = new Arena9(); break;
-				case 10: level = new Arena10(); break;
-				case 11: level = new Arena11(); break;
-				case 12: level = new Arena12(); break;
-				case 13: level = new Arena13(); break;
-				case 14: level = new Arena14(); break;
-				case 15: level = new Arena15(); break;
-				case 16: level = new Arena16(); break;
-				case 17: level = new Arena17(); break;
-				case 18: level = new Arena18(); break;
-				case 19: level = new Arena19(); break;
-				case 20: level = new Arena20(); break;
-				case 21: level = new Arena21(); break;
-				case 22: level = new Arena22(); break;
-				case 23: level = new Arena23(); break;
-				case 24: level = new Arena24(); break;
-				case 25: level = new Arena25(); break;
-				case 26: level = new LastLevel();break;//Will still be the last level, where you can put the amulet to the Dungeons seal;
-				//case 31: level = new ArenaEndless();
-				//case 32: level = new ArenaAgainstRatKing();WHAT IS THIS??? SEE IN THE NEXT UPDATES
-				//case 666: level = new ArenaFix();
-				default:
-					level = new DeadEndLevel();
-					Statistics.deepestFloor--;
-			}
+		if (branch == 0) {
+			level = Reflection.newInstance(LevelSelectScene.chosenClass);
 		} else {
 			level = new DeadEndLevel();
 			Statistics.deepestFloor--;
@@ -331,7 +301,7 @@ public class Dungeon {
 	}
 
 	public static long seedCurDepth(){
-		return seedForDepth(depth, gamemode);
+		return seedForDepth(depth, branch);
 	}
 
 	public static long seedForDepth(int depth, int branch){
@@ -517,7 +487,7 @@ public class Dungeon {
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
-			bundle.put( BRANCH, gamemode);
+			bundle.put( BRANCH, branch);
 
 			bundle.put( GOLD, gold );
 			bundle.put( ENERGY, energy );
@@ -576,7 +546,7 @@ public class Dungeon {
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, level );
 		
-		FileUtils.bundleToFile(GamesInProgress.depthFile( save, depth, gamemode), bundle);
+		FileUtils.bundleToFile(GamesInProgress.depthFile( save, depth, branch), bundle);
 	}
 	
 	public static void saveAll() throws IOException {
@@ -676,7 +646,7 @@ public class Dungeon {
 		hero = (Hero)bundle.get( HERO );
 		
 		depth = bundle.getInt( DEPTH );
-		gamemode = bundle.getInt( BRANCH );
+		branch = bundle.getInt( BRANCH );
 
 		gold = bundle.getInt( GOLD );
 		energy = bundle.getInt( ENERGY );
@@ -705,7 +675,7 @@ public class Dungeon {
 		Dungeon.level = null;
 		Actor.clear();
 
-		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.depthFile( save, depth, gamemode));
+		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.depthFile( save, depth, branch));
 
 		Level level = (Level)bundle.get( LEVEL );
 
@@ -778,7 +748,7 @@ public class Dungeon {
 	}
 
 	public static void updateLevelExplored(){
-		if (gamemode == 0 && level instanceof RegularLevel && !Dungeon.bossLevel()){
+		if (branch == 0 && level instanceof RegularLevel && !Dungeon.bossLevel()){
 			Statistics.floorsExplored.put( depth, level.isLevelExplored(depth));
 		}
 	}

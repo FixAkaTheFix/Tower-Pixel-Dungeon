@@ -816,11 +816,11 @@ public class WndJournal extends WndTabbed {
 				Armor.Glyph glyph = (Armor.Glyph) Reflection.newInstance(itemClass);
 
 				if (seen){
-					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH, glyph.glowing());
+					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_LEATHER, glyph.glowing());
 					title = Messages.titleCase(glyph.name());
 					desc = glyph.desc();
 				} else {
-					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH);
+					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_LEATHER);
 					sprite.lightness(0f);
 					title = "???";
 					desc = Messages.get(CatalogTab.class, "not_seen_glyph");

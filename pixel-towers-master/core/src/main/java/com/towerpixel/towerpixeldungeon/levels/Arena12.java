@@ -39,7 +39,7 @@ public class Arena12 extends Arena{
         startLvl = 11;
 
         viewDistance = 13;
-
+        arenaDepth = 12;
         maxWaves = 10;
 
         amuletCell = WIDTH/2 +WIDTH*HEIGHT/2 + 4;

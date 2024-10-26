@@ -76,7 +76,7 @@ public class Arena17 extends Arena {
         startGold = 0;
         startLvl = 20;
 
-
+        arenaDepth = 17;
         maxWaves = 22;
 
         normalShopKeeper = null;

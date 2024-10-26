@@ -56,7 +56,7 @@ public class Arena6 extends Arena {
         viewDistance = 16;
         WIDTH = 101;
         HEIGHT = 101;
-
+        arenaDepth = 6;
         towerShopKeeper = new TowerShopKeeperKeytrader();
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
 

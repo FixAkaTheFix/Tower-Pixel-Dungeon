@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.actors.hero;
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.gold;
+import static com.towerpixel.towerpixeldungeon.Dungeon.level;
 import static com.towerpixel.towerpixeldungeon.items.Item.itemComparator;
 import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
@@ -163,6 +164,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.BlindingDart
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.HealingDart;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.darts.PoisonDart;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.plants.Blindweed;
 import com.towerpixel.towerpixeldungeon.plants.Earthroot;
@@ -261,7 +263,7 @@ public enum HeroClass {
 
 		Item i = new MailArmor().identify();
 
-		if (Statistics.chosenLevel >=16){
+		if (((Arena)level).arenaDepth >=16){
 			i.upgrade(2);
 			hero.belongings.armor = (MailArmor)i;
 		} else{
@@ -291,7 +293,7 @@ public enum HeroClass {
 		hero.belongings.armor = (LeatherArmor)i;
 
 		MeleeWeapon staff = (MeleeWeapon) (new MagesStaff(new WandOfMagicMissile()).upgrade(1));
-		if (Statistics.chosenLevel >=16){
+		if (((Arena)level).arenaDepth >=16){
 			staff.upgrade(1);
 		}
 		(hero.belongings.weapon = staff).identify();
@@ -316,7 +318,7 @@ public enum HeroClass {
 		updateQuickslot();
 
 		Item i = new LeatherArmor().identify();
-		if (Statistics.chosenLevel>=16){
+		if (((Arena)level).arenaDepth>=16){
 			i.upgrade(2);
 			hero.belongings.armor = (LeatherArmor)i;
 		} else{
@@ -348,7 +350,7 @@ public enum HeroClass {
 		hero.attackSkill = 11;
 
 		Item i = new ClothArmor().identify();
-		if (Statistics.chosenLevel>=16){
+		if (((Arena)level).arenaDepth>=16){
 			Item x = new LeatherArmor().identify();
 			x.upgrade(1);
 			hero.belongings.armor = (LeatherArmor)x;
@@ -380,7 +382,7 @@ public enum HeroClass {
 		hero.critChance = 0.15f;
 
 		Item i = new LeatherArmor().identify();
-		if (Statistics.chosenLevel>=16){
+		if (((Arena)level).arenaDepth>=16){
 			i.upgrade(2);
 			hero.belongings.armor = (LeatherArmor)i;
 		} else{

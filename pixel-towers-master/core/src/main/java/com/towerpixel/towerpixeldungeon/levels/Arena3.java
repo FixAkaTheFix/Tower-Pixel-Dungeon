@@ -51,7 +51,7 @@ public class Arena3 extends Arena {
 
         startGold = 500;
         startLvl = 3;
-
+        arenaDepth = 3;
         maxWaves = 15;
 
         amuletCell = 27 + WIDTH * 5;

@@ -58,7 +58,7 @@ public class Arena14 extends Arena{
 
         startGold = 4000;
         startLvl = 11;
-
+        arenaDepth = 14;
         maxWaves = 15;
 
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;

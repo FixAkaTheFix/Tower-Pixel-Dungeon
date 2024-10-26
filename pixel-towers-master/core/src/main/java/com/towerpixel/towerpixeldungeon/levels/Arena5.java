@@ -79,6 +79,7 @@ public class Arena5 extends Arena{
         startLvl = 5;
 
         maxWaves= 25;
+        arenaDepth = 5;
 
         amuletCell = 52 + WIDTH*28;
         exitCell = amuletCell;

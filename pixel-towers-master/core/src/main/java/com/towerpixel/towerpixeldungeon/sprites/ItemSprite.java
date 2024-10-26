@@ -38,6 +38,7 @@ import com.watabou.glwrap.Matrix;
 import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.Image;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.audio.Sample;
@@ -54,18 +55,18 @@ import javax.swing.Timer;
 public class ItemSprite extends MovieClip {
 
 	public static final int SIZE	= 16;
-	
+
 	private static final float DROP_INTERVAL = 0.4f;
-	
+
 	public Heap heap;
-	
+
 	private Glowing glowing;
 	//FIXME: a lot of this emitter functionality isn't very well implemented.
 	//right now I want to ship 0.3.0, but should refactor in the future.
 	protected Emitter emitter;
 	private float phase;
 	private boolean glowUp;
-	
+
 	private float dropInterval;
 
 	//the amount the sprite is raised from flat when viewed in a raised perspective
@@ -77,54 +78,66 @@ public class ItemSprite extends MovieClip {
 	protected float shadowWidth     = 1f;
 	protected float shadowHeight    = 0.25f;
 	protected float shadowOffset    = 0.5f;
-	
+
 	public ItemSprite() {
 		this( ItemSpriteSheet.SOMETHING, null );
 	}
-	
+
 	public ItemSprite( Heap heap ){
 		super(Assets.Sprites.ITEMS);
 		view( heap );
 	}
-	
+
 	public ItemSprite( Item item ) {
 		super(Assets.Sprites.ITEMS);
 		view( item );
 	}
-	
+
 	public ItemSprite( int image ){
 		this( image, null );
 	}
-	
+
 	public ItemSprite( int image, Glowing glowing ) {
 		super( Assets.Sprites.ITEMS );
+
 		view(image, glowing);
 	}
-	
+
 	public void link() {
 		link(heap);
 	}
-	
+
 	public void link( Heap heap ) {
 		this.heap = heap;
 		view(heap);
 		renderShadow = true;
+		visible = heap.seen;
 		place(heap.pos);
 	}
-	
+
 	@Override
 	public void revive() {
 		super.revive();
-		
+
 		speed.set( 0 );
 		acc.set( 0 );
 		dropInterval = 0;
-		
+
 		heap = null;
 		if (emitter != null) {
 			emitter.killAndErase();
 			emitter = null;
 		}
+	}
+
+	@Override
+	public void copy(Image other) {
+		super.copy(other);
+
+		if (other instanceof ItemSprite && ((ItemSprite) other).glowing != null){
+			glow(((ItemSprite) other).glowing);
+		}
+
 	}
 
 	public void visible(boolean value){
@@ -134,23 +147,23 @@ public class ItemSprite extends MovieClip {
 			emitter = null;
 		}
 	}
-	
+
 	public PointF worldToCamera( int cell ) {
 		final int csize = DungeonTilemap.SIZE;
-		
+
 		return new PointF(
 				PixelScene.align(Camera.main, ((cell % Dungeon.level.width()) + 0.5f) * csize - width() * 0.5f),
 				PixelScene.align(Camera.main, ((cell / Dungeon.level.width()) + 1.0f) * csize - height() - csize * perspectiveRaise)
 		);
 	}
-	
+
 	public void place( int p ) {
 		if (Dungeon.level != null) {
 			point(worldToCamera(p));
 			shadowOffset = 0.5f;
 		}
 	}
-	
+
 	public void drop() {
 
 		if (heap.isEmpty()) {
@@ -161,30 +174,30 @@ public class ItemSprite extends MovieClip {
 			// where as long as the player continually taps, the heap sails up into the air.
 			place(heap.pos);
 		}
-			
+
 		dropInterval = DROP_INTERVAL;
-		
+
 		speed.set( 0, -100 );
 		acc.set(0, -speed.y / DROP_INTERVAL * 2);
-		
+
 		if (heap != null && heap.seen && heap.peek() instanceof Gold) {
 			CellEmitter.center( heap.pos ).burst( Speck.factory( Speck.COIN ), 5 );
 			Sample.INSTANCE.play( Assets.Sounds.GOLD, 1, 1, Random.Float( 0.9f, 1.1f ) );
 		}
 	}
-	
+
 	public void drop( int from ) {
 
 		if (heap.pos == from) {
 			drop();
 		} else {
-			
+
 			float px = x;
 			float py = y;
 			drop();
-			
+
 			place(from);
-	
+
 			speed.offset((px - x) / DROP_INTERVAL, (py - y) / DROP_INTERVAL);
 		}
 	}
@@ -199,12 +212,12 @@ public class ItemSprite extends MovieClip {
 		}
 		return this;
 	}
-	
+
 	public ItemSprite view( Heap heap ){
 		if (heap.size() <= 0 || heap.items == null){
 			return view( 0, null );
 		}
-		
+
 		switch (heap.type) {
 			case HEAP: case FOR_SALE:
 				return view( heap.peek() );
@@ -224,7 +237,7 @@ public class ItemSprite extends MovieClip {
 				return view( 0, null );
 		}
 	}
-	
+
 	public ItemSprite view( int image, Glowing glowing ) {
 		if (this.emitter != null) this.emitter.killAndErase();
 		emitter = null;
@@ -242,7 +255,7 @@ public class ItemSprite extends MovieClip {
 			perspectiveRaise =  (5 + 8 - height) / 16f;
 		}
 	}
-	
+
 	public synchronized void glow( Glowing glowing ){
 		this.glowing = glowing;
 		if (glowing == null) resetColor();
@@ -351,19 +364,19 @@ public class ItemSprite extends MovieClip {
 
 		if (visible && glowing != null) {
 			if (glowUp && (phase += Game.elapsed) > glowing.period) {
-				
+
 				glowUp = false;
 				phase = glowing.period;
-				
+
 			} else if (!glowUp && (phase -= Game.elapsed) < 0) {
-				
+
 				glowUp = true;
 				phase = 0;
-				
+
 			}
-			
+
 			float value = phase / glowing.period * 0.6f;
-			
+
 			rm = gm = bm = 1 - value;
 			ra = glowing.red * value;
 			ga = glowing.green * value;
@@ -378,19 +391,19 @@ public class ItemSprite extends MovieClip {
 		int col = index % rows;
 		return tx.getPixel( col * SIZE + x, row * SIZE + y );
 	}
-	
+
 	public static class Glowing {
-		
+
 		public int color;
 		public float red;
 		public float green;
 		public float blue;
 		public float period;
-		
+
 		public Glowing( int color ) {
 			this( color, 1f );
 		}
-		
+
 		public Glowing( int color, float period ) {
 
 			this.color = color;
@@ -398,8 +411,9 @@ public class ItemSprite extends MovieClip {
 			red = (color >> 16) / 255f;
 			green = ((color >> 8) & 0xFF) / 255f;
 			blue = (color & 0xFF) / 255f;
-			
+
 			this.period = period;
 		}
 	}
 }
+

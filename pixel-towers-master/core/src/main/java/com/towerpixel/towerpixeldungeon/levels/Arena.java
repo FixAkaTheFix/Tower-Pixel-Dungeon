@@ -173,9 +173,11 @@ public class Arena extends Level {
 
         viewDistance = 15;
 
+
     }
     public int startGold = 5;
     public int startLvl = 6;
+    public int arenaDepth= 0;
 
     /**
      * Wave system works like that:

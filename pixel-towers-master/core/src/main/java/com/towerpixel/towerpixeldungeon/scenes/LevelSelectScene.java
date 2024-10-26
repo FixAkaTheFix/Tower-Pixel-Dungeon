@@ -7,6 +7,28 @@ import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
 import com.towerpixel.towerpixeldungeon.Statistics;
+import com.towerpixel.towerpixeldungeon.levels.Arena;
+import com.towerpixel.towerpixeldungeon.levels.Arena1;
+import com.towerpixel.towerpixeldungeon.levels.Arena10;
+import com.towerpixel.towerpixeldungeon.levels.Arena11;
+import com.towerpixel.towerpixeldungeon.levels.Arena12;
+import com.towerpixel.towerpixeldungeon.levels.Arena13;
+import com.towerpixel.towerpixeldungeon.levels.Arena14;
+import com.towerpixel.towerpixeldungeon.levels.Arena15;
+import com.towerpixel.towerpixeldungeon.levels.Arena16;
+import com.towerpixel.towerpixeldungeon.levels.Arena17;
+import com.towerpixel.towerpixeldungeon.levels.Arena18;
+import com.towerpixel.towerpixeldungeon.levels.Arena19;
+import com.towerpixel.towerpixeldungeon.levels.Arena2;
+import com.towerpixel.towerpixeldungeon.levels.Arena20;
+import com.towerpixel.towerpixeldungeon.levels.Arena3;
+import com.towerpixel.towerpixeldungeon.levels.Arena4;
+import com.towerpixel.towerpixeldungeon.levels.Arena5;
+import com.towerpixel.towerpixeldungeon.levels.Arena6;
+import com.towerpixel.towerpixeldungeon.levels.Arena7;
+import com.towerpixel.towerpixeldungeon.levels.Arena8;
+import com.towerpixel.towerpixeldungeon.levels.Arena9;
+import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.ui.ActionIndicator;
 import com.towerpixel.towerpixeldungeon.ui.ExitButton;
@@ -27,10 +49,13 @@ import com.watabou.noosa.SkinnedBlock;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.DeviceCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+
 public class LevelSelectScene extends PixelScene {
 
     private Image mainWindow;
-    private Image scheme;
     //UI elements
     private RenderedTextBlock levelName;
     private RenderedTextBlock levelDesc;
@@ -45,9 +70,50 @@ public class LevelSelectScene extends PixelScene {
     private IconButton btnTowers;
 
     private IconButton btnModes;
+    public static ArrayList<Class<? extends Arena>> levelArrayList;
 
-    int chosenLevel = Statistics.chosenLevel;
-    int gamemode = Dungeon.gamemode;
+    public static int chosenLevel = 1;
+
+    public static Class<? extends Arena> chosenClass;
+    public static int modeIndex;
+    public static boolean modeChangeRequested;
+    int gamemode = Dungeon.branch;
+
+
+    public LevelSelectScene() {
+        super();
+    }
+
+    public void setLevelArrayByModeIndex(int modeIndex) {
+        switch (modeIndex) {
+            case 0:
+                levelArrayList = new ArrayList<>();
+                levelArrayList.addAll(Arrays.asList(
+                        Arena1.class,
+                        Arena2.class,
+                        Arena3.class,
+                        Arena4.class,
+                        Arena5.class,
+                        Arena6.class,
+                        Arena7.class,
+                        Arena8.class,
+                        Arena9.class,
+                        Arena10.class,
+                        Arena11.class,
+                        Arena12.class,
+                        Arena13.class,
+                        Arena14.class,
+                        Arena15.class,
+                        Arena16.class,
+                        Arena17.class,
+                        Arena18.class,
+                        Arena19.class,
+                        Arena20.class
+                ));
+                break;
+        }
+    }
+
 
     public String backgroundArt() {
         if (gamemode == 0) switch (chosenLevel) {
@@ -104,9 +170,6 @@ public class LevelSelectScene extends PixelScene {
             case 25:
                 return Assets.Splashes.ARENA25;
 */
-        } else if (gamemode == 1) switch (chosenLevel) {
-            default:
-                return Assets.Splashes.MAINWINDOW;
         }
         return Assets.Splashes.MAINWINDOW;
     }
@@ -118,8 +181,9 @@ public class LevelSelectScene extends PixelScene {
     @Override
     public void create() {
 
-        switch (SPDSettings.mode()){
-            case NORMAL: default: {
+        switch (SPDSettings.mode()) {
+            case NORMAL:
+            default: {
                 Music.INSTANCE.playTracks(
                         new String[]{Assets.Music.GNOLL_GROTTO},
                         new float[]{1},
@@ -137,7 +201,7 @@ public class LevelSelectScene extends PixelScene {
             case CHALLENGE: {
                 Music.INSTANCE.playTracks(
                         new String[]{Assets.Music.CITY_1, Assets.Music.CITY_2},
-                        new float[]{1,1},
+                        new float[]{1, 1},
                         false);
                 break;
             }
@@ -145,26 +209,48 @@ public class LevelSelectScene extends PixelScene {
 
         super.create();
 
+        setLevelArrayByModeIndex(gamemode);
+        chosenClass = levelArrayList.get(chosenLevel - 1);
 
 
         int maxLevelUnlockedForMode;
-        switch (SPDSettings.mode()){
-            case NORMAL: default:{
+        if (modeIndex == 0) switch (SPDSettings.mode()) { // conditions for  unlocking the story mode scenarios
+            case NORMAL:
+            default: {
                 maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
                 break;
             }
             case HARDMODE: {
                 maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedHardmode();
-                if (maxLevelUnlockedForMode>SPDSettings.maxlevelunlocked()) maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
                 break;
             }
             case CHALLENGE: {
                 maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedChalmode();
-                if (maxLevelUnlockedForMode>SPDSettings.maxlevelunlocked()) maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                break;
+            }
+        } else switch (SPDSettings.mode()) { // conditions for  unlocking the endless mode scenarios
+            case NORMAL:
+            default: {
+                maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                break;
+            }
+            case HARDMODE: {
+                maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedHardmode();
+                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                break;
+            }
+            case CHALLENGE: {
+                maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedChalmode();
+                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
                 break;
             }
         }
-
 
 
         int xcentre = Math.round(Camera.main.width / 2f);
@@ -182,8 +268,9 @@ public class LevelSelectScene extends PixelScene {
 
         loadingAsset = Assets.Interfaces.ARCS_FG;
 
-        switch (SPDSettings.mode()){
-            case NORMAL: default:{
+        switch (SPDSettings.mode()) {
+            case NORMAL:
+            default: {
                 if (chosenLevel >= 1 && chosenLevel <= 5)
                     loadingAsset = Assets.Interfaces.LOADING_SEWERS;
                 else if (chosenLevel >= 6 && chosenLevel <= 10)
@@ -196,7 +283,7 @@ public class LevelSelectScene extends PixelScene {
                     loadingAsset = Assets.Interfaces.LOADING_HALLS;
                 break;
             }
-            case HARDMODE:{
+            case HARDMODE: {
                 if (chosenLevel >= 1 && chosenLevel <= 5)
                     loadingAsset = Assets.Interfaces.LOADING_SEWERS_HARD;
                 else if (chosenLevel >= 6 && chosenLevel <= 10)
@@ -223,8 +310,6 @@ public class LevelSelectScene extends PixelScene {
                 break;
             }
         }
-
-
 
 
 
@@ -268,12 +353,12 @@ public class LevelSelectScene extends PixelScene {
             @Override
             public void update() {
 
-                    if (rm > 1f) {
-                        rm -= Game.elapsed;
-                        gm = bm = rm;
-                    } else {
-                        rm = gm = bm = 1;
-                    }
+                if (rm > 1f) {
+                    rm -= Game.elapsed;
+                    gm = bm = rm;
+                } else {
+                    rm = gm = bm = 1;
+                }
 
             }
         };
@@ -285,10 +370,10 @@ public class LevelSelectScene extends PixelScene {
         add(mainWindow);
 
 
-        String arenaname = "arena" + chosenLevel + "name";
-        String arenadesc = "arena" + chosenLevel + "desc";
-        String arenaknowledge = "arena" + chosenLevel + "knowledge";
-        String arenachal = "arena" + chosenLevel + "challenge";
+        String arenaname = chosenClass.getSimpleName().toLowerCase(Locale.ROOT) + "name";
+        String arenadesc = chosenClass.getSimpleName().toLowerCase(Locale.ROOT) + "desc";
+        String arenaknowledge = chosenClass.getSimpleName().toLowerCase(Locale.ROOT) + "knowledge";
+        String arenachal = chosenClass.getSimpleName().toLowerCase(Locale.ROOT) + "challenge";
 
         levelName = PixelScene.renderTextBlock(Messages.get(this, arenaname), 11);
         levelName.hardlight(Window.TITLE_COLOR);
@@ -298,9 +383,10 @@ public class LevelSelectScene extends PixelScene {
         align(levelName);
         add(levelName);
 
-        if(SPDSettings.mode()== WndModes.Modes.CHALLENGE){
+        if (SPDSettings.mode() == WndModes.Modes.CHALLENGE) {
             levelDesc = PixelScene.renderTextBlock(Messages.get(this, arenachal), Messages.get(this, arenachal).length() > 300 ? 5 : Messages.get(this, arenachal).length() > 230 ? 6 : Messages.get(this, arenachal).length() > 130 ? 7 : 8);
-        } else levelDesc = PixelScene.renderTextBlock(Messages.get(this, arenadesc), Messages.get(this, arenadesc).length() > 300 ? 5 : Messages.get(this, arenadesc).length() > 230 ? 6 : Messages.get(this, arenadesc).length() > 130 ? 7 : 8);
+        } else
+            levelDesc = PixelScene.renderTextBlock(Messages.get(this, arenadesc), Messages.get(this, arenadesc).length() > 300 ? 5 : Messages.get(this, arenadesc).length() > 230 ? 6 : Messages.get(this, arenadesc).length() > 130 ? 7 : 8);
 
         levelDesc.hardlight(Window.WHITE);
         levelDesc.align(RenderedTextBlock.CENTER_ALIGN);
@@ -369,7 +455,7 @@ public class LevelSelectScene extends PixelScene {
             @Override
             protected void onClick() {
                 super.onClick();
-
+                Dungeon.branch = gamemode;
                 Dungeon.hero = null;
                 ActionIndicator.action = null;
                 InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
@@ -390,7 +476,7 @@ public class LevelSelectScene extends PixelScene {
             @Override
             protected void onClick() {
                 super.onClick();
-                if (chosenLevel > 1 || DeviceCompat.isDebug()) Statistics.chosenLevel--;
+                if (chosenLevel > 1) chosenLevel--;
                 Game.switchScene(LevelSelectScene.class);
             }
         };
@@ -400,13 +486,13 @@ public class LevelSelectScene extends PixelScene {
         align(arrowLeftButton);
         add(arrowLeftButton);
         arrowLeftButton.visible = arrowLeftButton.active = true;
-        if (chosenLevel <= 1 && !DeviceCompat.isDebug()) arrowLeftButton.visible = arrowLeftButton.active = false;
+        if (chosenLevel <= 1) arrowLeftButton.visible = arrowLeftButton.active = false;
 
         arrowRightButton = new IconButton() {
             @Override
             protected void onClick() {
                 super.onClick();
-                if (chosenLevel < Statistics.maxLevelDeveloped) Statistics.chosenLevel++;
+                if (chosenLevel < levelArrayList.size()) chosenLevel++;
                 Game.switchScene(LevelSelectScene.class);
             }
         };
@@ -416,7 +502,7 @@ public class LevelSelectScene extends PixelScene {
         align(arrowRightButton);
         add(arrowRightButton);
         arrowRightButton.visible = arrowRightButton.active = false;
-        if (chosenLevel < Statistics.maxLevelDeveloped && (chosenLevel <= maxLevelUnlockedForMode || DeviceCompat.isDebug()))
+        if (chosenLevel < levelArrayList.size() && (chosenLevel <= maxLevelUnlockedForMode || DeviceCompat.isDebug()))
             arrowRightButton.visible = arrowRightButton.active = true;
 
 
@@ -430,7 +516,7 @@ public class LevelSelectScene extends PixelScene {
 
             mainWindow.scale.set(0.5f * Math.round(Camera.main.width / mainWindow.width));
             mainWindow.x = 3;
-            mainWindow.y = (levelName.centerY() + levelName.height()/2 + 5);
+            mainWindow.y = (levelName.centerY() + levelName.height() / 2 + 5);
             PixelScene.align(mainWindow);
             levelDesc.setPos(mainWindow.x + mainWindow.width() + 3, mainWindow.y);
             levelDesc.maxWidth((int) (Camera.main.width / 2.6f));
@@ -439,12 +525,12 @@ public class LevelSelectScene extends PixelScene {
 
             align(levelDesc);
 
-            mainWindow.y = (levelDesc.centerY() - mainWindow.height()/2);
+            mainWindow.y = (levelDesc.centerY() - mainWindow.height() / 2);
             PixelScene.align(mainWindow);
 
             levelKnowledge.align(RenderedTextBlock.CENTER_ALIGN);
             levelKnowledge.maxWidth((int) (Camera.main.width));
-            levelKnowledge.setPos( Camera.main.width/2f - levelKnowledge.width()/2f, Math.max(levelDesc.centerY() + levelDesc.height()/2 + 5, mainWindow.y + mainWindow.height() + 5));
+            levelKnowledge.setPos(Camera.main.width / 2f - levelKnowledge.width() / 2f, Math.max(levelDesc.centerY() + levelDesc.height() / 2 + 5, mainWindow.y + mainWindow.height() + 5));
             levelKnowledge.setSize(levelKnowledge.width(), levelKnowledge.height());
 
 
@@ -455,7 +541,7 @@ public class LevelSelectScene extends PixelScene {
             lockedText.align(RenderedTextBlock.CENTER_ALIGN);
             lockedText.maxWidth(100);
             lockedText.setSize(lockedText.maxWidth(), mainWindow.height);
-            lockedText.setPos(Camera.main.width/2f - levelKnowledge.width()/2f, Math.max(levelDesc.centerY() + levelDesc.height()/2 + 5, mainWindow.y + mainWindow.height() + 5));
+            lockedText.setPos(Camera.main.width / 2f - levelKnowledge.width() / 2f, Math.max(levelDesc.centerY() + levelDesc.height() / 2 + 5, mainWindow.y + mainWindow.height() + 5));
             align(lockedText);
 
         }
@@ -469,19 +555,26 @@ public class LevelSelectScene extends PixelScene {
             @Override
             protected void onClick() {
                 super.onClick();
-                ShatteredPixelDungeon.switchNoFade( TowersSelectionScene.class );
+                ShatteredPixelDungeon.switchNoFade(TowersSelectionScene.class);
             }
         };
         btnTowers.setSize(20, 20);
-        btnTowers.setPos(startBtn.right(), startBtn.centerY() - btnTowers.height()/2);
+        btnTowers.setPos(startBtn.right(), startBtn.centerY() - btnTowers.height() / 2);
         align(btnTowers);
-        if (SPDSettings.maxlevelunlocked()>=4 || DeviceCompat.isDebug()) add(btnTowers);
+        if (SPDSettings.maxlevelunlocked() >= 4 || DeviceCompat.isDebug()) add(btnTowers);
 
         Icons icon;
-        switch (SPDSettings.mode()){
-            case NORMAL: default: icon = Icons.AMULET;break;
-            case HARDMODE:icon = Icons.BLOODAMULET;break;
-            case CHALLENGE:icon = Icons.ETHERIALAMULET;break;
+        switch (SPDSettings.mode()) {
+            case NORMAL:
+            default:
+                icon = Icons.AMULET;
+                break;
+            case HARDMODE:
+                icon = Icons.BLOODAMULET;
+                break;
+            case CHALLENGE:
+                icon = Icons.ETHERIALAMULET;
+                break;
         }
 
         btnModes = new IconButton(Icons.get(icon)) {
@@ -492,9 +585,9 @@ public class LevelSelectScene extends PixelScene {
             }
         };
         btnModes.setSize(20, 20);
-        btnModes.setPos(startBtn.left() - btnModes.width(), startBtn.centerY() - btnModes.height()/2);
+        btnModes.setPos(startBtn.left() - btnModes.width(), startBtn.centerY() - btnModes.height() / 2);
         align(btnModes);
-        if (SPDSettings.maxlevelunlocked()>=6) add(btnModes);
+        if (SPDSettings.maxlevelunlocked() >= 6) add(btnModes);
 
         fadeIn();
 
