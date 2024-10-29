@@ -23,7 +23,6 @@ import com.towerpixel.towerpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DM100;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DMWHead;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Eye;
-import com.towerpixel.towerpixeldungeon.actors.mobs.GnollTrickster;
 import com.towerpixel.towerpixeldungeon.actors.mobs.MagicShard;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Shaman;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Warlock;
@@ -43,9 +42,9 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandFireball;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandLightning;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerWandPrismatic;
 import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfDemonicSkull;
 import com.towerpixel.towerpixeldungeon.items.wands.CursedWand;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorruption;
@@ -58,14 +57,10 @@ import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfPrismaticLight;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfTransfusion;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfWarding;
-import com.towerpixel.towerpixeldungeon.items.weapon.DebugBow;
-import com.towerpixel.towerpixeldungeon.items.weapon.SpiritBow;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Blazing;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Grim;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Shocking;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.RunicBlade;
-import com.towerpixel.towerpixeldungeon.items.weapon.missiles.Bolas;
-import com.towerpixel.towerpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.towerpixel.towerpixeldungeon.levels.traps.DisintegrationTrap;
 import com.towerpixel.towerpixeldungeon.levels.traps.GrimTrap;
 
@@ -88,8 +83,8 @@ public class DamageSource {
 
         MAGICAL.add( Bomb.MagicalBomb.class );
 
-        MAGICAL.add( ScrollOfRetribution.class );
-        MAGICAL.add( ScrollOfPsionicBlast.class );
+        MAGICAL.add( ScrollOfSkulls.class );
+        MAGICAL.add( ScrollOfDemonicSkull.class );
         MAGICAL.add( ScrollOfTeleportation.class );
 
         MAGICAL.add( ElementalBlast.class );

@@ -96,9 +96,8 @@ public class WndJournal extends WndTabbed {
 	
 	private GuideTab guideTab;
 	private AlchemyTab alchemyTab;
-	private NotesTab notesTab;
 	private CatalogTab catalogTab;
-	private BadgesTab badgesTab;
+	//private BadgesTab badgesTab;
 	
 	public static int last_index = 0;
 	
@@ -118,34 +117,17 @@ public class WndJournal extends WndTabbed {
 		add(alchemyTab);
 		alchemyTab.setRect(0, 0, width, height);
 		
-		notesTab = new NotesTab();
-		add(notesTab);
-		notesTab.setRect(0, 0, width, height);
-		notesTab.updateList();
-		
 		catalogTab = new CatalogTab();
 		add(catalogTab);
 		catalogTab.setRect(0, 0, width, height);
 		catalogTab.updateList();
 
-		badgesTab = new BadgesTab();
+		/*badgesTab = new BadgesTab();
 		add(badgesTab);
 		badgesTab.setRect(0, 0, width, height);
-		badgesTab.updateList();
+		badgesTab.updateList();*/
 		
 		Tab[] tabs = {
-				new IconTab( Icons.CROSSBOW.get() ) {
-					protected void select( boolean value ) {
-						super.select( value );
-						notesTab.active = notesTab.visible = value;
-						if (value) last_index = 0;
-					}
-
-					@Override
-					protected String hoverText() {
-						return Messages.get(notesTab, "title");
-					}
-				},
 				new IconTab( new ItemSprite(ItemSpriteSheet.MASTERY, null) ) {
 					protected void select( boolean value ) {
 						super.select( value );
@@ -158,7 +140,7 @@ public class WndJournal extends WndTabbed {
 						return Messages.get(guideTab, "title");
 					}
 				},
-				new IconTab( Icons.CROSSBOW.get() ) {
+				new IconTab( Icons.ENERGY.get() ) {
 					protected void select( boolean value ) {
 						super.select( value );
 						alchemyTab.active = alchemyTab.visible = value;
@@ -170,7 +152,7 @@ public class WndJournal extends WndTabbed {
 						return Messages.get(alchemyTab, "title");
 					}
 				},
-				new IconTab( Icons.CROSSBOW.get() ) {
+				new IconTab( Icons.COPY.get() ) {
 					protected void select( boolean value ) {
 						super.select( value );
 						catalogTab.active = catalogTab.visible = value;
@@ -181,7 +163,7 @@ public class WndJournal extends WndTabbed {
 					protected String hoverText() {
 						return Messages.get(catalogTab, "title");
 					}
-				},
+				}/*,
 				new IconTab( Icons.BADGES.get() ) {
 					protected void select( boolean value ) {
 						super.select( value );
@@ -193,7 +175,7 @@ public class WndJournal extends WndTabbed {
 					protected String hoverText() {
 						return Messages.get(badgesTab, "title");
 					}
-				}
+				}*/
 		};
 
 		for (Tab tab : tabs) {
@@ -220,7 +202,6 @@ public class WndJournal extends WndTabbed {
 		super.offset(xOffset, yOffset);
 		guideTab.layout();
 		alchemyTab.layout();
-		notesTab.layout();
 		catalogTab.layout();
 	}
 	
@@ -461,101 +442,7 @@ public class WndJournal extends WndTabbed {
 			list.scrollTo(0, 0);
 		}
 	}
-	
-	private static class NotesTab extends Component {
-		
-		private ScrollingGridPane grid;
-		private CustomNoteButton custom;
-		
-		@Override
-		protected void createChildren() {
-			grid = new ScrollingGridPane();
-			add(grid);
-		}
-		
-		@Override
-		protected void layout() {
-			super.layout();
-			grid.setRect( x, y, width, height);
-		}
-		
-		private void updateList(){
 
-			grid.addHeader("_" + Messages.get(this, "title") + "_", 9, true);
-
-			grid.addHeader(Messages.get(this, "desc"), 6, true);
-
-			ArrayList<Notes.CustomRecord> customRecs = Notes.getRecords(Notes.CustomRecord.class);
-
-			if (!customRecs.isEmpty()){
-				grid.addHeader("_" + Messages.get(this, "custom_notes") + "_ (" + customRecs.size() + "/" + Notes.customRecordLimit() + ")");
-
-				for (Notes.CustomRecord rec : customRecs){
-					ScrollingGridPane.GridItem gridItem = new ScrollingGridPane.GridItem(rec.icon()){
-						@Override
-						public boolean onClick(float x, float y) {
-							if (inside(x, y)) {
-								GameScene.show(new CustomNoteButton.CustomNoteWindow(rec));
-								return true;
-							} else {
-								return false;
-							}
-						}
-					};
-
-					Visual secondIcon = rec.secondIcon();
-					if (secondIcon != null){
-						gridItem.addSecondIcon( secondIcon );
-					}
-
-					grid.addItem(gridItem);
-				}
-			}
-
-			for (int i = Statistics.deepestFloor; i > 0; i--){
-
-				ArrayList<Notes.Record> recs = Notes.getRecords(i);
-
-				if (i == Dungeon.depth) {
-					grid.addHeader("_" + Messages.get(this, "floor_header", i) + "_");
-				} else {
-					grid.addHeader(Messages.get(this, "floor_header", i));
-				}
-				for( Notes.Record rec : recs){
-
-					ScrollingGridPane.GridItem gridItem = new ScrollingGridPane.GridItem(rec.icon()){
-						@Override
-						public boolean onClick(float x, float y) {
-							if (inside(x, y)) {
-								GameScene.show(new WndJournalItem(rec.icon(),
-										Messages.titleCase(rec.title()),
-										rec.desc()));
-								return true;
-							} else {
-								return false;
-							}
-						}
-					};
-
-					Visual secondIcon = rec.secondIcon();
-					if (secondIcon != null){
-						gridItem.addSecondIcon( secondIcon );
-					}
-
-					grid.addItem(gridItem);
-				}
-			}
-
-			custom = new CustomNoteButton();
-			grid.content().add(custom);
-			custom.setPos(width-custom.width()-1, 0);
-
-			grid.setRect(x, y, width, height);
-
-		}
-		
-	}
-	
 	public static class CatalogTab extends Component{
 		
 		private RedButton[] itemButtons;

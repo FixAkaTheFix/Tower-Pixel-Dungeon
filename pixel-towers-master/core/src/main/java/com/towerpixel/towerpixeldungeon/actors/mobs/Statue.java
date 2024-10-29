@@ -21,6 +21,8 @@
 
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
+import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
+
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
@@ -108,6 +110,7 @@ public class Statue extends Mob {
 		if (levelGenStatue && Dungeon.level.visited[pos]) {
 			Notes.add( Notes.Landmark.STATUE );
 		}
+		if (alignment == Alignment.ALLY) beckon(hero.pos);
 		return super.act();
 	}
 	
@@ -161,7 +164,7 @@ public class Statue extends Mob {
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );
 		damage = weapon.proc( this, enemy, damage );
-		if (!enemy.isAlive() && enemy == Dungeon.hero){
+		if (!enemy.isAlive() && enemy == hero){
 			Dungeon.fail(getClass());
 			GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
 		}

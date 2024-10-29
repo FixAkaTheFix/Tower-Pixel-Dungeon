@@ -32,7 +32,7 @@ import com.towerpixel.towerpixeldungeon.items.food.Blandfruit;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfWealth;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorruption;
@@ -910,7 +910,7 @@ public class v0_7_X_Changes {
 				"Wand of regrowth will now cease producing plants if it is overused. Charges spent before it begins degrading will increase if the wand is upgraded. At +12 the wand will function infinitely.\n\n" +
 				"This change is made to combat farming with low-levelled wands of regrowth. Especially with the alchemy changes this would be far too powerful. Infinite farming is still possible, but requires upgrades."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_GYFU, null), new ScrollOfRetribution().trueName(),
+		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_GYFU, null), new ScrollOfSkulls().trueName(),
 				"The scroll of psionic blast is now known as the scroll of retribution:\n" +
 				"_-_ removed damage and stun penalty, now self-weakens instead\n" +
 				"_-_ now blinds enemies as well as the player\n" +

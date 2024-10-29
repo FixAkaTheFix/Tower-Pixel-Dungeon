@@ -119,8 +119,8 @@ public class BuffIndicator extends Component {
 	public static final int MONK_ENERGY = 68;
 
 	public static final int POISON      = 96;
-	public static final int INFESTED    = 97;
-
+	public static final int ANIMATED = 97;
+	public static final int SOULFIRE        = 98;
 	public static final int VILE        = 99;
 
 	public static final int WAVECOOLDOWN= 100;

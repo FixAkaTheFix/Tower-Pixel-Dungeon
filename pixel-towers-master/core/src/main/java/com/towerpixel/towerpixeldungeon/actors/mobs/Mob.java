@@ -878,7 +878,7 @@ public abstract class Mob extends Char {
 			if (alignment == Alignment.ENEMY) {
 				Statistics.enemiesSlain++;
 				Badges.validateMonstersSlain();
-
+				Bestiary.countEncounter(getClass());
 				AscensionChallenge.processEnemyKill(this);
 
 				int exp = Dungeon.hero.lvl <= maxLvl ? EXP : 0;

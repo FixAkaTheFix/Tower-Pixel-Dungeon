@@ -26,7 +26,7 @@ import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.keys.IronKey;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
@@ -53,7 +53,7 @@ public class LibraryRoom extends SpecialRoom {
 			} while (level.map[pos] != Terrain.EMPTY_SP || level.heaps.get( pos ) != null);
 			Item item;
 			if (i == 0)
-				item = Random.Int(2) == 0 ? new ScrollOfIdentify() : new ScrollOfRemoveCurse();
+				item = Random.Int(2) == 0 ? new ScrollOfAnimation() : new ScrollOfRemoveCurse();
 			else
 				item = prize( level );
 			level.drop( item, pos );

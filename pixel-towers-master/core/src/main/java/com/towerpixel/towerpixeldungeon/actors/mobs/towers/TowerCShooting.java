@@ -2,6 +2,8 @@ package com.towerpixel.towerpixeldungeon.actors.mobs.towers;
 
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Animated;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 
@@ -30,12 +32,15 @@ public class TowerCShooting extends TowerNotliving{
 
     @Override
     protected boolean getCloser(int target) {
-        return true;
+        if (buff(Animated.class) !=null) {
+            beckon(hero.pos);
+            return super.getCloser( hero.pos );
+        } else return true;
     }
 
     @Override
     protected boolean getFurther(int target) {
-        return true;
+        if (buff(Animated.class) !=null) return super.getFurther(target); else return true;
     }
 
 }

@@ -15,7 +15,7 @@ import com.towerpixel.towerpixeldungeon.sprites.TowerGuard1Sprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
 
-public class TowerGuard1 extends Tower {
+public class TowerGuard1 extends SentientTower {
 
     {
 

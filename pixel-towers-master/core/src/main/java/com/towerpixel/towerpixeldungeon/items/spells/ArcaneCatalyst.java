@@ -24,14 +24,14 @@ package com.towerpixel.towerpixeldungeon.items.spells;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTransmutation;
@@ -53,13 +53,13 @@ public class ArcaneCatalyst extends Spell {
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();
 	static{
-		scrollChances.put( ScrollOfIdentify.class,      3f );
+		scrollChances.put( ScrollOfAnimation.class,      3f );
 		scrollChances.put( ScrollOfRemoveCurse.class,   2f );
 		scrollChances.put( ScrollOfMagicMapping.class,  2f );
 		scrollChances.put( ScrollOfMirrorImage.class,   2f );
 		scrollChances.put( ScrollOfRecharging.class,    2f );
 		scrollChances.put( ScrollOfLullaby.class,       2f );
-		scrollChances.put( ScrollOfRetribution.class,   2f );
+		scrollChances.put( ScrollOfSkulls.class,   2f );
 		scrollChances.put( ScrollOfRage.class,          2f );
 		scrollChances.put( ScrollOfTeleportation.class, 2f );
 		scrollChances.put( ScrollOfTerror.class,        2f );

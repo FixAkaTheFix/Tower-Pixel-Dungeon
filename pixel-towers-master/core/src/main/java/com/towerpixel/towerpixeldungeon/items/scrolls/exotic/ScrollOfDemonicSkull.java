@@ -28,14 +28,14 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Blindness;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Weakness;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
-public class ScrollOfPsionicBlast extends ExoticScroll {
+public class ScrollOfDemonicSkull extends ExoticScroll {
 	
 	{
 		icon = ItemSpriteSheet.Icons.SCROLL_PSIBLAST;
@@ -47,7 +47,7 @@ public class ScrollOfPsionicBlast extends ExoticScroll {
 		GameScene.flash( 0x80FFFFFF );
 		
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
-		GLog.i(Messages.get(ScrollOfRetribution.class, "blast"));
+		GLog.i(Messages.get(ScrollOfSkulls.class, "blast"));
 		
 		int targets = 0;
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {

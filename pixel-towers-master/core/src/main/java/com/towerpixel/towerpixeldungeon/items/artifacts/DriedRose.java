@@ -40,7 +40,6 @@ import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Wraith;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.DirectableAlly;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.particles.ShaftParticle;
@@ -50,8 +49,8 @@ import com.towerpixel.towerpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Brimstone;
 import com.towerpixel.towerpixeldungeon.items.bags.Bag;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfEnergy;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfDemonicSkull;
 import com.towerpixel.towerpixeldungeon.items.weapon.Weapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -842,8 +841,8 @@ public class DriedRose extends Artifact {
 			immunities.add( ToxicGas.class );
 			immunities.add( CorrosiveGas.class );
 			immunities.add( Burning.class );
-			immunities.add( ScrollOfRetribution.class );
-			immunities.add( ScrollOfPsionicBlast.class );
+			immunities.add( ScrollOfSkulls.class );
+			immunities.add( ScrollOfDemonicSkull.class );
 			immunities.add( AllyBuff.class );
 		}
 

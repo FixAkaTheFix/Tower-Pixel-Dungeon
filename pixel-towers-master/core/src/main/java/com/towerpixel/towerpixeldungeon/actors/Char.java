@@ -24,7 +24,6 @@ package com.towerpixel.towerpixeldungeon.actors;
 import static com.towerpixel.towerpixeldungeon.Dungeon.hero;
 import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Challenges;
@@ -90,7 +89,6 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Tengu;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
-import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.towerpixel.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.towerpixel.towerpixeldungeon.items.Heap;
 import com.towerpixel.towerpixeldungeon.items.Item;
@@ -99,10 +97,10 @@ import com.towerpixel.towerpixeldungeon.items.armor.glyphs.Viscosity;
 import com.towerpixel.towerpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfElements;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfDemonicSkull;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfFireblast;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfFrost;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfLightning;
@@ -129,7 +127,6 @@ import com.towerpixel.towerpixeldungeon.sprites.CharSprite;
 import com.towerpixel.towerpixeldungeon.utils.BArray;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.Camera;
-import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -1190,7 +1187,7 @@ public abstract class Char extends Actor {
 	}
 
 	public enum Property{
-		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfRetribution.class, ScrollOfPsionicBlast.class)),
+		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfSkulls.class, ScrollOfDemonicSkull.class)),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
 		MINIBOSS ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Dread.class, AllyBuff.class) )),

@@ -21,8 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.journal;
 
-import com.towerpixel.towerpixeldungeon.Badges;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -187,7 +186,7 @@ public enum Document {
 				case "Surprise_Attacks":
 					return Icons.get(Icons.ALERT);
 				case "Identifying":
-					return new ItemSprite( new ScrollOfIdentify() );
+					return new ItemSprite( new ScrollOfGolems());
 				case "Food":
 					return new ItemSprite( ItemSpriteSheet.PASTY );
 				case "Alchemy":

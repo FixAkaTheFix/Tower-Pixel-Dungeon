@@ -26,7 +26,6 @@ import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Blindness;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
-import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Weakness;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -35,7 +34,7 @@ import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
-public class ScrollOfRetribution extends Scroll {
+public class ScrollOfSkulls extends Scroll {
 
 	{
 		icon = ItemSpriteSheet.Icons.SCROLL_RETRIB;

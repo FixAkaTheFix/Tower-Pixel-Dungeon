@@ -53,7 +53,7 @@ public class Infested extends Buff implements Hero.Doom {
 
     @Override
     public int icon() {
-        return BuffIndicator.INFESTED;
+        return BuffIndicator.ANIMATED;
     }
 
     @Override

@@ -24,14 +24,14 @@ package com.towerpixel.towerpixeldungeon.items.scrolls.exotic;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.Recipe;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTransmutation;
@@ -47,8 +47,8 @@ public abstract class ExoticScroll extends Scroll {
 	public static final HashMap<Class<?extends Scroll>, Class<?extends ExoticScroll>> regToExo = new HashMap<>();
 	public static final HashMap<Class<?extends ExoticScroll>, Class<?extends Scroll>> exoToReg = new HashMap<>();
 	static{
-		regToExo.put(ScrollOfIdentify.class, ScrollOfDivination.class);
-		exoToReg.put(ScrollOfDivination.class, ScrollOfIdentify.class);
+		regToExo.put(ScrollOfAnimation.class, ScrollOfGolems.class);
+		exoToReg.put(ScrollOfGolems.class, ScrollOfAnimation.class);
 		
 		regToExo.put(ScrollOfUpgrade.class, ScrollOfEnchantment.class);
 		exoToReg.put(ScrollOfEnchantment.class, ScrollOfUpgrade.class);
@@ -74,8 +74,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfTeleportation.class, ScrollOfPassage.class);
 		exoToReg.put(ScrollOfPassage.class, ScrollOfTeleportation.class);
 		
-		regToExo.put(ScrollOfRetribution.class, ScrollOfPsionicBlast.class);
-		exoToReg.put(ScrollOfPsionicBlast.class, ScrollOfRetribution.class);
+		regToExo.put(ScrollOfSkulls.class, ScrollOfDemonicSkull.class);
+		exoToReg.put(ScrollOfDemonicSkull.class, ScrollOfSkulls.class);
 		
 		regToExo.put(ScrollOfMirrorImage.class, ScrollOfPrismaticImage.class);
 		exoToReg.put(ScrollOfPrismaticImage.class, ScrollOfMirrorImage.class);

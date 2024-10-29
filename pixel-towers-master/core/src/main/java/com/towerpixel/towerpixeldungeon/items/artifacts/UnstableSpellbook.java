@@ -36,7 +36,7 @@ import com.towerpixel.towerpixeldungeon.items.bags.Bag;
 import com.towerpixel.towerpixeldungeon.items.bags.ScrollHolder;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfEnergy;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTransmutation;
@@ -126,7 +126,7 @@ public class UnstableSpellbook extends Artifact {
 					scroll = (Scroll) Generator.randomUsingDefaults(Generator.Category.SCROLL);
 				} while (scroll == null
 						//reduce the frequency of these scrolls by half
-						||((scroll instanceof ScrollOfIdentify ||
+						||((scroll instanceof ScrollOfAnimation ||
 							scroll instanceof ScrollOfRemoveCurse ||
 							scroll instanceof ScrollOfMagicMapping) && Random.Int(2) == 0)
 						//cannot roll transmutation

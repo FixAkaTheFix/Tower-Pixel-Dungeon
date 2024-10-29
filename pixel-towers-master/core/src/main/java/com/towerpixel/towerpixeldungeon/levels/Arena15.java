@@ -29,7 +29,8 @@ import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
 import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfStormClouds;
 import com.towerpixel.towerpixeldungeon.items.quest.RatSkull;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.towerpixel.towerpixeldungeon.items.stones.StoneOfIntuition;
@@ -358,10 +359,11 @@ public class Arena15 extends Arena{
         this.drop(new ScrollOfUpgrade(), Random.element(candidates));
         this.drop(new ScrollOfUpgrade(), Random.element(candidates));
         this.drop(new ScrollOfUpgrade(), Random.element(candidates));
-        this.drop(new ScrollOfIdentify(), Random.element(candidates));
-        this.drop(new ScrollOfIdentify(), Random.element(candidates));
-        this.drop(new ScrollOfIdentify(), Random.element(candidates));
-        this.drop(new ScrollOfIdentify(), Random.element(candidates));
+        this.drop(new ScrollOfAnimation(), Random.element(candidates));
+        this.drop(new ScrollOfAnimation(), Random.element(candidates));
+        this.drop(new ScrollOfAnimation(), Random.element(candidates));
+        this.drop(new ScrollOfAnimation(), Random.element(candidates));
+        this.drop(new ScrollOfAnimation(), Random.element(candidates));
         this.drop(new ScrollOfRemoveCurse(), Random.element(candidates));
         this.drop(new LeatherArmor(), Random.element(candidates));
         this.drop(new MailArmor(), Random.element(candidates));

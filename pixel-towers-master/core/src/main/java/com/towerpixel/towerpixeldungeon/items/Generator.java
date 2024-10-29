@@ -33,7 +33,6 @@ import com.towerpixel.towerpixeldungeon.items.armor.PlateArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.RogueArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.ScaleArmor;
 import com.towerpixel.towerpixeldungeon.items.armor.WarriorArmor;
-import com.towerpixel.towerpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.towerpixel.towerpixeldungeon.items.artifacts.Artifact;
 import com.towerpixel.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.towerpixel.towerpixeldungeon.items.artifacts.CloakOfShadows;
@@ -82,14 +81,15 @@ import com.towerpixel.towerpixeldungeon.items.rings.RingOfSharpshooting;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfTenacity;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfWealth;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRage;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTransmutation;
@@ -333,7 +333,7 @@ public class Generator {
 			
 			SCROLL.classes = new Class<?>[]{
 					ScrollOfUpgrade.class, //1 drop every chapter, see Dungeon.souNeeded()
-					ScrollOfIdentify.class,
+					ScrollOfAnimation.class,
 					ScrollOfRemoveCurse.class,
 					ScrollOfMirrorImage.class,
 					ScrollOfRecharging.class,
@@ -341,7 +341,7 @@ public class Generator {
 					ScrollOfLullaby.class,
 					ScrollOfMagicMapping.class,
 					ScrollOfRage.class,
-					ScrollOfRetribution.class,
+					ScrollOfSkulls.class,
 					ScrollOfTerror.class,
 					ScrollOfTransmutation.class
 			};

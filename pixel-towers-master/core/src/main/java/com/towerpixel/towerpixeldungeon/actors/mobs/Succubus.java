@@ -33,7 +33,6 @@ import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.items.Generator;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.scrolls.Scroll;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
@@ -167,7 +166,7 @@ public class Succubus extends Mob {
 		Class<?extends Scroll> loot;
 		do{
 			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+		} while (loot == ScrollOfUpgrade.class);
 
 		return Reflection.newInstance(loot);
 	}

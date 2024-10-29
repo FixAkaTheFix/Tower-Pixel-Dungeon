@@ -60,6 +60,8 @@ public class ItemSpriteSheet {
 	public static final int CATA_HOLDER     = PLACEHOLDERS+13;
 	public static final int ELIXIR_HOLDER   = PLACEHOLDERS+14;
 	public static final int SPELL_HOLDER    = PLACEHOLDERS+15;
+	public static final int RAT_HOLDER      = PLACEHOLDERS+16;
+	public static final int NOTE_HOLDER     = PLACEHOLDERS+17;
 	static{
 		assignItemRect(SOMETHING,       8,  13);
 		assignItemRect(WEAPON_HOLDER,   14, 14);
@@ -77,6 +79,8 @@ public class ItemSpriteSheet {
 		assignItemRect(CATA_HOLDER,     6,  15);
 		assignItemRect(ELIXIR_HOLDER,   12, 14);
 		assignItemRect(SPELL_HOLDER,    8,  16);
+		assignItemRect(RAT_HOLDER,    15,  14);
+		assignItemRect(NOTE_HOLDER,    10,  11);
 	}
 
 	private static final int UNCOLLECTIBLE  =                               xy(1, 2);   //16 slots
@@ -898,7 +902,7 @@ public class ItemSpriteSheet {
 
 		private static final int SCROLLS        =                            xy(1, 3);  //16 slots
 		public static final int SCROLL_UPGRADE = SCROLLS+0;
-		public static final int SCROLL_IDENTIFY = SCROLLS+1;
+		public static final int SCROLL_ANIMATION = SCROLLS+1;
 		public static final int SCROLL_REMCURSE = SCROLLS+2;
 		public static final int SCROLL_MIRRORIMG= SCROLLS+3;
 		public static final int SCROLL_RECHARGE = SCROLLS+4;
@@ -911,7 +915,7 @@ public class ItemSpriteSheet {
 		public static final int SCROLL_TRANSMUTE= SCROLLS+11;
 		static {
 			assignIconRect(SCROLL_UPGRADE,     7, 7 );
-			assignIconRect( SCROLL_IDENTIFY,    4, 7 );
+			assignIconRect(SCROLL_ANIMATION,    4, 7 );
 			assignIconRect( SCROLL_REMCURSE,    7, 7 );
 			assignIconRect( SCROLL_MIRRORIMG,   7, 5 );
 			assignIconRect( SCROLL_RECHARGE,    7, 5 );

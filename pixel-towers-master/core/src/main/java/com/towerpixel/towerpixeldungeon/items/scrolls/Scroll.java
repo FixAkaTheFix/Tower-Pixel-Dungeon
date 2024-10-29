@@ -249,11 +249,11 @@ public abstract class Scroll extends Item {
 		
 		private static HashMap<Class<?extends Scroll>, Class<?extends Runestone>> stones = new HashMap<>();
 		static {
-			stones.put(ScrollOfIdentify.class,      StoneOfIntuition.class);
+			stones.put(ScrollOfAnimation.class,      StoneOfIntuition.class);
 			stones.put(ScrollOfLullaby.class,       StoneOfDeepSleep.class);
 			stones.put(ScrollOfMagicMapping.class,  StoneOfClairvoyance.class);
 			stones.put(ScrollOfMirrorImage.class,   StoneOfFlock.class);
-			stones.put(ScrollOfRetribution.class,   StoneOfBlast.class);
+			stones.put(ScrollOfSkulls.class,   StoneOfBlast.class);
 			stones.put(ScrollOfRage.class,          StoneOfAggression.class);
 			stones.put(ScrollOfRecharging.class,    StoneOfShock.class);
 			stones.put(ScrollOfRemoveCurse.class,   StoneOfDisarming.class);

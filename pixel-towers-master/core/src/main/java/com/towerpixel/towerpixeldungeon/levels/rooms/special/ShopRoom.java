@@ -45,7 +45,7 @@ import com.towerpixel.towerpixeldungeon.items.bags.VelvetPouch;
 import com.towerpixel.towerpixeldungeon.items.bombs.Bomb;
 import com.towerpixel.towerpixeldungeon.items.food.SmallRation;
 import com.towerpixel.towerpixeldungeon.items.potions.PotionOfHealing;
-import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.towerpixel.towerpixeldungeon.items.spells.Alchemize;
@@ -197,7 +197,7 @@ public class ShopRoom extends SpecialRoom {
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
-		itemsToSpawn.add( new ScrollOfIdentify() );
+		itemsToSpawn.add( new ScrollOfAnimation() );
 		itemsToSpawn.add( new ScrollOfRemoveCurse() );
 		itemsToSpawn.add( new ScrollOfMagicMapping() );
 
