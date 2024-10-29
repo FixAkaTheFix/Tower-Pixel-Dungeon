@@ -123,11 +123,6 @@ public class SentientTower extends Tower {
                     if (pos == defendingPos) movingToDefendPos = false;
                     return moveSprite( oldPos, pos );
                 } else {
-                    //if it can't move closer to defending pos, then give up and defend current position
-                    if (movingToDefendPos){
-                        defendingPos = pos;
-                        movingToDefendPos = false;
-                    }
                     spend( TICK );
                 }
 

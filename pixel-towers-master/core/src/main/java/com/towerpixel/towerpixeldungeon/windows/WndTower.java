@@ -116,7 +116,7 @@ public class WndTower extends WndInfoMob {
                             @Override
                             public void onSelect(Integer cell) {
                                 if (cell == null) return;
-                                ((TowerGuard1) tower).guardPos = cell;
+                                ((TowerGuard1) tower).directTocell(cell);
                             }
 
                             @Override

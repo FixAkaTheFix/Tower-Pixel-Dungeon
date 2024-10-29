@@ -23,7 +23,7 @@ public class TowerGuard1 extends SentientTower {
         spriteClass = TowerGuard1Sprite.class;
 
 
-        viewDistance = 2;
+        viewDistance = 6;
         baseAttackDelay = 1f;
 
         cost = 100;
@@ -39,7 +39,6 @@ public class TowerGuard1 extends SentientTower {
     }
 
     public int regenNum = 5;
-    public int guardPos = -1;
 
     @Override
     public String info() {
@@ -57,22 +56,9 @@ public class TowerGuard1 extends SentientTower {
             if (HP + regenNum <= HT) HP+=regenNum;
             else if (HT < HP + regenNum && HT>HP) HP = HT;
         }
-        if (guardPos==-1) guardPos = pos;
-        beckon(guardPos);
         return super.act();
     }
-    public static final String GUARDPOS = "guardpos";
 
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(GUARDPOS, guardPos);
-    }
 
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        guardPos = bundle.getInt(GUARDPOS);
-    }
 
 }

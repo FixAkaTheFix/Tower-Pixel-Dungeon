@@ -87,7 +87,6 @@ public class DrillBig extends Mob {
             if (Char.findChar(x+Dungeon.level.width()*y)!= null && Char.findChar(x+Dungeon.level.width()*y)!= this){
                 Char ch = Char.findChar(x+Dungeon.level.width()*y);
                 ch.pos++;
-                if (ch instanceof TowerGuard1) ((TowerGuard1)ch).guardPos++;
                 ch.sprite.move(x+Dungeon.level.width()*y, x+Dungeon.level.width()*y+1);
                 Dungeon.level.occupyCell(ch);
             }
