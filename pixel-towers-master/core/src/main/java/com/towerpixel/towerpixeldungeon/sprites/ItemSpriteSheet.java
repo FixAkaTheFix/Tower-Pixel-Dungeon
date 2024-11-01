@@ -910,12 +910,12 @@ public class ItemSpriteSheet {
 		public static final int SCROLL_LULLABY  = SCROLLS+6;
 		public static final int SCROLL_MAGICMAP = SCROLLS+7;
 		public static final int SCROLL_RAGE     = SCROLLS+8;
-		public static final int SCROLL_RETRIB   = SCROLLS+9;
+		public static final int SCROLL_SKULL = SCROLLS+9;
 		public static final int SCROLL_TERROR   = SCROLLS+10;
 		public static final int SCROLL_TRANSMUTE= SCROLLS+11;
 		static {
 			assignIconRect(SCROLL_UPGRADE,     7, 7 );
-			assignIconRect(SCROLL_ANIMATION,    4, 7 );
+			assignIconRect(SCROLL_ANIMATION,    8, 8 );
 			assignIconRect( SCROLL_REMCURSE,    7, 7 );
 			assignIconRect( SCROLL_MIRRORIMG,   7, 5 );
 			assignIconRect( SCROLL_RECHARGE,    7, 5 );
@@ -923,14 +923,14 @@ public class ItemSpriteSheet {
 			assignIconRect( SCROLL_LULLABY,     7, 6 );
 			assignIconRect( SCROLL_MAGICMAP,    7, 7 );
 			assignIconRect( SCROLL_RAGE,        6, 6 );
-			assignIconRect( SCROLL_RETRIB,      5, 6 );
+			assignIconRect(SCROLL_SKULL,      5, 6 );
 			assignIconRect( SCROLL_TERROR,      5, 7 );
 			assignIconRect( SCROLL_TRANSMUTE,   7, 7 );
 		}
 
 		private static final int EXOTIC_SCROLLS =                            xy(1, 4);  //16 slots
 		public static final int SCROLL_ENCHANT  = EXOTIC_SCROLLS+0;
-		public static final int SCROLL_DIVINATE = EXOTIC_SCROLLS+1;
+		public static final int SCROLL_GOLEM = EXOTIC_SCROLLS+1;
 		public static final int SCROLL_ANTIMAGIC= EXOTIC_SCROLLS+2;
 		public static final int SCROLL_PRISIMG  = EXOTIC_SCROLLS+3;
 		public static final int SCROLL_MYSTENRG = EXOTIC_SCROLLS+4;
@@ -938,12 +938,12 @@ public class ItemSpriteSheet {
 		public static final int SCROLL_SIREN    = EXOTIC_SCROLLS+6;
 		public static final int SCROLL_FORESIGHT= EXOTIC_SCROLLS+7;
 		public static final int SCROLL_CHALLENGE= EXOTIC_SCROLLS+8;
-		public static final int SCROLL_PSIBLAST = EXOTIC_SCROLLS+9;
+		public static final int SCROLL_DEMSKULL = EXOTIC_SCROLLS+9;
 		public static final int SCROLL_DREAD    = EXOTIC_SCROLLS+10;
 		public static final int SCROLL_METAMORPH= EXOTIC_SCROLLS+11;
 		static {
 			assignIconRect( SCROLL_ENCHANT,     7, 7 );
-			assignIconRect( SCROLL_DIVINATE,    7, 6 );
+			assignIconRect(SCROLL_GOLEM,    8, 8 );
 			assignIconRect( SCROLL_ANTIMAGIC,   7, 7 );
 			assignIconRect( SCROLL_PRISIMG,     5, 7 );
 			assignIconRect( SCROLL_MYSTENRG,    7, 5 );
@@ -951,7 +951,7 @@ public class ItemSpriteSheet {
 			assignIconRect( SCROLL_SIREN,       7, 6 );
 			assignIconRect( SCROLL_FORESIGHT,   7, 5 );
 			assignIconRect( SCROLL_CHALLENGE,   7, 7 );
-			assignIconRect( SCROLL_PSIBLAST,    5, 6 );
+			assignIconRect(SCROLL_DEMSKULL,    5, 6 );
 			assignIconRect( SCROLL_DREAD,       5, 7 );
 			assignIconRect( SCROLL_METAMORPH,   7, 7 );
 		}

@@ -81,8 +81,10 @@ import com.towerpixel.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFo
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.towerpixel.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfDemonicSkull;
 import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.towerpixel.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
 import com.towerpixel.towerpixeldungeon.items.debuggers.WandOfDebug;
@@ -380,8 +382,6 @@ public enum HeroClass {
 		sbow.identify().collect();
 
 		for (int i = 0; i<=20; i++) {
-			new ScrollOfUpgrade().identify().collect();
-			new ScrollOfRecharging().identify().collect();
 			new SpawnerCrossbow().identify().collect();
 			new SpawnerWand().identify().collect();
 			new SpawnerGrave().identify().collect();
@@ -391,9 +391,10 @@ public enum HeroClass {
 			new SpawnerLightning().identify().collect();
 			new SpawnerDartgun().identify().collect();
 			new ScrollOfMagicMapping().identify().collect();
-			new ScrollOfEnchantment().collect();
 			new ScrollOfGolems().collect();
 			new ScrollOfAnimation().collect();
+			new ScrollOfDemonicSkull().collect();
+			new ScrollOfSkulls().collect();
 		}
 
 

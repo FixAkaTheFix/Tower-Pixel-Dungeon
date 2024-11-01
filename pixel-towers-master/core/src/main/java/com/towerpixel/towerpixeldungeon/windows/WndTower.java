@@ -7,6 +7,7 @@ import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.towerpixel.towerpixeldungeon.Chrome;
 import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.mobs.towers.SentientTower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerPylon;
@@ -108,7 +109,7 @@ public class WndTower extends WndInfoMob {
                 if (tower.upgCount>=3 && tower.upgradeLevel<=Dungeon.depth) {buttons.add(upgbtn3);add(upgbtn3);}
 
 
-                RedButton moveGuardButton = new RedButton(Messages.get(this,"towerguardmove"), 8, Chrome.Type.RED_BUTTON) {
+                RedButton moveSentientTowerButton = new RedButton(Messages.get(this,"towerguardmove"), 8, Chrome.Type.RED_BUTTON) {
                     @Override
                     protected void onClick() {
                         hide();
@@ -126,10 +127,10 @@ public class WndTower extends WndInfoMob {
                         });
                     }
                 };
-                moveGuardButton.setSize(moveGuardButton.reqWidth(), BUTTON_HEIGHT);
+                moveSentientTowerButton.setSize(moveSentientTowerButton.reqWidth(), BUTTON_HEIGHT);
 
-                if (tower instanceof TowerGuard1){
-                    {buttons.add(moveGuardButton);add(moveGuardButton);}
+                if (tower instanceof SentientTower){
+                    {buttons.add(moveSentientTowerButton);add(moveSentientTowerButton);}
                 }
 
 

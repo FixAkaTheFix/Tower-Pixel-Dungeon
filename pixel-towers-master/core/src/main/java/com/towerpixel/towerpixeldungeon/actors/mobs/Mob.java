@@ -104,13 +104,9 @@ public abstract class Mob extends Char {
 
 	{
 		actPriority = MOB_PRIO;
-
 		alignment = Alignment.ENEMY;
-
 		critChance = 0.1f;
 		critMult = 1.2f;
-
-
 	}
 
 	//endless mode charachteristics

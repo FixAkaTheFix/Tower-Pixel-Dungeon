@@ -27,6 +27,7 @@ public class SentientTower extends Tower {
     protected int defendingPos = -1;
     protected boolean movingToDefendPos = false;
 
+
     public void defendPos( int cell ){
         aggro(null);
         state = WANDERING;

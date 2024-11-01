@@ -54,8 +54,6 @@ import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.towerpixel.towerpixeldungeon.items.Item;
 import com.towerpixel.towerpixeldungeon.items.armor.Armor;
-import com.towerpixel.towerpixeldungeon.items.scrolls.InventoryScroll;
-import com.towerpixel.towerpixeldungeon.items.weapon.melee.Gloves;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -68,15 +66,15 @@ import java.util.ArrayList;
 public class ScrollOfGolems extends ExoticInventoryScroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_DIVINATE;
+		icon = ItemSpriteSheet.Icons.SCROLL_GOLEM;
 
 		bones = true;
 	}
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return (item instanceof MeleeWeapon && !item.isEquipped(hero)) ||
-				item instanceof Armor;
+		return (item instanceof MeleeWeapon  ||
+				item instanceof Armor) && !item.isEquipped(hero);
 	}
 
 	@Override

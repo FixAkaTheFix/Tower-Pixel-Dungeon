@@ -61,7 +61,7 @@ public class ScrollOfAnimation extends Scroll {
 			Mob target = null;
 			if (cell != null){
 				Char ch = Actor.findChar(cell);
-				if (ch != null && ch.alignment == Char.Alignment.ALLY && ch instanceof TowerCShooting){
+				if (ch != null && ch.alignment == Char.Alignment.ALLY && ch instanceof TowerCShooting && ch.buff(Animated.class)==null){
 					target = (Mob)ch;
 				}
 			}

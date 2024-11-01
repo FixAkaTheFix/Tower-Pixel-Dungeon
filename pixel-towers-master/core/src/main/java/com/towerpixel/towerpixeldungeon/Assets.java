@@ -393,6 +393,7 @@ public class Assets {
 		public static final String SIGN    = "sprites/sign.png";
 		public static final String SWARM    = "sprites/swarm.png";
 		public static final String SKELETON = "sprites/skeleton.png";
+		public static final String SKULLS   = "sprites/skulls.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
 		public static final String SLUGGER   = "sprites/slugger.png";
 		public static final String THIEF    = "sprites/thief.png";
@@ -468,6 +469,9 @@ public class Assets {
 		public static final String TOWERDISINTEGRATION          = "sprites/towers/towerdisintegration.png";
 		public static final String TOWERDARTGUN          = "sprites/towers/towerdartgun.png";
 		public static final String TOWERTNTLOG         = "sprites/towers/towertntlog.png";
+
+		public static final String FLAGENEMY           = "sprites/enemyflag.png";
+		public static final String FLAGFRIEND          = "sprites/friendflag.png";
 
 	}
 }
