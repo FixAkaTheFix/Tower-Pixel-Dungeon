@@ -26,7 +26,7 @@ public class RogueSwift extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, Rush.class, 4);
+        Buff.affect(Dungeon.hero, Rush.class, 3);
         Sample.INSTANCE.play(Assets.Sounds.TRAMPLE);
         CellEmitter.get(Dungeon.hero.pos).burst(SparkParticle.FACTORY, 10);
     }

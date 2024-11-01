@@ -55,14 +55,10 @@ public class ArcaneCatalyst extends Spell {
 	static{
 		scrollChances.put( ScrollOfAnimation.class,      4f );
 		scrollChances.put( ScrollOfRemoveCurse.class,   4f );
-		scrollChances.put( ScrollOfMagicMapping.class,  2f );
 		scrollChances.put( ScrollOfMirrorImage.class,   2f );
 		scrollChances.put( ScrollOfRecharging.class,    2f );
-		scrollChances.put( ScrollOfLullaby.class,       2f );
 		scrollChances.put( ScrollOfSkulls.class,   2f );
-		scrollChances.put( ScrollOfRage.class,          2f );
 		scrollChances.put( ScrollOfTeleportation.class, 2f );
-		scrollChances.put( ScrollOfTerror.class,        2f );
 		scrollChances.put( ScrollOfTransmutation.class, 1f );
 	}
 	

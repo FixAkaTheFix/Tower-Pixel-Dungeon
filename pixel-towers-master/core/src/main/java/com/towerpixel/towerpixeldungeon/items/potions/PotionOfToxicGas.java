@@ -58,9 +58,8 @@ public class PotionOfToxicGas extends Potion {
 
 	@Override
 	public void apply( Hero hero ) {
-		Buff.affect( hero, Poison.class ).set( 5 + Dungeon.scalingDepth() / 2 );
+		Buff.affect( hero, Poison.class ).set( 10 + Dungeon.scalingDepth() );
 		Dungeon.observe();
-		Buff.detach( hero, Infested.class );
 		hero.speak("*cough*", CharSprite.NEGATIVE);
 		GLog.n( Messages.get(this, "onpoisoning") );
 	}
