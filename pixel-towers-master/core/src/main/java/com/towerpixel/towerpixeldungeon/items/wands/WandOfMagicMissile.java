@@ -49,7 +49,7 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return 8+2*lvl;
+		return 5+2*lvl + Dungeon.depth/2;
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 	
 	protected int initialCharges() {
-		return 3;
+		return 10;
 	}
 
 	public static class MagicCharge extends FlavourBuff {

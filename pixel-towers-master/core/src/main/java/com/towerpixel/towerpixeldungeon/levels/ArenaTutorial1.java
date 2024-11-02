@@ -5,8 +5,6 @@ import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
-import com.towerpixel.towerpixeldungeon.actors.mobs.Rat;
-import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
 import com.towerpixel.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.towerpixel.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.towerpixel.towerpixeldungeon.items.Generator;
@@ -21,14 +19,12 @@ import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.RatKingSprite;
 import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.towerpixel.towerpixeldungeon.windows.WndDialogueWithPic;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena1 extends Arena{
+public class ArenaTutorial1 extends Arena{
     {
         name = "Sewer entrance";
 

@@ -50,6 +50,7 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PointF;
 
 public class StatusPane extends Component {
 

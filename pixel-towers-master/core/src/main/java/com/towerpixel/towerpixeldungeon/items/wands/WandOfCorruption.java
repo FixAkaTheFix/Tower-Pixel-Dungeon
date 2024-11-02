@@ -80,11 +80,11 @@ public class WandOfCorruption extends DamageWand {
 	}
 
 	public int min(int lvl){
-		return 2+lvl;
+		return 2+lvl + Dungeon.depth/4;
 	}
 
 	public int max(int lvl){
-		return 8+2*lvl;
+		return 8+2*lvl + Dungeon.depth;
 	}
 	
 	//Note that some debuffs here have a 0% chance to be applied.
@@ -102,8 +102,8 @@ public class WandOfCorruption extends DamageWand {
 		
 		MINOR_DEBUFFS.put(Chill.class,          0f);
 		MINOR_DEBUFFS.put(Ooze.class,           0f);
-		MINOR_DEBUFFS.put(Roots.class,          0f);
-		MINOR_DEBUFFS.put(Vertigo.class,        0f);
+		MINOR_DEBUFFS.put(Roots.class,          0.01f);
+		MINOR_DEBUFFS.put(Vertigo.class,        0.01f);
 		MINOR_DEBUFFS.put(Drowsy.class,         0f);
 		MINOR_DEBUFFS.put(Bleeding.class,       0f);
 		MINOR_DEBUFFS.put(Burning.class,        0f);

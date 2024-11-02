@@ -21,6 +21,7 @@
 
 package com.towerpixel.towerpixeldungeon.actors.mobs;
 
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.DamageSource;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
@@ -151,6 +152,12 @@ public class ArmoredStatue extends Statue {
 	@Override
 	public int defenseSkill(Char enemy) {
 		return Math.round(armor.evasionFactor(this, super.defenseSkill(enemy)));
+	}
+
+	@Override
+	public void die(Object cause) {
+		Dungeon.level.drop( armor, pos ).sprite.drop();
+		super.die(cause);
 	}
 
 	@Override

@@ -115,7 +115,7 @@ public class WandOfTransfusion extends Wand {
 			} else {
 
 				//grant a self-shield, and...
-				Buff.affect(curUser, Barrier.class).setShield((5 + buffedLvl()));
+				Buff.affect(curUser, Barrier.class).setShield((5 + buffedLvl() + Dungeon.depth/2));
 				
 				//charms living enemies
 				if (!ch.properties().contains(Char.Property.UNDEAD)) {
@@ -126,7 +126,7 @@ public class WandOfTransfusion extends Wand {
 				
 				//harms the undead
 				} else {
-					ch.damage(Random.NormalIntRange(3 + buffedLvl(), 6+2*buffedLvl()), this);
+					ch.damage(Random.NormalIntRange(3 + buffedLvl(), 6+2*buffedLvl() + Dungeon.depth/2), this);
 					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10 + buffedLvl());
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}

@@ -57,11 +57,11 @@ public class WandOfPrismaticLight extends DamageWand {
 	}
 
 	public int min(int lvl){
-		return 1+lvl;
+		return 1+lvl+ Dungeon.depth/4;
 	}
 
 	public int max(int lvl){
-		return 5+3*lvl;
+		return 5+3*lvl+ Dungeon.depth/2;
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class WandOfPrismaticLight extends DamageWand {
 
 	@Override
 	protected int initialCharges() {
-		return 6;
+		return 6 + Dungeon.depth/3;
 	}
 
 	private void affectTarget(Char ch){

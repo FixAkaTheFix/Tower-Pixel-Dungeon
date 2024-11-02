@@ -37,6 +37,7 @@ import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
 import com.towerpixel.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.towerpixel.towerpixeldungeon.actors.buffs.ChampionEnemy;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Faint;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.hero.Talent;
 import com.towerpixel.towerpixeldungeon.actors.mobs.DemonSpawner;
@@ -162,7 +163,7 @@ public class GameScene extends PixelScene {
 	private FogOfWar fog;
 	private HeroSprite hero;
 
-	private MenuPane menu;
+	public MenuPane menu;
 	public StatusPane status;
 
 	private BossHealthBar boss;
@@ -718,6 +719,7 @@ public class GameScene extends PixelScene {
 		} else {
 			status.timeeCircleArc.visible=false;
 		}
+
 
 		if (notifyDelay > 0) notifyDelay -= Game.elapsed;
 

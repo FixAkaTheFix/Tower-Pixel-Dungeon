@@ -123,21 +123,21 @@ public class ScrollOfSkulls extends Scroll {
 			int cell;
 
 			for (int i : PathFinder.NEIGHBOURS9){
-				cell = enemy.pos + i;
+				cell = pos + i;
 				Char ch = Char.findChar(cell);
 				if (ch!=null){
 					if (ch.alignment == Alignment.ALLY){
 						//friends receive 0 damage
 					} else {
-						ch.damage (Math.round(damageRoll()) - enemy.drRoll(),this);
+						ch.damage (Math.round(damageRoll()) - ch.drRoll(),this);
 						Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
 						throwChar(ch, trajectory, 4, false, true, getClass());
 					};
-					if (ch == enemy){
+					if (ch.equals(enemy)){
 						Buff.affect(ch, Vertigo.class, 3);
 					}
 				}
-				if (level.heroFOV[enemy.pos+i]) {
+				if (level.heroFOV[cell]) {
 					CellEmitter.center(cell).burst(BlastParticle.FACTORY, 5);
 				}
 			}

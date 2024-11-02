@@ -99,7 +99,7 @@ public class WardSprite extends MobSprite {
 		if (ch instanceof WandOfWarding.Ward){
 			WandOfWarding.Ward ward = (WandOfWarding.Ward) ch;
 			if (ward.tier <= 3){
-				brightness(Math.max(0.2f, 1f - (ward.totalZaps / (float)(2*ward.tier-1))));
+				brightness(Math.max(0.2f, 1f - (ward.totalZaps / (float)(3*ward.tier))));
 			}
 		}
 	}

@@ -99,7 +99,11 @@ import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerGuard;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerLightning;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.towerpixel.towerpixeldungeon.items.towerspawners.SpawnerWand;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorrosion;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfCorruption;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfLightning;
 import com.towerpixel.towerpixeldungeon.items.wands.WandOfMagicMissile;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfWarding;
 import com.towerpixel.towerpixeldungeon.items.weapon.SpiritBow;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Banhammer;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Dirk;
@@ -205,13 +209,8 @@ public enum HeroClass {
 		hero.attackSkill = 9;
 
 		Item i = new MailArmor().identify();
+		hero.belongings.armor = (MailArmor)i;
 
-		if (((Arena)level).arenaDepth >=16){
-			i.upgrade(2);
-			hero.belongings.armor = (MailArmor)i;
-		} else{
-			hero.belongings.armor = (MailArmor)i;
-		}
 
 		(hero.belongings.weapon = new Sword()).identify();
 
@@ -236,9 +235,6 @@ public enum HeroClass {
 		hero.belongings.armor = (LeatherArmor)i;
 
 		MeleeWeapon staff = (MeleeWeapon) (new MagesStaff(new WandOfMagicMissile()).upgrade(1));
-		if (((Arena)level).arenaDepth >=16){
-			staff.upgrade(1);
-		}
 		(hero.belongings.weapon = staff).identify();
 		hero.belongings.weapon.activate(hero);
 
@@ -261,12 +257,8 @@ public enum HeroClass {
 		updateQuickslot();
 
 		Item i = new LeatherArmor().identify();
-		if (((Arena)level).arenaDepth>=16){
-			i.upgrade(2);
-			hero.belongings.armor = (LeatherArmor)i;
-		} else{
-			hero.belongings.armor = (LeatherArmor)i;
-		}
+		hero.belongings.armor = (LeatherArmor)i;
+
 
 		(hero.belongings.weapon = new Dirk()).identify();
 
@@ -292,14 +284,10 @@ public enum HeroClass {
 		hero.STR = 11;
 		hero.attackSkill = 11;
 
-		Item i = new ClothArmor().identify();
-		if (((Arena)level).arenaDepth>=16){
-			Item x = new LeatherArmor().identify();
-			x.upgrade(1);
-			hero.belongings.armor = (LeatherArmor)x;
-		} else{
-			hero.belongings.armor = (ClothArmor)i;
-		}
+		Item x = new LeatherArmor().identify();
+		x.upgrade(1);
+		hero.belongings.armor = (LeatherArmor)x;
+
 
 		(hero.belongings.weapon = new Gloves()).identify();
 		SpiritBow bow = new SpiritBow();
@@ -325,12 +313,8 @@ public enum HeroClass {
 		hero.critChance = 0.15f;
 
 		Item i = new LeatherArmor().identify();
-		if (((Arena)level).arenaDepth>=16){
-			i.upgrade(2);
-			hero.belongings.armor = (LeatherArmor)i;
-		} else{
-			hero.belongings.armor = (LeatherArmor)i;
-		}
+		hero.belongings.armor = (LeatherArmor)i;
+
 
 		(hero.belongings.weapon = new Rapier()).identify().upgrade(1);
 		hero.belongings.weapon.activate(hero);
@@ -399,8 +383,11 @@ public enum HeroClass {
 
 
 		//new HeroSpellbook().identify().collect();
-		new WarriorGlowup().collect();
-		new MageBlessing().collect();
+		new WandOfMagicMissile().collect();
+		new WandOfWarding().collect();
+		new WandOfLightning().collect();
+		new WandOfCorruption().collect();
+		new WandOfCorrosion().collect();
 		new MageNecromancy().collect();
 		new RogueSwift().collect();
 		new RogueShadowclone().collect();

@@ -63,7 +63,7 @@ public class WandOfFireblast extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return 3 + lvl + chargesPerCast();
+		return 3 + lvl + chargesPerCast() + Dungeon.depth/4;
 	}
 
 	ConeAOE cone;

@@ -870,7 +870,7 @@ public abstract class Char extends Actor {
 		if (HP < 0) HP = 0;
 
 		if (!isAlive()) {
-			die( src );
+			if (this instanceof Hero) hero.faint(); else die( src );
 		} else if (HP == 0 && buff(DeathMark.DeathMarkTracker.class) != null){
 			DeathMark.processFearTheReaper(this);
 		}
@@ -952,7 +952,7 @@ public abstract class Char extends Actor {
 	}
 
 	@Override
-	protected void spend( float time ) {
+	protected void spend(float time) {
 
 		float timeScale = 1f;
 		if (buff( Slow.class ) != null) {

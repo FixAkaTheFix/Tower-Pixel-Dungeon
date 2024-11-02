@@ -92,6 +92,7 @@ public class Assets {
 		public static final String ARCS_BG  = "interfaces/" + interfaceType + "/arcs1.png";
 		public static final String ARCS_FG  = "interfaces/" + interfaceType + "/arcs2.png";
 
+
 		public static final String BANNERS  = "interfaces/" + interfaceType + "/banners.png";
 		public static final String BADGES   = "interfaces/badges.png";
 		public static final String LOCKED   = "interfaces/" + interfaceType + "/locked_badge.png";
@@ -116,6 +117,7 @@ public class Assets {
 		public static final String LOADING_CITY     = "interfaces/loading_city.png";
 		public static final String LOADING_HALLS    = "interfaces/loading_halls.png";
 
+
 		public static final String LOADING_SEWERS_HARD   = "interfaces/loading_sewers_hard.png";
 		public static final String LOADING_PRISON_HARD   = "interfaces/loading_prison_hard.png";
 		public static final String LOADING_CAVES_HARD    = "interfaces/loading_caves_hard.png";
@@ -138,7 +140,7 @@ public class Assets {
 		public static final String HERO_STAR    = "interfaces/" + interfaceType + "/herostar.png";
 
 		public static final String HERO_ICONS       = "interfaces/hero_icons.png";
-
+		public static final String MODEBUTTONICONS  = "interfaces/custon_buttons.png";
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
 	}
 

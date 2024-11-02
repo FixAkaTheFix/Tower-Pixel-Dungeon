@@ -56,12 +56,12 @@ public class WandOfLivingEarth extends DamageWand {
 	
 	@Override
 	public int min(int lvl) {
-		return 4;
+		return 4+ Dungeon.depth/3;
 	}
 	
 	@Override
 	public int max(int lvl) {
-		return 6 + 2*lvl;
+		return 6 + 2*lvl + Dungeon.depth/2;
 	}
 	
 	@Override
@@ -344,7 +344,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(2, 4 + Dungeon.scalingDepth()/2);
+			return Random.NormalIntRange(2 + Dungeon.depth/3, 4 + Dungeon.depth/2);
 		}
 
 		@Override

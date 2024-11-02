@@ -75,7 +75,7 @@ public abstract class Wand extends Item {
 	
 	protected Charger charger;
 	
-	public boolean curChargeKnown = false;
+	public boolean curChargeKnown = true;
 	
 	public boolean curseInfusionBonus = false;
 	public int resinBonus = 0;
@@ -115,6 +115,7 @@ public abstract class Wand extends Item {
 			
 		}
 	}
+
 
 	@Override
 	public int targetingPos(Hero user, int dst) {
@@ -263,6 +264,7 @@ public abstract class Wand extends Item {
 		if (Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
 			desc += "\n\n" + Messages.get(this, "bmage_desc");
 		}
+		desc+= "\n\n" + Messages.get(this, "scales_upg");
 
 		return desc;
 	}
@@ -270,10 +272,10 @@ public abstract class Wand extends Item {
 	public String statsDesc(){
 		return Messages.get(this, "stats_desc");
 	}
-	
+
 	@Override
 	public boolean isIdentified() {
-		return super.isIdentified() && curChargeKnown;
+		return true;
 	}
 	
 	@Override

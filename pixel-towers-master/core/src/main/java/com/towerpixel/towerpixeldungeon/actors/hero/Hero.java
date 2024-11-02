@@ -51,6 +51,7 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Combo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Drowsy;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Faint;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Foresight;
 import com.towerpixel.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.HoldFast;
@@ -78,6 +79,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Monk;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Snake;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.CheckedCell;
+import com.towerpixel.towerpixeldungeon.effects.CircleArc;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.SpellSprite;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
@@ -204,6 +206,8 @@ public class Hero extends Char {
 	
 	public static final int MAX_LEVEL = 30;
 
+	public int deathCount = 0;
+
 	public static final int STARTING_STR = 10;
 	private static final float TIME_TO_REST		    = 1f;
 	private static final float TIME_TO_SEARCH	    = 2f;
@@ -300,6 +304,7 @@ public class Hero extends Char {
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
+	private static final String DEATHCOUNT    = "deathcount";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -320,6 +325,8 @@ public class Hero extends Char {
 		bundle.put( EXPERIENCE, exp );
 		
 		bundle.put( HTBOOST, HTBoost );
+
+		bundle.put(DEATHCOUNT, deathCount);
 
 		belongings.storeInBundle( bundle );
 	}
@@ -343,6 +350,8 @@ public class Hero extends Char {
 		defenseSkill = bundle.getInt( DEFENSE );
 		
 		STR = bundle.getInt( STRENGTH );
+
+		deathCount = bundle.getInt(DEATHCOUNT);
 
 		belongings.restoreFromBundle( bundle );
 	}
@@ -1369,7 +1378,7 @@ public class Hero extends Char {
 	@Override
 	public void damage( int dmg, Object src ) {
 		//for Hourglass invincibility
-		if (buff(TimekeepersHourglass.timeStasis.class) != null)
+		if (buff(TimekeepersHourglass.timeStasis.class) != null || buff(Faint.class) != null)
 			return;
 
 
@@ -1504,6 +1513,20 @@ public class Hero extends Char {
 		}
 
 		visibleEnemies = visible;
+	}
+
+	public void faint(){
+		hero.deathCount++;
+		hero.sprite.play(sprite.die, true);
+		hero.sprite.emitter().start( Speck.factory( Speck.STAR), 0.05f, 10 );
+		GameScene.scene.menu.active =
+				GameScene.scene.menu.visible = false;
+		int spendDeathTime = deathCount*30;
+		hero.HP = hero.HT/(deathCount+1);
+		hero.paralysed = spendDeathTime;
+		Buff.affect(this, Faint.class,  spendDeathTime);
+		hero.invisible = spendDeathTime;
+		next();
 	}
 
 	

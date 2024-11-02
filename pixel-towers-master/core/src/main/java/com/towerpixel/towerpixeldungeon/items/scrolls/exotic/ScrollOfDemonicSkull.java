@@ -112,10 +112,10 @@ public class ScrollOfDemonicSkull extends ExoticScroll {
             for (int x = 0; x < level.width(); x++)
                 for (int y = 0; y < level.height(); y++) {
                     cell = x + level.width() * y;
-                    if (((enemy.pos%level.width() - x)*(enemy.pos%level.width() - x)) + ((enemy.pos/level.width() - y)*(enemy.pos/level.width() - y))<=36) {
+                    if (((pos%level.width() - x)*(pos%level.width() - x)) + ((pos/level.width() - y)*(pos/level.width() - y))<=36) {
                         Char ch = Char.findChar(cell);
                         if (ch != null) {
-                            ch.damage(Math.round(damageRoll()) - enemy.drRoll(), this);
+                            ch.damage(Math.round(damageRoll()) - ch.drRoll(), this);
                             Buff.affect(ch, Hex.class, 15);
                             Buff.affect(ch, Poison.class).set(12);
                         }

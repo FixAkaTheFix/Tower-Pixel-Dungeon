@@ -79,7 +79,7 @@ public class WandOfWarding extends Wand {
 		for (Buff buff : curUser.buffs()){
 			if (buff instanceof Wand.Charger){
 				if (((Charger) buff).wand() instanceof WandOfWarding){
-					maxWardEnergy += 5 + ((Charger) buff).wand().level();
+					maxWardEnergy += 10 + ((Charger) buff).wand().level();
 				}
 			}
 		}
@@ -275,13 +275,13 @@ public class WandOfWarding extends Wand {
 				default:
 					return;
 				case 4:
-					heal = Math.round(9 * healFactor);
+					heal = Math.round(16 * healFactor);
 					break;
 				case 5:
-					heal = Math.round(12 * healFactor);
+					heal = Math.round(25 * healFactor);
 					break;
 				case 6:
-					heal = Math.round(16 * healFactor);
+					heal = Math.round(36 * healFactor);
 					break;
 			}
 
@@ -329,7 +329,7 @@ public class WandOfWarding extends Wand {
 			spend( 1f );
 
 			//always hits
-			int dmg = Random.NormalIntRange( 2 + wandLevel, 8 + 4*wandLevel );
+			int dmg = Random.NormalIntRange( 2 + wandLevel+ Dungeon.depth/4, 8 + 4*wandLevel + Dungeon.depth/2 );
 			Char enemy = this.enemy;
 			enemy.damage( dmg, this );
 			if (enemy.isAlive()){
@@ -344,7 +344,7 @@ public class WandOfWarding extends Wand {
 			totalZaps++;
 			switch(tier){
 				case 1: case 2: case 3: default:
-					if (totalZaps >= (2*tier)){
+					if (totalZaps >= (3*tier)){
 						die(this);
 					}
 					break;

@@ -56,7 +56,7 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return 3+2*lvl;
+		return 3+2*lvl+ Dungeon.depth/2;
 	}
 
 	@Override

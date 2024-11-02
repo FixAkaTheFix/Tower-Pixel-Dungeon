@@ -6,9 +6,8 @@ import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
 import com.towerpixel.towerpixeldungeon.ShatteredPixelDungeon;
-import com.towerpixel.towerpixeldungeon.Statistics;
 import com.towerpixel.towerpixeldungeon.levels.Arena;
-import com.towerpixel.towerpixeldungeon.levels.Arena1;
+import com.towerpixel.towerpixeldungeon.levels.ArenaTutorial1;
 import com.towerpixel.towerpixeldungeon.levels.Arena10;
 import com.towerpixel.towerpixeldungeon.levels.Arena11;
 import com.towerpixel.towerpixeldungeon.levels.Arena12;
@@ -28,7 +27,6 @@ import com.towerpixel.towerpixeldungeon.levels.Arena6;
 import com.towerpixel.towerpixeldungeon.levels.Arena7;
 import com.towerpixel.towerpixeldungeon.levels.Arena8;
 import com.towerpixel.towerpixeldungeon.levels.Arena9;
-import com.towerpixel.towerpixeldungeon.levels.Level;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.ui.ActionIndicator;
 import com.towerpixel.towerpixeldungeon.ui.ExitButton;
@@ -89,7 +87,7 @@ public class LevelSelectScene extends PixelScene {
             case 0:
                 levelArrayList = new ArrayList<>();
                 levelArrayList.addAll(Arrays.asList(
-                        Arena1.class,
+                        ArenaTutorial1.class,
                         Arena2.class,
                         Arena3.class,
                         Arena4.class,
