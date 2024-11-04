@@ -49,10 +49,23 @@ public class RunicBlade extends MeleeWeapon {
 	//Essentially it's a tier 4 weapon, with tier 3 base max damage, and tier 5 scaling.
 	//equal to tier 4 in damage at +5
 
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(4*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  5*(tier) +                	//20 base, down from 25
-				Math.round(lvl*(tier+2));	//+6 per level, up from +5
+		return  Math.round(8*(damageModifier()) +                	//20 base, down from 25
+				3*lvl*(damageModifier()+2));	//+6 per level, up from +5
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		defender.damage(defender.drRoll()* (level() + 1), RunicBlade.class);
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

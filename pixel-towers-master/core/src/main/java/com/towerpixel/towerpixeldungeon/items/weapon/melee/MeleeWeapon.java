@@ -61,6 +61,10 @@ public class MeleeWeapon extends Weapon {
 
 	public static String AC_ABILITY = "ABILITY";
 
+	public static float damageModifier(){
+		return (float) Dungeon.depth/5;
+	}
+
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
@@ -280,14 +284,14 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public int min(int lvl) {
-		return  tier +  //base
-				lvl;    //level scaling
+		return  Math.round(3*damageModifier() +  //base
+				lvl*(damageModifier() + 1));    //level scaling
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  5*(tier+1) +    //base
-				lvl*(tier+1);   //level scaling
+		return  Math.round(6*damageModifier() +  //base
+				2*lvl*(damageModifier() + 1));   //level scaling
 	}
 
 	public int STRReq(int lvl){

@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
@@ -37,19 +38,26 @@ public class RoundShield extends MeleeWeapon {
 		image = ItemSpriteSheet.ROUND_SHIELD;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1f;
-		rarity = 2;
+		rarity = 1;
 		tier = 3;
+	}
+
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(7*(damageModifier()+1) +
+				2*lvl*(damageModifier()));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(3f*(tier+1)) +   //12 base, down from 20
-				lvl*(tier-1);               //+2 per level, down from +4
+		return  Math.round(9f*(damageModifier()+1) +   //12 base, down from 20
+				3*lvl*(damageModifier()));               //+2 per level, down from +4
 	}
 
 	@Override
 	public int defenseFactor( Char owner ) {
-		return 4+buffedLvl();               //4 extra defence, plus 1 per level
+		return 4 + buffedLvl()* Dungeon.depth/4;               //4 extra defence, plus 1 per level
 	}
 	
 	public String statsInfo(){

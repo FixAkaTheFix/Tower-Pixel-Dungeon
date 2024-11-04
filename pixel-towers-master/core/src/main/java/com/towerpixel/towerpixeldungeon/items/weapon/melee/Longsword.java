@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -34,7 +35,19 @@ public class Longsword extends MeleeWeapon {
 		hitSoundPitch = 1f;
 		rarity = 1;
 
-		tier = 4;
+		tier = 3;
+	}
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(8*(damageModifier()) +    //base
+				3*lvl*(damageModifier()));   //level scaling
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  Math.round(14*(damageModifier()+1) +    //base
+				5*lvl*(damageModifier()+1));   //level scaling
 	}
 
 	@Override

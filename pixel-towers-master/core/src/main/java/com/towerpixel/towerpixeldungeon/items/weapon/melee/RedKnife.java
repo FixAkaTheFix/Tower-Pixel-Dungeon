@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Burning;
@@ -17,23 +18,23 @@ public class RedKnife extends MeleeWeapon {
         hitSoundPitch = 1f;
         ACC= 1.2f;
         rarity = 3;
-        tier = 2;
+        tier = 3;
     }
 
     public int proc(Char attacker, Char defender, int damage) {
-        int i = Random.Int(50);
-        if (i == 5) {Buff.affect( defender, Burning.class);}//rarely sets enemies on fire
+        int i = Random.Int(5);
+        if (i == 2 && level()>0) {Buff.affect( defender, Burning.class);}//rarely sets enemies on fire
         return super.proc(attacker, defender, damage);
     }
     @Override
     public int min(int lvl) {
-        return 2 * (tier + 1) +    //6 base
-                lvl * (tier + 1);   //scaling unchanged
+        return Math.round(8 * damageModifier() +    //6 base
+                3*lvl * (damageModifier() + 1));   //scaling unchanged
     }
     @Override
     public int max(int lvl) {
-        return 3 * (tier + 1) +    //9 base
-                lvl * (tier + 1);   //scaling unchanged
+        return Math.round(10 * (damageModifier() + 1) +    //9 base
+                4*lvl * (damageModifier() + 1));   //scaling unchanged
     }
 
     @Override

@@ -27,7 +27,6 @@ import static com.towerpixel.towerpixeldungeon.items.Item.updateQuickslot;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Badges;
 import com.towerpixel.towerpixeldungeon.Bones;
-import com.towerpixel.towerpixeldungeon.Challenges;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.GamesInProgress;
 import com.towerpixel.towerpixeldungeon.SPDSettings;
@@ -53,7 +52,6 @@ import com.towerpixel.towerpixeldungeon.actors.buffs.Combo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Drowsy;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Faint;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Foresight;
-import com.towerpixel.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.towerpixel.towerpixeldungeon.actors.buffs.HoldFast;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Hunger;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
@@ -79,7 +77,6 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Monk;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Snake;
 import com.towerpixel.towerpixeldungeon.effects.CellEmitter;
 import com.towerpixel.towerpixeldungeon.effects.CheckedCell;
-import com.towerpixel.towerpixeldungeon.effects.CircleArc;
 import com.towerpixel.towerpixeldungeon.effects.Speck;
 import com.towerpixel.towerpixeldungeon.effects.SpellSprite;
 import com.towerpixel.towerpixeldungeon.items.Amulet;
@@ -138,7 +135,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.RoundShield;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Sai;
-import com.towerpixel.towerpixeldungeon.items.weapon.melee.Scimitar;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.DarksteelSaber;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.towerpixel.towerpixeldungeon.journal.Document;
 import com.towerpixel.towerpixeldungeon.journal.Notes;
@@ -251,7 +248,7 @@ public class Hero extends Char {
 	public Hero() {
 		super();
 
-		HP = HT = 20;
+		HP = HT = 50;
 		STR = STARTING_STR;
 		
 		belongings = new Belongings( this );
@@ -263,7 +260,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 
-		HT = (40 + 10*(lvl-1)) + HTBoost - (int)HTdrained;
+		HT = (50 + 20*(lvl-1)) + HTBoost - (int)HTdrained;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
 
@@ -511,7 +508,7 @@ public class Hero extends Char {
 			}
 		}
 
-		if (buff(Scimitar.SwordDance.class) != null){
+		if (buff(DarksteelSaber.SwordDance.class) != null){
 			accuracy *= 0.8f;
 		}
 		
@@ -743,7 +740,7 @@ public class Hero extends Char {
 			float speed = RingOfFuror.attackSpeedMultiplier(this);
 
 			//ditto for furor + sword dance!
-			if (buff(Scimitar.SwordDance.class) != null){
+			if (buff(DarksteelSaber.SwordDance.class) != null){
 				speed += 0.6f;
 			}
 

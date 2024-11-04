@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
@@ -38,7 +39,7 @@ public class Crossbow extends MeleeWeapon {
 		
 		//check Dart.class for additional properties
 		
-		tier = 4;
+		tier = 2;
 		rarity = 2;
 	}
 
@@ -59,8 +60,8 @@ public class Crossbow extends MeleeWeapon {
 	
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier);     //+4 per level, down from +5
+		return  Math.round(14*(damageModifier()+1) +    //20 base, down from 25
+				5*lvl*(damageModifier()));     //+4 per level, down from +5
 	}
 
 	@Override

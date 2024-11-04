@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -23,13 +24,13 @@ public class DualHatchet extends MeleeWeapon {
     }
     @Override
     public int min(int lvl) {
-        return  3*(tier+1) +   //9 base
-                lvl*(tier+1);  //+3 per level
+        return  Math.round(6*(damageModifier()+1) +
+                2*lvl*(damageModifier()+1));
     }
     @Override
     public int max(int lvl) {
-        return  6*(tier+1) +        //18 base
-                lvl*Math.round(1.6f*(tier+1));  //+4.8 per level, rounded
+        return  Math.round(15*(damageModifier()+1) +
+                5*lvl*(damageModifier()+1));
     }
     @Override
     protected void duelistAbility(Hero hero, Integer target) {

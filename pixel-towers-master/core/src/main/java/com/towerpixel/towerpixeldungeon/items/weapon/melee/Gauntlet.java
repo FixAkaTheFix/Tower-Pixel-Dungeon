@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -34,14 +35,20 @@ public class Gauntlet extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 		rarity = 2;
 		
-		tier = 5;
+		tier = 2;
 		DLY = 0.5f; //2x speed
 	}
-	
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(5*(damageModifier()+1) +
+				lvl*(damageModifier()+1));
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //15 base, down from 30
-				lvl*Math.round(0.5f*(tier+1));  //+3 per level, down from +6
+		return  Math.round(7.5f*(damageModifier()+1) +     //15 base, down from 30
+				lvl*2.5f*(damageModifier()+1));  //+3 per level, down from +6
 	}
 
 	@Override

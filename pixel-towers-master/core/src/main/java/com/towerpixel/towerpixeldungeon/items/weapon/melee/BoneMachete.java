@@ -1,6 +1,10 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Bleeding;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -14,22 +18,28 @@ public class BoneMachete extends MeleeWeapon {
         tier = 3;
         rarity = 2;
 
-        critChance = 0.1f;
-        critMult = 1.2f;
+        critChance = 0.2f;
+        critMult = 1.3f;
 
     }
 
     @Override
     public int max(int lvl) {
-        return  3*(tier+1) +    //12 base
-                lvl*(tier+1);
+        return  Math.round(15*(damageModifier()+1) +    //12 base
+                5*lvl*(damageModifier()+1));
+
     }
     @Override
     public int min(int lvl) {
-        return  2*(tier+1) +    //8 base
-                lvl*(tier+1);
+        return  Math.round(9*(damageModifier()+1) +    //8 base
+                3*lvl*(damageModifier()+1));
     }
 
+    @Override
+    public int proc(Char attacker, Char defender, int damage) {
+        Buff.affect(attacker, Bleeding.class).set(Dungeon.depth/2);
+        return super.proc(attacker, defender, damage);
+    }
 
     @Override
     public float abilityChargeUse( Hero hero ) {

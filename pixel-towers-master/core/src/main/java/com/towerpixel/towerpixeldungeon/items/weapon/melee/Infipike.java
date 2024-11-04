@@ -27,15 +27,15 @@ public class Infipike extends MeleeWeapon {
         rarity = 4;
 
 
-        tier = 8;
+        tier = 5;
         DLY = 1f;
         RCH = 100;    //Practically infinite reach
     }
 
     @Override
     public int max(int lvl) {
-        return  Math.round(2f*(tier)) +    //20 base, up from 15
-                lvl*Math.round(1f*(tier)); //+4 per level, up from +3
+        return  Math.round(10f*damageModifier()) +    //20 base, up from 15
+                4*lvl*Math.round(1f*damageModifier()); //+4 per level, up from +3
     }
 
     @Override

@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.FlavourBuff;
@@ -39,15 +40,22 @@ public class Quarterstaff extends MeleeWeapon {
 		tier = 2;
 	}
 
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(7*(damageModifier()+1) +    //12 base, down from 15
+				2*lvl*(damageModifier()+1));   //scaling unchanged
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //12 base, down from 15
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(14*(damageModifier()+1) +    //12 base, down from 15
+				5*lvl*(damageModifier()+1));   //scaling unchanged
 	}
 
 	@Override
 	public int defenseFactor( Char owner ) {
-		return 2;	//2 extra defence
+		return 2 + Dungeon.depth/4;	//2 extra defence
 	}
 
 	@Override

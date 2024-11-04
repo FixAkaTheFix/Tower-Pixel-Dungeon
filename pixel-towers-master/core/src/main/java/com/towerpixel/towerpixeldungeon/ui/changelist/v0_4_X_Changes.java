@@ -103,7 +103,7 @@ public class v0_4_X_Changes {
 				"_-_ Game size reduced by ~10%"));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(new Glaive()), "Balance Changes",
-				"_-_ Spear and Glaive damage reduced\n" +
+				"_-_ Pike and Glaive damage reduced\n" +
 				"_-_ Runic blade damage reduced\n" +
 				"_-_ Grim enchant now procs more often\n" +
 				"_-_ Glyph of stone adds more weight\n" +

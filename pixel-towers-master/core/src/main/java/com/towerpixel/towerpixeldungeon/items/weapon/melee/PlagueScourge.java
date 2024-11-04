@@ -24,46 +24,42 @@ package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Poison;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class Dirk extends MeleeWeapon {
+public class PlagueScourge extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.DIRK;
+		image = ItemSpriteSheet.ASSASSINS_BLADE;
 		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1f;
+		hitSoundPitch = 0.9f;
 		rarity = 2;
 
-		tier = 1;
-	}
-
-
-	@Override
-	public int min(int lvl) {
-		return  Math.round(4*(damageModifier()+1) +
-				1*lvl*(damageModifier()+1));
+		tier = 4;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(12*(damageModifier()+1) +
-				6*lvl*(damageModifier()+1));
+		return  Math.round(15*(damageModifier()+1) +    //20 base, down from 25
+				5*lvl*(damageModifier()+1));   //scaling unchanged
 	}
-	
+
 	@Override
 	public int damageRoll(Char owner) {
 		if (owner instanceof Hero) {
 			Hero hero = (Hero)owner;
 			Char enemy = hero.enemy();
 			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
-				//deals 67% toward max to max on surprise, instead of min to max.
+				//deals 90% toward max to max on surprise, instead of min to max, while also poisoning the foe based on depth.
 				int diff = max() - min();
 				int damage = augment.damageFactor(Random.NormalIntRange(
-						min() + Math.round(diff*0.95f),
+						min() + Math.round(diff*0.90f),
 						max()));
+				Buff.affect(enemy, Poison.class).set(level()*(Dungeon.depth/2) + 5);
 				int exStr = hero.STR() - STRReq();
 				if (exStr > 0) {
 					damage += Random.IntRange(0, exStr);
@@ -76,12 +72,12 @@ public class Dirk extends MeleeWeapon {
 
 	@Override
 	public float abilityChargeUse( Hero hero ) {
-		return 2*super.abilityChargeUse(hero);
+		return 3*super.abilityChargeUse(hero);
 	}
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Dagger.sneakAbility(hero, 6, this);
+		Dagger.sneakAbility(hero, 10, this);
 	}
 
 }

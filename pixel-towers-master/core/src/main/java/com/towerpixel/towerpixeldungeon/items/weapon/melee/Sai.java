@@ -46,14 +46,27 @@ public class Sai extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 		rarity = 2;
 
-		tier = 3;
-		DLY = 0.5f; //2x speed
+		tier = 1;
+		DLY = 0.45f; //2x speed
+	}
+
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(4*(damageModifier()+1) +
+				lvl*(damageModifier()+1));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
-				lvl*Math.round(0.5f*(tier+1));  //+2 per level, down from +4
+		return  Math.round(5.5f*(damageModifier()+1)) +
+				2*lvl*Math.round(2*(damageModifier()+1));
+	}
+
+
+	@Override
+	public float delayFactor(Char owner) {
+		return super.delayFactor(owner)/Math.max(1, level()+1);
 	}
 
 	@Override

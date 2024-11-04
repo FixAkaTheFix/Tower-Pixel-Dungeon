@@ -48,7 +48,7 @@ public class Ghoul extends Mob {
 		viewDistance = 5;
 		
 		HP = HT = 45;
-		defenseSkill = 20;
+		defenseSkill = 15;
 		
 		EXP = 5;
 		maxLvl = 20;

@@ -469,7 +469,7 @@ public class v0_6_X_Changes {
 				"_-_ Flail accuracy penalty reduced by 10%\n" +
 				"_-_ Handaxe accuracy bonus increased by 9.5%\n" +
 				"_-_ Mace accuracy bonus increased by 8%\n" +
-				"_-_ BattleAxe accuracy bonus increased by 6.5%\n" +
+				"_-_ BerserkerAxe accuracy bonus increased by 6.5%\n" +
 				"_-_ WarHammer accuracy bonus increased by 5%\n\n" +
 				"Glyph Buffs:\n" +
 				"_-_ Glyph of obfuscation no longer reduces damage blocking, but is also less powerful.\n" +
@@ -547,7 +547,7 @@ public class v0_6_X_Changes {
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Environment.TERRAIN_FEATURES, 16, 0, 16, 16), "Trap Overhaul!",
 				"Most of the game's traps have received changes, some have been overhauled entirely!\n\n" +
-				"_-_ Removed Spear and Paralytic Gas Traps\n" +
+				"_-_ Removed Pike and Paralytic Gas Traps\n" +
 				"_-_ Lightning Trap is now Shocking and Storm traps\n" +
 				"_-_ Elemental Traps now all create fields of their element\n" +
 				"_-_ Worn and Poison Trap are now Worn and Poison Dart Trap\n" +

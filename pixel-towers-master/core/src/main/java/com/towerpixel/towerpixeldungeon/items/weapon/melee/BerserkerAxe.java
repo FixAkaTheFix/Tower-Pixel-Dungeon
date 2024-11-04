@@ -22,29 +22,51 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Poison;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
+import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
-public class WornShortsword extends MeleeWeapon {
+public class BerserkerAxe extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
+		image = ItemSpriteSheet.BATTLE_AXE;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
+		hitSoundPitch = 0.9f;
 		rarity = 1;
-		tier = 1;
-		
-		bones = false;
+
+		tier = 4;
+	}
+
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(7*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
 	}
 
 	@Override
-	public float abilityChargeUse( Hero hero ) {
-		if (hero.buff(Sword.CleaveTracker.class) != null){
-			return 0;
-		} else {
-			return super.abilityChargeUse( hero );
+	public int max(int lvl) {
+		return  Math.round(10*(damageModifier()+1) +    //20 base, down from 25
+				3*lvl*(damageModifier()+1));   //scaling unchanged
+	}
+
+
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		for (int i : PathFinder.NEIGHBOURS8){
+			int cell = attacker.pos + i;
+			Char ch = Char.findChar(cell);
+			if (ch!=null) ch.damage(damage - ch.drRoll(), this);
 		}
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override
@@ -54,7 +76,7 @@ public class WornShortsword extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Sword.cleaveAbility(hero, target, 1.33f, this);
+		Mace.heavyBlowAbility(hero, target, 1.55f, this);
 	}
 
 }

@@ -112,6 +112,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.melee.MagesStaff;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Rapier;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.ShortSword;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.Sword;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.ThrowingSpike;
@@ -289,7 +290,7 @@ public enum HeroClass {
 		hero.belongings.armor = (LeatherArmor)x;
 
 
-		(hero.belongings.weapon = new Gloves()).identify();
+		(hero.belongings.weapon = new ShortSword()).identify();
 		SpiritBow bow = new SpiritBow();
 		bow.identify().collect();
 
@@ -316,7 +317,7 @@ public enum HeroClass {
 		hero.belongings.armor = (LeatherArmor)i;
 
 
-		(hero.belongings.weapon = new Rapier()).identify().upgrade(1);
+		(hero.belongings.weapon = new Rapier()).identify();
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();

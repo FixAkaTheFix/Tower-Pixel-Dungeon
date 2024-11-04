@@ -60,6 +60,7 @@ import com.towerpixel.towerpixeldungeon.items.wands.WandOfWarding;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Blazing;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Grim;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Shocking;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.Greatshield;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.RunicBlade;
 import com.towerpixel.towerpixeldungeon.levels.traps.DisintegrationTrap;
 import com.towerpixel.towerpixeldungeon.levels.traps.GrimTrap;
@@ -86,6 +87,8 @@ public class DamageSource {
         MAGICAL.add( ScrollOfSkulls.class );
         MAGICAL.add( ScrollOfDemonicSkull.class );
         MAGICAL.add( ScrollOfTeleportation.class );
+
+        MAGICAL.add( Greatshield.class);
 
         MAGICAL.add( ElementalBlast.class );
         MAGICAL.add( CursedWand.class );

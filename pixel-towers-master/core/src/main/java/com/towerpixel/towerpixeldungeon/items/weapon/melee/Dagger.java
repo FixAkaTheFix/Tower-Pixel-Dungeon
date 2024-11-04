@@ -48,9 +48,14 @@ public class Dagger extends MeleeWeapon {
 	}
 
 	@Override
+	public int min(int lvl) {
+		return  Math.round(6*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(10*(damageModifier()+1) +
+				3*lvl*(damageModifier()+1));
 	}
 	
 	@Override
@@ -62,7 +67,7 @@ public class Dagger extends MeleeWeapon {
 				//deals 75% toward max to max on surprise, instead of min to max.
 				int diff = max() - min();
 				int damage = augment.damageFactor(Random.NormalIntRange(
-						min() + Math.round(diff*0.75f),
+						min() + Math.round(diff*0.6f),
 						max()));
 				int exStr = hero.STR() - STRReq();
 				if (exStr > 0) {

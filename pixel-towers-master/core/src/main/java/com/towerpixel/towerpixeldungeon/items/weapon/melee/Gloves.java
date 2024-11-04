@@ -22,6 +22,10 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Cripple;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -35,16 +39,28 @@ public class Gloves extends MeleeWeapon {
 
 		rarity = 1;
 
-		tier = 1;
-		DLY = 0.5f; //2x speed
+		tier = 2;
+		DLY = 0.3f; //2x speed
 		
 		bones = false;
 	}
 
 	@Override
+	public int min(int lvl) {
+		return  Math.round(3*(damageModifier()+1) +
+				lvl*(damageModifier()+1));
+	}
+
+	@Override
 	public int max(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.5f*(tier+1));  //+1 per level, down from +2
+		return  Math.round(5.5f*((float)Dungeon.depth/5+1)) +     //5 base, down from 10
+				2*lvl*Math.round(((float)Dungeon.depth/5+1));  //+1 per level, down from +2
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		if (level()>0)Buff.affect(defender, Cripple.class, level()*3);
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

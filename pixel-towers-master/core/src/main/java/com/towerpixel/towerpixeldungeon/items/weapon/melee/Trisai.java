@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
@@ -23,15 +24,15 @@ public class Trisai extends MeleeWeapon {
 
     @Override
     public int max(int lvl) {
-        return  4*(tier+1) +    //16 base, down from 20
-                lvl*(tier+1);   //scaling unchanged
+        return  Math.round(13*(damageModifier()+1) +    //16 base, down from 20
+                4*lvl*(damageModifier()+1));   //scaling unchanged
     }
     @Override
     public int proc(Char attacker, Char defender, int damage) {
-        Char def = (Char)defender;//making a spare "Mob" from a "Char" class to read the defenseSkill successfully
+        Char def = defender;//making a spare "Mob" from a "Char" class to read the defenseSkill successfully
         if (def.defenseSkill(attacker) > 4){ damage += Random.Int(5);
         } else { damage+=Random.Int(def.defenseSkill(attacker));}
-        if (damage>(4*(tier+1) + this.level()*(tier+1))) damage = max(); //probably FIXME - not changing enemies armor yet (i want it to deal a bit more dmg to armored foes), make it based on reducing armor for 1 momemt, by //def.defenseSkill-=5; defender = def (like mob def)
+        if (damage>(4*(Dungeon.depth/5 +1) + this.level()*(Dungeon.depth/5+1))) damage = max(); //probably FIXME - not changing enemies armor yet (i want it to deal a bit more dmg to armored foes), make it based on reducing armor for 1 momemt, by //def.defenseSkill-=5; defender = def (like mob def)
         return super.proc(attacker, defender, damage);
     }
 

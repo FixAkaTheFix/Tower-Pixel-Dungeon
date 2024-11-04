@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Chill;
@@ -16,24 +17,24 @@ public class BlueKnife extends MeleeWeapon {
         hitSound = Assets.Sounds.HIT_STAB;
         hitSoundPitch = 1f;
         ACC= 1.2f;
-rarity = 3;
+        rarity = 3;
         tier = 2;
     }
 
     public int proc(Char attacker, Char defender, int damage) {
-        int i = Random.Int(50);
-        if (i == 5) {Buff.affect( defender, Chill.class,5);}//rarely chills enemies
+        int i = Random.Int(3);
+        if (i == 2) {Buff.affect( defender, Chill.class,3*level());}//sometimes chills enemies
         return super.proc(attacker, defender, damage);
     }
     @Override
     public int min(int lvl) {
-        return 2 * (tier + 1) +    //6 base
-                lvl * (tier + 1);   //scaling unchanged
+        return Math.round(9 * (damageModifier() + 1) +    //6 base
+                3*lvl * (damageModifier() + 1));   //scaling unchanged
     }
     @Override
     public int max(int lvl) {
-        return 3 * (tier + 1) +    //9 base
-                lvl * (tier + 1);   //scaling unchanged
+        return Math.round(10 * (damageModifier() + 1) +    //9 base
+                3*lvl * (damageModifier() + 1));   //scaling unchanged
     }
 
     @Override

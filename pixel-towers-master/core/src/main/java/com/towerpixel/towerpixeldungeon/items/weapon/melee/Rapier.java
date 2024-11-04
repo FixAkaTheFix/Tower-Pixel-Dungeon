@@ -25,6 +25,8 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Bleeding;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
@@ -44,15 +46,28 @@ public class Rapier extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.3f;
 		rarity = 1;
-		tier = 1;
+		tier = 2;
 
 		bones = false;
 	}
 
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(6*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(12*(damageModifier()+1) +    //8 base, down from 10
+				4*lvl*(damageModifier()+1));   //scaling unchanged
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		if (level()>0) Buff.affect(defender, Bleeding.class).set(Dungeon.depth/2 * level() + 5);
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

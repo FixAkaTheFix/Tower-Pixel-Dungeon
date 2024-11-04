@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -34,15 +35,21 @@ public class Glaive extends MeleeWeapon {
 		hitSoundPitch = 0.8f;
 		rarity = 1;
 
-		tier = 5;
-		DLY = 1.5f; //0.67x speed
+		tier = 2;
+		DLY = 1.3f; //0.67x speed
 		RCH = 2;    //extra reach
 	}
 
 	@Override
+	public int min(int lvl) {
+		return  Math.round(8*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+
+	@Override
 	public int max(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //40 base, up from 30
-				lvl*Math.round(1.33f*(tier+1)); //+8 per level, up from +6
+		return  Math.round(17f*(damageModifier()+1) +
+				6*lvl*(damageModifier()+1));
 	}
 
 	@Override
@@ -52,7 +59,7 @@ public class Glaive extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Spear.spikeAbility(hero, target, 1.30f, this);
+		Pike.spikeAbility(hero, target, 1.30f, this);
 	}
 
 }

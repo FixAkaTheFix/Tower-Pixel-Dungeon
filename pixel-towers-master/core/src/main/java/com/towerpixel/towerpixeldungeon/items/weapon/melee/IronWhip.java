@@ -25,7 +25,9 @@ import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Terror;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -34,7 +36,7 @@ import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
-public class Whip extends MeleeWeapon {
+public class IronWhip extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.WHIP;
@@ -43,13 +45,25 @@ public class Whip extends MeleeWeapon {
 		rarity = 2;
 
 		tier = 3;
-		RCH = 3;    //lots of extra reach
+		RCH = 2;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  Math.round(10*(damageModifier()+1) +    //12 base, down from 20
+				3*lvl*(damageModifier()));     //+3 per level, down from +4
+	}
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(8*(damageModifier()+1) +    //12 base, down from 20
+				3*lvl*(damageModifier()));     //+3 per level, down from +4
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		if (level()>0 && defender.HP < damage*4) Buff.affect(defender, Terror.class, 3);
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

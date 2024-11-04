@@ -2,7 +2,7 @@ package com.towerpixel.towerpixeldungeon.sprites;
 
 import com.towerpixel.towerpixeldungeon.Assets;
 import com.towerpixel.towerpixeldungeon.Dungeon;
-import com.towerpixel.towerpixeldungeon.items.weapon.melee.Spear;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.Pike;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -39,7 +39,7 @@ public class TowerCrossbowBallistaSprite extends MobSprite {
         if (!Dungeon.level.adjacent(cell, ch.pos)) {
 
             ((MissileSprite)parent.recycle( MissileSprite.class )).
-                    reset( this, cell, new Spear(), new Callback() {
+                    reset( this, cell, new Pike(), new Callback() {
                         @Override
                         public void call() {
                             ch.onAttackComplete();

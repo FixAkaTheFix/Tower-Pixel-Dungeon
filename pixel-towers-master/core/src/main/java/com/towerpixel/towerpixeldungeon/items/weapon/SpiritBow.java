@@ -34,6 +34,7 @@ import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
 import com.towerpixel.towerpixeldungeon.effects.Splash;
 import com.towerpixel.towerpixeldungeon.effects.particles.LeafParticle;
 import com.towerpixel.towerpixeldungeon.items.rings.RingOfSharpshooting;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.towerpixel.towerpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.towerpixel.towerpixeldungeon.levels.Terrain;
 import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
@@ -192,7 +193,8 @@ public class SpiritBow extends Weapon {
 
     @Override
     public int min(int lvl) {
-        int dmg = 1 + Dungeon.hero.lvl / 7
+        int dmg = 1 + (int) MeleeWeapon.damageModifier()
+                + (int)(lvl*MeleeWeapon.damageModifier())
                 + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
                 + (curseInfusionBonus ? 1 + Dungeon.hero.lvl / 30 : 0);
         return Math.max(0, dmg);
@@ -200,7 +202,8 @@ public class SpiritBow extends Weapon {
 
     @Override
     public int max(int lvl) {
-        int dmg = 5 + (int) (Dungeon.hero.lvl / 5f)
+        int dmg = 5 + (int) (3*MeleeWeapon.damageModifier())
+                + (int)(3*lvl*MeleeWeapon.damageModifier())
                 + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
                 + (curseInfusionBonus ? 2 + Dungeon.hero.lvl / 15 : 0);
         return Math.max(0, dmg);
@@ -275,21 +278,9 @@ public class SpiritBow extends Weapon {
     }
 
     @Override
-    public int level() {
-        int level = Dungeon.hero == null ? 0 : Dungeon.hero.lvl / 5;
-        if (curseInfusionBonus) level += 1 + level / 6;
-        return level;
-    }
-
-    @Override
     public int buffedLvl() {
         //level isn't affected by buffs/debuffs
         return level();
-    }
-
-    @Override
-    public boolean isUpgradable() {
-        return false;
     }
 
     public SpiritArrow knockArrow() {

@@ -65,7 +65,7 @@ import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Unstable;
 import com.towerpixel.towerpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.MagesStaff;
 import com.towerpixel.towerpixeldungeon.items.weapon.melee.RunicBlade;
-import com.towerpixel.towerpixeldungeon.items.weapon.melee.Scimitar;
+import com.towerpixel.towerpixeldungeon.items.weapon.melee.DarksteelSaber;
 import com.towerpixel.towerpixeldungeon.journal.Catalog;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSprite;
@@ -246,7 +246,7 @@ abstract public class Weapon extends KindOfWeapon {
 	protected float speedMultiplier(Char owner ){
 		float multi = RingOfFuror.attackSpeedMultiplier(owner);
 
-		if (owner.buff(Scimitar.SwordDance.class) != null){
+		if (owner.buff(DarksteelSaber.SwordDance.class) != null){
 			multi += 0.6f;
 		}
 
@@ -283,7 +283,8 @@ abstract public class Weapon extends KindOfWeapon {
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return (8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
+		//base 11, t1 = 11 (base for huntress), t2 = 12, t3 = 14, t4 = 15, t5 = 17
+		return (10 + (int)(tier * 1.41f) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2);
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import com.towerpixel.towerpixeldungeon.actors.Actor;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Invisibility;
+import com.towerpixel.towerpixeldungeon.actors.buffs.Vertigo;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Vulnerable;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Weakness;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
@@ -45,14 +46,29 @@ public class Mace extends MeleeWeapon {
 		hitSoundPitch = 1f;
 		rarity = 1;
 
+		critMult = 2f;
+
 		tier = 3;
 		ACC = 1.28f; //28% boost to accuracy
 	}
 
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(7*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //16 base, down from 20
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(14*(damageModifier()+1) +
+				5*lvl*(damageModifier()+1));
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		if (level()>0 && Math.random()>0.5) Buff.affect(defender, Vertigo.class, level()+1);
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

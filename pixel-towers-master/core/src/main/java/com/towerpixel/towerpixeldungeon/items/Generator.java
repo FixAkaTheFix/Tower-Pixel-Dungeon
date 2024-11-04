@@ -397,65 +397,29 @@ public class Generator {
 			WEAPON.probs = new float[]{};
 			
 			WEP_T1.classes = new Class<?>[]{
-					WornShortsword.class,
-					MagesStaff.class,
-					Dagger.class,
-					Gloves.class,
-					Rapier.class
+					Dagger.class, Dirk.class, Sai.class, ShortSword.class, Sword.class, MagesStaff.class
 			};
-			WEP_T1.probs = new float[]{ 1, 0, 1, 1, 1 };
+			WEP_T1.probs = new float[]{ 1, 1, 1, 1, 1, 0 };
 			
 			WEP_T2.classes = new Class<?>[]{
-					Shortsword.class,
-					HandAxe.class,
-					Spear.class,
-					Quarterstaff.class,
-					Dirk.class,
-					StoneHammer.class,
-					DualHatchet.class,
-					RedKnife.class,
-					BlueKnife.class,
-					CurvedKnife.class,
+					BlueKnife.class, Crossbow.class, CurvedKnife.class, DualHatchet.class, Gauntlet.class, Glaive.class, Gloves.class, HandAxe.class, Quarterstaff.class, Rapier.class
 			};
 			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4, 4, 4, 3, 3, 3};
 			
 			WEP_T3.classes = new Class<?>[]{
-					Sword.class,
-					Mace.class,
-					Scimitar.class,
-					RoundShield.class,
-					Sai.class,
-					Whip.class,
-					Trisai.class,
-					BoneMachete.class,
-					GoldenSword.class
+					BoneMachete.class, Flail.class, GoldenSword.class, IronWhip.class, Longsword.class, Mace.class, Pike.class, RedKnife.class, RoundShield.class, StoneHammer.class, Trisai.class
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4, 4, 4, 1};
+			WEP_T3.probs = new float[]{ 4, 4, 4, 4, 5, 6, 6, 5, 4, 4, 4};
 			
 			WEP_T4.classes = new Class<?>[]{
-					Longsword.class,
-					BattleAxe.class,
-					Flail.class,
-					RunicBlade.class,
-					AssassinsBlade.class,
-					Crossbow.class
+					BerserkerAxe.class, Greatshield.class, Greatsword.class, PlagueScourge.class, RunicBlade.class, WarHammer.class
 			};
 			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
 			
 			WEP_T5.classes = new Class<?>[]{
-					Greatsword.class,
-					WarHammer.class,
-					Glaive.class,
-					Greataxe.class,
-					Greatshield.class,
-					Gauntlet.class
+					Banhammer.class, Infipike.class, DarksteelSaber.class, Greataxe.class
 			};
-			WEP_T5.probs = new float[]{ 6, 4, 5, 4, 4, 4 };
-			WEP_T8.classes = new Class<?>[]{
-					Banhammer.class,
-					Infipike.class,
-			};
-			WEP_T8.probs = new float[]{ 5, 5 };
+			WEP_T5.probs = new float[]{ 6, 4, 5, 4 };
 			
 			//see Generator.randomArmor
 			ARMOR.classes = new Class<?>[]{

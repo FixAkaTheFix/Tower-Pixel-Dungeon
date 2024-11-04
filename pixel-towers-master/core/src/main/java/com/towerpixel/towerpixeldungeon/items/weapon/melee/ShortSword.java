@@ -22,58 +22,52 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
-import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
-import com.towerpixel.towerpixeldungeon.actors.mobs.Mob;
+import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
-public class AssassinsBlade extends MeleeWeapon {
+public class ShortSword extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.ASSASSINS_BLADE;
-		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 0.9f;
-		rarity = 2;
+		image = ItemSpriteSheet.SHORTSWORD;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.1f;
+		rarity = 1;
+		tier = 1;
+		
+		bones = false;
+	}
 
-		tier = 4;
+	@Override
+	public int min(int lvl) {
+		return Math.round(5*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier+1);   //scaling unchanged
-	}
-
-	@Override
-	public int damageRoll(Char owner) {
-		if (owner instanceof Hero) {
-			Hero hero = (Hero)owner;
-			Char enemy = hero.enemy();
-			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
-				//deals 50% toward max to max on surprise, instead of min to max.
-				int diff = max() - min();
-				int damage = augment.damageFactor(Random.NormalIntRange(
-						min() + Math.round(diff*0.50f),
-						max()));
-				int exStr = hero.STR() - STRReq();
-				if (exStr > 0) {
-					damage += Random.IntRange(0, exStr);
-				}
-				return damage;
-			}
-		}
-		return super.damageRoll(owner);
+		return  Math.round(10*(damageModifier()+1) +
+				4*lvl*(2*damageModifier()+1));
 	}
 
 	@Override
 	public float abilityChargeUse( Hero hero ) {
-		return 2*super.abilityChargeUse(hero);
+		if (hero.buff(Sword.CleaveTracker.class) != null){
+			return 0;
+		} else {
+			return super.abilityChargeUse( hero );
+		}
+	}
+
+	@Override
+	public String targetingPrompt() {
+		return Messages.get(this, "prompt");
 	}
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Dagger.sneakAbility(hero, 4, this);
+		Sword.cleaveAbility(hero, target, 1.33f, this);
 	}
 
 }

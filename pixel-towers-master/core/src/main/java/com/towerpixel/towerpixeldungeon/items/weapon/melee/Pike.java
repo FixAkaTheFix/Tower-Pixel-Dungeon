@@ -36,7 +36,7 @@ import com.towerpixel.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
-public class Spear extends MeleeWeapon {
+public class Pike extends MeleeWeapon {
 
 	{
 		image = ItemSpriteSheet.SPEAR;
@@ -44,15 +44,21 @@ public class Spear extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 		rarity = 1;
 
-		tier = 2;
+		tier = 3;
 		DLY = 1.5f; //0.67x speed
-		RCH = 2;    //extra reach
+		RCH = 4;    //extra reach
+	}
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(5*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //20 base, up from 15
-				lvl*Math.round(1.33f*(tier+1)); //+4 per level, up from +3
+		return  Math.round(20f*(damageModifier()+1)) +    //20 base, up from 15
+				lvl*Math.round(6f*(damageModifier()+1)); //+4 per level, up from +3
 	}
 
 	@Override
@@ -62,7 +68,7 @@ public class Spear extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Spear.spikeAbility(hero, target, 1.40f, this);
+		Pike.spikeAbility(hero, target, 1.40f, this);
 	}
 
 	public static void spikeAbility(Hero hero, Integer target, float dmgMulti, MeleeWeapon wep){

@@ -22,18 +22,29 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Actor;
+import com.towerpixel.towerpixeldungeon.actors.Char;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Blob;
+import com.towerpixel.towerpixeldungeon.actors.blobs.Fire;
+import com.towerpixel.towerpixeldungeon.actors.blobs.StenchGas;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
+import com.towerpixel.towerpixeldungeon.scenes.GameScene;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
-public class Shortsword extends MeleeWeapon {
+import java.util.ArrayList;
+
+public class MoltenDagger extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.SHORTSWORD;
+		image = ItemSpriteSheet.WORN_SHORTSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
 		rarity = 1;
-		tier = 2;
+		tier = 5;
 	}
 
 	@Override
@@ -43,6 +54,32 @@ public class Shortsword extends MeleeWeapon {
 		} else {
 			return super.abilityChargeUse( hero );
 		}
+	}
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(7*(damageModifier()+1) +
+				2*lvl*(damageModifier()+1));
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  Math.round(10*(damageModifier()+1) +
+				3*lvl*(damageModifier()+1));
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		ArrayList<Integer> respawnPoints = new ArrayList<>();
+		for (int iz = 0; iz < PathFinder.NEIGHBOURS25.length; iz++) {
+			int p = defender.pos + PathFinder.NEIGHBOURS8[iz];
+			if (Actor.findChar(p) == null && Dungeon.level.passable[p]) {
+				respawnPoints.add(p);
+			}
+		}
+		if (!respawnPoints.isEmpty())GameScene.add(Blob.seed(Random.element(respawnPoints), 3, Fire.class));
+		if (level()>0) GameScene.add(Blob.seed(attacker.pos, 3, Fire.class));
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

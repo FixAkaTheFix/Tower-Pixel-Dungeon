@@ -22,6 +22,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -35,13 +36,20 @@ public class HandAxe extends MeleeWeapon {
 		rarity = 1;
 
 		tier = 2;
-		ACC = 1.32f; //32% boost to accuracy
+		ACC = 2f; //100% boost to accuracy
+	}
+
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(10*(damageModifier()+1) +
+				3*lvl*(damageModifier()+1));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //12 base, down from 15
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(12*(damageModifier()+1) +    //12 base, down from 15
+				4*lvl*(damageModifier()+1));   //scaling unchanged
 	}
 
 	@Override

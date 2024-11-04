@@ -44,15 +44,15 @@ public class Flail extends MeleeWeapon {
 		hitSoundPitch = 0.8f;
 		rarity = 1;
 
-		tier = 4;
-		ACC = 0.8f; //0.8x accuracy
+		tier = 3;
+		ACC = 0.5f; //0.5x accuracy
 		//also cannot surprise attack, see Hero.canSurpriseAttack
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(7*(tier+1)) +        //35 base, up from 25
-				lvl*Math.round(1.6f*(tier+1));  //+8 per level, up from +5
+		return  Math.round(30*(damageModifier()+1)) +        //35 base, up from 25
+				10*lvl*Math.round(damageModifier()+1);  //+8 per level, up from +5
 	}
 
 	private static float spinBonus = 1f;

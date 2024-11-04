@@ -1,6 +1,7 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
 import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Buff;
 import com.towerpixel.towerpixeldungeon.actors.buffs.Hex;
@@ -20,22 +21,22 @@ public class CurvedKnife extends MeleeWeapon {
         ACC = 1.2f;
         visiblyCursed();
         tier = 2;
-        rarity = 3;
+        rarity = 2;
     }
     @Override
     public int min(int lvl) {
-        return (tier + 1) +    //3 base
-                lvl * (tier + 1) + (int)Math.sqrt(sac);   //scaling the same
+        return Math.round(9 * (damageModifier() + 1) +    //3 base
+                3*lvl * (damageModifier() + 1) + (int)Math.sqrt(sac));   //scaling the same
     }
     @Override
     public int max(int lvl) {
-        return 2 * (tier + 1) +    //6 base
-                lvl * (tier + 1) + sac;   //scaling unchanged
+        return Math.round(10 * (damageModifier() + 1) +    //6 base
+                4*lvl * (damageModifier() + 1) + sac);   //scaling unchanged
     }
     ///they increase with each sacrificed duelist
 
     public int proc(Char attacker, Char defender, int damage) {
-        Buff.affect( defender, Hex.class,2 );
+        Buff.affect( defender, Hex.class,4 * level()  );
         return super.proc(attacker, defender, damage);
     }
 

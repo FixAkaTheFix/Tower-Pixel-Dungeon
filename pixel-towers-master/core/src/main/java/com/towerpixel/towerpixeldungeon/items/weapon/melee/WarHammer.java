@@ -22,7 +22,11 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
+import com.towerpixel.towerpixeldungeon.items.wands.WandOfBlastWave;
+import com.towerpixel.towerpixeldungeon.mechanics.Ballistica;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
 
@@ -33,14 +37,28 @@ public class WarHammer extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		hitSoundPitch = 1f;
 		rarity = 2;
-		tier = 5;
+		tier = 4;
 		ACC = 1.20f; //20% boost to accuracy
+	}
+
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(9*(damageModifier()+1) +
+				3*lvl*(damageModifier()+1));
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  4*(tier+1) +    //24 base, down from 30
-				lvl*(tier+1);   //scaling unchanged
+		return  Math.round(22*(damageModifier()+1) +    //24 base, down from 30
+				8*lvl*(damageModifier()+1));   //scaling unchanged
+	}
+
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		(new WandOfBlastWave()).onZap(new Ballistica(attacker.pos, defender.pos, Ballistica.STOP_TARGET));
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override

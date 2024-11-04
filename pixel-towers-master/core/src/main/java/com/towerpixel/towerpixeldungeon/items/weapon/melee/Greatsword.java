@@ -22,6 +22,8 @@
 package com.towerpixel.towerpixeldungeon.items.weapon.melee;
 
 import com.towerpixel.towerpixeldungeon.Assets;
+import com.towerpixel.towerpixeldungeon.Dungeon;
+import com.towerpixel.towerpixeldungeon.actors.Char;
 import com.towerpixel.towerpixeldungeon.actors.hero.Hero;
 import com.towerpixel.towerpixeldungeon.messages.Messages;
 import com.towerpixel.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -34,7 +36,19 @@ public class Greatsword extends MeleeWeapon {
 		hitSoundPitch = 1f;
 		rarity = 1;
 
-		tier = 5;
+		tier = 4;
+	}
+
+	@Override
+	public int min( int lvl) {
+		return  Math.round(13*(damageModifier()+1) +
+				4*lvl*(damageModifier()+1));
+	}
+
+	@Override
+	public int max( int lvl) {
+		return  Math.round(14*(damageModifier()+1) +
+				5*lvl*(damageModifier()+1));
 	}
 
 	@Override
@@ -44,6 +58,15 @@ public class Greatsword extends MeleeWeapon {
 		} else {
 			return super.abilityChargeUse( hero );
 		}
+
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		if (level()>0 && defender.HP < damage*2){
+			defender.die(attacker);
+		}
+		return super.proc(attacker, defender, damage);
 	}
 
 	@Override
