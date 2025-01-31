@@ -240,7 +240,7 @@ public class BossOoze extends Mob {
                         pos = newpos;
                         Dungeon.level.occupyCell(BossOoze.this);
                         addImages();
-                        spend(1f);
+                        spend(1.01f);
                         next();
                         if (DeviceCompat.isDebug()) DeviceCompat.log("OOZE", "jumpTimer ability call ended");
                     }
@@ -291,7 +291,7 @@ public class BossOoze extends Mob {
                 return false;
             } else {
                 if (DeviceCompat.isDebug()) DeviceCompat.log("OOZE", "phase 1 slimeShot no candidates");
-                spend(1f);
+                spend(1.01f);
                 addImages();
                 return true;
             }
@@ -303,7 +303,7 @@ public class BossOoze extends Mob {
             if (jumpCooldown <= 0) {
 
                 jumpCooldown = 2;
-                spend(1f);
+                spend(1.01f);
                 sprite.jump(pos, pos, 100, 0.9f, new Callback() {
                     @Override
                     public void call() {
@@ -348,7 +348,7 @@ public class BossOoze extends Mob {
         } else if (Math.random()>0.2 && phase == 3) {
             if (DeviceCompat.isDebug()) DeviceCompat.log("OOZE", "phase 3 action started");
             abChargeShot();
-            spend(1);
+            spend(1.01f);
             addImages();
             collisionDamageCheck();
             next();
@@ -386,7 +386,7 @@ public class BossOoze extends Mob {
                     CausticSlime slime = new CausticSlime();
                     slime.pos = pos + i;
                     slime.state = HUNTING;
-                    slime.spend(1);
+                    slime.spend(1.02f);
                     CellEmitter.floor(pos+i).start(ElmoParticle.FACTORY, 0.1f, 10);
                     GameScene.add(slime);
                 }

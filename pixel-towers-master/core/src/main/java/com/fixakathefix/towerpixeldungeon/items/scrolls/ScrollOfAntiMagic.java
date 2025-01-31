@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.items.EquipableItem;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.armor.Armor;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.fixakathefix.towerpixeldungeon.items.quest.CorpseDust;
 import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.items.weapon.Weapon;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -59,6 +60,8 @@ public class ScrollOfAntiMagic extends Scroll {
 			return ((Weapon)item).hasCurseEnchant();
 		} else if (item instanceof Armor){
 			return ((Armor)item).hasCurseGlyph();
+		} else if (item instanceof CorpseDust){
+			return true;
 		} else {
 			return false;
 		}
