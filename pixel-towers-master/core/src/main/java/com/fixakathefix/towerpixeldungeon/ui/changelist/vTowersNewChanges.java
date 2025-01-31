@@ -376,6 +376,7 @@ public class vTowersNewChanges {
 				"Bugs removed:\n" +
 						"- Ooze bad bugs, IBNLM: bad collision, softlocking, infinite jumping, double acting, crashing the game\n" +
 						"- Towers immune to barkskin\n" +
+						"- Many buffs not having a cooldown displayed\n"+
 						"- Stone of prediction working as garbage, predicting a single wave. Now it not only works, but adds an entirely new mechanic which allows you to predict several next waves\n" +
 						"- Dwarf King insta-killing the amulet, teleporting chaotically\n" +
 						"- Tower false targeting\n" +

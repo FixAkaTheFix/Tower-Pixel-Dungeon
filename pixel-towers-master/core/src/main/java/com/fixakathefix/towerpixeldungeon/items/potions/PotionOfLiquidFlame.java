@@ -62,6 +62,6 @@ public class PotionOfLiquidFlame extends Potion {
 	
 	@Override
 	public int value() {
-		return isKnown() ? 13 * quantity * (int)Math.sqrt(Math.sqrt(Math.sqrt(Dungeon.depth))) : super.value();
+		return isKnown() ? 20 * quantity * (int)Math.sqrt(Math.sqrt(Math.sqrt(Dungeon.depth))) : super.value();
 	}
 }
