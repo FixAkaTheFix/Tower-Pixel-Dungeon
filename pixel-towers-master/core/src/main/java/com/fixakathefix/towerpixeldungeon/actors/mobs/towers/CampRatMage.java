@@ -34,10 +34,10 @@ public class CampRatMage extends CampRat {
 		spriteClass = CampRatMageSprite.class;
 		
 		HP = HT = 8;
-		defenseSkill = 5;
+		defenseSkill = 1;
 
-		damageMin = 14;
-		damageMax = 40;
+		damageMin = 10;
+		damageMax = 31;
 		defMin = 0;
 		defMax = 1;
 
@@ -57,7 +57,7 @@ public class CampRatMage extends CampRat {
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return super.canAttack(enemy)
-				|| distance(enemy)<=6;
+				|| distance(enemy)<=5;
 	}
 	
 

@@ -12,7 +12,7 @@ public class TowerLightning2 extends TowerLightning1 {
 
         cost = 600;
         upgrade1Cost = 700;
-        damageMin = 25;
+        damageMin = 20;
         damageMax = 40;
         upgradeLevel = 8;
         maxChainLength = 3;

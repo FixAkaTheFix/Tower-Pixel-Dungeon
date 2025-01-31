@@ -12,8 +12,8 @@ public class TowerLightning3 extends TowerLightning2 {
 
         cost = 1300;
         upgCount = 0;
-        damageMin = 39;
-        damageMax = 99;
+        damageMin = 35;
+        damageMax = 95;
         upgradeLevel = 12;
         maxChainLength = 4;
     }
