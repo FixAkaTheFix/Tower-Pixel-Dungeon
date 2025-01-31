@@ -31,10 +31,10 @@ public class RegionLorePage {
 
 	public static DocumentPage pageForDoc( Document doc ){
 		switch (doc){
-			case SEWERS_GUARD: default:     return new RegionLorePage.Sewers();
-			case PRISON_WARDEN:             return new RegionLorePage.Prison();
-			case CAVES_EXPLORER:            return new RegionLorePage.Caves();
-			case CITY_WARLOCK:              return new RegionLorePage.City();
+			case RK_LOG: default:     return new RegionLorePage.Sewers();
+			case PRISONER:             return new RegionLorePage.Prison();
+			case DM_LOG:            return new RegionLorePage.Caves();
+			case GIBBERISH:              return new RegionLorePage.City();
 			case HALLS_KING:                return new RegionLorePage.Halls();
 		}
 	}
@@ -46,7 +46,7 @@ public class RegionLorePage {
 
 		@Override
 		public Document document() {
-			return Document.SEWERS_GUARD;
+			return Document.RK_LOG;
 		}
 	}
 
@@ -57,7 +57,7 @@ public class RegionLorePage {
 
 		@Override
 		public Document document() {
-			return Document.PRISON_WARDEN;
+			return Document.PRISONER;
 		}
 	}
 
@@ -68,7 +68,7 @@ public class RegionLorePage {
 
 		@Override
 		public Document document() {
-			return Document.CAVES_EXPLORER;
+			return Document.DM_LOG;
 		}
 	}
 
@@ -79,7 +79,7 @@ public class RegionLorePage {
 
 		@Override
 		public Document document() {
-			return Document.CITY_WARLOCK;
+			return Document.GIBBERISH;
 		}
 	}
 

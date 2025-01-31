@@ -500,10 +500,10 @@ public abstract class RegularLevel extends Level {
 			Document regionDoc;
 			switch( region ){
 				default: regionDoc = null; break;
-				case 1: regionDoc = Document.SEWERS_GUARD; break;
-				case 2: regionDoc = Document.PRISON_WARDEN; break;
-				case 3: regionDoc = Document.CAVES_EXPLORER; break;
-				case 4: regionDoc = Document.CITY_WARLOCK; break;
+				case 1: regionDoc = Document.RK_LOG; break;
+				case 2: regionDoc = Document.PRISONER; break;
+				case 3: regionDoc = Document.DM_LOG; break;
+				case 4: regionDoc = Document.GIBBERISH; break;
 				case 5: regionDoc = Document.HALLS_KING; break;
 			}
 
@@ -557,10 +557,10 @@ public abstract class RegularLevel extends Level {
 
 	private static HashMap<Document, Dungeon.LimitedDrops> limitedDocs = new HashMap<>();
 	static {
-		limitedDocs.put(Document.SEWERS_GUARD, Dungeon.LimitedDrops.LORE_SEWERS);
-		limitedDocs.put(Document.PRISON_WARDEN, Dungeon.LimitedDrops.LORE_PRISON);
-		limitedDocs.put(Document.CAVES_EXPLORER, Dungeon.LimitedDrops.LORE_CAVES);
-		limitedDocs.put(Document.CITY_WARLOCK, Dungeon.LimitedDrops.LORE_CITY);
+		limitedDocs.put(Document.RK_LOG, Dungeon.LimitedDrops.LORE_SEWERS);
+		limitedDocs.put(Document.PRISONER, Dungeon.LimitedDrops.LORE_PRISON);
+		limitedDocs.put(Document.DM_LOG, Dungeon.LimitedDrops.LORE_CAVES);
+		limitedDocs.put(Document.GIBBERISH, Dungeon.LimitedDrops.LORE_CITY);
 		limitedDocs.put(Document.HALLS_KING, Dungeon.LimitedDrops.LORE_HALLS);
 	}
 	

@@ -21,17 +21,12 @@
 
 package com.fixakathefix.towerpixeldungeon.journal;
 
-import com.fixakathefix.towerpixeldungeon.Dungeon;
-import com.fixakathefix.towerpixeldungeon.actors.hero.HeroClass;
-import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
+import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.ChiefRatSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.GoblinSprite;
-import com.fixakathefix.towerpixeldungeon.sprites.HeroSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
-import com.fixakathefix.towerpixeldungeon.sprites.PortalSprite;
-import com.fixakathefix.towerpixeldungeon.sprites.RatSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerGuard1Sprite;
 import com.fixakathefix.towerpixeldungeon.ui.Icons;
@@ -48,10 +43,10 @@ public enum Document {
 	ALCHEMY_GUIDE(ItemSpriteSheet.ALCH_PAGE, false),
 
 	INTROS(Icons.STAIRS, true),
-	SEWERS_GUARD(ItemSpriteSheet.SEWER_PAGE, true),
-	PRISON_WARDEN(ItemSpriteSheet.PRISON_PAGE, true),
-	CAVES_EXPLORER(ItemSpriteSheet.CAVES_PAGE, true),
-	CITY_WARLOCK(ItemSpriteSheet.CITY_PAGE, true),
+	RK_LOG(ItemSpriteSheet.SEWER_PAGE, true),
+	PRISONER(ItemSpriteSheet.PRISON_PAGE, true),
+	DM_LOG(ItemSpriteSheet.CAVES_PAGE, true),
+	GIBBERISH(ItemSpriteSheet.CITY_PAGE, true),
 	HALLS_KING(ItemSpriteSheet.HALLS_PAGE, true);
 	
 	Document( int sprite, boolean lore ){
@@ -272,22 +267,22 @@ public enum Document {
 	static {
 		boolean debug = DeviceCompat.isDebug();
 		//hero gets these when guidebook is collected
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_INTRO,          debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_PORTAL,      debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_HERO,      debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_MOBS,          debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_TOWERS,        debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SPELLS,         debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_FOOD,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DAMAGE,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SEARCHING,      debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SHOPKEEPER,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_UPGRADES,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_TIME,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_LEVELLING,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_POSITIONING,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_BOSSES,           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_STRENGTH,           debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_INTRO,             READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_PORTAL,            READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_HERO,              READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_MOBS,              READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_TOWERS,            READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SPELLS,            READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_FOOD,              READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DAMAGE,            READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SEARCHING,         READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SHOPKEEPER,        READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_UPGRADES,          READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_TIME,              READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_LEVELLING,         READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_POSITIONING,       READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_BOSSES,            READ);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_STRENGTH,          READ);
 
 		
 		//given in sewers
@@ -303,46 +298,46 @@ public enum Document {
 		ALCHEMY_GUIDE.pagesStates.put("Spells",                 debug ? READ : NOT_FOUND);
 
 		INTROS.pagesStates.put("Dungeon",                       READ);
-		INTROS.pagesStates.put("Sewers",                        debug ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Prison",                        debug ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Caves",                         debug ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("City",                          debug ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Halls",                         debug ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Sewers",                        SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Prison",                        SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Caves",                         SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("City",                          SPDSettings.maxlevelunlocked()>20 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Halls",                         SPDSettings.maxlevelunlocked()>25 ? READ : NOT_FOUND);
 
-		SEWERS_GUARD.pagesStates.put("new_position",            debug ? READ : NOT_FOUND);
-		SEWERS_GUARD.pagesStates.put("dangerous",               debug ? READ : NOT_FOUND);
-		SEWERS_GUARD.pagesStates.put("crabs",                   debug ? READ : NOT_FOUND);
-		SEWERS_GUARD.pagesStates.put("guild",                   debug ? READ : NOT_FOUND);
-		SEWERS_GUARD.pagesStates.put("lost",                    debug ? READ : NOT_FOUND);
-		SEWERS_GUARD.pagesStates.put("not_worth",               debug ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("new_position",            SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("dangerous",               SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("crabs",                   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("guild",                   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("lost",                    SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("not_worth",               SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
 
-		PRISON_WARDEN.pagesStates.put("journal",                debug ? READ : NOT_FOUND);
-		PRISON_WARDEN.pagesStates.put("recruits",               debug ? READ : NOT_FOUND);
-		PRISON_WARDEN.pagesStates.put("mines",                  debug ? READ : NOT_FOUND);
-		PRISON_WARDEN.pagesStates.put("rotberry",               debug ? READ : NOT_FOUND);
-		PRISON_WARDEN.pagesStates.put("no_support",             debug ? READ : NOT_FOUND);
-		PRISON_WARDEN.pagesStates.put("letter",                 debug ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("journal",                SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("recruits",               SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("mines",                  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("rotberry",               SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("no_support",             SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("letter",                 SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
 
-		CAVES_EXPLORER.pagesStates.put("expedition",            debug ? READ : NOT_FOUND);
-		CAVES_EXPLORER.pagesStates.put("gold",                  debug ? READ : NOT_FOUND);
-		CAVES_EXPLORER.pagesStates.put("troll",                 debug ? READ : NOT_FOUND);
-		CAVES_EXPLORER.pagesStates.put("city",                  debug ? READ : NOT_FOUND);
-		CAVES_EXPLORER.pagesStates.put("alive",                 debug ? READ : NOT_FOUND);
-		CAVES_EXPLORER.pagesStates.put("report",                debug ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("log_1",                 SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("log_2",                 SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("log_10",                SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("log_186",               SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("log_195",               SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		DM_LOG.pagesStates.put("error_message",         SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
 
-		CITY_WARLOCK.pagesStates.put("old_king",                debug ? READ : NOT_FOUND);
-		CITY_WARLOCK.pagesStates.put("resistance",              debug ? READ : NOT_FOUND);
-		CITY_WARLOCK.pagesStates.put("failure",                 debug ? READ : NOT_FOUND);
-		CITY_WARLOCK.pagesStates.put("more_powerful",           debug ? READ : NOT_FOUND);
-		CITY_WARLOCK.pagesStates.put("new_power",               debug ? READ : NOT_FOUND);
-		CITY_WARLOCK.pagesStates.put("seen_it",                 debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("old_king",                debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("resistance",              debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("failure",                 debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("more_powerful",           debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("new_power",               debug ? READ : NOT_FOUND);
+		GIBBERISH.pagesStates.put("seen_it",                 debug ? READ : NOT_FOUND);
 
 		HALLS_KING.pagesStates.put("Rejection",                 debug ? READ : NOT_FOUND);
 		HALLS_KING.pagesStates.put("amulet",                    debug ? READ : NOT_FOUND);
 		HALLS_KING.pagesStates.put("ritual",                    debug ? READ : NOT_FOUND);
 		HALLS_KING.pagesStates.put("new_king",                  debug ? READ : NOT_FOUND);
 		HALLS_KING.pagesStates.put("thing",                     debug ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put(KING_ATTRITION,              debug ? NOT_FOUND : NOT_FOUND);
+		HALLS_KING.pagesStates.put(KING_ATTRITION,              debug ? READ : NOT_FOUND);
 
 	}
 	
