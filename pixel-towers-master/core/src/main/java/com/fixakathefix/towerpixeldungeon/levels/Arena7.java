@@ -57,6 +57,8 @@ public class Arena7 extends Arena{
         exitCell = amuletCell;
         towerShopKeeperCell = 26 + 25*WIDTH;
         normalShopKeeperCell = 34 + 25*WIDTH;
+
+        maxWaves = 15;
     }
 
     @Override
