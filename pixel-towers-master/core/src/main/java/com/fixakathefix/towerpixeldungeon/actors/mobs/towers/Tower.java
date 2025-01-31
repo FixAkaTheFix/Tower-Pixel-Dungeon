@@ -168,9 +168,9 @@ public class Tower extends Mob {
     }
 
     public void sell() {
-        die(hero);
         int totalcost = (this instanceof TowerTntLog) ? Math.round(this.cost * 0.3f)
                 : Math.round(this.cost * 0.3f + this.cost * 0.5f *((float)Math.min(this.HP, this.HT)/this.HT));
+        die(hero);
         Dungeon.level.drop( new Gold(totalcost), pos ).sprite.drop();
     }
 
