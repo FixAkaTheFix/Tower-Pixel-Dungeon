@@ -348,11 +348,7 @@ public class WndSettings extends WndTabbed {
 
 			bottom = sep1.y + 1;
 
-			if (width > 200 && chkSaver != null) {
-				chkFullscreen.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
-				chkSaver.setRect(chkFullscreen.right()+ GAP, bottom + GAP, width/2-1, BTN_HEIGHT);
-				bottom = chkFullscreen.bottom();
-			} else {
+			{
 				chkFullscreen.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkFullscreen.bottom();
 				chkStatusNumbersOn.setRect(0, bottom + GAP, width, BTN_HEIGHT);

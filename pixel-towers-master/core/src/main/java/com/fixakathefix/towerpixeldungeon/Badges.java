@@ -84,7 +84,7 @@ public class Badges {
 //192
 
 		//bosses
-		OOZE(208), TENGU(209), DWM(210),KING(211),YOG(212), VICTORY( 213 );
+		OOZE(208), TENGU(209), DWM(210),KING(211),YOG(212), VICTORY( 213 , true);
 
 
 		public boolean meta;
@@ -628,6 +628,7 @@ public class Badges {
 	
 	public static void unlock( Badge badge ){
 		if (!isUnlocked(badge) && Dungeon.customSeedText.isEmpty()){
+			if (badge == Badge.VICTORY) SPDSettings.introsOff(true);//a sneaky thing for intros to stop showing after the first gaining of the badge
 			global.add( badge );
 			saveNeeded = true;
 		}
