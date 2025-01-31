@@ -101,6 +101,8 @@ public class ScrollOfHolyNova extends ExoticScroll {
 					ScrollOfAntiMagic.uncurse(hero, item);
 				}
 			}
+			hero.belongings.uncurseEquipped();
+
 
 			HashSet<Mob> mobsFukConcurrentModificationException = new HashSet<>(Dungeon.level.mobs);
 

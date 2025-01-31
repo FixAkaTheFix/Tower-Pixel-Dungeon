@@ -64,6 +64,8 @@ import com.fixakathefix.towerpixeldungeon.items.armor.MailArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.PlateArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.RogueArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.WarriorArmor;
+import com.fixakathefix.towerpixeldungeon.items.armor.curses.AntiEntropy;
+import com.fixakathefix.towerpixeldungeon.items.armor.curses.Unreliable;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.BrokenHourglass;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.CloakOfShadows;
@@ -117,7 +119,9 @@ import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfRage;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.debuggers.WandOfDebug;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfHolyNova;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfMetamorphosis;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfRatLegion;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfUnspeakableHorrors;
@@ -155,6 +159,7 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingSpike;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.BlindingDart;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.HealingDart;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.PoisonDart;
+import com.fixakathefix.towerpixeldungeon.levels.traps.Trap;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.BlandfruitBush;
 import com.fixakathefix.towerpixeldungeon.plants.Sorrowmoss;
@@ -514,6 +519,10 @@ public enum HeroClass {
 		PlateArmor armor = new PlateArmor();
 		armor.identify().collect();
 		armor.upgrade(150);
+		armor.cursed = true;
+		armor.inscribe(new AntiEntropy());
+
+		new ScrollOfHolyNova().collect();
 
 		WandOfDebug buggo = new WandOfDebug();
 		buggo.identify().collect();

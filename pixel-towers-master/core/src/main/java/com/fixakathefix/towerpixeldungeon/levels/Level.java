@@ -495,7 +495,7 @@ public abstract class Level implements Bundlable {
 	}
 
 	public boolean cellAdjacentToBorderCells(int cell){
-		return (cell / width <= 1 || cell / width >= height-1 || cell % width <= 1 || cell % width >= height-1 ) ;
+		return (cell / width() <= 1 || cell / width() >= height()-1 || cell % width() <= 1 || cell % width() >= height()-1 ) ;
 	}
 	
 	public String tilesTex() {

@@ -362,7 +362,7 @@ public class Arena5 extends Arena{
             Painter.set(this, x, 31, Terrain.STATUE);
             Painter.set(this, x, 39, Terrain.STATUE);
         }
-
+        Painter.fill(this, 42,27, 1,3, Terrain.EMPTY);
         LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
 
         transitions.add(exit);
@@ -383,7 +383,7 @@ public class Arena5 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++) if (m<1300||m>3700){
-            if (this.passable[m] && distance(amuletCell,m) > 15) candidates.add(m);
+            if (this.passable[m] && !cellAdjacentToBorderCells(m) && distance(amuletCell,m) > 15) candidates.add(m);
         }
         this.drop(new Gold(100),Random.element(candidates));
         this.drop(new Gold(100),Random.element(candidates));
@@ -434,7 +434,7 @@ public class Arena5 extends Arena{
         this.drop(new IronKey(arenaDepth),Random.element(candidates));
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
+            if (this.map[m] == Terrain.EMPTY_SP  && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
         this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
@@ -456,7 +456,7 @@ public class Arena5 extends Arena{
 
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.map[m] == Terrain.HIGH_GRASS) candidates.add(m);
+            if (this.map[m] == Terrain.HIGH_GRASS  && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         this.drop(new RoseSeed(), Random.element(candidates));
         this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
@@ -471,7 +471,7 @@ public class Arena5 extends Arena{
 
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.map[m] == Terrain.WATER && distance(amuletCell,m) > 20) candidates.add(m);
+            if (this.map[m] == Terrain.WATER && distance(amuletCell,m) > 20  && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
         this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
