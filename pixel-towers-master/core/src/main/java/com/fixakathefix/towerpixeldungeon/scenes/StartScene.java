@@ -141,7 +141,7 @@ public class StartScene extends PixelScene {
 		protected void createChildren() {
 			super.createChildren();
 			
-			bg = Chrome.get(Chrome.Type.GEM);
+			bg = Chrome.get(Chrome.Type.GREY_BUTTON_TR);
 			add( bg);
 			
 			name = PixelScene.renderTextBlock(9);

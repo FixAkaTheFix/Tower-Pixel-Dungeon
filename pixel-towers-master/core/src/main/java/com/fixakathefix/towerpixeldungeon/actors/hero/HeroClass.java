@@ -51,6 +51,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.warrior.Shockwav
 import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.fixakathefix.towerpixeldungeon.items.Amulet;
 import com.fixakathefix.towerpixeldungeon.items.BrokenSeal;
+import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.Waterskin;
 import com.fixakathefix.towerpixeldungeon.items.armor.ClassArmor;
@@ -63,12 +64,14 @@ import com.fixakathefix.towerpixeldungeon.items.armor.MailArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.PlateArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.RogueArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.WarriorArmor;
+import com.fixakathefix.towerpixeldungeon.items.artifacts.BrokenHourglass;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.CloakOfShadows;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.HornOfPlenty;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.RoseSeed;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.SandalsOfNature;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.fixakathefix.towerpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.fixakathefix.towerpixeldungeon.items.debuggers.StableTeleportScroll;
 import com.fixakathefix.towerpixeldungeon.items.debuggers.StaffOfBeasts;
 import com.fixakathefix.towerpixeldungeon.items.food.Food;
@@ -107,6 +110,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEss
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.Scroll;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
@@ -155,6 +159,7 @@ import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.Sorrowmoss;
 import com.fixakathefix.towerpixeldungeon.plants.Starflower;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Reflection;
 
 public enum HeroClass {
 
@@ -325,7 +330,7 @@ public enum HeroClass {
 	}
 
 	private static void initWarrior( Hero hero ) {
-		hero.critMult = 1.3f;
+		hero.critMult = 2f;
 		hero.STR = 14;
 		hero.attackSkill = 9;
 
@@ -520,6 +525,13 @@ public enum HeroClass {
 
 		StableTeleportScroll stableTeleportScroll=new StableTeleportScroll();
 		stableTeleportScroll.identify().collect();
+
+		new BrokenHourglass().collect();
+		new UnstableSpellbook().collect();
+		for (Class cas : Generator.Category.SCROLL.classes){
+			Scroll s = (Scroll)Reflection.newInstance(cas);
+			s.collect();
+		}
 
 
 	}

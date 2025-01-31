@@ -43,7 +43,7 @@ public class AndroidMissingNativesHandler extends Activity {
 		TextView text = new TextView(this);
 		text.setText("Shattered Pixel Dungeon cannot start because some of its code is missing!\n\n" +
 				"This usually happens when the Google Play version of the game is installed from somewhere outside of Google Play.\n\n" +
-				"If you're unsure of how to fix this, please email the developer (Evan@ShatteredPixel.com), and include this error message:\n\n" +
+				"If you're unsure of how to fix this, please download the normal apk version from github, contact the dev (@fixakathefix on PD discord) and send him this error message:\n\n" +
 				errorMsg);
 		text.setTextSize(16);
 		text.setTextColor(0xFFFFFFFF);

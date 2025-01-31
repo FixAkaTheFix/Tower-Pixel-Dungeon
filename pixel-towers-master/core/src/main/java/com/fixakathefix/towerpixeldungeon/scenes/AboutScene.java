@@ -228,7 +228,7 @@ public class AboutScene extends PixelScene {
 				Window.TITLE_COLOR,
 				null,
 				null,
-				"ShatteredPD is community-translated via _Transifex_! Thank you so much to all of Shattered's volunteer translators!",
+				"ShatteredPD is community-translated via _Transifex_! Towers is not, but still, here is the link to Shattered's trandlation page:",
 				"transifex.com/shattered-pixel/...",
 				"https://explore.transifex.com/shattered-pixel/shattered-pixel-dungeon/");
 		transifex.setRect((Camera.main.width - colWidth)/2f, purigro.bottom() + 12, colWidth, 0);
@@ -244,7 +244,14 @@ public class AboutScene extends PixelScene {
 				Window.TITLE_COLOR,
 				null,
 				null,
-				"Shattered Pixel Dungeon uses the following sound samples from _freesound.org_:\n\n" +
+				"Shoutouts to other creators/coders/artists for contributions to Pixel Towers:\n\n" +
+
+						"_Gnoll towermaker sprite_ idea by _ddd3_\n" +
+						"_Clairvoyant style_ general design and minor spelling mistake corrections by _IfritDiezel_\n" +
+						"_ML style_ design, partial Chinese translation of earlier versions by _JDSA Ling_\n" +
+						"Starter modding guide in discord by _QuaziStellar_\n\n" +
+
+				"Pixel Towers uses the following sound samples from _freesound.org_:\n\n" +
 
 				"Creative Commons Attribution License:\n" +
 				"_SFX ATTACK SWORD 001.wav_ by _JoelAudio_\n" +
