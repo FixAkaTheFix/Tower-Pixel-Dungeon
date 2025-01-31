@@ -12,10 +12,10 @@ allprojects {
 
     ext {
         appName = 'Pixel Towers'
-        appPackageName = 'com.towerpixel.towerpixeldungeon'
+        appPackageName = 'com.fixakathefix.towerpixeldungeon'
 
         appVersionCode = 701
-        appVersionName = '0.3.2'
+        appVersionName = '0.5.0'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 

@@ -3,7 +3,10 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2023 Evan Debenham
+ * Copyright (C) 2014-2025 Evan Debenham
+ *
+ * Pixel Towers / Towers Pixel Dungeon
+ * Copyright (C) 2024-2025 FixAkaTheFix (initials R. A. A.)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,10 +54,15 @@ public class Reflection {
 	public static Class forName( String name ){
 		try {
 			return ClassReflection.forName( name );
-		} catch (Exception e) {
-			Game.reportException(e);
+		} catch (Exception ignoredforupdatessake) {
 			return null;
 		}
+
+
+		/*catch (Exception e) {
+			Game.reportException(e);
+			return null;
+		}*/
 	}
 	
 	public static Class forNameUnhandled( String name ) throws Exception {
