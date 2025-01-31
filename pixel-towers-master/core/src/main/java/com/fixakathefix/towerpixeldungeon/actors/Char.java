@@ -855,6 +855,12 @@ public abstract class Char extends Actor {
 		if (buff( Eating.class ) != null) {
 			buff( Eating.class ).processDamage();
 		}
+		if (buff(WallStance.class)!=null && !(DamageSource.MAGICAL.contains(src.getClass()))){
+			dmg /=2;
+		}
+		if (this == Dungeon.hero && hero.heroClass == HeroClass.TANK && !(DamageSource.MAGICAL.contains(src.getClass()))) {
+			dmg = Math.round(dmg * 0.75f);
+		}
 
 		//for GoldArmor buff
 		if (buff(GoldArmor.class) != null){
@@ -876,12 +882,7 @@ public abstract class Char extends Actor {
 				if (dmg == 0) break;
 			}
 		}
-		if (buff(WallStance.class)!=null && !DamageSource.MAGICAL.contains(src.getClass())){
-			dmg = (int)(dmg*0.5f);
-		}
-		if (this == Dungeon.hero && hero.heroClass == HeroClass.TANK && !DamageSource.MAGICAL.contains(src.getClass())) {
-			dmg = Math.round(dmg * 0.75f);
-		}
+
 		shielded -= dmg;
 		HP -= dmg;
 

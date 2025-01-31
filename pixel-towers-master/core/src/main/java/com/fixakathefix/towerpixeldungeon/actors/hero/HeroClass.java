@@ -167,8 +167,8 @@ public enum HeroClass {
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	ROGUE( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
-	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	NECROHERO(HeroSubClass.BETA, HeroSubClass.ALPHA),
+	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	TANK(HeroSubClass.BETA, HeroSubClass.ALPHA),
 	FIX( HeroSubClass.BETA, HeroSubClass.ALPHA);
 

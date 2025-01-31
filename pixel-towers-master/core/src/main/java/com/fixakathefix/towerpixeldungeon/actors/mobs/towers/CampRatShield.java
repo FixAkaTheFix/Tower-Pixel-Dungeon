@@ -38,8 +38,8 @@ public class CampRatShield extends CampRat {
 
 		damageMin = 9;
 		damageMax = 13;
-		defMin = 0;
-		defMax = 4;
+		defMin = 1;
+		defMax = 2;
 
 		cost = 650;
 	}
@@ -55,7 +55,7 @@ public class CampRatShield extends CampRat {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (!DamageSource.MAGICAL.contains(src.getClass()))dmg*=0.85f; //15% damage reduction
+		if (!(DamageSource.MAGICAL.contains(src.getClass())))dmg*=0.85f; //15% damage reduction
 		super.damage(dmg, src);
 	}
 	@Override

@@ -51,8 +51,4 @@ public class Protected extends FlavourBuff {
         }
     }
 
-    @Override
-    public String desc() {
-        return super.desc();
-    }
 }

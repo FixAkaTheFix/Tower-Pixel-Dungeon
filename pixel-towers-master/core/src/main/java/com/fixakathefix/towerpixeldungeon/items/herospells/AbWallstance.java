@@ -14,7 +14,7 @@ public class AbWallstance extends HeroSpell{
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, WallStance.class, 7);
+        Buff.affect(Dungeon.hero, WallStance.class, 10);
         Dungeon.hero.sprite.operate(Dungeon.hero.pos);
     }
 

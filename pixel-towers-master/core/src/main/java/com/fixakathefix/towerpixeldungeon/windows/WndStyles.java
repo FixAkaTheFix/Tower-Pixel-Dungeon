@@ -155,7 +155,7 @@ public class WndStyles extends Window {
             if (active) {
                 if (style.condition(style)){
                 SPDSettings.style(style.index(style));
-                ShatteredPixelDungeon.scene().add(new WndTitledMessage( Icons.INFO.get(),"Reload to set the interface", "The "+style.name()+" interface style was set, but the game needs to _FULLY RELOADED_ for the interfaces to change. Close it and then reopen it: the interface will change automatically."){
+                ShatteredPixelDungeon.scene().add(new WndTitledMessage( Icons.INFO.get(),"Reload to set the interface", "The "+style.name()+" interface style was set, but the game needs to be _FULLY RELOADED_ for the interfaces to change. Close it and then reopen it: the interface will change automatically."){
                     @Override
                     public void onBackPressed() {
                         //ShatteredPixelDungeon.instance.dispose();

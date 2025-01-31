@@ -27,7 +27,7 @@ public class Banner extends TowerCTotem{
     }
     protected void useAbility(int cell){
         Char ch = Char.findChar(cell);
-        Buff.append(ch, Inspired.class).set(10);
+        Buff.append(ch, Inspired.class,10);
         WandOfBlastWave.BlastWave.blast(pos);
     }
     protected void searchAndUse(){

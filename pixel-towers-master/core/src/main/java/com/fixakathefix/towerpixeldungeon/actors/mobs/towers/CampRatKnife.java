@@ -35,7 +35,7 @@ public class CampRatKnife extends CampRat {
 		HP = HT = 8;
 		defenseSkill = 5;
 
-		damageMin = 4;
+		damageMin = 5;
 		damageMax = 8;
 		defMin = 0;
 		defMax = 1;
@@ -44,7 +44,7 @@ public class CampRatKnife extends CampRat {
 	}
 	@Override
 	public int attackSkill( Char target ) {
-		return 10;
+		return 12;
 	}
 	
 

@@ -76,7 +76,7 @@ public class StoneOfAugmentation extends InventoryStone {
 	
 	@Override
 	public int value() {
-		return 10 * quantity* (int)Math.sqrt(Dungeon.depth);
+		return 40 * quantity;
 	}
 
 	@Override

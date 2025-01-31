@@ -579,9 +579,11 @@ public class LevelSelectScene extends PixelScene {
             align(levelKnowledge);
 
             lockedText.align(RenderedTextBlock.CENTER_ALIGN);
-            lockedText.maxWidth(100);
-            lockedText.setSize(lockedText.maxWidth(), mainStagePic.height);
-            lockedText.setPos(Camera.main.width / 2f - levelKnowledge.width() / 2f, Math.max(levelDesc.centerY() + levelDesc.height() / 2 + 5, mainStagePic.y + mainStagePic.height() + 5));
+            lockedText.maxWidth((int)(Camera.main.width/2.3f));
+            lockedText.setSize(lockedText.width(), lockedText.height());
+            lockedText.setPos(
+                    (mainStagePic.x + mainStagePic.width() + Camera.main.width- lockedText.width())/2,
+                    (areaWithoutEssentialsHeight - lockedText.height())/2);
             align(lockedText);
 
         }
