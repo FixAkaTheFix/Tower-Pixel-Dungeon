@@ -43,6 +43,7 @@ import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.fixakathefix.towerpixeldungeon.items.spells.Spell;
 import com.fixakathefix.towerpixeldungeon.items.stones.Runestone;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.TowerSpawner;
+import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.journal.Notes;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
@@ -130,7 +131,7 @@ public class Shopkeeper extends NPC {
 	public static int sellPrice(Item item){
 		if (Dungeon.depth==10 && Dungeon.level.mode == WndModes.Modes.CHALLENGE && item instanceof TowerSpawner) return item.value() * 10;
 
-		if (item instanceof EquipableItem) return (int)(item.value() * (5 + Dungeon.depth*0.15f));
+		if (item instanceof EquipableItem || item instanceof Wand) return item.cursed ? (int)(item.value() * (3 + Dungeon.depth*0.08f)) : (int)(item.value() * (5 + Dungeon.depth*0.1f));
 		if (item instanceof ScrollOfUpgrade) return (int)(item.value() * (4 +  Dungeon.depth * 0.35f))/10 * 10;
 		if (item instanceof Potion || item instanceof Scroll || item instanceof Runestone || item instanceof Food || item instanceof Bomb || item instanceof Spell) return (int)(item.value() * (3 +  Dungeon.depth * 0.25f))/10 * 10;
 		if (item instanceof LiquidMetal) return (int)(item.value() * (7 + Dungeon.depth*0.25f));

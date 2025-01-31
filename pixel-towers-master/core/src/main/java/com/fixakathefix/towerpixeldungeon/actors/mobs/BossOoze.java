@@ -386,7 +386,7 @@ public class BossOoze extends Mob {
                     CausticSlime slime = new CausticSlime();
                     slime.pos = pos + i;
                     slime.state = HUNTING;
-                    slime.spend(1.02f);
+                    slime.spend(1f);
                     CellEmitter.floor(pos+i).start(ElmoParticle.FACTORY, 0.1f, 10);
                     GameScene.add(slime);
                 }
