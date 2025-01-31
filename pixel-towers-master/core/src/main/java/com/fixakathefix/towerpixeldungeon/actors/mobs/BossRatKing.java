@@ -34,6 +34,7 @@ public class BossRatKing extends Rat{
         properties.add(Property.BOSS);
 
         immunities.add( Paralysis.class );
+        targetingPreference=TargetingPreference.NOT_AMULET;
     }
     private boolean dead = false;
 

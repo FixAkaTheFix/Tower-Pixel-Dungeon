@@ -156,6 +156,7 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.BlindingDa
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.HealingDart;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.PoisonDart;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.plants.BlandfruitBush;
 import com.fixakathefix.towerpixeldungeon.plants.Sorrowmoss;
 import com.fixakathefix.towerpixeldungeon.plants.Starflower;
 import com.watabou.utils.DeviceCompat;
@@ -525,6 +526,8 @@ public enum HeroClass {
 
 		StableTeleportScroll stableTeleportScroll=new StableTeleportScroll();
 		stableTeleportScroll.identify().collect();
+
+		new BlandfruitBush.Seed().collect();
 
 		new BrokenHourglass().collect();
 		new UnstableSpellbook().collect();
