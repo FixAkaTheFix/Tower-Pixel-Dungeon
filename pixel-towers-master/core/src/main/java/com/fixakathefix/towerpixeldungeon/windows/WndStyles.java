@@ -2,7 +2,10 @@ package com.fixakathefix.towerpixeldungeon.windows;
 
 import static com.fixakathefix.towerpixeldungeon.Badges.loadGlobal;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Chrome;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
@@ -13,11 +16,18 @@ import com.fixakathefix.towerpixeldungeon.scenes.EnteringScene;
 import com.fixakathefix.towerpixeldungeon.scenes.PixelScene;
 import com.fixakathefix.towerpixeldungeon.scenes.TitleScene;
 import com.fixakathefix.towerpixeldungeon.ui.*;
+import com.watabou.gltextures.TextureCache;
+import com.watabou.glwrap.Blending;
+import com.watabou.glwrap.Texture;
+import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
+import com.watabou.utils.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
 
 public class WndStyles extends Window {
 
@@ -145,15 +155,11 @@ public class WndStyles extends Window {
             if (active) {
                 if (style.condition(style)){
                 SPDSettings.style(style.index(style));
-                ShatteredPixelDungeon.scene().add(new WndTitledMessage( Icons.INFO.get(),"The interface is set!", "The game needs to _reload_ for the interface to change. Reopen it after it closes."){
+                ShatteredPixelDungeon.scene().add(new WndTitledMessage( Icons.INFO.get(),"Reload to set the interface", "The "+style.name()+" interface style was set, but the game needs to _FULLY RELOADED_ for the interfaces to change. Close it and then reopen it: the interface will change automatically."){
                     @Override
                     public void onBackPressed() {
                         //ShatteredPixelDungeon.instance.dispose();
-                        ShatteredPixelDungeon.updateSystemUI();
-                        ShatteredPixelDungeon.instance.finish();
-
-                        //super.onBackPressed();
-
+                        super.onBackPressed();
                     }
                 });
                 }
