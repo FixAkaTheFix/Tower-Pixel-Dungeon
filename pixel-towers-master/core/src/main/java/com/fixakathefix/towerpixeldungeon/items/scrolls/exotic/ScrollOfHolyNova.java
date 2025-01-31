@@ -40,6 +40,7 @@ import com.fixakathefix.towerpixeldungeon.effects.Flare;
 import com.fixakathefix.towerpixeldungeon.items.EquipableItem;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.fixakathefix.towerpixeldungeon.items.quest.CorpseDust;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAntiMagic;
 import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -97,7 +98,7 @@ public class ScrollOfHolyNova extends ExoticScroll {
 			Belongings.Backpack backpack = hero.belongings.backpack;
 
 			for (Item item : backpack) {
-				if (item instanceof EquipableItem || item instanceof Wand) {
+				if (item instanceof EquipableItem || item instanceof Wand || item instanceof CorpseDust) {
 					ScrollOfAntiMagic.uncurse(hero, item);
 				}
 			}

@@ -55,7 +55,8 @@ public class CorpseDust extends Item {
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
-		return new ArrayList<>(); //yup, no dropping this one
+		if (cursed) return new ArrayList<>(); //yup, no dropping this one
+		else return super.actions(hero);
 	}
 
 	@Override
