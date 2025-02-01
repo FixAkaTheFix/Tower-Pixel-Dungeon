@@ -252,6 +252,7 @@ public class vTowersNewChanges {
 						"- some wave amount values not displaying properly\n" +
 						"- selling cost not being equal to stated values\n" +
 						"- Minions dropping gold\n" +
+						"- Light memory leak with non-essential logging when out of debug mode\n" +
 						"- duelist and necromancer sprites swapping"));
 
 	}

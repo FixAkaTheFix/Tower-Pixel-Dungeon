@@ -154,7 +154,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	public CharSprite() {
 		super();
-		DeviceCompat.log("[SPRITE CREATION ATTEMPT]", this.getClass().getSimpleName() + " attempted to create");
+		if (DeviceCompat.isDebug()) DeviceCompat.log("[SPRITE CREATION ATTEMPT]", this.getClass().getSimpleName() + " attempted to create");
 		listener = this;
 	}
 	
