@@ -237,16 +237,20 @@ public class vTowersNewChanges {
 						"- Fixed several important bug that render the game partially unplayable or decrease quality"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_BANISHMENT), "Holy nova fixes",
-						"Scroll of Holy nova now uncurses equipment and Corpse dust"));
+						"- Scroll of Holy nova now uncurses equipment and Corpse dust"));
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_CORRUPTION), "Wand of corruption",
-				"The wand of corruption does not deal damage to wraiths anymore"));
+				"- The wand of corruption does not deal damage to wraiths anymore"));
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_ROSESEED), "Rose seed",
-				"The ghost now remembers the position he defended before dying and will return there upon summoning"));
+				"- The ghost now remembers the position he defended before dying and will return there upon summoning"));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
 				"Bugs removed:\n" +
 						"- Ooze crashes and softlocks\n" +
 						"- Arena 5 portal enemies being unable to reach the portal due to wall blocking\n" +
 						"- area 5 loot dropping at map border\n" +
+						"- hourglass chargecap not updating properly\n" +
+						"- rudimentary talent reports\n" +
+						"- some wave amount values not displaying properly\n" +
+						"- selling cost not being equal to stated values\n" +
 						"- duelist and necromancer sprites swapping"));
 
 	}
