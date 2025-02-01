@@ -552,7 +552,7 @@ public class GameScene extends PixelScene {
 			}
 
 			boolean unspentTalents = false;
-			for (int i = 1; i <= Dungeon.hero.talents.size(); i++){
+			/*for (int i = 1; i <= Dungeon.hero.talents.size(); i++){
 				if (Dungeon.hero.talentPointsAvailable(i) > 0){
 					unspentTalents = true;
 					break;
@@ -564,7 +564,7 @@ public class GameScene extends PixelScene {
 				StatusPane.talentBlink = 10f;
 				WndHero.lastIdx = 1;
 			}
-
+*/
 			switch (Dungeon.level.feeling) {
 				case CHASM:     GLog.w(Messages.get(this, "chasm"));    break;
 				case WATER:     GLog.w(Messages.get(this, "water"));    break;
