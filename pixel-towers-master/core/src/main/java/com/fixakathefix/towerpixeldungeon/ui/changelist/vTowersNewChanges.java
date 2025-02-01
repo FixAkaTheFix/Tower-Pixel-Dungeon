@@ -251,6 +251,7 @@ public class vTowersNewChanges {
 						"- rudimentary talent reports\n" +
 						"- some wave amount values not displaying properly\n" +
 						"- selling cost not being equal to stated values\n" +
+						"- Minions dropping gold\n" +
 						"- duelist and necromancer sprites swapping"));
 
 	}
