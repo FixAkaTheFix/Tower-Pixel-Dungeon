@@ -56,6 +56,7 @@ public class vTowersNewChanges {
 		add_v031_Changes(changeInfos);
 		add_v032_Changes(changeInfos);
 		add_v050_Changes(changeInfos);
+		add_v051_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -222,6 +223,33 @@ public class vTowersNewChanges {
 						"- Changes scene crash removed"));
 
 	}
+	public static void add_v051_Changes( ArrayList<ChangeInfo> changeInfos) {
+
+		ChangeInfo changes = new ChangeInfo("v0.5.1 Essential patch", false, null);
+		changes.hardlight(CharSprite.NEGATIVE);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
+				"General update info:\n" +
+						"- Released 01.02.25\n" +
+						"- Changes several items to work better\n" +
+						"- mostly (statistically) fixed ooze\n" +
+						"- Fixed several important bug that render the game partially unplayable or decrease quality"));
+
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_BANISHMENT), "Holy nova fixes",
+						"Scroll of Holy nova now uncurses equipment and Corpse dust"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_CORRUPTION), "Wand of corruption",
+				"The wand of corruption does not deal damage to wraiths anymore"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_ROSESEED), "Rose seed",
+				"The ghost now remembers the position he defended before dying and will return there upon summoning"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
+				"Bugs removed:\n" +
+						"- Ooze crashes and softlocks\n" +
+						"- Arena 5 portal enemies being unable to reach the portal due to wall blocking\n" +
+						"- area 5 loot dropping at map border\n" +
+						"- duelist and necromancer sprites swapping"));
+
+	}
 	public static void add_v050_Changes( ArrayList<ChangeInfo> changeInfos) {
 
 		ChangeInfo changes = new ChangeInfo("v0.5.0", true, null);
@@ -362,10 +390,10 @@ public class vTowersNewChanges {
 						"- Each class has their representative colors: mage's color is #5light-blue#5, necromancer's - #9neon-green#9 etc.\n" +
 						"- Some items have their name and description colors changed too"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_OFF), "New Mode!",
-						"After beating the Ooze you can play _Endless mode_ - a new gamemode with infinite waves, huge-scale maps and random loot spawns (lags with more than 1000 necromancers on the screen are included). These stages are quite different, but they do not need to be balanced at least, because in the end, you will still lose(. However these provide a completely different experience, as there is no limit to your base size a crap ton of items to use."));
+				"After beating the Ooze you can play _Endless mode_ - a new gamemode with infinite waves, huge-scale maps and random loot spawns (lags with more than 1000 necromancers on the screen are included). These stages are quite different, but they do not need to be balanced at least, because in the end, you will still lose(. However these provide a completely different experience, as there is no limit to your base size a crap ton of items to use."));
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_REGROWTH), "Regrowth wand is back!",
 				"- Wand of regrowth now can appear in item loot polls\n" +
-				"- Some stats of wand of regrowth were changed"));
+						"- Some stats of wand of regrowth were changed"));
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HOLY_DART), "Darts overhaul",
 				"- Tipped darts now have at least 5 usages and do not drop upon tip effect loss (they break similarly to as usual)\n" +
 						"- Random types of darts can be sold at a shop\n" +
