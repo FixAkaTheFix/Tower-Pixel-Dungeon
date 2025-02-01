@@ -46,6 +46,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Hunger;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Inspired;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MindVision;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MonkEnergy;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Preparation;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.PriorityTarget;
@@ -938,7 +939,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void die( Object cause ) {
 
-		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1) Dungeon.gold += 3*EXP + 1;// Foes add up to gold
+		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1&&buff(Minion.class)==null) Dungeon.gold += 3*EXP + 1;// Foes add up to gold
 		updateQuickslot();
 
 		if (cause == Chasm.class){
