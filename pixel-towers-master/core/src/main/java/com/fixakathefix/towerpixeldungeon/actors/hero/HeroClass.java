@@ -523,6 +523,7 @@ public enum HeroClass {
 		armor.inscribe(new AntiEntropy());
 
 		new ScrollOfHolyNova().collect();
+		new RoseSeed().collect();
 
 		WandOfDebug buggo = new WandOfDebug();
 		buggo.identify().collect();

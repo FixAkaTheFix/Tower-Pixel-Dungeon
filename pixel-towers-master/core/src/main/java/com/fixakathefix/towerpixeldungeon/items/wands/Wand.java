@@ -457,8 +457,8 @@ public abstract class Wand extends Item {
 		level(n);
 		//curCharges += n;
 		
-		//15% chance to be cursed. Upgraded wands are always cursed
-		if (Random.Float() < 0.15f || n == 1) {
+		//10% chance to be cursed. Upgraded wands are almost always cursed
+		if (Random.Float() < 0.1f || (n == 1 && Random.Float()>0.2f)) {
 			cursed = true;
 		}
 

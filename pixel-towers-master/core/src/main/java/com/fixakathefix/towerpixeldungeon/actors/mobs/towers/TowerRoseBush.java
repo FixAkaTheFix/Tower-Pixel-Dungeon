@@ -83,6 +83,8 @@ public class TowerRoseBush extends TowerCSpawning{
     private MeleeWeapon weapon = null;
     private Armor armor = null;
 
+    public int guardingPositionForRestore = -1;
+
     @Override
     public boolean interact(Char c) {
         if (c == hero) {
@@ -149,10 +151,11 @@ public class TowerRoseBush extends TowerCSpawning{
         if (!theresAGhost){
             GhostHero minion = new GhostHero();
             minion.pos = pos;
+            minion.bush = this;
             this.ghost = minion;
             ghostID = minion.id();
             GameScene.add(minion);
-            minion.defendPos(this.pos);
+            if (guardingPositionForRestore == -1) minion.defendPos(this.pos); else minion.defendPos(guardingPositionForRestore);
             Dungeon.level.occupyCell(minion);
             minion.state = minion.WANDERING;
             CellEmitter.get(pos).start( ShaftParticle.FACTORY, 0.3f, 4 );
@@ -171,6 +174,7 @@ public class TowerRoseBush extends TowerCSpawning{
     private static final String TALKEDTO =      "talkedto";
     private static final String FIRSTSUMMON =   "firstsummon";
     private static final String GHOSTID =       "ghostID";
+    private static final String GUARDINGPOS =       "guardingpos";
     private static final String WEAPON =        "weapon";
     private static final String ARMOR =         "armor";
 
@@ -181,6 +185,7 @@ public class TowerRoseBush extends TowerCSpawning{
         bundle.put( TALKEDTO, talkedTo );
         bundle.put( FIRSTSUMMON, firstSummon );
         bundle.put( GHOSTID, ghostID );
+        bundle.put( GUARDINGPOS, guardingPositionForRestore );
 
         if (weapon != null) bundle.put( WEAPON, weapon );
         if (armor != null)  bundle.put( ARMOR, armor );
@@ -193,6 +198,7 @@ public class TowerRoseBush extends TowerCSpawning{
         talkedTo = bundle.getBoolean( TALKEDTO );
         firstSummon = bundle.getBoolean( FIRSTSUMMON );
         ghostID = bundle.getInt( GHOSTID );
+        guardingPositionForRestore = bundle.getInt(GUARDINGPOS);
 
         if (bundle.contains(WEAPON)) weapon = (MeleeWeapon)bundle.get( WEAPON );
         if (bundle.contains(ARMOR))  armor = (Armor)bundle.get( ARMOR );
@@ -256,12 +262,14 @@ public class TowerRoseBush extends TowerCSpawning{
             super();
             this.bush = bush;
             updateBush();
+            if (bush.guardingPositionForRestore > -1) defendPos(bush.guardingPositionForRestore);
 
         }
 
         @Override
         public void defendPos(int cell) {
             yell(Messages.get(this, "directed_position_" + Random.IntRange(1, 5)));
+            if (bush!=null)bush.guardingPositionForRestore = cell;
             super.defendPos(cell);
         }
 
