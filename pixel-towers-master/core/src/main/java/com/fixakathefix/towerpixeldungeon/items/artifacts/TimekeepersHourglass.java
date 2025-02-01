@@ -236,6 +236,7 @@ public class TimekeepersHourglass extends Artifact {
 
 			activeBuff.restoreFromBundle(buffBundle);
 		}
+		chargeCap = 3+(int)(level()*1.5f);
 	}
 
 	public class hourglassRecharge extends ArtifactBuff {

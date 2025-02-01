@@ -35,7 +35,6 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.DMW;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.GoblinShaman;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.YogDzewa;
-import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.Artifact;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -67,7 +66,7 @@ public class Badges {
 
 
 		//copper
-		CHIEF(96),FAKESHAMAN(97),TROLL(98), RATKING(99), ERMAC(100),DEATH(101, true),
+		CHIEF(96),FAKESHAMAN(97),TROLL(98), RATKING(99), REMAC(100),DEATH(101, true),
 		//wood
 		DUST(112), CANDLE(113), SNAKED(114), GETOVERHERE(115),
 		//silver
@@ -416,7 +415,7 @@ public class Badges {
 		else if (mob instanceof BossTroll) badge = Badge.TROLL;
 		else if (mob instanceof GoblinShaman.ShamanFake) badge = Badge.FAKESHAMAN;
 		else if (mob instanceof BossRatKing) badge = Badge.RATKING;
-		else if (mob instanceof BossNecromancer) badge = Badge.ERMAC;
+		else if (mob instanceof BossNecromancer) badge = Badge.REMAC;
 		else if (mob instanceof BossOoze) badge = Badge.OOZE;
 		else if (mob instanceof BossTengu) badge = Badge.TENGU;
 		else if (mob instanceof DMW) badge = Badge.DWM;
@@ -676,7 +675,7 @@ public class Badges {
 			{Badge.AVATAR ,Badge.AVATAR },
 			{Badge.VICTORY ,Badge.VICTORY   },
 			{Badge.CHIEF ,Badge.CHIEF   },
-			{Badge.ERMAC ,Badge.ERMAC   },
+			{Badge.REMAC,Badge.REMAC},
 			{Badge.GETOVERHERE ,Badge.GETOVERHERE   },
 			{Badge.CAPTAIN ,Badge.CAPTAIN   },
 			{Badge.DEATH_2,Badge.DEATH_2   },

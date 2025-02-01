@@ -270,8 +270,8 @@ public class BossOoze extends Mob {
                 //slime.spend(1f);
                 slime.state = WANDERING;
                 slime.pos = pos;
-                slime.spend(1f);
                 GameScene.add(slime);
+                slime.spend(1.011f);
                 spend(1.01f);
                 if (DeviceCompat.isDebug()) DeviceCompat.log("OOZE", "phase 1 slimeShot jump started");
                 slime.sprite.jump(pos, slimepos, Random.Int(30, 70), 0.6f, new Callback() {
@@ -386,9 +386,9 @@ public class BossOoze extends Mob {
                     CausticSlime slime = new CausticSlime();
                     slime.pos = pos + i;
                     slime.state = HUNTING;
-                    slime.spend(1f);
                     CellEmitter.floor(pos+i).start(ElmoParticle.FACTORY, 0.1f, 10);
                     GameScene.add(slime);
+                    slime.spend(1.011f);
                 }
             } catch (Exception ignored) {}
     }
@@ -478,6 +478,7 @@ public class BossOoze extends Mob {
             slime.pos = this.pos;
             slime.state = HUNTING;
             GameScene.add(slime);
+            slime.spend(1.011f);
             WandOfBlastWave.throwChar(slime, new Ballistica(
                     pos, Random.Int(0, level.width()*level.height()),
                     Ballistica.PROJECTILE),
