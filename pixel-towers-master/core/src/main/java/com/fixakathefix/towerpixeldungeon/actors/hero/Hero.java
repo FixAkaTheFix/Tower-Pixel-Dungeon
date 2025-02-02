@@ -1520,33 +1520,33 @@ public class Hero extends Char {
 
 	public void faint(Object src){
 
-
-		Ankh ankh = null;
-
-		//look for ankhs in player inventory, prioritize ones which are blessed.
-		for (Ankh i : belongings.getAllItems(Ankh.class)){
-			if (ankh == null && i.isBlessed()) {
-				ankh = i;
-			}
-		}
-
-
 		if (src instanceof ScrollOfDemonicSkull.ExplosiveDemonicSkull){
 			Badges.validateNuked();
 		}
 
-		if (ankh != null) {
-			interrupt();
-			this.HP = HT;
-			Buff.prolong(this, AnkhInvulnerability.class, 10f);
-			SpellSprite.show(this, SpellSprite.ANKH);
-			GameScene.flash(0x80FFFF40);
-			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-			GLog.w(Messages.get(this, "revive"));
-			Statistics.ankhsUsed++;
-			ankh.detach(belongings.backpack);
-			return;
+		if (src!=Chasm.class) {
+			Ankh ankh = null;
+
+			//look for ankhs in player inventory, prioritize ones which are blessed.
+			for (Ankh i : belongings.getAllItems(Ankh.class)) {
+				if (ankh == null && i.isBlessed()) {
+					ankh = i;
+				}
+			}
+			if (ankh != null) {
+				interrupt();
+				this.HP = HT;
+				Buff.prolong(this, AnkhInvulnerability.class, 10f);
+				SpellSprite.show(this, SpellSprite.ANKH);
+				GameScene.flash(0x80FFFF40);
+				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+				GLog.w(Messages.get(this, "revive"));
+				Statistics.ankhsUsed++;
+				ankh.detach(belongings.backpack);
+				return;
+			}
 		}
+
 
 		if (hero.deathCount==0) Badges.validateDeath();
 		else if (hero.deathCount==4) Badges.validateDeath2();
@@ -1556,7 +1556,10 @@ public class Hero extends Char {
 		GameScene.scene.menu.active =
 				GameScene.scene.menu.visible = false;
 		int spendDeathTime = 25 + deathCount*10;
-		hero.HP = hero.HT/(deathCount+1);
+		if (src == Chasm.class ) {
+			hero.HP = hero.HT / (deathCount + 10);
+		} else hero.HP = hero.HT/(deathCount+1);
+
 		hero.spend(spendDeathTime);
 		hero.paralysed = spendDeathTime;
 		Buff.affect(this, Faint.class,  spendDeathTime);

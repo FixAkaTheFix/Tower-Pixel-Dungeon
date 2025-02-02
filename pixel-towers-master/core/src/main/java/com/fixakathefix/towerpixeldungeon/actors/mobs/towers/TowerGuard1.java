@@ -1,6 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerGuard1Sprite;
@@ -48,6 +49,8 @@ public class TowerGuard1 extends SentientTower {
         return super.act();
     }
 
-
-
+    @Override
+    public int attackSkill(Char target) {
+        return 11;
+    }
 }

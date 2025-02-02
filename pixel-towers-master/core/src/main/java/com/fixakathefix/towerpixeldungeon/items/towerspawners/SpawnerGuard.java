@@ -14,7 +14,7 @@ public class SpawnerGuard extends TowerSpawner {
 
     @Override
     public int value() {
-        return 20;
+        return 30;
     }
 
 

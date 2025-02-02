@@ -59,12 +59,11 @@ public class ScrollOfHolyNova extends ExoticScroll {
 	
 	@Override
 	public void doRead() {
+		Badges.validateHolyNova();
 		if (Dungeon.hero.buff(ChaliceOfBlood.ChaliceRegen.class)!=null){
 			new Flare( 3, 10 ).color( 0xFFFFAA, true ).show( curUser.sprite, 3f );
 
 			Hero hero = Dungeon.hero;
-
-			Badges.validateHolyNova();
 
 
 			Belongings.Backpack backpack = hero.belongings.backpack;

@@ -69,7 +69,7 @@ public class ScrollOfTeleportation extends Scroll {
 
 	}
 
-	public void teleportToAmulet(){
+	public static void teleportToAmulet(){
 		appear(hero, ((Arena)Dungeon.level).amuletCell);
 		Dungeon.level.occupyCell(hero);
 		Dungeon.observe();

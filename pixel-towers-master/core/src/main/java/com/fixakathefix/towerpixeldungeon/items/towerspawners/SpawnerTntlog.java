@@ -14,7 +14,7 @@ public class SpawnerTntlog extends TowerSpawner {
 
     @Override
     public int value() {
-        return 40;
+        return 80;
     }
 
 }

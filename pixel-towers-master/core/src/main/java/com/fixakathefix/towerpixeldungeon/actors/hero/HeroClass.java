@@ -141,6 +141,8 @@ import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerGuard;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerLightning;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerWall;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerWand;
+import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
+import com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.items.weapon.SpiritBow;
@@ -541,10 +543,11 @@ public enum HeroClass {
 
 		new BrokenHourglass().collect();
 		new UnstableSpellbook().collect();
-		for (Class cas : Generator.Category.SCROLL.classes){
+		new WandOfBlastWave().collect();
+		/*for (Class cas : Generator.Category.SCROLL.classes){
 			Scroll s = (Scroll)Reflection.newInstance(cas);
 			s.collect();
-		}
+		}*/
 
 
 	}

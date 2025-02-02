@@ -24,14 +24,20 @@
 
 package com.fixakathefix.towerpixeldungeon.levels.features;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Bleeding;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Cripple;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Levitation;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.spells.FeatherFall;
 import com.fixakathefix.towerpixeldungeon.levels.Level;
 import com.fixakathefix.towerpixeldungeon.levels.RegularLevel;
@@ -47,6 +53,7 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -98,9 +105,13 @@ public class Chasm implements Hero.Doom {
 	}
 	
 	public static void heroFall( int pos ) {
-		
 		jumpConfirmed = false;
-				
+		hero.faint(Chasm.class);
+		Sample.INSTANCE.play( Assets.Sounds.FALLING );
+		ScrollOfTeleportation.teleportToAmulet();
+
+		/*
+		jumpConfirmed = false;
 		Sample.INSTANCE.play( Assets.Sounds.FALLING );
 
 		Level.beforeTransition();
@@ -117,7 +128,7 @@ public class Chasm implements Hero.Doom {
 			Game.switchScene( InterlevelScene.class );
 		} else {
 			Dungeon.hero.sprite.visible = false;
-		}
+		}*/
 	}
 
 	@Override
@@ -151,9 +162,12 @@ public class Chasm implements Hero.Doom {
 	}
 
 	public static void mobFall( Mob mob ) {
-		if (mob.isAlive()) mob.die( Chasm.class );
-		
-		if (mob.sprite != null) ((MobSprite)mob.sprite).fall();
+		if (mob.properties().contains(Char.Property.BOSS)){
+			Buff.affect(mob, Levitation.class, 10);
+		} else {
+			if (mob.isAlive()) mob.die(Chasm.class);
+			if (mob.sprite != null) ((MobSprite) mob.sprite).fall();
+		}
 	}
 	
 	public static class Falling extends Buff {

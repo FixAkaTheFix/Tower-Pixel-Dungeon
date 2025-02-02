@@ -819,8 +819,8 @@ public class Dungeon {
 			if (inactivepylons >=4) Badges.validateNoPylons();
 		}
 
-		Statistics.gameWon = true;
-		switch (Dungeon.level.mode){
+		Statistics.gameWon = true; if (!(Dungeon.level instanceof Arena) || Dungeon.depth==((Arena)Dungeon.level).arenaDepth){
+		switch (Dungeon.level.mode) {
 			case NORMAL:{
 				if(Dungeon.depth >= SPDSettings.maxlevelunlocked()) SPDSettings.maxlevelunlocked(Dungeon.depth+1);
 				break;
@@ -834,6 +834,7 @@ public class Dungeon {
 				break;
 			}
 
+		}
 		}
 		hero.belongings.identify();
 

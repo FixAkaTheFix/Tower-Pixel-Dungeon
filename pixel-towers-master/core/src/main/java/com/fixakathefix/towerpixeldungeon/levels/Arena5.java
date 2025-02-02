@@ -468,29 +468,30 @@ public class Arena5 extends Arena{
         this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
         this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
         candidates.clear();
-
-        candidates = new ArrayList<>();
-        for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.map[m] == Terrain.WATER && distance(amuletCell,m) > 20  && !cellAdjacentToBorderCells(m)) candidates.add(m);
+        if (mode != WndModes.Modes.CHALLENGE){
+            candidates = new ArrayList<>();
+            for (int m = 0; m < WIDTH * HEIGHT; m++) {
+                if (this.map[m] == Terrain.WATER && distance(amuletCell, m) > 20 && !cellAdjacentToBorderCells(m))
+                    candidates.add(m);
+            }
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(new CorruptedOoze(), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(new CorpseDust(), Random.element(candidates)).type = Heap.Type.SKELETON;
+            this.drop(new CausticBrew(), Random.element(candidates));
+            this.drop(new CausticBrew(), Random.element(candidates));
+            this.drop(new CausticBrew(), Random.element(candidates));
+            this.drop(new PotionOfToxicGas(), Random.element(candidates));
+            this.drop(new PotionOfToxicGas(), Random.element(candidates));
+            this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
+            this.drop(new PotionOfToxicGas(), Random.element(candidates));
+            this.drop(new PotionOfToxicGas(), Random.element(candidates));
+            candidates.clear();
         }
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(new CorruptedOoze(), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(new CorpseDust(), Random.element(candidates)).type = Heap.Type.SKELETON;
-        this.drop(new CausticBrew(), Random.element(candidates));
-        this.drop(new CausticBrew(), Random.element(candidates));
-        this.drop(new CausticBrew(), Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        candidates.clear();
-
         super.addDestinations();
     }
 
