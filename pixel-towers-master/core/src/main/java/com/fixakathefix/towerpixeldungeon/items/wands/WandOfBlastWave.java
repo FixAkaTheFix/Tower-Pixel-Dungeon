@@ -65,11 +65,11 @@ public class WandOfBlastWave extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return Math.round((12+3*lvl)*magicDamageModifier());
+		return Math.round((11+2.5f*lvl)*magicDamageModifier());
 	}
 	@Override
 	protected int initialCharges() {
-		return 5;
+		return 4;
 	}
 
 	@Override
