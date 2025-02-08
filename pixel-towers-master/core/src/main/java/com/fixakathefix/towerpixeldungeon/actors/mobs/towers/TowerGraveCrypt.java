@@ -69,6 +69,7 @@ public class TowerGraveCrypt extends TowerCSpawning{
 
             diesWithoutMomtower = false;
             staysNearMomTower = false;
+            flying = true;
         }
 
         public WraithMinion() {
