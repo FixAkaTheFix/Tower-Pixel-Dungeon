@@ -60,7 +60,7 @@ public class WandOfLightning extends DamageWand {
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
 	public int min(int lvl){
-		return Math.round((15+3*lvl)*(magicDamageModifier()));
+		return Math.round((10+1*lvl)*(magicDamageModifier()));
 	}
 
 	public int max(int lvl){
