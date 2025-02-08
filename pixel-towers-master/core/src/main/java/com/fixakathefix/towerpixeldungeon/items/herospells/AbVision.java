@@ -20,8 +20,8 @@ public class AbVision extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, MindVision.class, 20);
-        Buff.affect(Dungeon.hero, KeenEye.class, 20);
+        Buff.affect(Dungeon.hero, MindVision.class, 21);
+        Buff.affect(Dungeon.hero, KeenEye.class, 21);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class LicteriaLasher extends Mob {
     {
         spriteClass = LicteriaLasherSprite.class;
 
-        HP = HT = 5;
+        HP = HT = 8;
         defenseSkill = 0;
 
         EXP = 0;
@@ -53,7 +53,7 @@ public class LicteriaLasher extends Mob {
 
     @Override
     public float attackDelay() {
-        return super.attackDelay() + 2;
+        return super.attackDelay() * 2;
     }
 
     @Override
