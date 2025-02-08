@@ -253,14 +253,6 @@ public class Arena7 extends Arena{
 
             }
 
-        for (int x = 1;x<WIDTH-1;x++) for (int y = 1;y<HEIGHT-1;y++){
-            //Random torches
-            int cell = x+WIDTH*y;
-            if (Math.random()>0.99) {
-                if (this.map[cell]==Terrain.BOOKSHELF) this.map[cell]=Terrain.WALL_DECO;
-            }
-        }
-
 
         Painter.fill(this, 2,28,58,5,Terrain.EMPTY_SP);
         Painter.fill(this, 2,29,58,3,Terrain.EMPTY);
