@@ -1,5 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.items.herospells;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -8,8 +10,10 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.PriorityTarget;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.CellSelector;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 
@@ -29,6 +33,9 @@ public class AbTeleport extends HeroSpellTargeted {
                         Dungeon.hero.pos = cell;
                         ScrollOfTeleportation.appear(Dungeon.hero, cell);
                         Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+                        Dungeon.level.occupyCell(hero);
+                        Dungeon.observe();
+                        GameScene.updateFog();
                     }
                 }
             }
