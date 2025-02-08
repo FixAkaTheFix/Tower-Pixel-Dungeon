@@ -66,15 +66,12 @@ public class BossNecromancer extends Mob {
         EXP = 7;
         viewDistance = 6;
 
-        baseSpeed= level.mode == WndModes.Modes.HARDMODE ? 1.8f : 1f;;
 
         loot = new PotionOfHealing();
         lootChance = 0.2f; //see lootChance()
 
         properties.add(Property.UNDEAD);
         properties.add(Property.BOSS);
-
-        HUNTING = new Hunting();
     }
 
     private final int summonGraveCooldown = 20;
@@ -104,6 +101,7 @@ public class BossNecromancer extends Mob {
 
     @Override
     protected boolean act() {
+         if (baseSpeed == 1f) baseSpeed = (level.mode == WndModes.Modes.HARDMODE) ? 1.8f : 1.05f; //slight buff
         summonGraveCooldownLeft--;
         if (Math.random()>0.9) {
             ((Arena)level).deploymobs(8055, Arena.Direction.RIGHT, 1);
