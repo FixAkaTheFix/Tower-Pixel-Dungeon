@@ -1911,68 +1911,6 @@ public class Hero extends Char {
 	public void die( Object cause ) {
 		
 		curAction = null;
-
-		Ankh ankh = null;
-
-		//look for ankhs in player inventory, prioritize ones which are blessed.
-		for (Ankh i : belongings.getAllItems(Ankh.class)){
-			if (ankh == null || i.isBlessed()) {
-				ankh = i;
-			}
-		}
-
-		if (ankh != null) {
-			interrupt();
-			resting = false;
-
-			if (ankh.isBlessed()) {
-				this.HP = HT / 4;
-
-				PotionOfHealing.cure(this);
-				Buff.prolong(this, AnkhInvulnerability.class, AnkhInvulnerability.DURATION);
-
-				SpellSprite.show(this, SpellSprite.ANKH);
-				GameScene.flash(0x80FFFF40);
-				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-				GLog.w(Messages.get(this, "revive"));
-				Statistics.ankhsUsed++;
-
-				ankh.detach(belongings.backpack);
-
-				for (Char ch : Actor.chars()) {
-					if (ch instanceof DriedRose.GhostHero) {
-						((DriedRose.GhostHero) ch).sayAnhk();
-						return;
-					}
-				}
-			} else {
-
-				//this is hacky, basically we want to declare that a wndResurrect exists before
-				//it actually gets created. This is important so that the game knows to not
-				//delete the run or submit it to rankings, because a WndResurrect is about to exist
-				//this is needed because the actual creation of the window is delayed here
-				WndResurrect.instance = new Object();
-				Ankh finalAnkh = ankh;
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						GameScene.show( new WndResurrect(finalAnkh) );
-					}
-				});
-
-				if (cause instanceof Hero.Doom) {
-					((Hero.Doom)cause).onDeath();
-				}
-
-				SacrificialFire.Marked sacMark = buff(SacrificialFire.Marked.class);
-				if (sacMark != null){
-					sacMark.detach();
-				}
-
-			}
-			return;
-		}
-		
 		Actor.fixTime();
 		super.die( cause );
 		if (cause != Arena.AmuletTower.class) reallyDie( cause );
