@@ -18,7 +18,7 @@ public class TowerGuard1 extends SentientTower {
         baseAttackDelay = 1f;
 
         cost = 150;
-        damageMin = 3;
+        damageMin = 3;//dpt/c = 0.00267
         damageMax = 5;
         upgradeLevel = 3;
         defMin = 0;

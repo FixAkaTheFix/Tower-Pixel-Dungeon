@@ -13,7 +13,7 @@ public class TowerDartgun1 extends TowerCShooting {
         spriteClass = TowerDartgun1Sprite.class;
 
         attackRange = 12;
-        baseAttackDelay = 1f;
+        baseAttackDelay = 2f;//dpt/c = 0.0125 + p
 
         cost = 180;
         upgrade1Cost = 250;

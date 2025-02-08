@@ -6,7 +6,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.TowerDartgunSniperSprite;
 public class TowerDartgunSniper extends TowerDartgun3 {
     {
         HP = HT = 100;
-        spriteClass = TowerDartgunSniperSprite.class;
+        spriteClass = TowerDartgunSniperSprite.class;//dpt/c = 0.00568 + p
 
         attackRange = 20;
         cost = 1610;

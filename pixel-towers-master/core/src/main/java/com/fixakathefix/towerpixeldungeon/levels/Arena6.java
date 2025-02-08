@@ -899,8 +899,6 @@ public class Arena6 extends Arena {
         }
     }
 
-    private String WAVE = "wave";
-    private String SHOPKEEPER = "shopkeeper";
     private String TOWERSHOPKEEPERPOS = "towershopkeeperpos";
 
 

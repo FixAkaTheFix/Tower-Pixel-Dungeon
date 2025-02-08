@@ -21,7 +21,7 @@ public class ObeliskNecrotic extends Obelisk{
         spriteClass = ObeliskNecroticSprite.class;
 
         attackRange = 8;
-        baseAttackDelay = 0.9f;
+        baseAttackDelay = 2f;
 
         cost = 0;
         upgrade1Cost = 0;

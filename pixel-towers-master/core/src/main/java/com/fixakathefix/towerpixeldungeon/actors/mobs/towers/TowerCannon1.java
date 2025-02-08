@@ -24,7 +24,7 @@ public class TowerCannon1 extends TowerCShooting{
         spriteClass = TowerCannon1Sprite.class;
 
         attackRange = 7;
-        baseAttackDelay = 1.5f;
+        baseAttackDelay = 2.5f;
 
         cost = 300;
         upgrade1Cost = 300;

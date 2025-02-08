@@ -17,7 +17,7 @@ public class ObeliskPermafrost extends Obelisk {
         spriteClass = ObeliskPermafrostSprite.class;
 
         attackRange = 9;
-        baseAttackDelay = 3f;
+        baseAttackDelay = 4f;
 
         cost = 0;
         upgrade1Cost = 0;

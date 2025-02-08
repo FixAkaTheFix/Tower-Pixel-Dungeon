@@ -11,7 +11,7 @@ public class TowerCannon2 extends TowerCannon1{
         spriteClass = TowerCannon2Sprite.class;
 
 
-        baseAttackDelay = 1.5f;
+
 
         upgradeLevel = 8;
 

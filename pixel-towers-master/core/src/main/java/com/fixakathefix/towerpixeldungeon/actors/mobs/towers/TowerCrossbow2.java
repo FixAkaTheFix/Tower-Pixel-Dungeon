@@ -7,13 +7,13 @@ public class TowerCrossbow2 extends TowerCrossbow1{
         spriteClass = TowerCrossbow2Sprite.class;
 
 
-        baseAttackDelay = 0.65f;
+        baseAttackDelay = 1.2f;//dpt/c = 0.00741
 
         upgradeLevel = 8;
 
         cost = 450;
         upgrade1Cost = 550;
         damageMin = 3;
-        damageMax = 7;
+        damageMax = 5;
     }
 }

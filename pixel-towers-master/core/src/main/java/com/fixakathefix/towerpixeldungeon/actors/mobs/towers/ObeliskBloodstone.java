@@ -17,7 +17,7 @@ public class ObeliskBloodstone extends Obelisk{
         spriteClass = ObeliskBloodstoneSprite.class;
 
         attackRange = 10;
-        baseAttackDelay = 0.9f;
+        baseAttackDelay = 2f;
 
         cost = 0;
         upgrade1Cost = 0;

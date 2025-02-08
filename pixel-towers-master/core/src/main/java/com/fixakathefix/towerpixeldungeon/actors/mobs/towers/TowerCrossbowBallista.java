@@ -12,7 +12,7 @@ public class TowerCrossbowBallista extends TowerCrossbow3{
         spriteClass = TowerCrossbowBallistaSprite.class;
 
         attackRange = 9;//DPT =0.2*150 =30 DPT/C = 33/1850= 0.01622
-        baseAttackDelay = 5f;
+        baseAttackDelay = 6f;
         cost = 2000;
 
         upgCount = 0;

@@ -109,7 +109,7 @@ public class BossTengu extends Mob {
                     Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
                     for (int i : PathFinder.NEIGHBOURS25){
                         int cell = pos + i;
-                        Buff.affect(BossTengu.this, AnkhInvulnerability.class, 10);
+
                         if (level.passable[cell] && Char.findChar(cell)==null) {
                             BossTenguClone clone = new BossTenguClone();
                             clone.targetingPreference = TargetingPreference.NOT_AMULET;
@@ -119,6 +119,7 @@ public class BossTengu extends Mob {
                     }
                 }
             });
+            Buff.affect(BossTengu.this, AnkhInvulnerability.class, 20);
 
             WndDialogueWithPic.dialogue(new TenguSprite(), Messages.get(BossTengu.class, "name"),
                     new String[]{

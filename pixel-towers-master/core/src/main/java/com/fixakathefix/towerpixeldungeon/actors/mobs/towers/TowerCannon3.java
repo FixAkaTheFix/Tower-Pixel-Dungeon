@@ -8,8 +8,6 @@ public class TowerCannon3 extends TowerCannon2{
         spriteClass = TowerCannon3Sprite.class;
 
 
-        baseAttackDelay = 1.5f;
-
         upgCount = 2;
 
         upgradeLevel = 11;

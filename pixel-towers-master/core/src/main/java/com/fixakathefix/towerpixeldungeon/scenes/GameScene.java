@@ -575,12 +575,6 @@ public class GameScene extends PixelScene {
 				case SECRETS:   GLog.w(Messages.get(this, "secrets"));  break;
 			}
 
-			for (Mob mob : Dungeon.level.mobs) {
-				if (!mob.buffs(ChampionEnemy.class).isEmpty()) {
-					GLog.w(Messages.get(ChampionEnemy.class, "warn"));
-				}
-			}
-
 			if (Dungeon.hero.buff(AscensionChallenge.class) != null){
 				Dungeon.hero.buff(AscensionChallenge.class).saySwitch();
 			}

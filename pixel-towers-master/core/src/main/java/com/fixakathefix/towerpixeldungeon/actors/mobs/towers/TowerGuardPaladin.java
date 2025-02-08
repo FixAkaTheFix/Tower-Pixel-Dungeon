@@ -17,8 +17,8 @@ public class TowerGuardPaladin extends TowerGuard3{
         spriteClass = TowerGuard3UpgradedSprite.class;
 
         cost = 2550;
-        damageMin = 14;
-        damageMax = 25;
+        damageMin = 18;
+        damageMax = 30;//dpt/c = 0.00941
         upgradeLevel = 8;
         defMin = 2;
         defMax = 15;
@@ -40,7 +40,7 @@ public class TowerGuardPaladin extends TowerGuard3{
             Char ch = Random.element(candidates);
             if (ch != null) {
                 if (ch.buff(Bless.class)!=null) Buff.affect(ch, Bless.class, 10);
-                Buff.affect(ch, Healing.class).increaseHeal(20);
+                Buff.affect(ch, Healing.class).increaseHeal(30);
             }
 
         }

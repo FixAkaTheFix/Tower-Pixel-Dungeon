@@ -47,7 +47,7 @@ public class Albino extends Rat {
 
 	@Override
 	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 2);
+		return super.drRoll() + Random.NormalIntRange(0, 1);
 	}
 
 	@Override

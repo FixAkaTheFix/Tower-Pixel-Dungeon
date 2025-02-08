@@ -8,7 +8,7 @@ public class TowerDisintegration3 extends TowerDisintegration2 {
         HP = HT = 133;
         spriteClass = TowerDisintegration3Sprite.class;
 
-        attackRange = 12;
+        attackRange = 12;//dpt = 0.0028
 
         cost = 2000;
         damageMin = 22;

@@ -70,11 +70,6 @@ public class Tower extends Mob {
     }
 
     @Override
-    public float attackDelay() {
-        return super.attackDelay() + baseAttackDelay;
-    }
-
-    @Override
     public String info() {
         StringBuilder info = new StringBuilder();
         info.append(description());
@@ -226,15 +221,18 @@ public class Tower extends Mob {
 
 
     private static final String UNCHANGABLEFORCED = "unchangable";
+    private static final String BASEATTACKDELAY = "baseattackdelay";
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(UNCHANGABLEFORCED, sellable);
+        bundle.put(BASEATTACKDELAY, baseAttackDelay);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         sellable = bundle.getBoolean(UNCHANGABLEFORCED);
+        baseAttackDelay = bundle.getFloat(BASEATTACKDELAY);
     }
 }

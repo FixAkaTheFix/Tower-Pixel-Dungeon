@@ -2,7 +2,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import com.fixakathefix.towerpixeldungeon.sprites.TowerWand3Sprite;
 
-public class TowerWand3 extends TowerWand1 {
+public class TowerWand3 extends TowerWand2 {
     {
         HP = HT = 120;
         spriteClass = TowerWand3Sprite.class;
@@ -12,7 +12,7 @@ public class TowerWand3 extends TowerWand1 {
         upgradeLevel = 11;
 
         cost = 1000;
-        damageMin = 23;
-        damageMax = 24;
+        damageMin = 21;
+        damageMax = 23;
     }
 }

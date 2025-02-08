@@ -766,6 +766,7 @@ public abstract class Mob extends Char {
 
 	public float attackDelay() {
 		float delay = 1f;
+		if (this instanceof Tower) delay = ((Tower)this).baseAttackDelay;
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
 		for (Buff buff : buffs()){
 			if (buff instanceof Inspired) delay /= 1.15f;

@@ -8,7 +8,7 @@ public class TowerCrossbow3 extends TowerCrossbow2{
         HP = HT = 110;
         spriteClass = TowerCrossbow3Sprite.class;
 
-        baseAttackDelay = 0.5f;
+        baseAttackDelay = 1f;//dpt=0.006
         cost = 1000;
         upgCount=2;
 
@@ -16,7 +16,7 @@ public class TowerCrossbow3 extends TowerCrossbow2{
 
         upgrade1Cost = 1000;
         upgrade2Cost = 1000;
-        damageMin = 5;
-        damageMax = 11;
+        damageMin = 4;
+        damageMax = 8;
     }
 }

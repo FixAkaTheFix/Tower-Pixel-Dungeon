@@ -10,13 +10,13 @@ public class TowerCrossbow1 extends TowerCShooting {
         HP = HT = 40;
         spriteClass = TowerCrossbow1Sprite.class;
 
-        attackRange = 8;//DPT =3.5*1.1 = 3.85 DPT/C = 3.85/100 = 0,0385
-        baseAttackDelay = 0.9f;
+        attackRange = 8;//dpt/c=0.0092
+        baseAttackDelay = 1.5f;
 
         cost = 200;
         upgrade1Cost = 250;
         damageMin = 2;
-        damageMax = 5;
+        damageMax = 4;
         upgradeLevel = 3;
     }
 

@@ -456,10 +456,12 @@ public class Arena3 extends Arena {
             this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(new Honeypot(),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;;
+            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
+            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));
         }
 
@@ -469,6 +471,9 @@ public class Arena3 extends Arena {
         this.drop(new ScrollOfUpgrade(),Random.element(candidates));
         this.drop(new MeatPie(),Random.element(candidates));
 
+        this.drop(new IronKey(3),Random.element(candidates));
+        this.drop(new IronKey(3),Random.element(candidates));
+        this.drop(new IronKey(3),Random.element(candidates));
         this.drop(new IronKey(3),Random.element(candidates));
         this.drop(new IronKey(3),Random.element(candidates));
 

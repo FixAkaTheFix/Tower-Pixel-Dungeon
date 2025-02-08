@@ -16,7 +16,7 @@ public class TowerDartgunSpitter extends TowerDartgun3 {
         HP = HT = 200;
         spriteClass = TowerDartgunSpitterSprite.class;
 
-        attackRange = 11;
+        attackRange = 11;//dpt 0.002 (3 + 4p) effective if hits 4 non-bots + slows.
         cost = 1610;
         upgCount = 0;
         damageMin = 2;

@@ -23,7 +23,7 @@ public class TowerLightning1 extends TowerCShooting {
         spriteClass = TowerLightning1Sprite.class;
 
         attackRange = 3;//DPT =5.5*0.6 = 3.3 DPT/C = 3.3/100 = 0,033
-        baseAttackDelay = 4f;
+        baseAttackDelay = 5f;
 
         cost = 200;
         upgrade1Cost = 400;

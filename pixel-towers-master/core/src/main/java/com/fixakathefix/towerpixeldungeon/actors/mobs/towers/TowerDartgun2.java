@@ -6,7 +6,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.TowerDartgun2Sprite;
 public class TowerDartgun2 extends TowerDartgun1 {
     {
         HP = HT = 35;
-        spriteClass = TowerDartgun2Sprite.class;
+        spriteClass = TowerDartgun2Sprite.class;//dpt/c = 0.0105 + p
 
         attackRange = 13;
         cost = 430;

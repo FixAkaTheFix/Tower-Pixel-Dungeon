@@ -11,8 +11,8 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
         HP = HT = 250;
         spriteClass = TowerCrossbowGatlingSprite.class;
 
-        attackRange = 7;//DPT =11,5*(0.5~3.5) =5,75~40,25 DPT/C = 5,75~40,25/1850= 0,003~0,0218
-        baseAttackDelay = 1f;
+        attackRange = 7;//DPT/c was 0.0019 -> 0.004 which is very weak. Now it is 0.00236 -> 0.0176
+        baseAttackDelay = 2f;
         cost = 2000;
 
         upgCount=0;
@@ -22,37 +22,18 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
         damageMax = 13;
     }
 
-    public float atCooldown = 1;
-
     @Override
     protected boolean act() {
-        if ( atCooldown < 13 ) atCooldown+=0.2f;
-        baseAttackDelay = 0.1f + (atCooldown * 0.1f);
-        sprite.ra = 1 / (5*baseAttackDelay);
-        if (baseAttackDelay<0.8f) sprite.emitter().start(SmokeParticle.FACTORY, 1f, 3);
+
+        if (baseAttackDelay < 2) baseAttackDelay+=0.05;// max ~ 2.01
+        sprite.ra = (2 - baseAttackDelay)*0.2f;
+        if (baseAttackDelay<0.5f) sprite.emitter().start(SmokeParticle.FACTORY, 1f, 3);
         return super.act();
     }
 
     @Override
     public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
-        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
-        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
-        if ( atCooldown > 1.2f ) atCooldown -= 0.4f;
-        baseAttackDelay = 0.1f + (atCooldown * 0.1f);//max cooldown = 0.2
+        if (baseAttackDelay > 0.4) baseAttackDelay-=0.20;//min ~ 0.3
         return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
-    }
-
-    private static final String ATCOOLDOWN = "atcooldown";
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(ATCOOLDOWN, atCooldown);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        atCooldown = bundle.getInt(ATCOOLDOWN);
     }
 }

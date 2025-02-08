@@ -11,7 +11,7 @@ public class TowerGuardSpearman extends TowerGuard3{
 
         cost = 1950;
         damageMin = 32;
-        damageMax = 42;
+        damageMax = 42;//dpt/c = 0.01897
         upgradeLevel = 8;
         defMin = 2;
         defMax = 5;

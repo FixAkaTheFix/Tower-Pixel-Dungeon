@@ -7,11 +7,11 @@ public class TowerGuard3 extends TowerGuard2{
 
     {
         HP = HT = 300;
-        spriteClass = TowerGuard3Sprite.class;
+        spriteClass = TowerGuard3Sprite.class;//dpt/c = 0.01333
 
         cost = 1050;
-        damageMin = 8;
-        damageMax = 12;
+        damageMin = 12;
+        damageMax = 16;
         upgradeLevel = 16;
         defMin = 1;
         defMax = 9;
@@ -23,6 +23,6 @@ public class TowerGuard3 extends TowerGuard2{
 
     @Override
     public int attackSkill(Char target) {
-        return 12;
+        return 13;
     }
 }
