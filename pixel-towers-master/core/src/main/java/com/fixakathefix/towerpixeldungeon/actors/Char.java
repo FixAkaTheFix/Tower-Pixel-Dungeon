@@ -334,7 +334,6 @@ public abstract class Char extends Actor {
 	protected static final String TAG_HT    = "HT";
 	protected static final String TAG_SHLD  = "SHLD";
 	protected static final String BUFFS	    = "buffs";
-	protected static final String SPEED    = "speed";
 
 	protected static final String ALIGNMENT = "alignment";
 
@@ -348,7 +347,6 @@ public abstract class Char extends Actor {
 		bundle.put( TAG_HP, HP );
 		bundle.put( TAG_HT, HT );
 		bundle.put( BUFFS, buffs );
-		bundle.put( SPEED, baseSpeed);
 	}
 	
 	@Override
@@ -366,7 +364,6 @@ public abstract class Char extends Actor {
 				((Buff)b).attachTo( this );
 			}
 		}
-		baseSpeed = bundle.getFloat(SPEED);
 	}
 
 

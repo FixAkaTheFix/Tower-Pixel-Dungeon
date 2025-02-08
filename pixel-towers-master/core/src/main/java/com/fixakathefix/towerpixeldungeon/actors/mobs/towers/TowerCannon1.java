@@ -69,8 +69,8 @@ public class TowerCannon1 extends TowerCShooting{
 
             }
             if (level.heroFOV[enemy.pos]) {
-                CellEmitter.center(enemy.pos).start(SmokeParticle.FACTORY, 0.3f, 8);
-                CellEmitter.center(enemy.pos).start(SmokeParticle.FACTORY, 1f, 8);
+                CellEmitter.center(enemy.pos).start(SmokeParticle.FACTORY, 0.1f, 2);
+                CellEmitter.floor(enemy.pos).start(SmokeParticle.FACTORY, 0.15f, 4);
             }
             if (level.flamable[cell]) {//affects terrain
                 level.destroy(cell);
