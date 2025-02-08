@@ -146,6 +146,7 @@ import com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.items.weapon.SpiritBow;
+import com.fixakathefix.towerpixeldungeon.items.weapon.Weapon;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Banhammer;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Dagger;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Dirk;
@@ -526,6 +527,13 @@ public enum HeroClass {
 
 		new ScrollOfHolyNova().collect();
 		new RoseSeed().collect();
+
+		for (int i = 0; i < 9; i++) {
+			new ScrollOfGolems().collect();
+			MeleeWeapon wep = Generator.randomWeapon();
+			if (Math.random()>0.5) wep.cursed = wep.cursedKnown = true;
+			wep.collect();
+		}
 
 		WandOfDebug buggo = new WandOfDebug();
 		buggo.identify().collect();

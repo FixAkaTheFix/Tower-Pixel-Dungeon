@@ -57,6 +57,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.ArmoredStatue;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Statue;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.BloodParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.armor.Armor;
@@ -87,6 +88,8 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 	@Override
 	protected void onItemSelected(Item item) {
 
+		boolean cursedd = false;
+
 		if (item instanceof MeleeWeapon){
 			Sample.INSTANCE.play(Assets.Sounds.CHALLENGE,1f,0.8f);
 			ArrayList<Integer> respawnPoints = new ArrayList<>();
@@ -97,14 +100,20 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				}
 			}
 			if (!respawnPoints.isEmpty()){
+				if (item.cursed) {
+					item.cursed = false;
+					cursedd = true;
+				}
 				detach(hero.belongings.backpack);
 				item.detach(hero.belongings.backpack);
 				Statue statuewithmelee = new Statue((MeleeWeapon)item);
 				if (((MeleeWeapon)item).enchantment!=null) statuewithmelee = new Statue((MeleeWeapon)item, ((MeleeWeapon)item).enchantment);
 				statuewithmelee.HP = statuewithmelee.HT = hero.HP;
-				statuewithmelee.alignment = Char.Alignment.ALLY;
+				if (cursedd) statuewithmelee.alignment = Char.Alignment.ENEMY; else statuewithmelee.alignment = Char.Alignment.ALLY;
 				statuewithmelee.pos = Random.element(respawnPoints);
-				CellEmitter.get(statuewithmelee.pos).burst(ElmoParticle.FACTORY, 10);
+				if (!cursedd)
+					CellEmitter.get(statuewithmelee.pos).burst(ElmoParticle.FACTORY, 10);
+				else CellEmitter.get(statuewithmelee.pos).burst(BloodParticle.FACTORY, 10);
 				statuewithmelee.state = statuewithmelee.HUNTING;
 				GameScene.add(statuewithmelee);
 			}
@@ -119,14 +128,20 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				}
 			}
 			if (!respawnPoints.isEmpty()){
+				if (item.cursed) {
+					item.cursed = false;
+					cursedd = true;
+				}
 				detach(hero.belongings.backpack);
 				item.detach(hero.belongings.backpack);
 				Statue statuewitharmor = new ArmoredStatue((Armor)item);
 				if (((Armor)item).glyph!=null) statuewitharmor = new ArmoredStatue((Armor)item, ((Armor)item).glyph);
 				statuewitharmor.HP = statuewitharmor.HT = hero.HP;
-				statuewitharmor.alignment = Char.Alignment.ALLY;
+				if (cursedd) statuewitharmor.alignment = Char.Alignment.ENEMY; else statuewitharmor.alignment = Char.Alignment.ALLY;
 				statuewitharmor.pos = Random.element(respawnPoints);
+				if (!cursedd)
 				CellEmitter.get(statuewitharmor.pos).burst(ElmoParticle.FACTORY, 10);
+				else CellEmitter.get(statuewitharmor.pos).burst(BloodParticle.FACTORY, 10);
 				statuewitharmor.state = statuewitharmor.HUNTING;
 				GameScene.add(statuewitharmor);
 			}
