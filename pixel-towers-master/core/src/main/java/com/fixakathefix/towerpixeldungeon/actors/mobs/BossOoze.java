@@ -55,7 +55,7 @@ public class BossOoze extends Mob {
         viewDistance = 10;
 
 
-        HP = HT = 4000;
+        HP = HT = 3333;
         defenseSkill = 5;
 
         EXP = 100;
@@ -84,20 +84,20 @@ public class BossOoze extends Mob {
         if (phase == 1) {
             attackRange = 6;
             attackDelayMult = 1f;
-            minDamage = 8;
-            maxDamage = 12;
+            minDamage = 5;
+            maxDamage = 10;
         }
         if (phase == 2) {
             attackRange = 5;
             attackDelayMult = 1f;
-            minDamage = 9;
-            maxDamage = 15;
+            minDamage = 7;
+            maxDamage = 13;
         }
         if (phase == 3) {
             attackRange = 4;
             attackDelayMult = 0.5f;
-            minDamage = 7;
-            maxDamage = 13;
+            minDamage = 6;
+            maxDamage = 12;
         }
         if (phase == 4) {
             baseSpeed = 4f;
@@ -268,7 +268,7 @@ public class BossOoze extends Mob {
                 int slimepos = Random.element(candidates);
                 CausticSlime slime = new CausticSlime();
                 //slime.spend(1f);
-                slime.state = WANDERING;
+                slime.state = slime.WANDERING;
                 slime.pos = pos;
                 GameScene.add(slime);
                 slime.spend(1.011f);
@@ -385,7 +385,7 @@ public class BossOoze extends Mob {
                 if (candidates.contains(pos + i) && Dungeon.level.passable[pos + i] && Actor.findChar(pos + i) == null) {
                     CausticSlime slime = new CausticSlime();
                     slime.pos = pos + i;
-                    slime.state = HUNTING;
+                    slime.state = slime.HUNTING;
                     CellEmitter.floor(pos+i).start(ElmoParticle.FACTORY, 0.1f, 10);
                     GameScene.add(slime);
                     slime.spend(1.011f);
@@ -469,14 +469,14 @@ public class BossOoze extends Mob {
             dmg = 9 + (int) (Math.sqrt(dmg - 9));
         }
         int x = 1;
-        if (HP - dmg <= 3000) x = 2;
-        if (HP - dmg <= 2000) x = 3;
-        if (HP - dmg <= 1000) x = 4;
+        if (HP - dmg <= 2600) x = 2;
+        if (HP - dmg <= 1300) x = 3;
+        if (HP - dmg <= 750) x = 4;
         if (phase != x) setPhase(x);
         if (level.mode == WndModes.Modes.HARDMODE){
             CausticSlime slime = new CausticSlime();
             slime.pos = this.pos;
-            slime.state = HUNTING;
+            slime.state = slime.HUNTING;
             GameScene.add(slime);
             slime.spend(1.011f);
             WandOfBlastWave.throwChar(slime, new Ballistica(

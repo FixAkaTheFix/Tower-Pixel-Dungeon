@@ -29,6 +29,7 @@ import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.MagicImmune;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
@@ -55,7 +56,7 @@ public class CorpseDust extends Item {
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
-		if (cursed) return new ArrayList<>(); //yup, no dropping this one
+		if (cursed && hero.buff(MagicImmune.class)==null) return new ArrayList<>(); //yup, no dropping this one without items
 		else return super.actions(hero);
 	}
 
