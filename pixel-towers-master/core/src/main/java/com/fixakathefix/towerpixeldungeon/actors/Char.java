@@ -402,7 +402,7 @@ public abstract class Char extends Actor {
 		if (enemy.isInvulnerable(getClass())) {
 
 			if (visibleFight) {
-				enemy.sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "invulnerable") );
+				enemy.sprite.showStatus( CharSprite.HOLY, Messages.get(this, "invulnerable") );
 
 				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1f, Random.Float(0.96f, 1.05f));
 			}

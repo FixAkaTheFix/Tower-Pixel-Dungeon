@@ -489,22 +489,9 @@ public class Arena5 extends Arena{
             if (this.map[m] == Terrain.HIGH_GRASS  && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         this.drop(new RoseSeed(), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
+        for (int i = 0; i < 20; i++){
+            this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
+        }
         candidates.clear();
         if (mode != WndModes.Modes.CHALLENGE){
             candidates = new ArrayList<>();
@@ -535,7 +522,7 @@ public class Arena5 extends Arena{
 
     @Override
     public void endWave() {
-        int goldAdd = 100;
+        int goldAdd = 150;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
 

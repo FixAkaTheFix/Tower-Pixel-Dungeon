@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.RatSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.SpinnerSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerCrossbow1Sprite;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerRatCampSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.YogSprite;
@@ -57,6 +58,7 @@ public class vTowersNewChanges {
 		add_v032_Changes(changeInfos);
 		add_v050_Changes(changeInfos);
 		add_v051_Changes(changeInfos);
+		add_v052_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -430,6 +432,64 @@ public class vTowersNewChanges {
 						"- Missile launcher rockets dealing 1.5x damage to the direct target\n" +
 						"- Duelist ability not giving an enchant to the newly summoned weaponry\n" +
 						"- etc. etc. etc... There was so many bugs I accidentally fell asleep twice while fixing them"));
+
+	}
+	public static void add_v052_Changes( ArrayList<ChangeInfo> changeInfos) {
+
+		ChangeInfo changes = new ChangeInfo("v0.5.2 Bug-slapping update", false, null);
+		changes.hardlight(CharSprite.NEGATIVE);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
+				"General update info:\n" +
+						"- Released 09.02.25\n" +
+						"- Balanced some items, stages and levels\n" +
+						"- fixed ooze once again\n" +
+						"- fixed many bugs, including some gamebreaking ones\n" +
+						"- added some additional item interactions"));
+
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_GOLEMS), "Scroll of golems fixes",
+				"Made some changes and fixes to SoG\n" +
+				"- Scroll of golems can spawn golems from cursed equipment\n" +
+				"- Golems from cursed equipment are aggressive"
+		));
+		changes.addButton(new ChangeButton(new SpinnerSprite(), "Balance additions",
+				"Made a lot of minor balance changes:\n" +
+						"- Ooze HP lowered from 4000 to 3333, hardmode ooze spawns less slimes now\n" +
+						"- Huntress buffed in general, the spirit bow now has less base damage but better scaling\n" +
+						"- Arena 9 nerfed. You get more items now.\n" +
+						"- Arena 5 nerfed. You get a bit more items and coins.\n" +
+						"- Towers bugs with attack speed removed, all towers have been slightly rebalanced. Please, report if any tower is op.\n" +
+						"- All wands have been very slightly nerfed"
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE), "Magic changes",
+				"Made some changes to some magic and scrolls:\n" +
+						"- Magic slightly nerfed in damage, especially WOLightning, WODisintegration, stats of wand of corrosion and its gas mechanics were changed\n" +
+						"- All wands charge slower and depends less on missing charges amount"
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DUST), "Corpse dust changes",
+				"- Corpse dust can be unequipped if you are magic immune"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
+				"Bugs removed:\n" +
+						"- ankh immortality no longer activates on portal death\n" +
+						"- Lock buff now does not affect any regeneration or charging\n" +
+						"- Cursed weaponry - scroll of golems interaction fixed (see additions)\n" +
+						"- visual bug with mage teleportation fixed\n" +
+						"- berserker totem range desc is now proper\n" +
+						"- crypt wraiths can fly now\n" +
+						"- Arena bugs removal: Arena 7 torches, arena 1 desc, _arena 5 CRASH BUG_ fixed\n" +
+						"- Remac no longer disappears after reentering the stage\n" +
+						"- Fixed tower cooldown interactions\n" +
+						"- fixed most? void bugs\n" +
+						"- minions now do not drop gold\n" +
+						"- talent reports removed\n" +
+						"- fixed most? void bugs\n" +
+						"- fixed some invulnerability bugs (including its effect on mobs)\n" +
+						"- fixed holy nova badge\n" +
+
+						"- ankh immortality no longer activates on portal death\n" +
+
+						"- duelist and necromancer sprites swapping"));
 
 	}
 
