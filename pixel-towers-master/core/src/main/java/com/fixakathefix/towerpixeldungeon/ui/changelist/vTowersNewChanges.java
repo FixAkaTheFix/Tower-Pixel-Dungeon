@@ -227,7 +227,7 @@ public class vTowersNewChanges {
 	}
 	public static void add_v051_Changes( ArrayList<ChangeInfo> changeInfos) {
 
-		ChangeInfo changes = new ChangeInfo("v0.5.1 Essential patch", false, null);
+		ChangeInfo changes = new ChangeInfo("v0.5.1 patch", false, null);
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
@@ -436,7 +436,7 @@ public class vTowersNewChanges {
 	}
 	public static void add_v052_Changes( ArrayList<ChangeInfo> changeInfos) {
 
-		ChangeInfo changes = new ChangeInfo("v0.5.2 Bug-slapping update", false, null);
+		ChangeInfo changes = new ChangeInfo("v0.5.2 patch", false, null);
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
