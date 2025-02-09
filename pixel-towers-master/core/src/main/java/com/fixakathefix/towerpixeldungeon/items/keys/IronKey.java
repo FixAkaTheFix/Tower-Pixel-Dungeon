@@ -24,6 +24,7 @@
 
 package com.fixakathefix.towerpixeldungeon.items.keys;
 
+import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 
 public class IronKey extends Key {
@@ -39,6 +40,11 @@ public class IronKey extends Key {
 	public IronKey( int depth ) {
 		super();
 		this.depth = depth;
+	}
+
+	@Override
+	public Item clone() {
+		return new IronKey(depth);
 	}
 
 	@Override
