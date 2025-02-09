@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.actors.blobs.ToxicGas;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AbilityCooldown;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Adrenaline;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AllyBuff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ArcaneArmor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Barkskin;
@@ -773,7 +774,7 @@ public abstract class Char extends Actor {
 		}
 
 		if(isInvulnerable(src.getClass())){
-			sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
+			sprite.showStatus(CharSprite.HOLY, Messages.get(this, "invulnerable"));
 			return;
 		}
 

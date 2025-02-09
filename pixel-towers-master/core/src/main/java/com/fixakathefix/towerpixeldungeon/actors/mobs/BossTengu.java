@@ -119,7 +119,7 @@ public class BossTengu extends Mob {
                     }
                 }
             });
-            Buff.affect(BossTengu.this, AnkhInvulnerability.class, 20);
+            Buff.affect(BossTengu.this, AnkhInvulnerability.class, 10);
 
             WndDialogueWithPic.dialogue(new TenguSprite(), Messages.get(BossTengu.class, "name"),
                     new String[]{

@@ -50,6 +50,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.warrior.HeroicLe
 import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.fixakathefix.towerpixeldungeon.items.Amulet;
+import com.fixakathefix.towerpixeldungeon.items.Ankh;
 import com.fixakathefix.towerpixeldungeon.items.BrokenSeal;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
@@ -537,6 +538,7 @@ public enum HeroClass {
 
 		WandOfDebug buggo = new WandOfDebug();
 		buggo.identify().collect();
+		new Ankh().collect();
 
 		StaffOfBeasts staffo = new StaffOfBeasts();
 		staffo.identify().collect();

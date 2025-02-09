@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Adrenaline;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AllyBuff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Amok;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
@@ -794,6 +795,10 @@ public abstract class Mob extends Char {
 		Invisibility.dispel(this);
 		spend( attackDelay() );
 		super.onAttackComplete();
+	}
+	@Override
+	public boolean isInvulnerable(Class effect) {
+		return super.isInvulnerable(effect) || buff(AnkhInvulnerability.class) != null;
 	}
 
 	@Override
