@@ -389,8 +389,8 @@ public class Generator {
 					Rotberry.Seed.class};
 			SEED.defaultProbs = new float[]{ 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 3, 1, 1 };
 			SEED.probs = SEED.defaultProbs.clone();
-			SCROLL.classes = new Class<?>[]{
-					ScrollOfUpgrade.class, //1 drop every chapter, see Dungeon.souNeeded()
+			SCROLL.classes = new Class<?>[]{//basic scrolls
+					ScrollOfUpgrade.class,
 					ScrollOfAnimation.class,
 					ScrollOfAntiMagic.class,
 					ScrollOfMirrorImage.class,
@@ -403,7 +403,7 @@ public class Generator {
 					ScrollOfTerror.class,
 					ScrollOfTransmutation.class
 			};
-			SCROLL.defaultProbs = new float[]{ 0, 6, 1, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+			SCROLL.defaultProbs = new float[]{ 2, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 3 };
 			SCROLL.probs = SCROLL.defaultProbs.clone();
 
 			SCROLL2.classes = new Class<?>[]{
