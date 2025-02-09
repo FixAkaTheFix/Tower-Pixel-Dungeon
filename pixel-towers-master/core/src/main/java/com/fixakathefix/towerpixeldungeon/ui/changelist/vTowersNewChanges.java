@@ -487,7 +487,8 @@ public class vTowersNewChanges {
 						"- fixed some invulnerability bugs (including its effect on mobs)\n" +
 						"- fixed holy nova badge\n" +
 						"- ankh immortality no longer activates on portal death\n" +
-						"- stage 6 keys scam\n" +
+						"- stage 6 keys scam removed\n" +
+						"- stage 10 guard-in-a-wall scam removed\n" +
 						"------------------------------------------\n" +
 						"Bugs not fixed/unable to replicate. Report them if they are found, they appeared so rarely I couldn't even make them appear (or they are nonexistent):\n" +
 						"- Ice wall mage skill giving more cooldown than stated\n" +

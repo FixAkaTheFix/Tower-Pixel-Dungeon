@@ -237,7 +237,7 @@ public class Arena10 extends Arena{
     public void initNpcs() {
         super.initNpcs();
 
-        if( mode == WndModes.Modes.CHALLENGE )for (int x = 0; x < 2; x++) for (int y = 6; y< 15; y++){
+        if( mode == WndModes.Modes.CHALLENGE )for (int x = 1; x < 3; x++) for (int y = 6; y< 15; y++){
             TowerGuard1 towerGuard1 = new TowerGuard1();
             towerGuard1.sellable = false;
             towerGuard1.pos = x + WIDTH*y;
