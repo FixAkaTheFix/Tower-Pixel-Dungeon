@@ -451,7 +451,7 @@ public class vTowersNewChanges {
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_GOLEMS), "Scroll of golems fixes",
 				"Made some changes and fixes to SoG\n" +
 				"- Scroll of golems can spawn golems from cursed equipment\n" +
-				"- Golems from cursed equipment are aggressive"
+				"- Golems from cursed equipment are weaker"
 		));
 		changes.addButton(new ChangeButton(new SpinnerSprite(), "Balance additions",
 				"Made a lot of minor balance changes:\n" +
