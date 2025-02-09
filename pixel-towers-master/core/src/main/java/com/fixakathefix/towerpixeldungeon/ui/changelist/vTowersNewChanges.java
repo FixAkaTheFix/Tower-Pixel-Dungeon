@@ -455,6 +455,7 @@ public class vTowersNewChanges {
 		));
 		changes.addButton(new ChangeButton(new SpinnerSprite(), "Balance additions",
 				"Made a lot of minor balance changes:\n" +
+						"- Many of the first stages' between-wave cooldowns, coins-per-wave gain, loot amount have been increased\n" +
 						"- Ooze HP lowered from 4000 to 3333, hardmode ooze spawns less slimes now\n" +
 						"- Huntress buffed in general, the spirit bow now has less base damage but better scaling\n" +
 						"- Arena 9 nerfed. You get more items now.\n" +

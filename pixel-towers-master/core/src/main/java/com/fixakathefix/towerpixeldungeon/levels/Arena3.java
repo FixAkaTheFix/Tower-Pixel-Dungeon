@@ -21,6 +21,7 @@ import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Honeypot;
 import com.fixakathefix.towerpixeldungeon.items.bombs.Bomb;
+import com.fixakathefix.towerpixeldungeon.items.food.Blandfruit;
 import com.fixakathefix.towerpixeldungeon.items.food.MeatPie;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
 import com.fixakathefix.towerpixeldungeon.items.food.StewedMeat;
@@ -460,6 +461,8 @@ public class Arena3 extends Arena {
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(new Honeypot(),Random.element(candidates));
+            this.drop(new Honeypot(),Random.element(candidates));
+            this.drop(new Blandfruit(),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));

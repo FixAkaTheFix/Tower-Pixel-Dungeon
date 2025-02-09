@@ -452,7 +452,7 @@ public class Arena2 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m] && this.distance(amuletCell, m) > 20 ) candidates.add(m);
+            if (this.passable[m] && this.distance(amuletCell, m) > 15 ) candidates.add(m);
         }
         this.drop(new Honeypot(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates)).type = Heap.Type.CHEST;
@@ -598,6 +598,19 @@ public class Arena2 extends Arena{
         this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
         this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
         this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
+        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+
 
         super.addDestinations();
     }

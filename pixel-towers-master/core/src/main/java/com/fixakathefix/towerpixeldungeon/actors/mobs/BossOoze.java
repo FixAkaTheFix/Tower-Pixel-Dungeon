@@ -56,7 +56,7 @@ public class BossOoze extends Mob {
 
 
         HP = HT = 3333;
-        defenseSkill = 5;
+        defenseSkill = 0;
 
         EXP = 100;
 
@@ -302,7 +302,7 @@ public class BossOoze extends Mob {
 
             if (jumpCooldown <= 0) {
 
-                jumpCooldown = 2;
+                jumpCooldown = 4;
                 spend(1.01f);
                 sprite.jump(pos, pos, 100, 0.9f, new Callback() {
                     @Override
