@@ -61,6 +61,7 @@ import com.fixakathefix.towerpixeldungeon.effects.particles.BloodParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.armor.Armor;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAntiMagic;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -101,7 +102,7 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 			}
 			if (!respawnPoints.isEmpty()){
 				if (item.cursed) {
-					item.cursed = false;
+					ScrollOfAntiMagic.uncurse(hero, item);
 					cursedd = true;
 				}
 				detach(hero.belongings.backpack);
@@ -109,7 +110,8 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				Statue statuewithmelee = new Statue((MeleeWeapon)item);
 				if (((MeleeWeapon)item).enchantment!=null) statuewithmelee = new Statue((MeleeWeapon)item, ((MeleeWeapon)item).enchantment);
 				statuewithmelee.HP = statuewithmelee.HT = hero.HP;
-				if (cursedd) statuewithmelee.alignment = Char.Alignment.ENEMY; else statuewithmelee.alignment = Char.Alignment.ALLY;
+				statuewithmelee.alignment = Char.Alignment.ALLY;
+				if (cursedd) statuewithmelee.HP = statuewithmelee.HT/2;
 				statuewithmelee.pos = Random.element(respawnPoints);
 				if (!cursedd)
 					CellEmitter.get(statuewithmelee.pos).burst(ElmoParticle.FACTORY, 10);
@@ -129,7 +131,7 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 			}
 			if (!respawnPoints.isEmpty()){
 				if (item.cursed) {
-					item.cursed = false;
+					ScrollOfAntiMagic.uncurse(hero, item);
 					cursedd = true;
 				}
 				detach(hero.belongings.backpack);
@@ -137,7 +139,8 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				Statue statuewitharmor = new ArmoredStatue((Armor)item);
 				if (((Armor)item).glyph!=null) statuewitharmor = new ArmoredStatue((Armor)item, ((Armor)item).glyph);
 				statuewitharmor.HP = statuewitharmor.HT = hero.HP;
-				if (cursedd) statuewitharmor.alignment = Char.Alignment.ENEMY; else statuewitharmor.alignment = Char.Alignment.ALLY;
+				if (cursedd) statuewitharmor.HP = statuewitharmor.HT/2;
+				statuewitharmor.alignment = Char.Alignment.ALLY;
 				statuewitharmor.pos = Random.element(respawnPoints);
 				if (!cursedd)
 				CellEmitter.get(statuewitharmor.pos).burst(ElmoParticle.FACTORY, 10);
