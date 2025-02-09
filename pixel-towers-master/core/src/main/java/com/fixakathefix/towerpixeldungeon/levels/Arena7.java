@@ -50,7 +50,7 @@ public class Arena7 extends Arena{
         startLvl = 7;
         startGold = 2000;
         waveCooldownNormal = 50;
-        waveCooldownBoss = 50;
+        waveCooldownBoss = 100;
         arenaDepth = 7;
 
         amuletCell = 30 + WIDTH*30;

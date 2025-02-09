@@ -71,8 +71,8 @@ public class Arena9 extends Arena{
         HEIGHT = 27;
         startLvl = 8;
         startGold = 100;
-        waveCooldownNormal = 3;
-        waveCooldownBoss = 20;
+        waveCooldownNormal = 10;
+        waveCooldownBoss = 10;
         arenaDepth = 9;
 
         maxWaves=10;
@@ -251,6 +251,8 @@ public class Arena9 extends Arena{
         this.drop(new Stormvine.Seed(), Random.element(candidates));
         this.drop(new PotionOfPurity(), Random.element(candidates));
         this.drop(new PotionOfInvisibility(), Random.element(candidates));
+        this.drop(new PotionOfInvisibility(), Random.element(candidates));
+        this.drop(new ScrollOfTransmutation(), Random.element(candidates));
         this.drop(new ScrollOfTransmutation(), Random.element(candidates));
         this.drop(new ScrollOfTransmutation(), Random.element(candidates));
         this.drop(new ScrollOfTransmutation(), Random.element(candidates));
@@ -269,6 +271,9 @@ public class Arena9 extends Arena{
         this.drop(new AquaBlast(), Random.element(candidates));
         this.drop(new StoneOfAggression(), Random.element(candidates));
         this.drop(new StoneOfDeepSleep(), Random.element(candidates));
+        this.drop(new StoneOfDeepSleep(), Random.element(candidates));
+        this.drop(new StoneOfBlink(), Random.element(candidates));
+        this.drop(new StoneOfBlink(), Random.element(candidates));
         this.drop(new StoneOfBlink(), Random.element(candidates));
 
         candidates.clear();

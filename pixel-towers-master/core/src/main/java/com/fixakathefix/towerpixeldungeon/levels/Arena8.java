@@ -57,7 +57,7 @@ public class Arena8 extends Arena{
         startLvl = 8;
         startGold = 500;
         waveCooldownNormal = 3;
-        waveCooldownBoss = 300;
+        waveCooldownBoss = 350;
         arenaDepth = 8;
 
         maxWaves=20;

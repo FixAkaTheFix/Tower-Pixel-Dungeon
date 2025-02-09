@@ -102,8 +102,8 @@ public class Arena5 extends Arena{
         towerShopKeeper.vertical = NewShopKeeper.ShopDirection.DOWN;
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.UP;
 
-        waveCooldownBoss = 200;
-        waveCooldownNormal = 2;
+        waveCooldownBoss = 300;
+        waveCooldownNormal = 5;
     }
 
 
@@ -389,64 +389,22 @@ public class Arena5 extends Arena{
         for (int m = 0; m<WIDTH*HEIGHT;m++) if (m<1300||m>3700){
             if (this.passable[m] && !cellAdjacentToBorderCells(m) && distance(amuletCell,m) > 15) candidates.add(m);
         }
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
-        this.drop(new Gold(100),Random.element(candidates));
+        for (int i = 0; i < 20; i ++){
+            this.drop(new Gold(Random.Int(50, 100)),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.SCROLL2),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+        }
+
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
-        this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
+
         this.drop(new PotionOfHealing(),Random.element(candidates));
         this.drop(new PotionOfLevitation(),Random.element(candidates));
         this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
         this.drop(new Starflower.Seed(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(new ScrollOfHolyNova(),Random.element(candidates));
-        this.drop(new ScrollOfAntiMagic(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
 
         this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
@@ -472,16 +430,21 @@ public class Arena5 extends Arena{
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T1).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T2).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.WEP_T1).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.WEP_T2).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.WEP_T3).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.WEP_T4).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
+        this.drop(Generator.random(Generator.Category.WEP_T5).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
         candidates.clear();
 
         candidates = new ArrayList<>();
@@ -515,6 +478,10 @@ public class Arena5 extends Arena{
             this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
             this.drop(new PotionOfToxicGas(), Random.element(candidates));
             this.drop(new PotionOfToxicGas(), Random.element(candidates));
+            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
+            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
+            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
+            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
             candidates.clear();
         }
         super.addDestinations();

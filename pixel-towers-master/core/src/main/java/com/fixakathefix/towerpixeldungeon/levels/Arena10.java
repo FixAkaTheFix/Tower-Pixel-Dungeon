@@ -78,7 +78,7 @@ public class Arena10 extends Arena{
         normalShopKeeperCell = 17+2*WIDTH;
 
         waveCooldownNormal = 5;
-        waveCooldownBoss = 70;
+        waveCooldownBoss = 120;
     }
 
     @Override
@@ -410,17 +410,20 @@ public class Arena10 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m]&&this.map[m]==Terrain.EMPTY && distance(amuletCell, m) > 15) candidates.add(m);
+            if (this.passable[m]&&this.map[m]==Terrain.EMPTY && distance(amuletCell, m) > 13) candidates.add(m);
+        }
+        for (int i = 0; i < 12; i ++){
+            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.SCROLL2),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         }
         this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
@@ -434,12 +437,6 @@ public class Arena10 extends Arena{
         this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
@@ -453,20 +450,8 @@ public class Arena10 extends Arena{
         this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND).identify(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates));
         candidates.clear();
 

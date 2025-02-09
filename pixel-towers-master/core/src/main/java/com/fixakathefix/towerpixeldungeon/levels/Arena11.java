@@ -24,6 +24,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Spinner;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Swarm;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerMiner;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
+import com.fixakathefix.towerpixeldungeon.items.quest.DarkGold;
 import com.fixakathefix.towerpixeldungeon.items.quest.Pickaxe;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
@@ -65,7 +66,7 @@ public class Arena11 extends Arena{
         normalShopKeeperCell = amuletCell - 10*WIDTH + 2;
 
         waveCooldownNormal = 10;
-        waveCooldownBoss = 100;
+        waveCooldownBoss = 150;
     }
 
 
@@ -313,7 +314,13 @@ public class Arena11 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m]&&this.map[m]==Terrain.EMPTY) candidates.add(m);
+            if (this.passable[m]&&this.map[m]==Terrain.EMPTY && distance(amuletCell, m) > 9) candidates.add(m);
+        }
+        for (int i = 0; i < 15; i ++){
+            this.drop(new DarkGold(),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         }
         this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
         this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));

@@ -77,7 +77,7 @@ public class Arena4 extends Arena {
         normalShopKeeperCell = amuletCell - 3 * WIDTH + 2;
 
         waveCooldownNormal = 5;
-        waveCooldownBoss = 100;
+        waveCooldownBoss = 200;
     }
 
 
@@ -345,7 +345,7 @@ public class Arena4 extends Arena {
 
     @Override
     public void doStuffEndwave(int wave) {
-        int goldAdd = 70;
+        int goldAdd = 110;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
