@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.items.spells.AquaBlast;
 import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfAggression;
 import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfBlink;
 import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfDeepSleep;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Pike;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -246,7 +247,7 @@ public class Arena9 extends Arena{
         this.drop(new ScrollOfAnimation(), Random.element(candidates));
         this.drop(new ScrollOfAnimation(), Random.element(candidates));
         this.drop(new ScrollOfGolems(), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T1), Random.element(candidates));
+        this.drop(new Pike(), Random.element(candidates));
         this.drop(new Blindweed.Seed(), Random.element(candidates));
         this.drop(new Stormvine.Seed(), Random.element(candidates));
         this.drop(new PotionOfPurity(), Random.element(candidates));
