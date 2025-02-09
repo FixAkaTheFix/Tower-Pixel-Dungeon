@@ -229,8 +229,7 @@ public class CloakOfShadows extends Artifact {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null) {
-				LockedFloor lock = target.buff(LockedFloor.class);
-				if (activeBuff == null && (lock == null || lock.regenOn())) {
+				if (activeBuff == null ) {
 					float missing = (chargeCap - charge);
 					if (level() > 7) missing += 5*(level() - 7)/3f;
 					float turnsToCharge = (45 - missing);

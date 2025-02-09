@@ -109,7 +109,7 @@ public class BossOoze extends Mob {
         }
         if (level!=null&&level.mode == WndModes.Modes.HARDMODE){
             minDamage*=2;
-            maxDamage*=3;
+            maxDamage*=2;
         }
     }
     public void setPhase(int phas) {
@@ -473,7 +473,7 @@ public class BossOoze extends Mob {
         if (HP - dmg <= 1300) x = 3;
         if (HP - dmg <= 750) x = 4;
         if (phase != x) setPhase(x);
-        if (level.mode == WndModes.Modes.HARDMODE){
+        if (level.mode == WndModes.Modes.HARDMODE && Math.random()>0.8){
             CausticSlime slime = new CausticSlime();
             slime.pos = this.pos;
             slime.state = slime.HUNTING;

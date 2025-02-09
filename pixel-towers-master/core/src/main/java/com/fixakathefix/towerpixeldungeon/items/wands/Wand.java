@@ -675,9 +675,9 @@ public abstract class Wand extends Item {
 	
 	public class Charger extends Buff {
 		
-		private static final float BASE_CHARGE_DELAY = 10f;
-		private static final float SCALING_CHARGE_ADDITION = 60f;
-		private static final float NORMAL_SCALE_FACTOR = 0.7f;
+		private static final float BASE_CHARGE_DELAY = 15f;
+		private static final float SCALING_CHARGE_ADDITION = 40f;
+		private static final float NORMAL_SCALE_FACTOR = 0.5f;
 
 		private static final float CHARGE_BUFF_BONUS = 0.25f;
 
@@ -722,9 +722,7 @@ public abstract class Wand extends Item {
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
-			LockedFloor lock = target.buff(LockedFloor.class);
-			if (lock == null || lock.regenOn())
-				partialCharge += (1f/turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
+			partialCharge += (1f/turnsToCharge) * RingOfEnergy.wandChargeMultiplier(target);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {

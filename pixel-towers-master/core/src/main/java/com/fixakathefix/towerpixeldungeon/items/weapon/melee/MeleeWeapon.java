@@ -448,11 +448,9 @@ public class MeleeWeapon extends Weapon {
 
 		@Override
 		public boolean act() {
-			LockedFloor lock = target.buff(LockedFloor.class);
 			if (charges < chargeCap()){
-				if (lock == null || lock.regenOn()){
-					partialCharge += 1/(40f-(chargeCap()-charges)); // 40 to 30 turns per charge
-				}
+				partialCharge += 1/(40f-(chargeCap()-charges)); // 40 to 30 turns per charge
+
 
 				int points = ((Hero)target).pointsInTalent(Talent.WEAPON_RECHARGING);
 				if (points > 0 && target.buff(Recharging.class) != null || target.buff(ArtifactRecharge.class) != null){
@@ -471,11 +469,11 @@ public class MeleeWeapon extends Weapon {
 
 			if (Dungeon.hero.subClass == HeroSubClass.CHAMPION
 					&& secondCharges < secondChargeCap()) {
-				if (lock == null || lock.regenOn()) {
-					// 80 to 60 turns per charge without talent
-					// up to 53.333 to 40 turns per charge at max talent level
-					secondPartialCharge += secondChargeMultiplier() / (40f-(secondChargeCap()-secondCharges));
-				}
+
+				// 80 to 60 turns per charge without talent
+				// up to 53.333 to 40 turns per charge at max talent level
+				secondPartialCharge += secondChargeMultiplier() / (40f-(secondChargeCap()-secondCharges));
+
 
 				if (secondPartialCharge >= 1) {
 					secondCharges++;

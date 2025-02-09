@@ -243,11 +243,9 @@ public class TimekeepersHourglass extends Artifact {
 		@Override
 		public boolean act() {
 
-			LockedFloor lock = target.buff(LockedFloor.class);
 			if (charge < chargeCap
 					&& !cursed
-					&& target.buff(MagicImmune.class) == null
-					&& (lock == null || lock.regenOn())) {
+					&& target.buff(MagicImmune.class) == null) {
 				//90 turns to charge at full, 60 turns to charge at 0/10
 				float chargeGain = 1 / (150f - 5*level());
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
