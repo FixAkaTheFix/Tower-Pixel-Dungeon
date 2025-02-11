@@ -60,6 +60,8 @@ public class Faint extends FlavourBuff{
         else hero.pos = ((Arena)level).amuletCell;
         Sample.INSTANCE.play( Assets.Sounds.MASTERY );
         CellEmitter.center(hero.pos).burst( Speck.factory( Speck.STAR),  10 );
+        Dungeon.observe();
+        GameScene.updateFog();
         super.onRemove();
     }
 

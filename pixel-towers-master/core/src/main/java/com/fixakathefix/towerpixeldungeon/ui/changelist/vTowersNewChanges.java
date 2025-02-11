@@ -496,6 +496,56 @@ public class vTowersNewChanges {
 						"- Arena 11 crash for unknown reason"));
 
 	}
+	public static void add_v053_Changes( ArrayList<ChangeInfo> changeInfos) {
+
+		ChangeInfo changes = new ChangeInfo("v0.5.3 patch", false, null);
+		changes.hardlight(CharSprite.NEGATIVE);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
+				"General update info:\n" +
+						"- Released 11.02.25\n" +
+						"- Balanced wands and towers\n" +
+						"- fixed several bugs"));
+
+		changes.addButton(new ChangeButton(new SpinnerSprite(), "Balance additions",
+				"Made some minor balance changes:\n" +
+						"- Crossbows T1-T3 buffed, with their ability to damage weak-armored foes (aka damage spray) increased\n" +
+						"- All wands have been nerfed once again. Their charging speed is just... insane, so I nerfed the wand dumping a bit. THINK OF SOME OTHER STRAT I SAID."
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE), "Magic changes",
+				"Made some changes to some magic and scrolls:\n" +
+						"- Magic slightly nerfed in damage, especially WOLightning, WODisintegration, stats of wand of corrosion and its gas mechanics were changed\n" +
+						"- All wands charge slower and depends less on missing charges amount"
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DUST), "Corpse dust changes",
+				"- Corpse dust can be unequipped if you are magic immune"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
+				"Bugs removed:\n" +
+						"- ankh immortality no longer activates on portal death\n" +
+						"- Lock buff now does not affect any regeneration or charging\n" +
+						"- Cursed weaponry - scroll of golems interaction fixed (see additions)\n" +
+						"- visual bug with mage teleportation fixed\n" +
+						"- berserker totem range desc is now proper\n" +
+						"- crypt wraiths can fly now\n" +
+						"- Arena bugs removal: Arena 7 torches, arena 1 desc, _arena 5 CRASH BUG_ fixed\n" +
+						"- Remac no longer disappears after reentering the stage\n" +
+						"- Fixed tower cooldown interactions\n" +
+						"- minions now do not drop gold\n" +
+						"- talent reports removed\n" +
+						"- fixed most? void bugs\n" +
+						"- fixed some invulnerability bugs (including its effect on mobs)\n" +
+						"- fixed holy nova badge\n" +
+						"- ankh immortality no longer activates on portal death\n" +
+						"- stage 6 keys scam removed\n" +
+						"- stage 10 guard-in-a-wall scam removed\n" +
+						"------------------------------------------\n" +
+						"Bugs not fixed/unable to replicate. Report them if they are found, they appeared so rarely I couldn't even make them appear (or they are nonexistent):\n" +
+						"- Ice wall mage skill giving more cooldown than stated\n" +
+						"- Crash if reentering arena 20, normal mode, unknown reason\n" +
+						"- Arena 11 crash for unknown reason"));
+
+	}
 
 
 }
