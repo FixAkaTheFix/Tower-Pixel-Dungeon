@@ -7,6 +7,7 @@ import static com.fixakathefix.towerpixeldungeon.items.Item.updateQuickslot;
 
 import com.fixakathefix.towerpixeldungeon.Chrome;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.SentientTower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerPylon;
@@ -135,8 +136,21 @@ public class WndTower extends WndInfoMob {
                 if (tower instanceof SentientTower){
                     {buttons.add(moveSentientTowerButton);add(moveSentientTowerButton);}
                 }
-
-
+                RedButton swapPlacesWithAliveTowerBtn = new RedButton(Messages.get(this,"swap"), 8, Chrome.Type.RED_BUTTON) {
+                    @Override
+                    protected void onClick() {
+                        hide();
+                        hero.swapPlacesWith(tower);
+                        hero.spendAndNext(1f);
+                    }
+                };
+                swapPlacesWithAliveTowerBtn.setSize(swapPlacesWithAliveTowerBtn.reqWidth(), BUTTON_HEIGHT);
+                if (tower.buff(Animated.class)!=null && hero.distance(tower)==1){
+                    {
+                        buttons.add(swapPlacesWithAliveTowerBtn);
+                        add(swapPlacesWithAliveTowerBtn);
+                    }
+                }
                 y = layoutButtons(buttons, width, y);
             }
         }

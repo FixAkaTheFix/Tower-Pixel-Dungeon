@@ -67,7 +67,7 @@ public class ScrollOfUnspeakableHorrors extends ExoticScroll {
 			Buff.affect(mob, Vertigo.class, 19);
 		}
 		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i : PathFinder.NEIGHBOURS25){
+		for (int i : PathFinder.NEIGHBOURS25) if (Dungeon.level.passable[Dungeon.hero.pos + i]){
 			candidates.add(Dungeon.hero.pos + i);
 		}
 		for (int i = 0; i< 5; i++) if (!candidates.isEmpty()){

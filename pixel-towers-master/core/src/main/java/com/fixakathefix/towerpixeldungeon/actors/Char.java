@@ -309,6 +309,14 @@ public abstract class Char extends Actor {
 		
 		return true;
 	}
+	public void swapPlacesWith (Char c){
+		int curPos = pos;
+		moveSprite(pos, c.pos);
+		move(c.pos);
+
+		c.sprite.move(c.pos, curPos);
+		c.move(curPos);
+	}
 	
 	protected boolean moveSprite( int from, int to ) {
 		
