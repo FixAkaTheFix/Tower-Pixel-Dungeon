@@ -355,13 +355,13 @@ public class Arena2 extends Arena{
             //Random wet flooring
             int cell = x+WIDTH*y;
             if (this.map[cell]==Terrain.EMPTY){
-                if (Math.random()>0.995) {
+                if (Math.random()>0.99) {
                     this.map[cell]=Terrain.WATER;
                     for (int i1: PathFinder.NEIGHBOURS8){
-                        if (Math.random()>0.5) this.map[cell+i1] = Terrain.WATER;
+                        if (Math.random()>0.5 && this.map[cell+i1]==Terrain.EMPTY) this.map[cell+i1] = Terrain.WATER;
                     }
                     for (int i1: PathFinder.NEIGHBOURS25){
-                        if (Math.random()>0.9) this.map[cell+i1] = Terrain.WATER;//90% at 1 range, 50% at 2 range will become water cells
+                        if (Math.random()>0.9 && this.map[cell+i1]==Terrain.EMPTY) this.map[cell+i1] = Terrain.WATER;//90% at 1 range, 50% at 2 range will become water cells
                     }
                 }
             }
@@ -452,7 +452,7 @@ public class Arena2 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m] && this.distance(amuletCell, m) > 15 ) candidates.add(m);
+            if (this.passable[m] && this.distance(amuletCell, m) > 15 && !cellAdjacentToBorderCells(m) ) candidates.add(m);
         }
         this.drop(new Honeypot(),Random.element(candidates));
         this.drop(new PotionOfHealing(),Random.element(candidates)).type = Heap.Type.CHEST;

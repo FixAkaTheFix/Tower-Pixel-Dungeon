@@ -6,6 +6,7 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.levels.Arena1;
 import com.fixakathefix.towerpixeldungeon.levels.Arena10;
@@ -27,12 +28,14 @@ import com.fixakathefix.towerpixeldungeon.levels.Arena6;
 import com.fixakathefix.towerpixeldungeon.levels.Arena7;
 import com.fixakathefix.towerpixeldungeon.levels.Arena8;
 import com.fixakathefix.towerpixeldungeon.levels.Arena9;
+import com.fixakathefix.towerpixeldungeon.levels.Level;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena1;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena2;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena3;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena4;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena5;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.sprites.BossRatKingSprite;
 import com.fixakathefix.towerpixeldungeon.ui.ActionIndicator;
 import com.fixakathefix.towerpixeldungeon.ui.ExitButton;
 import com.fixakathefix.towerpixeldungeon.ui.IconButton;
@@ -40,6 +43,7 @@ import com.fixakathefix.towerpixeldungeon.ui.Icons;
 import com.fixakathefix.towerpixeldungeon.ui.RenderedTextBlock;
 import com.fixakathefix.towerpixeldungeon.ui.StyledButton;
 import com.fixakathefix.towerpixeldungeon.ui.Window;
+import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
@@ -51,6 +55,7 @@ import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,10 +83,6 @@ public class LevelSelectScene extends PixelScene {
     public static int chosenLevel = 1;
 
     public static Class<? extends Arena> chosenClass;
-
-    public static boolean sendUnlockMessageTowers = true;
-
-
 
 
     public void setLevelArrayByModeIndex() {
@@ -183,7 +184,8 @@ public class LevelSelectScene extends PixelScene {
             case 25:
                 return Assets.Splashes.ARENA25;
 */
-        } else if (GamemodeSelectionScene.chosenBranch == 1) switch (chosenLevel) {
+        }
+        else if (GamemodeSelectionScene.chosenBranch == 1) switch (chosenLevel) {
             default:
                 return Assets.Splashes.MAINWINDOW;
             case 1:
@@ -240,25 +242,27 @@ public class LevelSelectScene extends PixelScene {
 
 
         int maxLevelUnlockedForMode;
-        if (GamemodeSelectionScene.chosenBranch == 0) switch (SPDSettings.mode()) { // conditions for  unlocking the story mode scenarios
-            case NORMAL:
-            default: {
-                maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
-                break;
-            }
-            case HARDMODE: {
-                maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedHardmode();
-                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+        if (GamemodeSelectionScene.chosenBranch == 0)
+            switch (SPDSettings.mode()) { // conditions for  unlocking the story mode scenarios
+                case NORMAL:
+                default: {
                     maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
-                break;
+                    break;
+                }
+                case HARDMODE: {
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedHardmode();
+                    if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                        maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                    break;
+                }
+                case CHALLENGE: {
+                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedChalmode();
+                    if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
+                        maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
+                    break;
+                }
             }
-            case CHALLENGE: {
-                maxLevelUnlockedForMode = SPDSettings.maxlevelunlockedChalmode();
-                if (maxLevelUnlockedForMode > SPDSettings.maxlevelunlocked())
-                    maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
-                break;
-            }
-        } else switch (SPDSettings.mode()) { // conditions for  unlocking the endless mode scenarios
+        else switch (SPDSettings.mode()) { // conditions for  unlocking the endless mode scenarios
             case NORMAL:
             default: {
                 maxLevelUnlockedForMode = SPDSettings.maxlevelunlocked();
@@ -338,7 +342,6 @@ public class LevelSelectScene extends PixelScene {
         }
 
 
-
         SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset) {
             @Override
             protected NoosaScript script() {
@@ -416,8 +419,8 @@ public class LevelSelectScene extends PixelScene {
             levelDesc = PixelScene.renderTextBlock(Messages.get(this, arenadesc), Messages.get(this, arenadesc).length() > 300 ? 5 : Messages.get(this, arenadesc).length() > 230 ? 6 : Messages.get(this, arenadesc).length() > 130 ? 7 : 8);
 
         if (SPDSettings.mode() == WndModes.Modes.NORMAL &&
-                SPDSettings.maxlevelunlocked()==chosenLevel &&
-        Messages.get(this, arenaprize).length()>3){
+                SPDSettings.maxlevelunlocked() == chosenLevel &&
+                Messages.get(this, arenaprize).length() > 3) {
             levelDesc.text(Messages.get(this, arenadesc) + "\n\n" + Messages.get(this, "prize") + "\n" + Messages.get(this, arenaprize));
         }
 
@@ -488,11 +491,19 @@ public class LevelSelectScene extends PixelScene {
             @Override
             protected void onClick() {
                 super.onClick();
-                Dungeon.hero = null;
-                ActionIndicator.action = null;
-                InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+                if (SPDSettings.towerUnlockedMessage()) {
+                    SPDSettings.towerUnlockedMessage(false);
+                    WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(BossRatKing.class, "name"),
+                            new String[]{
+                                    Messages.get(LevelSelectScene.class, "newtowersunlocked" + Random.Int(8))
+                            });
 
-                Game.switchScene(InterlevelScene.class);
+                } else {
+                    Dungeon.hero = null;
+                    ActionIndicator.action = null;
+                    InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+                    Game.switchScene(InterlevelScene.class);
+                }
             }
         };
         startBtn.icon(Icons.get(Icons.ENTER));
@@ -542,7 +553,7 @@ public class LevelSelectScene extends PixelScene {
         } else {
 
 
-            float areaWithoutEssentialsHeight = levelNum.top()-8;
+            float areaWithoutEssentialsHeight = levelNum.top() - 8;
 
             levelName.align(RenderedTextBlock.CENTER_ALIGN);
             levelName.setPos(Camera.main.width / 2f - levelName.width() / 2f, 10);
@@ -550,13 +561,13 @@ public class LevelSelectScene extends PixelScene {
 
             mainStagePic.scale.set(0.5f * Math.round(Camera.main.width / mainStagePic.width));
             mainStagePic.x = 3;
-            mainStagePic.y = (areaWithoutEssentialsHeight - mainStagePic.height())/2;
+            mainStagePic.y = (areaWithoutEssentialsHeight - mainStagePic.height()) / 2;
             PixelScene.align(mainStagePic);
             levelDesc.maxWidth((int) (Camera.main.width / 2.2f));
             levelDesc.setSize(levelDesc.maxWidth(), levelDesc.height());
             levelDesc.setPos(
-                    (mainStagePic.x + mainStagePic.width() + Camera.main.width- levelDesc.width())/2,
-                    (areaWithoutEssentialsHeight - levelDesc.height())/2);
+                    (mainStagePic.x + mainStagePic.width() + Camera.main.width - levelDesc.width()) / 2,
+                    (areaWithoutEssentialsHeight - levelDesc.height()) / 2);
             levelDesc.align(RenderedTextBlock.CENTER_ALIGN);
             ;
 
@@ -566,12 +577,11 @@ public class LevelSelectScene extends PixelScene {
             PixelScene.align(mainStagePic);
 
             levelKnowledge.align(RenderedTextBlock.CENTER_ALIGN);
-            levelKnowledge.maxWidth((int) (Camera.main.width)-4);
+            levelKnowledge.maxWidth((int) (Camera.main.width) - 4);
             levelKnowledge.setSize(levelKnowledge.width(), levelKnowledge.height());
             levelKnowledge.setPos(
-                    (Camera.main.width- levelKnowledge.width()) / 2f,
+                    (Camera.main.width - levelKnowledge.width()) / 2f,
                     areaWithoutEssentialsHeight - levelKnowledge.height());
-
 
 
             align(levelName);
@@ -579,11 +589,11 @@ public class LevelSelectScene extends PixelScene {
             align(levelKnowledge);
 
             lockedText.align(RenderedTextBlock.CENTER_ALIGN);
-            lockedText.maxWidth((int)(Camera.main.width/2.3f));
+            lockedText.maxWidth((int) (Camera.main.width / 2.3f));
             lockedText.setSize(lockedText.width(), lockedText.height());
             lockedText.setPos(
-                    (mainStagePic.x + mainStagePic.width() + Camera.main.width- lockedText.width())/2,
-                    (areaWithoutEssentialsHeight - lockedText.height())/2);
+                    (mainStagePic.x + mainStagePic.width() + Camera.main.width - lockedText.width()) / 2,
+                    (areaWithoutEssentialsHeight - lockedText.height()) / 2);
             align(lockedText);
 
         }
@@ -629,7 +639,8 @@ public class LevelSelectScene extends PixelScene {
         btnModes.setSize(20, 20);
         btnModes.setPos(startBtn.left() - btnModes.width(), startBtn.centerY() - btnModes.height() / 2);
         align(btnModes);
-        if (SPDSettings.maxlevelunlocked() >= 6 && GamemodeSelectionScene.chosenBranch == 0) add(btnModes);
+        if (SPDSettings.maxlevelunlocked() >= 6 && GamemodeSelectionScene.chosenBranch == 0)
+            add(btnModes);
 
         fadeIn();
 
@@ -654,13 +665,7 @@ public class LevelSelectScene extends PixelScene {
                 uiAlpha -= Game.elapsed / 4f;
             }
         }
-        /*if (sendUnlockMessageTowers){
-            sendUnlockMessageTowers = false;
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(BossRatKing.class, "name"),
-                    new String[]{
-                            Messages.get(this, "newtowersunlocked" + Random.Int(8))
-                    });
-        }*/
+
     }
 
     @Override

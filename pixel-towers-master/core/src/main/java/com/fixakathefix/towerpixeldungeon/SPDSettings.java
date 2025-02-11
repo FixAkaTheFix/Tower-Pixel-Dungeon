@@ -72,6 +72,14 @@ public class SPDSettings extends GameSettings {
 		return getInt(MAXLEVELUNLOCKEDCHALMODE, 1);
 	}
 
+	private static final String TOWERUNLOCKEDMESSAGE = "towerunlockedmessage";
+
+	public static void towerUnlockedMessage(boolean value) {
+		put (TOWERUNLOCKEDMESSAGE, value);
+	}
+	public static boolean towerUnlockedMessage() {
+		return getBoolean(TOWERUNLOCKEDMESSAGE, false);
+	}
 
 
 	private static final String CHOSENMODE		= "chosenmode";

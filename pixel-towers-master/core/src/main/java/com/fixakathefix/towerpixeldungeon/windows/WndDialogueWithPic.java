@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.fixakathefix.towerpixeldungeon.Chrome;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
+import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
 import com.fixakathefix.towerpixeldungeon.items.Amulet;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.scenes.PixelScene;
@@ -75,7 +76,9 @@ public class WndDialogueWithPic extends Window {
                     WndDialogueWithPic wnd = new WndDialogueWithPic(icon, title, text, spriteActionIndexes);
                     if (type == WndType.FINAL) wnd.lastDialogue = true;
                     wnd.runnableArrayList = runnableArrayList;
-                    GameScene.show(wnd);
+                    if (ShatteredPixelDungeon.scene() instanceof GameScene)
+                        GameScene.show(wnd);
+                    else ShatteredPixelDungeon.scene().add(wnd);
                 }
             });
         }

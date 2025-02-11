@@ -88,11 +88,11 @@ public class CeremonialCandle extends Item {
 
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
+		Badges.validateCandle();
 		if (super.doPickUp(hero, pos)){
 			aflame = false;
 			return true;
 		}
-		Badges.validateCandle();
 		return false;
 	}
 

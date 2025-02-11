@@ -571,12 +571,12 @@ public class Arena extends Level {
             if (maxnewlevel > maxlevel) {
                 if (maxnewlevel == 5 ||
                         maxnewlevel==7||
-                        maxnewlevel==8||
+                        maxnewlevel==9||
                         maxnewlevel==10||
                         maxnewlevel==11||
                         maxnewlevel==14||
                         maxnewlevel==18){
-                    LevelSelectScene.sendUnlockMessageTowers = true;
+                    SPDSettings.towerUnlockedMessage(true);
                 }
             }
         }
