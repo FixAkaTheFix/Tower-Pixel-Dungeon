@@ -10,19 +10,19 @@ public class TowerCrossbow1 extends TowerCShooting {
         HP = HT = 40;
         spriteClass = TowerCrossbow1Sprite.class;
 
-        attackRange = 8;//dpt/c=0.0092
-        baseAttackDelay = 1.5f;
+        attackRange = 8;//dpt/c=0.0097
+        baseAttackDelay = 1.8f;
 
         cost = 200;
         upgrade1Cost = 250;
         damageMin = 2;
-        damageMax = 4;
+        damageMax = 5;
         upgradeLevel = 3;
     }
 
     @Override
     public int attackSkill(Char target) {
-        return 13;
+        return 12;
     }
 
     @Override
