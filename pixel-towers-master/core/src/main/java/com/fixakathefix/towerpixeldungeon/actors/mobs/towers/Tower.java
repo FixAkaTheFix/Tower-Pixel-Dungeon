@@ -170,7 +170,7 @@ public class Tower extends Mob {
     }
 
     public int attackSkill(Char target) {
-        return Math.round(baseAttackSkill*towerAttackMult());//???
+        return Math.round(baseAttackSkill);
     }
 
     @Override
@@ -204,35 +204,16 @@ public class Tower extends Mob {
         } else return true;
     }
 
-
-    public static float towerAttackMult(){//same
-        return 1;//for future
-    }
-    public static float towerHPMult(){//for future talents and stuff, static due to all towers being affected
-        return 1;
-    }
-    public static int towerHPAdd() {//same
-        return 0;
-    }
-
-    public int towerHp() {
-        return Math.round(baseHP*towerHPMult()) + towerHPAdd();
-    }
-
-
     private static final String UNCHANGABLEFORCED = "unchangable";
-    private static final String BASEATTACKDELAY = "baseattackdelay";
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(UNCHANGABLEFORCED, sellable);
-        bundle.put(BASEATTACKDELAY, baseAttackDelay);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         sellable = bundle.getBoolean(UNCHANGABLEFORCED);
-        baseAttackDelay = bundle.getFloat(BASEATTACKDELAY);
     }
 }
