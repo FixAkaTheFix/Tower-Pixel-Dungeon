@@ -90,7 +90,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 
 			if (target == null){
 				GLog.w(Messages.get(ScrollOfMetamorphosis.class, "useonenemies"));
-			} else  if (target.properties().contains(Char.Property.BOSS)){
+			} else  if (target.properties().contains(Char.Property.BOSS) || target.properties().contains(Char.Property.MINIBOSS)){
 				GLog.w(Messages.get(ScrollOfMetamorphosis.class, "usenotonbosses"));
 			} else {
 				detach(curUser.belongings.backpack);

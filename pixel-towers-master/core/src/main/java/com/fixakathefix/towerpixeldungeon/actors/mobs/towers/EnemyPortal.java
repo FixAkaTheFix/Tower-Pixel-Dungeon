@@ -7,7 +7,11 @@ import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Chill;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Frost;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Paralysis;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Slow;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Ghoul;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
@@ -43,7 +47,13 @@ public class EnemyPortal extends Mob {
         properties.add(Property.MINIBOSS);
         properties.add(Property.DEMONIC);
 
-        HP = HT = Dungeon.depth*100;
+        immunities.add(Frost.class);
+        immunities.add(Paralysis.class);
+        immunities.add(Chill.class);
+        immunities.add(Slow.class);
+
+
+        HP = HT = Dungeon.depth*70 + 300;
         defenseSkill = 0;
 
         viewDistance = 5;
@@ -60,7 +70,6 @@ public class EnemyPortal extends Mob {
     public boolean counting = false;
 
     public int damageAccum = 0;
-
 
 
     @Override

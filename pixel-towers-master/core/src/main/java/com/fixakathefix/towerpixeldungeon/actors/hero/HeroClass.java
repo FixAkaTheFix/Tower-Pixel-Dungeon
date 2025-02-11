@@ -106,6 +106,7 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.AbWallstance;
 import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpell;
 import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpellTargeted;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
+import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfLevitation;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfMindVision;
 import com.fixakathefix.towerpixeldungeon.items.potions.brews.CausticBrew;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
@@ -551,6 +552,7 @@ public enum HeroClass {
 
 		new BlandfruitBush.Seed().collect();
 
+		new PotionOfLevitation().collect();
 		new BrokenHourglass().collect();
 		new UnstableSpellbook().collect();
 		new WandOfBlastWave().collect();
