@@ -12,7 +12,7 @@ public class TowerCrossbowGatling extends TowerCrossbow3{
         spriteClass = TowerCrossbowGatlingSprite.class;
 
         attackRange = 7;//DPT/c was 0.0019 -> 0.004 which is very weak. Now it is 0.00236 -> 0.0176
-        baseAttackDelay = 2f;
+        baseAttackDelay = 1f;
         cost = 2000;
 
         upgCount=0;

@@ -20,7 +20,7 @@ public class TowerCShooting extends TowerNotliving{
     public String info() {
         StringBuilder info = new StringBuilder();
         info.append(description());
-        int attackDelayShow = Math.round(100/baseAttackDelay);
+        int attackDelayShow = Math.round(100/attackDelay());
         int ac = Math.round(attackSkill(hero)*10);
         String attackSkillShow = ac + "%";
         if (ac >= 10000) attackSkillShow = Messages.get(this.getClass(),"nevermiss");

@@ -59,6 +59,7 @@ public class vTowersNewChanges {
 		add_v050_Changes(changeInfos);
 		add_v051_Changes(changeInfos);
 		add_v052_Changes(changeInfos);
+		add_v053_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -508,42 +509,22 @@ public class vTowersNewChanges {
 						"- Balanced wands and towers\n" +
 						"- fixed several bugs"));
 
-		changes.addButton(new ChangeButton(new SpinnerSprite(), "Balance additions",
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_SNAKES), "Balance additions",
 				"Made some minor balance changes:\n" +
 						"- Crossbows T1-T3 buffed, with their ability to damage weak-armored foes (aka damage spray) increased\n" +
 						"- All wands have been nerfed once again. Their charging speed is just... insane, so I nerfed the wand dumping a bit. THINK OF SOME OTHER STRAT I SAID."
 		));
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE), "Magic changes",
-				"Made some changes to some magic and scrolls:\n" +
-						"- Magic slightly nerfed in damage, especially WOLightning, WODisintegration, stats of wand of corrosion and its gas mechanics were changed\n" +
-						"- All wands charge slower and depends less on missing charges amount"
-		));
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DUST), "Corpse dust changes",
-				"- Corpse dust can be unequipped if you are magic immune"));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
 				"Bugs removed:\n" +
-						"- ankh immortality no longer activates on portal death\n" +
-						"- Lock buff now does not affect any regeneration or charging\n" +
-						"- Cursed weaponry - scroll of golems interaction fixed (see additions)\n" +
-						"- visual bug with mage teleportation fixed\n" +
-						"- berserker totem range desc is now proper\n" +
-						"- crypt wraiths can fly now\n" +
-						"- Arena bugs removal: Arena 7 torches, arena 1 desc, _arena 5 CRASH BUG_ fixed\n" +
-						"- Remac no longer disappears after reentering the stage\n" +
-						"- Fixed tower cooldown interactions\n" +
-						"- minions now do not drop gold\n" +
-						"- talent reports removed\n" +
-						"- fixed most? void bugs\n" +
-						"- fixed some invulnerability bugs (including its effect on mobs)\n" +
-						"- fixed holy nova badge\n" +
-						"- ankh immortality no longer activates on portal death\n" +
-						"- stage 6 keys scam removed\n" +
-						"- stage 10 guard-in-a-wall scam removed\n" +
-						"------------------------------------------\n" +
-						"Bugs not fixed/unable to replicate. Report them if they are found, they appeared so rarely I couldn't even make them appear (or they are nonexistent):\n" +
-						"- Ice wall mage skill giving more cooldown than stated\n" +
-						"- Crash if reentering arena 20, normal mode, unknown reason\n" +
-						"- Arena 11 crash for unknown reason"));
+						"- Several bugs with Nightmare Rifts: them being movable, inactive, metamorphable, being able to bleed etc\n" +
+						"- Bugs with infinite attack speed\n" +
+						"- Some bugs regarding generation of loot\n" +
+						"- Mind vision bug\n" +
+						"- Faint visual bug\n" +
+						"- corner cells not being recognized properly\n" +
+				"------------------------------------------\n" +
+						"Bugs attempted to fix/unable to replicate. Report them by discord if they are found (these might be fixed by now, but the exact bug cause was not found):\n" +
+						"- Arena 10 crash due to unknown reason, probably due to cursed wand effect or Nightmare rift bugging out"));
 
 	}
 

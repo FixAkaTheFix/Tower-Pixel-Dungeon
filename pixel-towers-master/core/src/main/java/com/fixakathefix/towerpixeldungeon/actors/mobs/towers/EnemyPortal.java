@@ -46,6 +46,8 @@ public class EnemyPortal extends Mob {
 
         properties.add(Property.MINIBOSS);
         properties.add(Property.DEMONIC);
+        properties.add(Property.INORGANIC);
+        properties.add(Property.IMMOVABLE);
 
         immunities.add(Frost.class);
         immunities.add(Paralysis.class);
