@@ -8,7 +8,7 @@ public class TowerLightning2 extends TowerLightning1 {
         spriteClass = TowerLightning2Sprite.class;
 
         attackRange = 3;
-        baseAttackDelay = 5f;
+        baseAttackDelay = 5f; //0.01
 
         cost = 600;
         upgrade1Cost = 700;

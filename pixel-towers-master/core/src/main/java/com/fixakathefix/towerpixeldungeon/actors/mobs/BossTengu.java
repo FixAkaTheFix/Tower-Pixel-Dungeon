@@ -167,16 +167,6 @@ public class BossTengu extends Mob {
     private int gasTime = 16 ;
     private int gasTimer =0;
 
-    public BossTengu(){
-        //these are written in a constructor to evade specific wndjournal checks easily
-        if (level!=null){
-            warpTime = level.mode == WndModes.Modes.HARDMODE ? 5 : 10;;
-            cloneTime = level.mode == WndModes.Modes.HARDMODE ? 3 : 9;
-            gasTime = level.mode == WndModes.Modes.HARDMODE ? 10 : 16;
-        }
-    }
-
-
     @Override
     protected boolean act() {
         int x = 1;

@@ -32,10 +32,10 @@ public class CampRatKnife extends CampRat {
 	{
 		spriteClass = CampRatKnifeSprite.class;
 		
-		HP = HT = 8;
+		HP = HT = 12;//will deal two hits only
 		defenseSkill = 5;
 
-		damageMin = 5;
+		damageMin = 6;//dpt/c = 0.07
 		damageMax = 8;
 		defMin = 0;
 		defMax = 1;

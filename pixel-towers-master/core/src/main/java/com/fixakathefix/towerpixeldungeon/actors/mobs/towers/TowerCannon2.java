@@ -18,7 +18,7 @@ public class TowerCannon2 extends TowerCannon1{
         cost = 600;
         upgrade1Cost = 700;
         damageMin = 4;
-        damageMax = 12;
+        damageMax = 11;
         damageExplosionMult = 0.5f;
     }
 }

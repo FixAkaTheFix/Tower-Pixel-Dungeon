@@ -36,7 +36,7 @@ public class CampRatArcher extends CampRat {
 		HP = HT = 10;
 		defenseSkill = 5;
 
-		damageMin = 3;
+		damageMin = 3;//dpt/c = 0.026, ineffective against armored foes
 		damageMax = 5;
 		defMin = 0;
 		defMax = 1;

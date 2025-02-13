@@ -68,7 +68,7 @@ public class Shinobi extends Mob {
 		
 		Ballistica route = new Ballistica( pos+direction, target, Ballistica.PROJECTILE);
 		if (route.dist == 0){
-			teleport();
+			//teleport();
 			return;
 		}
 		int cell = route.collisionPos;

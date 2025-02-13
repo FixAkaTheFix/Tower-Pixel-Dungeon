@@ -24,6 +24,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWave;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
@@ -386,6 +387,11 @@ public class Arena10 extends Arena{
         normalShopKeeper.placeItems();
         doStuffEndwave(wave);
         if (wave==maxWaves) {
+            for (Mob mob : mobs){
+                if (mob instanceof TowerWave){
+                    ((TowerWave)mob).isPrepared=true;
+                }
+            }
             BossTengu bossTengu = new BossTengu();
             this.map[75+11*WIDTH]=Terrain.EMBERS;
             bossTengu.pos = 75+11*WIDTH;
@@ -394,6 +400,8 @@ public class Arena10 extends Arena{
                 BossTengu bossTengu2 = new BossTengu();
                 bossTengu2.pos = 75+12*WIDTH;
                 GameScene.add(bossTengu2);
+                bossTengu.HP = bossTengu.HT/2;
+                bossTengu2.HP = bossTengu2.HT/2;
             }
             for (int i : PathFinder.NEIGHBOURS25){
                 CellEmitter.floor(bossTengu.pos+i).start(SmokeParticle.FACTORY,0.03f, 50);

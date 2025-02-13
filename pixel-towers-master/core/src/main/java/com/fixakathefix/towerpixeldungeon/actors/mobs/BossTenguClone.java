@@ -58,7 +58,6 @@ public class BossTenguClone extends Mob {
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         alpha = bundle.getFloat(ALPHA);
-        sprite.alpha(alpha);
     }
 
 

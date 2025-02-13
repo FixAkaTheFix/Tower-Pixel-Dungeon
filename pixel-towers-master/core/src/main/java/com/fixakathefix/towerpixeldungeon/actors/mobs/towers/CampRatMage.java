@@ -34,7 +34,7 @@ public class CampRatMage extends CampRat {
 		spriteClass = CampRatMageSprite.class;
 		
 		HP = HT = 8;
-		defenseSkill = 1;
+		defenseSkill = 1;//dpt/c = 0.01025
 
 		damageMin = 10;
 		damageMax = 31;

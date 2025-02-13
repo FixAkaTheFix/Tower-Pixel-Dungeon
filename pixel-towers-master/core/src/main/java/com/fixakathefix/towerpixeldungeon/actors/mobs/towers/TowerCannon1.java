@@ -29,7 +29,7 @@ public class TowerCannon1 extends TowerCShooting{
         cost = 300;
         upgrade1Cost = 300;
         damageMin = 2;
-        damageMax = 7;
+        damageMax = 6;
         upgradeLevel = 3;
 
     }

@@ -39,10 +39,10 @@ public class CampRatLeader extends CampRat {
 	{
 		spriteClass = CampRatFlagSprite.class;
 		
-		HP = HT = 20;
+		HP = HT = 40;
 		defenseSkill = 5;
 
-		damageMin = 10;
+		damageMin = 10;//dpt/c = 0.0275
 		damageMax = 12;
 		defMin = 2;
 		defMax = 3;
