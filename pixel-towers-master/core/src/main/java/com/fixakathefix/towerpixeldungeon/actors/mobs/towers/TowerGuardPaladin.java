@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class TowerGuardPaladin extends TowerGuard3{
 
     {
-        HP = HT = 600;
+        HP = HT = 800;
         spriteClass = TowerGuard3UpgradedSprite.class;
 
         cost = 2550;

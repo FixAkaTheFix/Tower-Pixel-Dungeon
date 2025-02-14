@@ -516,15 +516,20 @@ public class vTowersNewChanges {
 						"- Cannons slightly nerfed, with Missile Launcher nerfed the most\n" +
 						"- All rats buffed (except Magic Rodent and Ratcher)\n" +
 						"- Rats tents can resummon rats on Tengu boss wave\n" +
+						"- Higher tiers of guards buffed\n" +
 						"- All wands have been nerfed once again. Their charging speed is just... insane, so I nerfed the wand dumping a bit. THINK OF SOME OTHER STRAT I SAID."
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_ANIMATION), "Quality of Life features",
+				"Added a single QoL feature:\n" +
+						"- You can swap places with any animated Tower upon interaction (requires you being adjacent to it)"
 		));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
 				"Bugs removed:\n" +
 						"- Several bugs with Nightmare Rifts: them being movable, inactive, metamorphable, being able to bleed etc\n" +
 						"- Bugs with infinite attack speed\n" +
 						"- Some bugs regarding generation of loot\n" +
-						"- Mind vision bug\n" +
-						"- Faint visual bug\n" +
+						"- Mind vision bug with tiles keeping the discovered state\n" +
+						"- Faint visual bug, same as mind vision\n" +
 						"- corner cells not being recognized properly (affects many things)\n" +
 						"- gatling tower bugs\n" +
 						"- Shinobi recursive teleporting crash\n" +

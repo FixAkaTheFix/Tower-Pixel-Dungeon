@@ -6,7 +6,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.TowerGuard2Sprite;
 public class TowerGuard2 extends TowerGuard1{
 
     {
-        HP = HT = 150;
+        HP = HT = 200;
         spriteClass = TowerGuard2Sprite.class;//dpt/c = 0.01667
 
         cost = 450;

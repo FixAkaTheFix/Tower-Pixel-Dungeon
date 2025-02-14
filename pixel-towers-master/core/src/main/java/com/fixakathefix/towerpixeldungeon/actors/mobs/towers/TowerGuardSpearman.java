@@ -6,7 +6,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.TowerGuardSpearmanSprite;
 public class TowerGuardSpearman extends TowerGuard3{
 
     {
-        HP = HT = 350;
+        HP = HT = 700;
         spriteClass = TowerGuardSpearmanSprite.class;
 
         cost = 1950;
@@ -14,9 +14,9 @@ public class TowerGuardSpearman extends TowerGuard3{
         damageMax = 42;//dpt/c = 0.01897
         upgradeLevel = 8;
         defMin = 2;
-        defMax = 5;
+        defMax = 6;
         upgCount = 0;
-        regenNum = 20;
+        regenNum = 15;
         viewDistance = 3;
     }
 
