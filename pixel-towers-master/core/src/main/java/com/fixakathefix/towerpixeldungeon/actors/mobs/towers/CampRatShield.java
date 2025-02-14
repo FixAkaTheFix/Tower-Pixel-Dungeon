@@ -33,11 +33,11 @@ public class CampRatShield extends CampRat {
 	{
 		spriteClass = CampRatShieldSprite.class;
 
-		HP = HT = 70;
+		HP = HT = 60;
 		defenseSkill = 1;
 
-		damageMin = 15;//dpt/c=0.023
-		damageMax = 20;
+		damageMin = 13;//dpt/c=0.023
+		damageMax = 18;
 		defMin = 1;
 		defMax = 3;
 
