@@ -13,6 +13,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.GnollTrickster;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Goo;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Shinobi;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Swarm;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
@@ -107,7 +108,8 @@ public class StaffOfBeasts extends Item {
                 "OOZE",
                 "TRICKSTER",
                 "BossTroll",
-                "DRILL3000"
+                "DRILL3000",
+                "shinobi"
 
         ) {
             @Override
@@ -179,6 +181,10 @@ public class StaffOfBeasts extends Item {
                     }
                     case 28 : {
                         z = new Drill();
+                        break;
+                    }
+                    case 29 : {
+                        z = new Shinobi();
                         break;
                     }
                 }

@@ -49,7 +49,7 @@ public class Shinobi extends Mob {
 	protected boolean getCloser( int target ) {
 		if (fieldOfView[target] && Dungeon.level.distance( pos, target ) <= 3 && teleportCooldown <= 0) {
 			teleport( );
-			spend( -1 / speed() );
+			spend(1);
 			return true;
 		} else {
 			teleportCooldown--;
@@ -64,36 +64,18 @@ public class Shinobi extends Mob {
 
 	private void teleport() {
 
-		int direction = PathFinder.NEIGHBOURS25[Random.Int(8)];
-		
-		Ballistica route = new Ballistica( pos+direction, target, Ballistica.PROJECTILE);
-		if (route.dist == 0){
-			//teleport();
-			return;
-		}
-		int cell = route.collisionPos;
-
-		//can't occupy the same cell as another char, so move back one.
-		if (Actor.findChar( cell ) != null && cell != this.pos)
-			cell = route.path.get(route.dist-1);
-
-		if (Dungeon.level.avoid[ cell ]){
-			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int n : PathFinder.NEIGHBOURS8) {
-				cell = route.collisionPos + n;
-				if (Dungeon.level.passable[cell] && Actor.findChar( cell ) == null) {
-					candidates.add( cell );
+		ArrayList<Integer> candidates = new ArrayList<>();
+		for (int i : PathFinder.NEIGHBOURS25){
+			int cell = pos + i;
+			if (cell > 0 && cell < Dungeon.level.width() * Dungeon.level.height()){
+				if (Dungeon.level.passable[cell]
+						&& Char.findChar(cell) == null
+						&& Dungeon.level.pit[cell]){
+					candidates.add(cell);
 				}
 			}
-			if (candidates.size() > 0)
-				cell = Random.element(candidates);
-			else {
-				teleportCooldown = Random.IntRange(1, 6);
-				return;
-			}
 		}
-		
-		ScrollOfTeleportation.appear( this, cell );
+		if (!(candidates.isEmpty())) ScrollOfTeleportation.appear( this, Random.element(candidates) );
 
 		teleportCooldown = Random.IntRange(1, 6);
 	}
