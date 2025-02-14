@@ -505,13 +505,17 @@ public class vTowersNewChanges {
 
 		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
 				"General update info:\n" +
-						"- Released 11.02.25\n" +
+						"- Released 14.02.25\n" +
 						"- Balanced wands and towers\n" +
-						"- fixed several bugs"));
+						"- fixed many bugs"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_SNAKES), "Balance additions",
 				"Made some minor balance changes:\n" +
 						"- Crossbows T1-T3 buffed, with their ability to damage weak-armored foes (aka damage spray) increased\n" +
+						"- double Tengu hardmode boss nerfed, with both Tengus having only half of their HP\n" +
+						"- Cannons slightly nerfed, with Missile Launcher nerfed the most\n" +
+						"- All rats buffed (except Magic Rodent and Ratcher)\n" +
+						"- Rats tents can resummon rats on Tengu boss wave\n" +
 						"- All wands have been nerfed once again. Their charging speed is just... insane, so I nerfed the wand dumping a bit. THINK OF SOME OTHER STRAT I SAID."
 		));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
@@ -521,7 +525,11 @@ public class vTowersNewChanges {
 						"- Some bugs regarding generation of loot\n" +
 						"- Mind vision bug\n" +
 						"- Faint visual bug\n" +
-						"- corner cells not being recognized properly\n" +
+						"- corner cells not being recognized properly (affects many things)\n" +
+						"- gatling tower bugs\n" +
+						"- Shinobi recursive teleporting crash\n" +
+						"- Tengu clone crashbug and softlock\n" +
+						"- unspeakable horrors spawning inside walls, in chasms, etc.\n" +
 				"------------------------------------------\n" +
 						"Bugs attempted to fix/unable to replicate. Report them by discord if they are found (these might be fixed by now, but the exact bug cause was not found):\n" +
 						"- Arena 10 crash due to unknown reason, probably due to cursed wand effect or Nightmare rift bugging out"));

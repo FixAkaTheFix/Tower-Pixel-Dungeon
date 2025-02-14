@@ -9,6 +9,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Chill;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Frost;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.MagicalSleep;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Paralysis;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Slow;
@@ -49,11 +50,12 @@ public class EnemyPortal extends Mob {
         properties.add(Property.INORGANIC);
         properties.add(Property.IMMOVABLE);
 
+
         immunities.add(Frost.class);
         immunities.add(Paralysis.class);
         immunities.add(Chill.class);
         immunities.add(Slow.class);
-
+        immunities.add(MagicalSleep.class);
 
         HP = HT = Dungeon.depth*70 + 300;
         defenseSkill = 0;
