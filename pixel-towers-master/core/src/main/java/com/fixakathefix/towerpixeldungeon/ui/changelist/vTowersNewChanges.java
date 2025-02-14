@@ -515,7 +515,7 @@ public class vTowersNewChanges {
 						"- double Tengu hardmode boss nerfed, with both Tengus having only half of their HP\n" +
 						"- Cannons slightly nerfed, with Missile Launcher nerfed the most\n" +
 						"- All rats buffed (except Magic Rodent and Ratcher)\n" +
-						"- Rats tents can resummon rats on Tengu boss wave\n" +
+						"- Rat tents can resummon rats on Tengu boss wave\n" +
 						"- Higher tiers of guards buffed\n" +
 						"- All wands have been nerfed once again. Their charging speed is just... insane, so I nerfed the wand dumping a bit. THINK OF SOME OTHER STRAT I SAID."
 		));
