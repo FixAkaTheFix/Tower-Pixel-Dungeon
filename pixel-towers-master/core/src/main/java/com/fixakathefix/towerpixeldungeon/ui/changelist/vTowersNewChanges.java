@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.RatSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.ShinobiSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.SpinnerSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerCrossbow1Sprite;
@@ -60,6 +61,7 @@ public class vTowersNewChanges {
 		add_v051_Changes(changeInfos);
 		add_v052_Changes(changeInfos);
 		add_v053_Changes(changeInfos);
+		add_v054_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
@@ -539,6 +541,20 @@ public class vTowersNewChanges {
 						"Bugs attempted to fix/unable to replicate. Report them by discord if they are found (these might be fixed by now, but the exact bug cause was not found):\n" +
 						"- Arena 10 crash due to unknown reason, probably due to cursed wand effect or Nightmare rift bugging out"));
 
+	}
+	public static void add_v054_Changes( ArrayList<ChangeInfo> changeInfos) {
+
+		ChangeInfo changes = new ChangeInfo("v0.5.4 patch", false, null);
+		changes.hardlight(CharSprite.NEGATIVE);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new ShinobiSprite(), "General (phphphp)",
+				"General update info:\n" +
+						"- Released 15.02.25\n" +
+						"- fixed 1 bug"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
+				"Bug removed:\n" +
+						"- Shinobi reworked with many of its crash bugs removed"));
 	}
 
 
