@@ -70,7 +70,7 @@ public class Shinobi extends Mob {
 			if (cell > 0 && cell < Dungeon.level.width() * Dungeon.level.height()){
 				if (Dungeon.level.passable[cell]
 						&& Char.findChar(cell) == null
-						&& Dungeon.level.pit[cell]){
+						&& !Dungeon.level.pit[cell]){
 					candidates.add(cell);
 				}
 			}
