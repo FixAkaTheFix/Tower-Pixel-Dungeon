@@ -9,7 +9,7 @@ public class SpawnerDartgun extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_DARTGUN;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerDartgun1.class;
+        instanceOfTower = new TowerDartgun1();
     }
 
     @Override

@@ -9,7 +9,7 @@ public class SpawnerLightning extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_LIGHTNING;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerLightning1.class;
+        instanceOfTower = new TowerLightning1();
     }
 
     @Override

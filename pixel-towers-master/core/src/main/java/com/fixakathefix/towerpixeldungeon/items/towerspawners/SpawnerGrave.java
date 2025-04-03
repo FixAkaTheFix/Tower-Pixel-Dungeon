@@ -9,7 +9,7 @@ public class SpawnerGrave extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_GRAVE;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerGrave1.class;
+        instanceOfTower = new TowerGrave1();
     }
 
     @Override

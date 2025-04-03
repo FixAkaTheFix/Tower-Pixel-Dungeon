@@ -13,7 +13,6 @@ public class TowerGuard1 extends SentientTower {
         HP = HT = 75;
         spriteClass = TowerGuard1Sprite.class;
 
-
         viewDistance = 6;
         baseAttackDelay = 1f;
 
@@ -25,10 +24,14 @@ public class TowerGuard1 extends SentientTower {
         defMax = 4;
         upgrade1Cost = 300;
         defenseSkill = 5;
-        baseAttackSkill = 10;
     }
 
     public int regenNum = 6;
+
+    public TowerGuard1(){
+        super();
+
+    }
 
     @Override
     public String info() {

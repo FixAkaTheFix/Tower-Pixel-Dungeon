@@ -9,7 +9,7 @@ public class SpawnerGuard extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_GUARD;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerGuard1.class;
+        instanceOfTower = new TowerGuard1();
     }
 
     @Override

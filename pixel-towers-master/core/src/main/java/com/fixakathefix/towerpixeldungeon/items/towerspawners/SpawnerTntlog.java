@@ -9,7 +9,7 @@ public class SpawnerTntlog extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_TNTLOG;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerTntLog.class;
+        instanceOfTower = new TowerTntLog();
     }
 
     @Override

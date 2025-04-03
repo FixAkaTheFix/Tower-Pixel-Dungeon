@@ -9,7 +9,7 @@ public class SpawnerTotemNecrotic extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_TOTEMNECROTIC;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerTotem.TotemNecrotic.class;
+        instanceOfTower = new TowerTotem.TotemNecrotic();
 
     }
 

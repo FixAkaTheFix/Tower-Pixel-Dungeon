@@ -57,6 +57,12 @@ public class ScrollOfUpgrade extends InventoryScroll {
 		return item.isUpgradable();
 	}
 
+
+	@Override
+	public String info() {
+		return super.info() + "\n\n" + Messages.get(this, "max_upgrades", maxItemLevel());
+	}
+
 	@Override
 	protected void onItemSelected( Item item ) {
 

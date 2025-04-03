@@ -9,7 +9,7 @@ public class SpawnerTotemShield extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_TOTEMSHIELD;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerTotem.TotemShield.class;
+        instanceOfTower = new TowerTotem.TotemShield();
 
     }
 

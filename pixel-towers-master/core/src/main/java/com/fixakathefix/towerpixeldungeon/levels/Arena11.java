@@ -229,8 +229,8 @@ public class Arena11 extends Arena{
                         this.map[m + WIDTH * n] = Terrain.WALL_DECO;
                 }
 
-            for (int x1 = 1; x1 < WIDTH - 1; x1++)
-                for (int y1 = 1; y1 < HEIGHT - 1; y1++) {
+            for (int x1 = 11; x1 < WIDTH - 11; x1++)
+                for (int y1 = 11; y1 < HEIGHT - 11; y1++) {
 
                     int cell = x1 + WIDTH * y1;
                     //Random grass
@@ -285,8 +285,8 @@ public class Arena11 extends Arena{
 
             Painter.fillEllipse(this, WIDTH / 2 - 7, HEIGHT / 2 - 7, 14, 14, Terrain.EMPTY);
 
-            for (int x1 = 1; x1 < WIDTH - 1; x1++)
-                for (int y1 = 1; y1 < HEIGHT - 1; y1++) {
+            for (int x1 = 2; x1 < WIDTH - 2; x1++)
+                for (int y1 = 2; y1 < HEIGHT - 2; y1++) {
                     int cell = x1 + WIDTH * y1;
                     //some puddles
                     if (Math.random() > 0.92) {

@@ -28,11 +28,11 @@ public abstract class TowerSpawner extends Item {
         return true;
     }
 
-    public Class <? extends Tower> towerClass = TowerWall1.class;
+    public Tower instanceOfTower = new TowerWall1();
 
     @Override
     public String desc() {
-        return Reflection.newInstance(towerClass).info();
+        return instanceOfTower.info();
     }
 
     @Override
@@ -56,13 +56,15 @@ public abstract class TowerSpawner extends Item {
             }
         }
         if (enemy == null && !towerhere) {
-            Tower tower = Reflection.newInstance(towerClass);
+            Tower tower = instanceOfTower;
             tower.pos = cell;
             GameScene.add(tower);
             Statistics.towersbuilt++;
             Dungeon.level.occupyCell(tower);
             if (tower instanceof SentientTower){
                 ((SentientTower)tower).defendPos(cell);
+                tower.beckon(cell);
+                tower.state = tower.HUNTING;
             }
 
         } else {

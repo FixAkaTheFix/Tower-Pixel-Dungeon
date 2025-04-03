@@ -9,7 +9,7 @@ public class SpawnerDisintegration extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_DISINTEGRATION;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerDisintegration1.class;
+        instanceOfTower = new TowerDisintegration1();
     }
 
     @Override

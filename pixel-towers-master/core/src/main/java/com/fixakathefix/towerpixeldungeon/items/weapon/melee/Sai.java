@@ -70,7 +70,7 @@ public class Sai extends MeleeWeapon {
 
 	@Override
 	public float delayFactor(Char owner) {
-		return  super.delayFactor(owner)/(float)Math.sqrt(Math.max(1, level()+1));
+		return  super.delayFactor(owner)/Math.min((float)Math.sqrt(Math.max(1, level()+1)), 2.5f);
 	}
 
 	@Override

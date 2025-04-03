@@ -360,9 +360,9 @@ public class Badges {
 			badge = Badge.ITEM_LEVEL_5;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_5 ) && item.level() >= 29) {
+		if (!local.contains( Badge.ITEM_LEVEL_6 ) && item.level() >= 29) {
 			if (badge != null) unlock(badge);
-			badge = Badge.ITEM_LEVEL_5;
+			badge = Badge.ITEM_LEVEL_6;
 			local.add( badge );
 		}
 		

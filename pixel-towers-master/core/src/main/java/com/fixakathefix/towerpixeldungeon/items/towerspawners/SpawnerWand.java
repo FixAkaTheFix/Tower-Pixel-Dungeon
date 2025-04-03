@@ -9,7 +9,7 @@ public class SpawnerWand extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_WAND;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerWand1.class;
+        instanceOfTower = new TowerWand1();
     }
 
     @Override

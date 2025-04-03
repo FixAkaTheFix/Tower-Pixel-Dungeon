@@ -9,7 +9,7 @@ public class SpawnerCamp extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_CAMP;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerRatCamp.class;
+        instanceOfTower = new TowerRatCamp();
     }
 
     @Override

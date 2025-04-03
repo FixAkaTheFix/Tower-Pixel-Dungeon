@@ -187,7 +187,9 @@ public class TowerRatCamp extends TowerWave {
 
         ArrayList<Integer> cand = new ArrayList<>();
         for (int i : PathFinder.NEIGHBOURS25){
-            if (Char.findChar(pos + i)==null && level.passable[pos+i]) cand.add(pos + i);
+            if (Char.findChar(pos + i)==null &&
+                    pos >= 0 && pos < level.width()*level.height() &&
+                    level.passable[pos+i]) cand.add(pos + i);
         }
         for (int i = 0; i<knifes;i++){
             summonOneMinion(CampRatKnife.class, cand);

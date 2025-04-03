@@ -9,7 +9,7 @@ public class SpawnerTotemHealing extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_TOTEMHEALING;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerTotem.TotemHealing.class;
+        instanceOfTower = new TowerTotem.TotemHealing();
 
     }
 

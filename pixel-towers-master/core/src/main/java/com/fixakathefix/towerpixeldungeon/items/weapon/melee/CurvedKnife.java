@@ -2,6 +2,7 @@ package com.fixakathefix.towerpixeldungeon.items.weapon.melee;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
+import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Hex;
@@ -12,7 +13,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class CurvedKnife extends MeleeWeapon {
-    public static int sac = 0;
+    public static int sac = SPDSettings.knifelevel();
     {
         image = ItemSpriteSheet.CURVED_KNIFE;
         hitSound = Assets.Sounds.HIT_STAB;
@@ -73,8 +74,7 @@ public class CurvedKnife extends MeleeWeapon {
     public static void sacrifice(Hero hero, MeleeWeapon wep){
         wep.beforeAbilityUsed(hero);
         hero.die(1);
-        sac++;//check hero class for sac
-        if (sac>6) sac = 6;
+        SPDSettings.knifeLevel(Math.min(SPDSettings.knifelevel() + 1, 6));
         Sample.INSTANCE.play( Assets.Sounds.HIT_STAB );
         wep.afterAbilityUsed(hero);
         Badges.validateDuelistSac();

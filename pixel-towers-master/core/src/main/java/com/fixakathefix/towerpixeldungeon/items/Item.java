@@ -463,9 +463,13 @@ public class Item implements Bundlable {
 	public boolean visiblyCursed() {
 		return cursed && cursedKnown;
 	}
+
+	public static int maxItemLevel(){
+		return 15 + Dungeon.depth;
+	}
 	
 	public boolean isUpgradable() {
-		return true;
+		return level()<maxItemLevel();
 	}
 	
 	public boolean isIdentified() {

@@ -9,7 +9,7 @@ public class SpawnerCrossbow extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_CROSSBOW;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerCrossbow1.class;
+        instanceOfTower = new TowerCrossbow1();
     }
 
     @Override

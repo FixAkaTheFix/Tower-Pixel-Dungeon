@@ -42,6 +42,15 @@ public class SPDSettings extends GameSettings {
 
 	//INTERNAL, DO NOT MODIFY
 
+
+	private static final String CURSED_KNIFE_LVL = "curved_knife_level";
+
+	public static void knifeLevel(int level){
+		put(CURSED_KNIFE_LVL, level);
+	}
+	public static int knifelevel(){
+		return getInt(CURSED_KNIFE_LVL, 0);
+	}
 	private static final String STYLE		= "style";
 	public static void style(String value) {put (STYLE , value);}
 	public static String style() {return getString( STYLE, "normal");}
@@ -99,12 +108,6 @@ public class SPDSettings extends GameSettings {
 		}
 	}
 
-
-
-
-
-
-
 	private static final String TOWERSLOT1		= "towerslot1";
 	private static final String TOWERSLOT2		= "towerslot2";
 	private static final String TOWERSLOT3		= "towerslot3";
@@ -134,7 +137,7 @@ public class SPDSettings extends GameSettings {
 		return TowerInfo.getTowerByIndex(getInt(TOWERSLOT4, 306));
 	}
 
-	//Misc
+	//Misc - settings
 	private static final String DAMAGENUMBERSON		= "damagenumberson";
 	public static void damageNumbersOn(Boolean value){
 		put(DAMAGENUMBERSON, value);

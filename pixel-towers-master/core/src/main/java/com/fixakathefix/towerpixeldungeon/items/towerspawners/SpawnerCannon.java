@@ -9,7 +9,7 @@ public class SpawnerCannon extends TowerSpawner {
         image = ItemSpriteSheet.TOWERSPAWNER_CANNON;
         stackable = true;
         defaultAction = AC_THROW;
-        towerClass = TowerCannon1.class;
+        instanceOfTower = new TowerCannon1();
 
     }
 
