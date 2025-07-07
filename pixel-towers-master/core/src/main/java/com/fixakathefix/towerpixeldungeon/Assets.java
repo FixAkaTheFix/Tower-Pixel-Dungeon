@@ -381,6 +381,7 @@ public class Assets {
 		public static final String DUELIST  = "sprites/duelist.png";
 		public static final String NECROHERO= "sprites/necrohero.png";
 		public static final String TANK     = "sprites/tank.png";
+		public static final String PRIEST     = "sprites/priest.png";
 
 
 

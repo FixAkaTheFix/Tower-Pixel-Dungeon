@@ -5,6 +5,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.AbilityCooldown;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.KindOfWeapon;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.HeroSprite;
@@ -24,15 +25,19 @@ public abstract class HeroSpell extends Item {
 
     @Override
     public boolean isUpgradable() {
-        return false;
+        return true;
     }
 
-    protected int castCooldown(){
-        return 10;//basic cost in cooldown turns
+    protected int castCooldown(){//basic cost in cooldown turns
+        return 10;
     }
 
-    protected void cooldown(){
-        Buff.affect(Dungeon.hero, AbilityCooldown.class, castCooldown());
+    private void cooldown(){
+        int finalCooldown = castCooldown();
+        KindOfWeapon wep = Dungeon.hero.belongings.weapon();
+        if (wep != null) finalCooldown *=
+                wep.spellCooldownModifier*(0.7 + 0.3/Math.sqrt(level()));//1 base, 0.85 at level 4, 0.8 at level 9, min is 0.7 of the base
+        Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
     }
 
     public static final String AC_CAST		= "CAST";

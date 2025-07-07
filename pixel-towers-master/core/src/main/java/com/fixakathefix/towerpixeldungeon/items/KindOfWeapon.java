@@ -53,6 +53,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float critChance = 0f;
 
 	public float critMult = 1f;
+	//what is the cooldown while wearing this item is multiplied by
+	public float spellCooldownModifier = 1f;
 	
 	@Override
 	public void execute(Hero hero, String action) {

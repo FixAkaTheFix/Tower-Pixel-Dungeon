@@ -202,13 +202,14 @@ public class ItemSpriteSheet {
 
 	private static final int WEP_TIER1      =                               xy(1, 6);   //16 slots
 	public static final int WORN_SHORTSWORD = WEP_TIER1+0;
-	public static final int CUDGEL          = WEP_TIER1+1;
+	public static final int HOLY_TOME          = WEP_TIER1+1;
 	public static final int GLOVES          = WEP_TIER1+2;
 	public static final int RAPIER          = WEP_TIER1+3;
 	public static final int DAGGER          = WEP_TIER1+4;
 	public static final int MAGES_STAFF     = WEP_TIER1+5;
 	static{
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
+		assignItemRect(WORN_SHORTSWORD, 14, 16);
 		assignItemRect(GLOVES,          12, 16);
 		assignItemRect(RAPIER,          13, 14);
 		assignItemRect(DAGGER,          12, 13);
@@ -832,7 +833,7 @@ public class ItemSpriteSheet {
 				else assignItemRect(i, 12, 9);
 		assignItemRect(TOWERSPAWNER_CAMP,  16, 9);
 	}
-	private static final int HEROSPELLS            =                           xy(1, 37);  //16 slots
+	private static final int HEROSPELLS            =                           xy(1, 37);  //32 slots
 	public static final int HEROSPELL_SHIELD = HEROSPELLS+0;
 	public static final int HEROSPELL_GLOWUP = HEROSPELLS+1;
 	public static final int HEROSPELL_CHARGE = HEROSPELLS+2;
@@ -864,10 +865,13 @@ public class ItemSpriteSheet {
 	public static final int HEROSPELL_OBELISK = HEROSPELLS + 28;
 	public static final int HEROSPELL_WALLSTANCE = HEROSPELLS + 29;
 	public static final int HEROSPELL_TAUNT = HEROSPELLS + 30;
+	public static final int HEROSPELL_HOLY_WATER = HEROSPELLS + 32;
+	public static final int HEROSPELL_SUN = HEROSPELLS + 33;
+	public static final int HEROSPELL_PRAY = HEROSPELLS + 34;
 
 
 	static {
-		for (int i = HEROSPELLS; i < HEROSPELLS+31; i++)
+		for (int i = HEROSPELLS; i < HEROSPELLS+34; i++)
 			assignItemRect(i, 16, 16);
 
 

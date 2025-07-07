@@ -32,6 +32,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Bandit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bat;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bee;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossDwarfKing;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossNecromancer;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTengu;
@@ -289,6 +290,7 @@ public enum Bestiary {
 		);
 
 		BOSSES.addEntities( BossRatKing.class, BossOoze.class,
+				BossNecromancer.class,
 				BossTengu.class, BossTenguClone.class, BossTroll.class,
 				DMW.class, DMWHead.class, DMWBody.class, DMWWheels.class, DMWMinion.class,
 				BossDwarfKing.class

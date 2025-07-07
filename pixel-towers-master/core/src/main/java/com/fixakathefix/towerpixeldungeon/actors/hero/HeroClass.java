@@ -181,6 +181,7 @@ public enum HeroClass {
 	NECROHERO(HeroSubClass.BETA, HeroSubClass.ALPHA),
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	TANK(HeroSubClass.BETA, HeroSubClass.ALPHA),
+	PRIEST(HeroSubClass.BETA, HeroSubClass.ALPHA),
 	FIX( HeroSubClass.BETA, HeroSubClass.ALPHA);
 
 	private HeroSubClass[] subClasses;
@@ -263,6 +264,8 @@ public enum HeroClass {
 				return 0xFF55FF55;
 			case TANK:
 				return 0xFFFF0000;
+			case PRIEST:
+				return 0xDDDD0000;
 			case FIX:
 				return 0xFF00FF00;
 		}
@@ -283,6 +286,8 @@ public enum HeroClass {
 				return 0xFF44CC44;
 			case TANK:
 				return 0xFFAA0000;
+			case PRIEST:
+				return 0xAAAA0000;
 			case FIX:
 				return 0xFFFF00FF;
 		}
@@ -293,9 +298,6 @@ public enum HeroClass {
 
 		Item i = new ClothArmor().identify();
 		hero.belongings.armor = (ClothArmor)i;
-
-
-
 		(hero.belongings.weapon = new Dagger()).identify();
 
 		HeroSpell a1 = new AbNecromancy();
@@ -309,7 +311,6 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(2, a3);
 
 		new ElixirOfToxicEssence().collect();
-		new StoneOfFlock().collect();
 		new StoneOfFear().collect();
 		new Sorrowmoss.Seed().collect();
 	}
@@ -507,6 +508,18 @@ public enum HeroClass {
 		new ScrollOfMirrorImage().collect();
 
 	}
+	private static void initPriest( Hero hero ) {
+		hero.STR = 11;
+
+		Item i = new ClothArmor().identify();
+		hero.belongings.armor = (ClothArmor)i;
+
+		new ScrollOfHolyNova().collect();
+		new StoneOfFlock().collect();
+		new Starflower.Seed().collect();
+
+		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
+	}
 	private static void initFix(Hero hero){
 
 		Banhammer banhammer = new Banhammer();
@@ -595,6 +608,7 @@ public enum HeroClass {
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 			case DUELIST:
 			case NECROHERO:
+			case PRIEST:
 			case TANK:
 				return new ArmorAbility[]{new Challenge(), new ElementalStrike(), new Feint()};
 			case FIX:
@@ -618,6 +632,8 @@ public enum HeroClass {
 				return Assets.Sprites.FIX;
 			case TANK:
 				return Assets.Sprites.TANK;
+			case PRIEST:
+				return Assets.Sprites.PRIEST;
 			case NECROHERO:
 				return Assets.Sprites.NECROHERO;
 		}
@@ -636,7 +652,7 @@ public enum HeroClass {
 				return Assets.Splashes.HUNTRESS;
 			case DUELIST:
 				return Assets.Splashes.DUELIST;
-			case FIX: case NECROHERO: case TANK:
+			case FIX: case NECROHERO: case TANK: case PRIEST:
 				return Assets.Splashes.FIX;
 		}
 	}
@@ -661,6 +677,8 @@ public enum HeroClass {
 				return SPDSettings.maxlevelunlocked()>=11;
 			case TANK:
 				return SPDSettings.maxlevelunlocked()>=14;
+			case PRIEST:
+				return SPDSettings.maxlevelunlocked()>=22;
 		}
 		return false;
 	}
