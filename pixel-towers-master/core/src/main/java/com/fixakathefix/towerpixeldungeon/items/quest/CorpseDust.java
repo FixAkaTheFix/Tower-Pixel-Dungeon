@@ -49,7 +49,6 @@ public class CorpseDust extends Item {
 		image = ItemSpriteSheet.DUST;
 		
 		cursed = true;
-		cursedKnown = true;
 		
 		unique = true;
 	}

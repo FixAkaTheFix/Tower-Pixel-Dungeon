@@ -54,7 +54,6 @@ public class ChaliceOfBlood extends Artifact {
 		image = ItemSpriteSheet.ARTIFACT_CHALICE1;
 
 		cursed = true;
-		cursedKnown = true;
 		visiblyCursed();
 
 		levelCap = 10;

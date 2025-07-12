@@ -461,7 +461,7 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean visiblyCursed() {
-		return cursed && cursedKnown;
+		return cursed;
 	}
 
 	public static int maxItemLevel(){
@@ -492,7 +492,6 @@ public class Item implements Bundlable {
 		}
 
 		levelKnown = true;
-		cursedKnown = true;
 		Item.updateQuickslot();
 		
 		return this;
@@ -600,7 +599,6 @@ public class Item implements Bundlable {
 		bundle.put( LEVEL, level );
 		bundle.put( LEVEL_KNOWN, levelKnown );
 		bundle.put( CURSED, cursed );
-		bundle.put( CURSED_KNOWN, cursedKnown );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
@@ -611,7 +609,6 @@ public class Item implements Bundlable {
 	public void restoreFromBundle( Bundle bundle ) {
 		quantity	= bundle.getInt( QUANTITY );
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
-		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		
 		int level = bundle.getInt( LEVEL );
 		if (level > 0) {

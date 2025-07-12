@@ -218,8 +218,7 @@ public class Armor extends EquipableItem {
 		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
 			
 			hero.belongings.armor = this;
-			
-			cursedKnown = true;
+
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(Armor.class, "equip_cursed") );
@@ -483,7 +482,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public String name() {
-		return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.name( super.name() ) : super.name();
+		return glyph != null ? glyph.name( super.name() ) : super.name();
 	}
 	
 	@Override
@@ -514,18 +513,18 @@ public class Armor extends EquipableItem {
 			case NONE:
 		}
 		
-		if (glyph != null  && (cursedKnown || !glyph.curse())) {
+		if (glyph != null) {
 			info += "\n\n" +  Messages.capitalize(Messages.get(Armor.class, "inscribed", glyph.name()));
 			info += " " + glyph.desc();
 		}
 		
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
-		} else if (cursedKnown && cursed) {
+		} else if (cursed) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed");
 		} else if (seal != null) {
 			info += "\n\n" + Messages.get(Armor.class, "seal_attached", seal.maxShield(tier, level()));
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!isIdentified()){
 			if (glyph != null && glyph.curse()) {
 				info += "\n\n" + Messages.get(Armor.class, "weak_cursed");
 			} else {
@@ -600,7 +599,7 @@ public class Armor extends EquipableItem {
 		if (hasGoodGlyph()) {
 			price *= 1.5;
 		}
-		if (cursedKnown && (cursed || hasCurseGlyph())) {
+		if (cursed || hasCurseGlyph()) {
 			price /= 2;
 		}
 		if (levelKnown && level() > 0) {
@@ -651,7 +650,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.glowing() : null;
+		return glyph != null ? glyph.glowing() : null;
 	}
 	
 	public static abstract class Glyph implements Bundlable {

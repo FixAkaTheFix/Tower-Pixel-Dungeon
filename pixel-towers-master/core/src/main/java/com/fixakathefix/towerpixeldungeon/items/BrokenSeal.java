@@ -56,7 +56,7 @@ public class BrokenSeal extends Item {
 	{
 		image = ItemSpriteSheet.SEAL;
 
-		cursedKnown = levelKnown = true;
+		levelKnown = true;
 		unique = true;
 		bones = false;
 

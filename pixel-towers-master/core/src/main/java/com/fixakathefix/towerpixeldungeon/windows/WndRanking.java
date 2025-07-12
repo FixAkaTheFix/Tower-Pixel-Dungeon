@@ -395,7 +395,7 @@ public class WndRanking extends WndTabbed {
 			this.item = item;
 			
 			slot.item( item );
-			if (item.cursed && item.cursedKnown) {
+			if (item.cursed) {
 				bg.ra = +0.2f;
 				bg.ga = -0.1f;
 			} else if (!item.isIdentified()) {
@@ -463,7 +463,7 @@ public class WndRanking extends WndTabbed {
 			super(item);
 			this.item = item;
 
-			if (item.cursed && item.cursedKnown) {
+			if (item.cursed) {
 				bg.ra = +0.2f;
 				bg.ga = -0.1f;
 			} else if (!item.isIdentified()) {

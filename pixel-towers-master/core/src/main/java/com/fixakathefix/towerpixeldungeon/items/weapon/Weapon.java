@@ -333,7 +333,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public String name() {
-		return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.name( super.name() ) : super.name();
+		return enchantment != null ? enchantment.name( super.name() ) : super.name();
 	}
 	
 	@Override
@@ -389,7 +389,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.glowing() : null;
+		return enchantment != null ? enchantment.glowing() : null;
 	}
 
 	public String statsInfo(){
@@ -427,16 +427,16 @@ abstract public class Weapon extends KindOfWeapon {
 			case NONE:
 		}
 
-		if (enchantment != null && (cursedKnown || !enchantment.curse())){
+		if (enchantment != null){
 			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
 			info += " " + enchantment.desc();
 		}
 
 		if (cursed && isEquipped( hero )) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
-		} else if (cursedKnown && cursed) {
+		} else if (cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!isIdentified()){
 			if (enchantment != null && enchantment.curse()) {
 				info += "\n\n" + Messages.get(Weapon.class, "weak_cursed");
 			} else {

@@ -91,16 +91,16 @@ public class DebugBow extends Weapon {
             case NONE:
         }
 
-        if (enchantment != null && (cursedKnown || !enchantment.curse())) {
+        if (enchantment != null) {
             info += "\n\n" + Messages.get(Weapon.class, "enchanted", enchantment.name());
             info += " " + Messages.get(enchantment, "desc");
         }
 
         if (cursed && isEquipped(Dungeon.hero)) {
             info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
-        } else if (cursedKnown && cursed) {
+        } else if (cursed) {
             info += "\n\n" + Messages.get(Weapon.class, "cursed");
-        } else if (!isIdentified() && cursedKnown) {
+        } else if (!isIdentified()) {
             info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
         }
 

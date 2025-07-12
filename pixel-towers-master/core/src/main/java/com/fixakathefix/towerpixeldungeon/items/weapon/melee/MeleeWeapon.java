@@ -371,16 +371,16 @@ public class MeleeWeapon extends Weapon {
 			case NONE:
 		}
 
-		if (enchantment != null && (cursedKnown || !enchantment.curse())){
+		if (enchantment != null){
 			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
 			info += " " + enchantment.desc();
 		}
 
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
-		} else if (cursedKnown && cursed) {
+		} else if (cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!isIdentified()){
 			if (enchantment != null && enchantment.curse()) {
 				info += "\n\n" + Messages.get(Weapon.class, "weak_cursed");
 			} else {
@@ -424,7 +424,7 @@ public class MeleeWeapon extends Weapon {
 		if (hasGoodEnchant()) {
 			price *= 1.5;
 		}
-		if (cursedKnown && (cursed || hasCurseEnchant())) {
+		if (cursed || hasCurseEnchant()) {
 			price /= 2;
 		}
 		if (levelKnown && level() > 0) {

@@ -175,7 +175,7 @@ public class Bones {
 						}
 
 						artifact.cursed = true;
-						artifact.cursedKnown = true;
+
 
 						return artifact;
 						
@@ -186,7 +186,6 @@ public class Bones {
 				
 				if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
 					item.cursed = true;
-					item.cursedKnown = true;
 				}
 				
 				if (item.isUpgradable()) {

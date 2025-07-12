@@ -119,7 +119,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 			ActionIndicator.refresh();
 			updateQuickslot();
 
-			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
@@ -161,7 +160,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 			ActionIndicator.refresh();
 			updateQuickslot();
 
-			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );

@@ -54,7 +54,7 @@ public class ScrollOfAntiMagic extends Scroll {
 			return false;
 		} else if (item.isEquipped(Dungeon.hero) && Dungeon.hero.buff(Degrade.class) != null) {
 			return true;
-		} if ((item instanceof EquipableItem || item instanceof Wand) && ((!item.isIdentified() && !item.cursedKnown) || item.cursed)){
+		} if ((item instanceof EquipableItem || item instanceof Wand) && item.cursed){
 			return true;
 		} else if (item instanceof Weapon){
 			return ((Weapon)item).hasCurseEnchant();
@@ -83,7 +83,7 @@ public class ScrollOfAntiMagic extends Scroll {
 		boolean procced = false;
 		for (Item item : items) {
 			if (item != null) {
-				item.cursedKnown = true;
+
 				if (item.cursed) {
 					procced = true;
 					item.cursed = false;

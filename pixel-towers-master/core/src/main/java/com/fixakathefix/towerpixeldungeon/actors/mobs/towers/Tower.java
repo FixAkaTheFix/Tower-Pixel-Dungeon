@@ -194,6 +194,7 @@ public class Tower extends Mob {
     @Override
     public boolean interact(Char c) {
         if (c == Dungeon.hero) {
+           // GameScene.show(new WndTower(Tower.this));
             Game.runOnRenderThread(new Callback() {
                 @Override
                 public void call() {

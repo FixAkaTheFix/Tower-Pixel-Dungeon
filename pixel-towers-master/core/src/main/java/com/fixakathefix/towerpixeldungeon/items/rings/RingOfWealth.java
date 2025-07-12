@@ -291,7 +291,6 @@ public class RingOfWealth extends Ring {
 			}
 		}
 		result.cursed = false;
-		result.cursedKnown = true;
 		if (result.level() >= 2) {
 			latestDropTier = 4;
 		} else {

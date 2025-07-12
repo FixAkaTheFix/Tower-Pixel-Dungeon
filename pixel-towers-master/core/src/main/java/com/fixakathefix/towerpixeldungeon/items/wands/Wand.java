@@ -263,9 +263,9 @@ public abstract class Wand extends Item {
 			desc += "\n\n" + Messages.get(Wand.class, "resin_many", resinBonus);
 		}
 
-		if (cursed && cursedKnown) {
+		if (cursed) {
 			desc += "\n\n" + Messages.get(Wand.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!isIdentified()){
 			desc += "\n\n" + Messages.get(Wand.class, "not_cursed");
 		}
 
@@ -475,7 +475,7 @@ public abstract class Wand extends Item {
 	@Override
 	public int value() {
 		int price = 75;
-		if (cursed && cursedKnown) {
+		if (cursed) {
 			price /= 2;
 		}
 		if (levelKnown) {
@@ -640,9 +640,6 @@ public abstract class Wand extends Item {
 					}
 					
 					if (curWand.cursed){
-						if (!curWand.cursedKnown){
-							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
-						}
 						CursedWand.cursedZap(curWand,
 								curUser,
 								new Ballistica(curUser.pos, target, Ballistica.MAGIC_BOLT),
@@ -660,8 +657,6 @@ public abstract class Wand extends Item {
 							}
 						});
 					}
-					curWand.cursedKnown = true;
-					
 				}
 				
 			}

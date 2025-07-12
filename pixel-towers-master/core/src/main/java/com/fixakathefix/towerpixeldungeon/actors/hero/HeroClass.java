@@ -546,7 +546,7 @@ public enum HeroClass {
 		for (int i = 0; i < 9; i++) {
 			new ScrollOfGolems().collect();
 			MeleeWeapon wep = Generator.randomWeapon();
-			if (Math.random()>0.5) wep.cursed = wep.cursedKnown = true;
+			if (Math.random()>0.5) wep.cursed = true;
 			wep.collect();
 		}
 

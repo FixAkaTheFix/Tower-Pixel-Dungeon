@@ -57,7 +57,6 @@ abstract public class ClassArmor extends Armor {
 	
 	{
 		levelKnown = true;
-		cursedKnown = true;
 		defaultAction = AC_ABILITY;
 
 		bones = false;
