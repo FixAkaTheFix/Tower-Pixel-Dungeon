@@ -32,11 +32,12 @@ public abstract class HeroSpell extends Item {
         return 10;
     }
 
-    private void cooldown(){
+    public void cooldown(){
         int finalCooldown = castCooldown();
         KindOfWeapon wep = Dungeon.hero.belongings.weapon();
+
         if (wep != null) finalCooldown *=
-                wep.spellCooldownModifier*(0.7 + 0.3/Math.sqrt(level()));//1 base, 0.85 at level 4, 0.8 at level 9, min is 0.7 of the base
+                wep.spellCooldownModifier*(Math.max(0.7, (10 - Math.sqrt(level()))/10));
         Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
     }
 

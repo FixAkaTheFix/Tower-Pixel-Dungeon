@@ -580,6 +580,10 @@ public class Arena extends Level {
                 }
             }
         }
+        //attempts to save each 1/5 wave.
+        if (wave%5==1) try {
+            Dungeon.saveAll();
+        } catch (Exception ignored) {}
         Buff.detach(hero, WaveBuff.class);
         Buff.affect(hero, WaveCooldownBuff.class, (wave % 5 == 4 ? waveCooldownBoss : waveCooldownNormal));
 
