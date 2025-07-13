@@ -37,7 +37,7 @@ public class ObeliskBloodstone extends Obelisk{
 
     @Override
     public int attackProc(Char enemy, int damage) {
-        Buff.affect(enemy, SoulBleeding.class).prolong(Dungeon.depth + 3);
+        Buff.affect(enemy, SoulBleeding.class).prolong(Dungeon.depth/2 + 3);
         CellEmitter.get(enemy.pos).burst(ShadowParticle.CURSE, 10);
         return super.attackProc(enemy, damage);
     }

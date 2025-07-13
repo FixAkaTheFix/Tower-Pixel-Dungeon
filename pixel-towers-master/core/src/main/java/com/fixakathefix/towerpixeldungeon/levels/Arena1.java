@@ -16,6 +16,8 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall2;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall3;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Honeypot;
@@ -348,6 +350,12 @@ public class Arena1 extends Arena {
         TowerWall1 wall = new TowerWall1();
         wall.sellable = false;
         wall.pos = amuletCell + 3;
+        TowerWall1 wall2 = new TowerWall1();
+        wall2.sellable = false;
+        wall2.pos = amuletCell + 3 + WIDTH;
+        TowerWall1 wall3 = new TowerWall1();
+        wall3.sellable = false;
+        wall3.pos = amuletCell + 3 - WIDTH;
         GameScene.add(wall);
         super.initNpcs();
     }
