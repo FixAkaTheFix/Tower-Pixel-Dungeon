@@ -70,7 +70,7 @@ public class Badges {
 		//wood
 		DUST(112), CANDLE(113), SNAKED(114), GETOVERHERE(115),
 		//silver
-		HOLY_NOVA(128), NUKED(129), EYE_SLAYER(130),DEATH_FROM_FRIENDLY_MAGIC( 131 ),POTION_ADDICT(132),BOOKWORM(133), UNDEAD(134),
+		HOLY_NOVA(128), NUKED(129), EYE_SLAYER(130),DEATH_FROM_FRIENDLY_MAGIC( 131 ),POTION_ADDICT(132),BOOKWORM(133), UNDEAD(134), LEGION(135),
 		//gold
 		DRINK_TOXIC_GAS(144),GRIM_WEAPON( 145 ),NEO_DODGE( 146 ), ALMOST_LOST_1(147), BLOOD_CULTIST_1(148),DEATH_2(149),
 		//diamond
@@ -484,6 +484,11 @@ public class Badges {
 	}
 	public static void validateUndead() {
 		Badge badge = Badge.UNDEAD;
+		local.add( badge );
+		displayBadge( badge );
+	}
+	public static void validateLegion() {
+		Badge badge = Badge.LEGION;
 		local.add( badge );
 		displayBadge( badge );
 	}

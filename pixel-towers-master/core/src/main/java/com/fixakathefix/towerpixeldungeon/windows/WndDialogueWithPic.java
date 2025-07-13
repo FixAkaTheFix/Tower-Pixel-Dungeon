@@ -83,6 +83,10 @@ public class WndDialogueWithPic extends Window {
             });
         }
     }
+    public static void dialogue_outsideOfGame(CharSprite icon, String title, String[] text, byte[] spriteActionIndexes) {
+        WndDialogueWithPic wnd = new WndDialogueWithPic(icon, title, text, spriteActionIndexes);
+        ShatteredPixelDungeon.scene().add(wnd);
+    }
 
 
     public WndDialogueWithPic(CharSprite icon, String title, String[] text) {

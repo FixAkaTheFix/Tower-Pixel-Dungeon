@@ -122,7 +122,13 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 						MagiCrab.class
 				));
 				Buff.affect(mob, Barrier.class).setShield(Dungeon.depth * 20 + 15);
-				Buff.affect(mob, Random.oneOf(ChampionEnemy.Giant.class, ChampionEnemy.Blessed.class, ChampionEnemy.Blazing.class, ChampionEnemy.Projecting.class));
+				Buff.affect(mob, Random.oneOf(
+						ChampionEnemy.Giant.class,
+						ChampionEnemy.Blessed.class,
+						ChampionEnemy.Blazing.class,
+						ChampionEnemy.Projecting.class,
+						ChampionEnemy.Copying.class,
+						ChampionEnemy.Rejuvenating.class));
 				Buff.affect(mob, Random.oneOf(Speed.class, Chill.class, Hex.class, Bless.class), 1000);
 				Buff.affect(mob, Random.oneOf(Humongous.class, Small.class));
 				if (mob instanceof Tower) ((Tower)mob).sellable = false;

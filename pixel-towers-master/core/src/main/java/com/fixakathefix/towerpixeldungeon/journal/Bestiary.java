@@ -229,7 +229,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 //contains all the game's various entities, mostly enemies, NPCS, and allies, but also traps and plants
-public enum Bestiary {
+public enum Bestiary
+		{
 
 	NORMAL,
 	ELITE,

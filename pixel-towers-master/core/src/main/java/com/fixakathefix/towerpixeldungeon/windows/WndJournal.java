@@ -755,7 +755,9 @@ public class WndJournal extends WndTabbed {
 					title = Messages.titleCase(mob.name());
 					desc = mob.description();
 					if (Bestiary.encounterCount(entityCls) > 1){
-						desc += "\n\n" + Messages.get(CatalogTab.class, "enemy_count", Bestiary.encounterCount(entityCls));
+						if (Bestiary.ALLY.entities().contains(entityCls) || Bestiary.TOWERS.entities().contains(entityCls))
+						desc += "\n\n" + Messages.get(CatalogTab.class, "friend_count", Bestiary.encounterCount(entityCls));
+						else desc += "\n\n" + Messages.get(CatalogTab.class, "enemy_count", Bestiary.encounterCount(entityCls));
 					}
 				} else {
 					icon.lightness(0f);

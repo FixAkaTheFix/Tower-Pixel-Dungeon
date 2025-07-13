@@ -77,7 +77,11 @@ public abstract class HeroSpell extends Item {
 
     @Override
     public String status() {
-        return castCooldown() + "T";
+        KindOfWeapon wep = Dungeon.hero.belongings.weapon();
+        int finalCooldown = castCooldown();
+        if (wep != null) finalCooldown *=
+                wep.spellCooldownModifier*(Math.max(0.7, (10 - Math.sqrt(level()))/10));
+        return finalCooldown + "T";
     }
 
     public void cast(){

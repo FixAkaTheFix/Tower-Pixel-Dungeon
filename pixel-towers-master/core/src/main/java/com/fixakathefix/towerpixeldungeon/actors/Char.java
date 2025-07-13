@@ -776,6 +776,11 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
+	public void heal(int healing){
+		HP += healing;
+		if (HP > HT) HP = HT;
+		speak(Integer.toString(healing), CharSprite.POSITIVE);
+	}
 	
 	public void damage( int dmg, Object src) {
 		

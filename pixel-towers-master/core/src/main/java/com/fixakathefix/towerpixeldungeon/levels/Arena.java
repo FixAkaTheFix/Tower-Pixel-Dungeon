@@ -392,7 +392,7 @@ public class Arena extends Level {
             while ((float)mobsDeployed<onexdsum) {
                 Mob mob = chooseMob(wave);
                 if (Dungeon.level.mode == WndModes.Modes.HARDMODE && mobsDeployed % 8 == 1 && !(mob instanceof BossOoze)){
-                    int r = Random.Int(6);
+                    int r = Random.Int(9);
                     switch (r){
                         case 0: Buff.affect(mob, ChampionEnemy.Blazing.class); break;
                         case 1: Buff.affect(mob, ChampionEnemy.Projecting.class); break;
@@ -400,6 +400,9 @@ public class Arena extends Level {
                         case 3: Buff.affect(mob, ChampionEnemy.Blessed.class); break;
                         case 4: Buff.affect(mob, ChampionEnemy.Growing.class); break;
                         case 5: Buff.affect(mob, ChampionEnemy.Giant.class); break;
+                        case 6: Buff.affect(mob, ChampionEnemy.Copying.class); break;
+                        case 7: Buff.affect(mob, ChampionEnemy.Rejuvenating.class); break;
+                        case 8: Buff.affect(mob, ChampionEnemy.Destructive.class); break;
                     }
                 }
                 if (depth == 14 && mobsDeployed == 0 && mode == WndModes.Modes.CHALLENGE){

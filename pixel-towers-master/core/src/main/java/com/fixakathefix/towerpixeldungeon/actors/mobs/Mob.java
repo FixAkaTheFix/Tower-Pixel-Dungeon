@@ -26,6 +26,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs;
 
 import static com.fixakathefix.towerpixeldungeon.items.Item.updateQuickslot;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
@@ -71,6 +72,7 @@ import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.effects.Surprise;
 import com.fixakathefix.towerpixeldungeon.effects.Wound;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ShadowParticle;
+import com.fixakathefix.towerpixeldungeon.effects.particles.custom.CPHeal;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.MasterThievesArmband;
@@ -903,6 +905,20 @@ public abstract class Mob extends Char {
 		if (state != HUNTING && !(src instanceof Corruption)) {
 			alerted = true;
 		}
+		if (buff(ChampionEnemy.Copying.class)!=null){
+			ArrayList<Integer> positions = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS8){
+				int cell = pos + i;
+				Char ch = Char.findChar(cell);
+				if (Dungeon.level.passable[cell] && ch == null) positions.add(cell);
+			}
+			if (!positions.isEmpty()){
+				Mob mob = Reflection.newInstance(this.getClass());
+				mob.HP = mob.HT = 1;
+				mob.pos = Random.element(positions);
+				GameScene.add(mob);
+			}
+		}
 
 		super.damage( dmg, src );
 	}
@@ -947,6 +963,14 @@ public abstract class Mob extends Char {
 
 		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1&&buff(Minion.class)==null) Dungeon.gold += 3*EXP + 1;// Foes add up to gold
 		updateQuickslot();
+		if (buff(ChampionEnemy.Rejuvenating.class)!=null){
+			for (int i : PathFinder.NEIGHBOURS8){
+				int cell = this.pos + i;
+				CellEmitter.get( cell ).start(CPHeal.UP, 0.05f, 10 );
+				Char ch = Char.findChar(cell);
+				if (ch != null && ch.alignment == this.alignment) ch.heal(this.HT);
+			}
+		}
 
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down

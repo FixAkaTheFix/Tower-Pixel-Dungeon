@@ -32,6 +32,7 @@ import com.fixakathefix.towerpixeldungeon.actors.DamageSource;
 import com.fixakathefix.towerpixeldungeon.actors.blobs.Blob;
 import com.fixakathefix.towerpixeldungeon.actors.blobs.Fire;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.ui.BuffIndicator;
@@ -99,13 +100,16 @@ public abstract class ChampionEnemy extends Buff {
 		//we roll for a champion enemy even if we aren't spawning one to ensure that
 		//mobsToChampion does not affect levelgen RNG (number of calls to Random.Int() is constant)
 		Class<?extends ChampionEnemy> buffCls;
-		switch (Random.Int(6)){
+		switch (Random.Int(9)){
 			case 0: default:    buffCls = Blazing.class;      break;
 			case 1:             buffCls = Projecting.class;   break;
 			case 2:             buffCls = AntiMagic.class;    break;
 			case 3:             buffCls = Giant.class;        break;
 			case 4:             buffCls = Blessed.class;      break;
 			case 5:             buffCls = Growing.class;      break;
+			case 6:             buffCls = Rejuvenating.class;      break;
+			case 7:             buffCls = Destructive.class;      break;
+			case 8:             buffCls = Copying.class;      break;
 		}
 
 		if (Dungeon.mobsToChampion <= 0 && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
@@ -221,6 +225,26 @@ public abstract class ChampionEnemy extends Buff {
 			super.fx(on);
 		}
 	}
+	public static class Copying extends ChampionEnemy {
+		{
+			color = 0x444400;
+		}
+	}
+	public static class Rejuvenating extends ChampionEnemy {
+		{
+			color = 0x00AA00;
+		}
+
+	}
+	public static class Destructive extends ChampionEnemy {
+		{
+			color = 0xAA5500;
+		}
+		@Override
+		public void onAttackProc(Char enemy) {
+			if (enemy instanceof Tower) enemy.damage(enemy.HT/4, target);
+		}
+	}
 
 	public static class Blessed extends ChampionEnemy {
 
@@ -233,6 +257,7 @@ public abstract class ChampionEnemy extends Buff {
 			return 3f;
 		}
 	}
+
 
 	public static class Growing extends ChampionEnemy {
 

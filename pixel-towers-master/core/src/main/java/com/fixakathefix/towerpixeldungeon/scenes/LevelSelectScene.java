@@ -493,10 +493,13 @@ public class LevelSelectScene extends PixelScene {
                 super.onClick();
                 if (SPDSettings.towerUnlockedMessage()) {
                     SPDSettings.towerUnlockedMessage(false);
-                    WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(BossRatKing.class, "name"),
+                    WndDialogueWithPic.dialogue_outsideOfGame(
+                            new BossRatKingSprite(),
+                            Messages.get(BossRatKing.class, "name"),
                             new String[]{
                                     Messages.get(LevelSelectScene.class, "newtowersunlocked" + Random.Int(8))
-                            });
+                            },
+                            new byte[]{WndDialogueWithPic.RUN});
 
                 } else {
                     Dungeon.hero = null;

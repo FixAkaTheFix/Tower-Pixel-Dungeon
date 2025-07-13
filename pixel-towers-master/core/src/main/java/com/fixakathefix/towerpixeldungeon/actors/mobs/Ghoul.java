@@ -24,6 +24,7 @@
 
 package com.fixakathefix.towerpixeldungeon.actors.mobs;
 
+import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -168,6 +169,7 @@ public class Ghoul extends Mob {
 			GameScene.add(swarm);
 			Dungeon.level.occupyCell(swarm);
 		}
+		if (buff(ChampionEnemy.Copying.class)!=null)Badges.validateLegion();
 		super.die(cause);
 	}
 
