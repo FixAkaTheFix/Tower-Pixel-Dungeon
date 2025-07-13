@@ -33,6 +33,8 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Healing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCShooting;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCTotem;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCWall;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -66,7 +68,7 @@ public class ScrollOfAnimation extends Scroll {
 			Mob target = null;
 			if (cell != null){
 				Char ch = Actor.findChar(cell);
-				if (ch != null && ch.alignment == Char.Alignment.ALLY && ch instanceof TowerCShooting && ch.buff(Animated.class)==null){
+				if (ch != null && ch.alignment == Char.Alignment.ALLY && (ch instanceof TowerCShooting || ch instanceof TowerCWall || ch instanceof TowerCTotem) && ch.buff(Animated.class)==null){
 					target = (Mob)ch;
 				}
 			}

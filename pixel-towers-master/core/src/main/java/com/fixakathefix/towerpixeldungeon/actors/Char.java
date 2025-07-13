@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.actors.blobs.ToxicGas;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AbilityCooldown;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Adrenaline;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AllyBuff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ArcaneArmor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
@@ -746,6 +747,7 @@ public abstract class Char extends Actor {
 		if ( buff( Rush.class ) != null) speed *= 5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
+		if ( buff( Animated.class ) != null) speed *= 1.3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
 		return speed;
 	}

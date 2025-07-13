@@ -2,8 +2,11 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
 
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 
 public class TowerCShooting extends TowerNotliving{
@@ -32,8 +35,12 @@ public class TowerCShooting extends TowerNotliving{
     @Override
     protected boolean getCloser(int target) {
         if (buff(Animated.class) !=null) {
-            beckon(hero.pos);
-            return super.getCloser( hero.pos );
+            if (Dungeon.level.distance(pos, hero.pos)>0) return super.getCloser(hero.pos);
+            if (state == HUNTING) {
+                return enemySeen && getFurther( target );
+            } else {
+                return super.getCloser( target );
+            }
         } else return true;
     }
 
@@ -41,5 +48,4 @@ public class TowerCShooting extends TowerNotliving{
     protected boolean getFurther(int target) {
         if (buff(Animated.class) !=null) return super.getFurther(target); else return true;
     }
-
 }

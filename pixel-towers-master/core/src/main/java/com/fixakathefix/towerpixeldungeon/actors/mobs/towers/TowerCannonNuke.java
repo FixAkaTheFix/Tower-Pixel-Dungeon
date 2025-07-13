@@ -6,6 +6,7 @@ import static com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave.thr
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
@@ -101,6 +102,7 @@ public class TowerCannonNuke extends TowerCShooting{
 
     @Override
     protected boolean canAttack( Char enemy ) {
+        if (buff(Animated.class)!=null && (Dungeon.level.distance( pos, Dungeon.hero.pos )>2)) return false;
         return (new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos && level.distance(enemy.pos, this.pos)<=attackRange);
     }
 

@@ -17,7 +17,7 @@ public class Animated extends Buff {
 
     @Override
     public void fx(boolean on) {
-        if (on) target.sprite.add(CharSprite.State.LEVITATING);
-        else target.sprite.remove(CharSprite.State.LEVITATING);
+        if (on) target.sprite.add(CharSprite.State.LOW_HEARTS);
+        else target.sprite.remove(CharSprite.State.LOW_HEARTS);
     }
 }

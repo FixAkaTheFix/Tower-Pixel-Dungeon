@@ -3,6 +3,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.DamageType;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SparkParticle;
@@ -39,6 +40,7 @@ public class TowerPylon extends TowerCShooting implements Callback {
 
     @Override
     protected boolean canAttack( Char enemy ) {//does not attack close foes in melee
+        if (buff(Animated.class)!=null && (Dungeon.level.distance( pos, Dungeon.hero.pos )>1 || Dungeon.level.adjacent( pos, enemy.pos ))) return false;
         return new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos&&Dungeon.level.distance(enemy.pos, this.pos)<=attackRange;
     }
     public static class LightningBolt{}

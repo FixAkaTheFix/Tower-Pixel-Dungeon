@@ -2,6 +2,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.effects.Beam;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.PurpleParticle;
@@ -38,6 +39,7 @@ public class TowerDisintegration1 extends TowerCShooting {
 
     @Override
     protected boolean canAttack( Char enemy ) {//does not attack close foes in melee
+        if (buff(Animated.class)!=null && (Dungeon.level.distance( pos, Dungeon.hero.pos )>2 || Dungeon.level.adjacent( pos, enemy.pos ))) return false;
         return (Dungeon.level.distance(enemy.pos, this.pos)<=attackRange);
     }
 

@@ -2,6 +2,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
 
+import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.watabou.utils.Bundle;
@@ -38,8 +39,10 @@ public abstract class TowerWave extends TowerNotliving{
     @Override
     protected boolean getCloser(int target) {
         if (buff(Animated.class) !=null) {
-            beckon(hero.pos);
-            return super.getCloser( hero.pos );
+            if (Dungeon.level.distance(pos, hero.pos)>2) return super.getCloser(hero.pos);
+            else {
+                return super.getCloser( target );
+            }
         } else return true;
     }
 

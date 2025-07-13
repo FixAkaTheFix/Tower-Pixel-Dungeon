@@ -394,8 +394,8 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(3, a3);
 
 		new StoneOfShock().collect();
-		new ScrollOfGolems().collect();;
 		new StoneOfBlast().collect();
+		new ScrollOfAnimation().collect();
 		new ScrollOfAnimation().collect();
 	}
 

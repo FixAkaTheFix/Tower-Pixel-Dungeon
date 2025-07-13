@@ -2,6 +2,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Poison;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
@@ -32,6 +33,7 @@ public class TowerDartgun1 extends TowerCShooting {
 
     @Override
     protected boolean canAttack( Char enemy ) {//attacks only foes on the same x or y coordinates
+        if (buff(Animated.class)!=null && (Dungeon.level.distance( pos, Dungeon.hero.pos )>2 || Dungeon.level.adjacent( pos, enemy.pos ))) return false;
         return (enemy.pos % Dungeon.level.width() == pos % Dungeon.level.width() || enemy.pos / Dungeon.level.width() == pos / Dungeon.level.width())
                 && (new Ballistica( pos, enemy.pos, Ballistica.TARGETING_BOLT).collisionPos == enemy.pos && Dungeon.level.distance(enemy.pos, this.pos)<=attackRange);
     }
