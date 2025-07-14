@@ -45,6 +45,7 @@ import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TowersSelectionScene extends PixelScene {
 
@@ -157,7 +158,8 @@ public class TowersSelectionScene extends PixelScene {
         }
 
         for (TowerInfo.AllTowers t : lockedTowers) {
-            towerButtonList.add(new TowerSelectionButton(TowerInfo.AllTowers.LOCKED));
+            towerButtonList.add(new TowerSelectionButton(TowerInfo.AllTowers.LOCKED,
+                    TowerInfo.getTowerUnlockLevel(t)==-1 ? "" :  Integer.toString(TowerInfo.getTowerUnlockLevel(t))));
         }
 
 
@@ -340,6 +342,7 @@ public class TowersSelectionScene extends PixelScene {
 
         public TowerSlotButton(int slotnum) {
             super(Chrome.Type.BLANK, ""/*Messages.get(TowersSelectionScene.class, "select")*/);
+
             slotNum = slotnum;
             setSize(delta,delta);
             update();
@@ -409,7 +412,7 @@ public class TowersSelectionScene extends PixelScene {
         }
     }
 
-    public class TowerSelectionButton extends StyledButton {//the buttons with tower icons on the right
+    public class TowerSelectionButton extends StyledButton {//the buttons with tower icons on the left
 
         protected Image icon;
         protected String title;
@@ -419,19 +422,22 @@ public class TowersSelectionScene extends PixelScene {
         public static final int HEIGHT = 27;
         protected TowerInfo.AllTowers towerch;
         protected TowerInfo.Lock lock;
-
-        public TowerSelectionButton(TowerInfo.AllTowers tower) {
-            super(Chrome.Type.BLANK, "");
+        public TowerSelectionButton(TowerInfo.AllTowers tower, String text) {
+            super(Chrome.Type.BLANK, text, 15);
+            textColor(0xAAAAAA);
             Image x = TowerInfo.getTowerIcon(tower);
             x.scale.set(1.6f);
             this.icon = x;
             this.setSize(WIDTH, HEIGHT);
-            add(this.icon);
+            addToBack(this.icon);
             this.lock = TowerInfo.getTowerLock(tower);
-            //this.title = Messages.titleCase(title);
             towerch = tower;
             layout();
         }
+        public TowerSelectionButton(TowerInfo.AllTowers tower) {
+            this(tower, "");
+        }
+
 
         protected void onClick() {
             TowersSelectionScene.showTowerInfo(towerch);
@@ -452,6 +458,9 @@ public class TowersSelectionScene extends PixelScene {
             icon.x = x;
             icon.y = y + (height - icon.height()) / 2f;
             PixelScene.align(icon);
+            text.setPos(icon.width()/2 - text.width()/2, icon.y + icon.height()/2 - text.height()/2);
+            PixelScene.align(text);
+
         }
     }
 

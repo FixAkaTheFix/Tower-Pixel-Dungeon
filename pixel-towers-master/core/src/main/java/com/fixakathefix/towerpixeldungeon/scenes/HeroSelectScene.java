@@ -517,7 +517,7 @@ public class HeroSelectScene extends PixelScene {
 
 		private HeroClass cl;
 
-		private static final int MIN_WIDTH = 20;
+		private static final int MIN_WIDTH = 18;
 		private static final int HEIGHT = 24;
 
 		HeroBtn ( HeroClass cl ){

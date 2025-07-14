@@ -85,22 +85,23 @@ import java.util.Locale;
 public class TowerInfo extends Component {
 
     public enum AllTowers{
+        //always unlocked
         CROSSBOW,
         MAGICMISSILE,
-        LIGHTNING,
-        DISINTEGRATION,
         WALL,
+        //level unlockable
+        RATCAMP,
         CANNON,
-        GRAVE,
         GUARD,
-        TOTEM,
+        GRAVE,
+        LIGHTNING,
         TNTLOG,
         DARTGUN,
+        DISINTEGRATION,
+        //dungeon towers
+        TOTEM,
         PYLON,
         MINER,
-
-        RATCAMP,
-
         //general meanings for towers. Locked is a grey lock, Unlocked is a basic green lock icon, Dungeon is a basic stairs icon
         LOCKED,
         UNLOCKED,
@@ -139,9 +140,39 @@ public class TowerInfo extends Component {
 
         NONE
     }
+    public static int getTowerUnlockLevel(AllTowers sometower){ // the level you must REACH to unlock the tower
+        switch (sometower){
+            //internal
+            case UNLOCKED:
+            case LOCKED:
+            case DUNGEON: return  -1;
+
+            //from the beginning
+            case CROSSBOW:
+            case MAGICMISSILE:
+            case WALL: return 0;
+
+            //unlocked through completing levels
+            case RATCAMP:          return 5;
+            case CANNON:           return 5;
+            case GUARD:            return 7;
+            case GRAVE:            return 9;
+            case LIGHTNING:        return 10;
+            case TNTLOG:           return 11;
+            case DARTGUN:          return 14;
+            case DISINTEGRATION:   return 18;
+
+                //dungeon ones
+            case TOTEM:
+            case MINER:
+            case PYLON:
+                return -1;
+        }
+        return -1;
+    }
 
     public static Lock getTowerLock(AllTowers sometower){
-        if (DeviceCompat.isDebug()) {
+        /*if (DeviceCompat.isDebug()) {
 
             switch (sometower){
                 case UNLOCKED:
@@ -163,7 +194,7 @@ public class TowerInfo extends Component {
 
                 default: return Lock.UNLOCKED;
             }
-        }
+        }*/
         switch (sometower){
             //internal
             case UNLOCKED:
@@ -176,14 +207,14 @@ public class TowerInfo extends Component {
             case WALL: return Lock.UNLOCKED;
 
             //unlocked through completing levels
-            case RATCAMP:  if (SPDSettings.maxlevelunlocked()>=5) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case CANNON: if (SPDSettings.maxlevelunlocked()>=5) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case GUARD:  if (SPDSettings.maxlevelunlocked()>=7) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case GRAVE:  if (SPDSettings.maxlevelunlocked()>=9) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case LIGHTNING:if (SPDSettings.maxlevelunlocked()>=10) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case TNTLOG: if (SPDSettings.maxlevelunlocked()>=11) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case DARTGUN: if (SPDSettings.maxlevelunlocked()>=14) return Lock.UNLOCKED; else return Lock.LOCKED;
-            case DISINTEGRATION: if (SPDSettings.maxlevelunlocked()>=18) return Lock.UNLOCKED; else return Lock.LOCKED;
+            case RATCAMP:
+            case CANNON:
+            case GUARD:
+            case GRAVE:
+            case LIGHTNING:
+            case TNTLOG:
+            case DARTGUN:
+            case DISINTEGRATION: if (TowerInfo.getTowerUnlockLevel(sometower)>=SPDSettings.maxlevelunlocked()) return Lock.UNLOCKED; else return Lock.LOCKED;
 
             //dungeon ones
             case TOTEM:
