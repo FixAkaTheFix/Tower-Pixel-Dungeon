@@ -1,6 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
 import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
+import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
@@ -27,6 +28,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWave;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Ripple;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
@@ -77,7 +79,7 @@ public class Arena5 extends Arena{
 
     /**
      * The boss level, with its map reworked and loot rerolled. A big exploration map, with a ghost seed in the bushes.
-     * introduces the player to the vast capabilities of Pixel Towers? the OOZE, some lore. Also it is the longest stage of all.
+     * introduces the player to the vast capabilities of Pixel Towers? the OOZE, some lore. Also it is the longest stage of all starting ones.
      */
     {
         name = "Caustic depths";
@@ -91,7 +93,7 @@ public class Arena5 extends Arena{
         startGold = 2000;
         startLvl = 5;
 
-        maxWaves= 25;
+        maxWaves= 20;
         arenaDepth = 5;
 
         amuletCell = 35 + WIDTH*35;
@@ -157,24 +159,7 @@ public class Arena5 extends Arena{
                 mob = new MagiCrab(); break;
             case 19:
                 mob = Random.oneOf(new HermitCrab(), new CausticSlime()); break;
-            case 20: if (!bossSpawned) {
-                bossSpawned = true;
-                mob = new GnollTrickster();
-            } else mob = new MagiCrab();
-                break;
-            case 21:
-                mob = new Gnoll(); break;
-            case 22:
-                mob = new Crab(); break;
-            case 23:
-                mob = Random.oneOf(new CausticSlime()); break;
-            case 24:
-                mob = new HermitCrab(); break;
-            case 25:
-                if (!bossSpawned) {
-                    bossSpawned = true;
-                    mob = new GreatCrab();
-                } else mob = new Goo();
+            case 20: mob = new Goo();
                 break;
             case 8055:
                 mob = new CausticSlime(); break;
@@ -206,12 +191,7 @@ public class Arena5 extends Arena{
             case 17: return 27;
             case 18: return 22;
             case 19: return 20;
-            case 20: return 27;
-            case 21: return 37;
-            case 22: return 37;
-            case 23: return 37;
-            case 24: return 22;
-            case 25: return 6;
+            case 20: return 6;
             case 8055: return 2;
 
         } return 1;
@@ -493,7 +473,7 @@ public class Arena5 extends Arena{
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
 
-        for (Heap heap: Dungeon.level.heaps.valueList()) {
+        for (Heap heap: level.heaps.valueList()) {
             if (heap.type == Heap.Type.FOR_SALE) {
                 if (ShatteredPixelDungeon.scene() instanceof GameScene) {
                     CellEmitter.get(heap.pos).burst(ElmoParticle.FACTORY, 4);
@@ -515,7 +495,7 @@ public class Arena5 extends Arena{
         if (wave==11) {
             EnemyPortal.createEnemyPortal(amuletCell - WIDTH*18, 41);
         }
-        if (wave==22) {
+        if (wave==17) {
             GooSprite sprite = new GooSprite();
 
             sprite.rm = sprite.bm = sprite.gm = 0;
@@ -532,7 +512,9 @@ public class Arena5 extends Arena{
 
         }
         if (wave==maxWaves) {
-
+            for (Mob mob : mobs){
+                if (mob instanceof TowerWave) ((TowerWave)mob).prepareMobSpawn();
+            }
             BossOoze ooze = new BossOoze();
             ooze.pos = 36*WIDTH+95;
             GameScene.add(ooze);
@@ -637,12 +619,12 @@ public class Arena5 extends Arena{
 
         @Override
         public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
+            if (visible = (pos < level.heroFOV.length && level.heroFOV[pos])) {
 
                 super.update();
 
                 if (!isFrozen() && (rippleDelay -= Game.elapsed) <= 0) {
-                    Ripple ripple = GameScene.ripple( pos + Dungeon.level.width() );
+                    Ripple ripple = GameScene.ripple( pos + level.width() );
                     if (ripple != null) {
                         ripple.y -= DungeonTilemap.SIZE / 2;
                         rippleDelay = Random.Float(0.4f, 0.6f);

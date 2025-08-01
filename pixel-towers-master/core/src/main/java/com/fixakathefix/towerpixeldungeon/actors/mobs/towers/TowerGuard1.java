@@ -5,6 +5,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerGuard1Sprite;
+import com.watabou.utils.DeviceCompat;
 
 public class TowerGuard1 extends SentientTower {
 
@@ -39,6 +40,12 @@ public class TowerGuard1 extends SentientTower {
         info.append(description());
         info.append(Messages.get(this, "stats", HP, HT , damageMin, damageMax, defMin, defMax, regenNum ));
         info.append(Messages.get(this, "descstats"));
+        if (DeviceCompat.isDebug()){
+            if (enemy== null) info.append("\n\nHas no enemy"); else info.append("\n\nEnemy is " + enemy.getClass().getSimpleName());
+            info.append("\nState is: " + state.getClass().getSimpleName());
+            info.append("\nIs moving to defendpos: " + movingToDefendPos);
+            info.append("\nHas a defpos: " + (defendingPos != -1));
+        }
         return info.toString();
     }
 

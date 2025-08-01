@@ -563,6 +563,7 @@ public enum HeroClass {
 		StableTeleportScroll stableTeleportScroll=new StableTeleportScroll();
 		stableTeleportScroll.identify().collect();
 
+		new ScrollOfTeleportation().collect();
 		new BlandfruitBush.Seed().collect();
 
 		new PotionOfLevitation().collect();

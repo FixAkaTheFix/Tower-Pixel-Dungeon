@@ -660,9 +660,6 @@ public class LevelSelectScene extends PixelScene {
         super.update();
         btnExit.visible = btnExit.active = !SPDSettings.intro();
         //do not fade when a window is open
-        for (Object v : members) {
-            if (v instanceof Window) ;
-        }
         if (!PixelScene.landscape() && GamesInProgress.selectedClass != null) {
             if (uiAlpha > 0f) {
                 uiAlpha -= Game.elapsed / 4f;

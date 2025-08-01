@@ -83,7 +83,7 @@ public class SentientTower extends Tower {
 
     public void justSpawnedLogic(){
         defendingPos = this.pos;
-
+        movingToDefendPos = false;
     }
 
     @Override

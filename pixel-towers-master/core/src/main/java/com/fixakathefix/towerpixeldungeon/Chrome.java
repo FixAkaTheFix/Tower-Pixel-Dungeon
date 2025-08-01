@@ -34,10 +34,12 @@ public class Chrome {
 		TOAST_WHITE,
 		WINDOW,
 		WINDOW_SILVER,
-		RED_BUTTON,
+		RED_BUTTON,//usual button actually
 		GREY_BUTTON,
 		GREEN_BUTTON,
 		YELLOW_BUTTON,
+		ETHERIAL_BUTTON,
+		CARMINE_BUTTON,
 		GREY_BUTTON_TR,
 		TAG,
 		GEM,
@@ -50,6 +52,7 @@ public class Chrome {
 	
 	public static NinePatch get( Type type ) {
 		String Asset = Assets.Interfaces.CHROME;
+		String Asset_buttons = Assets.Interfaces.COLOR_BUTTONS;
 		switch (type) {
 		case WINDOW:
 			return new NinePatch( Asset, 0, 0, 20, 20, 6 );
@@ -67,9 +70,13 @@ public class Chrome {
 		case GREY_BUTTON:
 			return new NinePatch( Asset, 38, 6, 6, 6, 2 );
 		case GREEN_BUTTON:
-			return new NinePatch( Asset, 38, 12, 6, 6, 2 );
+			return new NinePatch( Asset_buttons, 0, 0, 6, 6, 2 );
 		case YELLOW_BUTTON:
-			return new NinePatch( Asset, 38, 18, 6, 6, 2 );
+			return new NinePatch( Asset_buttons, 0, 6, 6, 6, 2 );
+		case CARMINE_BUTTON:
+			return new NinePatch( Asset_buttons, 6, 0, 6, 6, 2 );
+		case ETHERIAL_BUTTON:
+			return new NinePatch( Asset_buttons, 6, 6, 6, 6, 2 );
 		case TAG:
 			return new NinePatch( Asset, 22, 18, 16, 14, 3 );
 		case GEM:

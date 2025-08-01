@@ -30,6 +30,11 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Shaman;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Warlock;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.YogFist;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.CampRatMage;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannon1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannon2;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannon3;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannonMissileLauncher;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannonNuke;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerDartgunSpitter;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerDisintegration1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerDisintegration2;
@@ -66,6 +71,7 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.enchantments.Shocking;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Greatshield;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.RunicBlade;
 import com.fixakathefix.towerpixeldungeon.levels.traps.DisintegrationTrap;
+import com.fixakathefix.towerpixeldungeon.levels.traps.ExplosiveTrap;
 import com.fixakathefix.towerpixeldungeon.levels.traps.GrimTrap;
 
 import java.util.HashSet;
@@ -194,6 +200,21 @@ public class DamageSource {
         FIRE.add( WandOfFireblast.class);
         FIRE.add( Blazing.class);
         FIRE.add( Fire.class );
+    }
+    public static final HashSet<Class> EXPLOSION = new HashSet<>();
+    static {
+        EXPLOSION.add( TowerCannon1.class );
+        EXPLOSION.add( TowerCannon2.class );
+        EXPLOSION.add( TowerCannon3.class );
+        EXPLOSION.add( TowerCannonMissileLauncher.class );
+        EXPLOSION.add( TowerCannonMissileLauncher.RocketMinion.class );
+        EXPLOSION.add( TowerCannonNuke.class);
+        EXPLOSION.add( ExplosiveTrap.class);
+        EXPLOSION.add( ScrollOfSkulls.ExplosiveSkull.class);
+        EXPLOSION.add( ScrollOfDemonicSkull.ExplosiveDemonicSkull.class);
+        EXPLOSION.add( Bomb.class);
+        EXPLOSION.add( Bomb.MagicalBomb.class);
+        EXPLOSION.add( Bomb.EnhanceBomb.class);
     }
     public static final HashSet<Class> BLOOD = new HashSet<>();
     static {

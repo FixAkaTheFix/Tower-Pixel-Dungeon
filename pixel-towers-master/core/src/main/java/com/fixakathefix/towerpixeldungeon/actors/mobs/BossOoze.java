@@ -55,7 +55,7 @@ public class BossOoze extends Mob {
         viewDistance = 10;
 
 
-        HP = HT = 3333;
+        HP = HT = 2000;
         defenseSkill = 0;
 
         EXP = 100;
@@ -103,8 +103,8 @@ public class BossOoze extends Mob {
             baseSpeed = 4f;
             attackRange = 2;
             attackDelayMult = 0.5f;
-            minDamage = 50;
-            maxDamage = 70;
+            minDamage = 10;
+            maxDamage = 30;
             viewDistance = 4;
         }
         if (level!=null&&level.mode == WndModes.Modes.HARDMODE){
@@ -469,9 +469,9 @@ public class BossOoze extends Mob {
             dmg = 9 + (int) (Math.sqrt(dmg - 9));
         }
         int x = 1;
-        if (HP - dmg <= 2600) x = 2;
-        if (HP - dmg <= 1300) x = 3;
-        if (HP - dmg <= 750) x = 4;
+        if (HP - dmg <= 1400) x = 2;
+        if (HP - dmg <= 800) x = 3;
+        if (HP - dmg <= 300) x = 4;
         if (phase != x) setPhase(x);
         if (level.mode == WndModes.Modes.HARDMODE && Math.random()>0.7){
             CausticSlime slime = new CausticSlime();
@@ -483,7 +483,7 @@ public class BossOoze extends Mob {
                     pos, Random.Int(0, level.width()*level.height()),
                     Ballistica.PROJECTILE),
 
-                    5, false,
+                    2, false,
                     true,
                     src.getClass());
         }

@@ -172,7 +172,7 @@ public class TowerInfo extends Component {
     }
 
     public static Lock getTowerLock(AllTowers sometower){
-        /*if (DeviceCompat.isDebug()) {
+        if (DeviceCompat.isDebug()) {
 
             switch (sometower){
                 case UNLOCKED:
@@ -194,7 +194,7 @@ public class TowerInfo extends Component {
 
                 default: return Lock.UNLOCKED;
             }
-        }*/
+        }
         switch (sometower){
             //internal
             case UNLOCKED:

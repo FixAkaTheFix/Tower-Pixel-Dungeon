@@ -114,10 +114,6 @@ public abstract class Mob extends Char {
 		critChance = 0.1f;
 		critMult = 1.2f;
 	}
-
-	//endless mode charachteristics
-
-	public int powerlevel;
 	private int distanceToHeroForTargetTracking = 100;
 	public boolean ranged = false;
 
@@ -1116,6 +1112,7 @@ public abstract class Mob extends Char {
 
 	public String description() {
 		return Messages.get(this, "desc");
+
 	}
 
 	public String info(){

@@ -102,6 +102,7 @@ public class Assets {
 		public static final String FIREBALL     = "interfaces/" + interfaceType + "/fireball.png";
 
 		public static final String CHROME   = "interfaces/" + interfaceType + "/chrome.png";
+		public static final String COLOR_BUTTONS   = "interfaces/" + interfaceType + "/buttons.png";
 		public static final String ICONS    = "interfaces/icons.png";
 		public static final String STYLEICONS    = "interfaces/styleicons.png";
 		public static final String UNLOCKICONS   = "interfaces/unlockicons.png";

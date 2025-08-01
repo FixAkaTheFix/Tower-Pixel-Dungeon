@@ -33,7 +33,9 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
+import com.fixakathefix.towerpixeldungeon.journal.Catalog;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
+import com.fixakathefix.towerpixeldungeon.levels.Arena17;
 import com.fixakathefix.towerpixeldungeon.levels.RegularLevel;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.rooms.Room;
@@ -63,10 +65,15 @@ public class ScrollOfTeleportation extends Scroll {
 	public void doRead() {
 
 		Sample.INSTANCE.play( Assets.Sounds.READ );
-		teleportToAmulet();
 		readAnimation();
+		if (Dungeon.level instanceof Arena17){
+			Sample.INSTANCE.play(Assets.Sounds.DEGRADE);
+			GameScene.flash(0x770000);
+			GLog.w(Messages.get(this, "no_tele_nightmare"));
+		} else {
+			teleportToAmulet();
+		}
 		identify();
-
 	}
 
 	public static void teleportToAmulet(){

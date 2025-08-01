@@ -926,7 +926,7 @@ public abstract class Char extends Actor {
 			else if (DamageSource.BLOOD.contains(src.getClass())) {
 				sprite.showStatus(CharSprite.BLOOD, Integer.toString(dmg + shielded));
 			}
-			else if (DamageSource.FIRE.contains(src.getClass())) {
+			else if (DamageSource.FIRE.contains(src.getClass()) || DamageSource.EXPLOSION.contains(src.getClass())) {
 				sprite.showStatus(CharSprite.ORANGE, Integer.toString(dmg + shielded));
 			}
 			else if (DamageSource.LIGHTNING.contains(src.getClass())) {
@@ -938,7 +938,7 @@ public abstract class Char extends Actor {
 			else if (DamageSource.MAGICAL.contains(src.getClass())) {
 				sprite.showStatus(CharSprite.MYSTERIOUS, Integer.toString(dmg + shielded));
 			} else if (critProc){
-				sprite.showStatus(CharSprite.NEGATIVE, "CRIT " + Integer.toString(dmg + shielded));
+				sprite.showStatus(CharSprite.NEGATIVE, Messages.get(Char.class, "critical_hit") + Integer.toString(dmg + shielded));
 				critProc = false;
 			}
 			else { sprite.showStatus(CharSprite.DEFAULT, Integer.toString(dmg + shielded));

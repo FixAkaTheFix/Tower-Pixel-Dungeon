@@ -82,8 +82,8 @@ public class WndModes extends Window {
             Chrome.Type corType = Chrome.Type.GREY_BUTTON;
             switch (mode){
                 case NORMAL: corType = Chrome.Type.GREEN_BUTTON; break;
-                case HARDMODE: corType = Chrome.Type.RED_BUTTON; break;
-                case CHALLENGE: corType = Chrome.Type.YELLOW_BUTTON; break;
+                case HARDMODE: corType = Chrome.Type.CARMINE_BUTTON; break;
+                case CHALLENGE: corType = Chrome.Type.ETHERIAL_BUTTON; break;
             }
             Image icon = Icons.get(Icons.AMULET);
             switch (mode){
