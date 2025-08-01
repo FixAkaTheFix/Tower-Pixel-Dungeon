@@ -127,7 +127,6 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 						ChampionEnemy.Blessed.class,
 						ChampionEnemy.Blazing.class,
 						ChampionEnemy.Projecting.class,
-						ChampionEnemy.Copying.class,
 						ChampionEnemy.Rejuvenating.class));
 				Buff.affect(mob, Random.oneOf(Speed.class, Chill.class, Hex.class, Bless.class), 1000);
 				Buff.affect(mob, Random.oneOf(Humongous.class, Small.class));
