@@ -1,6 +1,6 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
-import static com.fixakathefix.towerpixeldungeon.levels.ArenaEndlessBalancingTable.mobSpecialty.*;
+import static com.fixakathefix.towerpixeldungeon.levels.ArenaColiseumBalancingTable.mobSpecialty.*;
 
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Albino;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.ArmoredBrute;
@@ -31,7 +31,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Spinner;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 
-public enum ArenaEndlessBalancingTable {
+public enum ArenaColiseumBalancingTable {
 
     //approx
 
@@ -77,7 +77,7 @@ public enum ArenaEndlessBalancingTable {
     public int powerLevel;
     public mobSpecialty specialty;
 
-    ArenaEndlessBalancingTable(int powerLevel, mobSpecialty specialty, Mob mob){
+    ArenaColiseumBalancingTable(int powerLevel, mobSpecialty specialty, Mob mob){
         this.powerLevel = powerLevel; this.specialty = specialty;
     }
     enum mobSpecialty{
