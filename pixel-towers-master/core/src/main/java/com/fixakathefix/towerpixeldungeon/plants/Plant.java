@@ -75,8 +75,8 @@ public abstract class Plant implements Bundlable {
 		}
 
 		if (this instanceof WandOfRegrowth.Dewcatcher || this instanceof WandOfRegrowth.Seedpod) {
-			if (Math.random()>0.5) wither();
-		} else wither();
+			wither();
+		} else if (Math.random()>0.75) wither();//25 percent chance to wither
 		activate( ch );
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
