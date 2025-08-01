@@ -74,18 +74,19 @@ public abstract class Plant implements Bundlable {
 			Buff.affect(Dungeon.hero, Barkskin.class).set(2, 1 + 2*(Dungeon.hero.pointsInTalent(Talent.NATURES_AID)));
 		}
 
-		wither();
+		if (this instanceof WandOfRegrowth.Dewcatcher || this instanceof WandOfRegrowth.Seedpod) {
+			if (Math.random()>0.5) wither();
+		} else wither();
 		activate( ch );
+		if (Dungeon.level.heroFOV[pos]) {
+			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
+		}
 	}
 	
 	public abstract void activate( Char ch );
 	
 	public void wither() {
 		Dungeon.level.uproot( pos );
-
-		if (Dungeon.level.heroFOV[pos]) {
-			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
-		}
 
 		float seedChance = 0f;
 		for (Char c : Actor.chars()){
