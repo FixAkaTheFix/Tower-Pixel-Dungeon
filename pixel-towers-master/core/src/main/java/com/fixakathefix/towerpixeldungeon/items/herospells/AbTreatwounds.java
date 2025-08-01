@@ -24,6 +24,7 @@ public class AbTreatwounds extends HeroSpell {
                         (int)((Dungeon.hero.HT - Dungeon.hero.HP)*0.2f), // the higher is the HP lost, the better is the heal, up to 30 percent of your hp
                 0.5f, 5);//the healing is almost instant
         Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+        Sample.INSTANCE.play(Assets.Sounds.GRASS);
     }
 
     @Override

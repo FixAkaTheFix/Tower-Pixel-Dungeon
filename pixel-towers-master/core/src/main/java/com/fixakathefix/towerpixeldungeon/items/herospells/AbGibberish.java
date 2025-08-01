@@ -1,5 +1,8 @@
 package com.fixakathefix.towerpixeldungeon.items.herospells;
 
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.RainbowParticle;
 import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfCorrosion;
@@ -22,6 +25,7 @@ public class AbGibberish extends HeroSpellTargeted {
             @Override
             public void onSelect(Integer cell) {
                 if (cell!=null){
+                    CellEmitter.get(Dungeon.hero.pos).burst(RainbowParticle.BURST, 10);
                     Wand wando = Random.oneOf(
                             new WandOfBlastWave(),
                             new WandOfCorrosion(),

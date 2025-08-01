@@ -1,14 +1,18 @@
 package com.fixakathefix.towerpixeldungeon.items.herospells;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Bless;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.RainbowParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.custom.CPLight;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.CellSelector;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.audio.Sample;
 
 public class AbBlessing extends HeroSpellTargeted {
     {
@@ -22,6 +26,7 @@ public class AbBlessing extends HeroSpellTargeted {
                         Char ch = Char.findChar(cell);
                         if (ch instanceof Hero) Buff.affect(ch, Bless.class, 200); else Buff.affect(ch, Bless.class, 1000);
                         CellEmitter.get(cell).burst(CPLight.DOWN, 10);
+                        Sample.INSTANCE.play(Assets.Sounds.READ);
                         cooldown();
                     }
                 }

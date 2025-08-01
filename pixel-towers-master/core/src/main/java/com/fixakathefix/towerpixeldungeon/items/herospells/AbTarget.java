@@ -102,6 +102,7 @@ public class AbTarget extends HeroSpellTargeted{
                                     }
                                 }
                             }
+                            Sample.INSTANCE.play(Assets.Sounds.CHALLENGE, 1f, 0.8f);
                             cooldown();
                         }
                     }

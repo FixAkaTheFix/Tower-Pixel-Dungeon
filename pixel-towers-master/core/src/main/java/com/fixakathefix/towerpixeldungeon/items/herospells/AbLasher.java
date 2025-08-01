@@ -28,7 +28,7 @@ public class AbLasher extends HeroSpellTargeted{
                         lashy.pos = cell;
                         GameScene.add(lashy);
                         Sample.INSTANCE.play(Assets.Sounds.GRASS);
-                        CellEmitter.floor(cell).start(LeafParticle.GENERAL, 0.05f,10);
+                        CellEmitter.floor(cell).start(LeafParticle.GENERAL, 0.05f,20);
                         CellEmitter.floor(cell).start(LeafParticle.GENERAL, 0.1f,15);
                         cooldown();
                     }

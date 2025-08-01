@@ -2,6 +2,9 @@ package com.fixakathefix.towerpixeldungeon.items.herospells;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Elemental;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.RainbowParticle;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.weapon.Weapon;
 import com.fixakathefix.towerpixeldungeon.items.weapon.enchantments.Corrupting;
@@ -28,8 +31,7 @@ public class AbArcanesword extends HeroSpell {
            if (newwep.enchantment==null) newwep.enchant(Weapon.Enchantment.random(Corrupting.class, Grim.class, Vampiric.class, Pure.class));
            Dungeon.level.drop(newwep, Dungeon.hero.pos);
         }
-
-
+        CellEmitter.get(Dungeon.hero.pos).start(RainbowParticle.BURST, 0.2f, 10);
         Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
     }
 

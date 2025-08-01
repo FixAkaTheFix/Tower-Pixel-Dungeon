@@ -32,6 +32,7 @@ public class AbNecromancy extends HeroSpell {
                 GameScene.add(skeletonbud);
                 Dungeon.level.occupyCell(skeletonbud);
                 CellEmitter.get(cell).burst(ShadowParticle.UP, 5);
+                Sample.INSTANCE.play(Assets.Sounds.CURSED);
                 if (ch != null) {
                     skeletonbud.die(Dungeon.hero);
                     Buff.affect(ch, Vertigo.class, 2);

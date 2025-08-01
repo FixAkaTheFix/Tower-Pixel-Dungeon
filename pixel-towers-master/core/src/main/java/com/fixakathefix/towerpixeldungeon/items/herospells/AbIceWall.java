@@ -29,7 +29,8 @@ public class AbIceWall extends HeroSpellTargeted{
                         wall.pos = cell;
                         GameScene.add(wall);
                         Sample.INSTANCE.play(Assets.Sounds.SHATTER);
-                        CellEmitter.floor(cell).start(MagicMissile.MagicParticle.FACTORY, 0.05f,10);
+                        CellEmitter.floor(cell).start(MagicMissile.MagicParticle.FACTORY, 0.05f,30);
+                        CellEmitter.floor(cell).start(MagicMissile.MagicParticle.FACTORY, 0.1f,10);
                         cooldown();
                     }
                 }

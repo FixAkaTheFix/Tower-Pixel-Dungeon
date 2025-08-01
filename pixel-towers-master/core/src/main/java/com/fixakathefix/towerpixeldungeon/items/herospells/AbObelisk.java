@@ -34,6 +34,7 @@ public class AbObelisk extends HeroSpellTargeted{
                         GameScene.add(obelisk);
                         Sample.INSTANCE.play(Assets.Sounds.SHATTER);
                         CellEmitter.floor(cell).burst(ShadowParticle.CURSE, 10);
+                        CellEmitter.floor(cell).start(ShadowParticle.CURSE, 0.2f, 10);
                         cooldown();
                     }
                 }

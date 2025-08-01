@@ -1,5 +1,6 @@
 package com.fixakathefix.towerpixeldungeon.items.herospells;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
@@ -9,6 +10,7 @@ import com.fixakathefix.towerpixeldungeon.effects.particles.custom.CPHeal;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.CellSelector;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.audio.Sample;
 
 public class AbRegeneration extends HeroSpellTargeted {
     {
@@ -22,6 +24,7 @@ public class AbRegeneration extends HeroSpellTargeted {
                     Char ch = Char.findChar(cell);
                     Buff.affect(ch, Healing.class).setHeal(20,0,1);
                     CellEmitter.get(cell).burst(CPHeal.UP, 10);
+                    Sample.INSTANCE.play(Assets.Sounds.READ);
                     cooldown();
                     Dungeon.hero.spendAndNext(1f);
                 }
