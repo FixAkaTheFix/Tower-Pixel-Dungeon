@@ -61,8 +61,6 @@ public class ScrollOfDiscoveries extends ExoticScroll {
 				}
 			}
 		}
-
-		Buff.affect( Dungeon.hero, Awareness.class, Awareness.DURATION );
 		Dungeon.observe();
 
 		Dungeon.hero.interrupt();
