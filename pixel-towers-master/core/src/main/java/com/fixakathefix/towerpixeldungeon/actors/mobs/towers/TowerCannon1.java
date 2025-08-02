@@ -42,44 +42,38 @@ public class TowerCannon1 extends TowerCShooting{
         return 100;
     }
 
-    @Override
-    public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
-        int cell;
-        if (Dungeon.level.heroFOV[this.pos] || Dungeon.level.heroFOV[enemy.pos]){
+    public void boom (int cell){
+        if (Dungeon.level.heroFOV[this.pos] || Dungeon.level.heroFOV[cell]){
             Sample.INSTANCE.play(Assets.Sounds.BLAST);
         }
-        for (int i : PathFinder.NEIGHBOURS8){
-            cell = enemy.pos + i;
-            Char ch = Char.findChar(cell);
-            if (ch!=null){
-                if (ch.alignment == Alignment.ALLY){
+        for (int i : PathFinder.NEIGHBOURS9){
+            int cell2 = cell+i;
+            Char ch = Char.findChar(cell2);
+            if (ch!=null && !level.cellAdjacentToBorderCells(cell2)){
+                if (ch.alignment == this.alignment){
                     //friends receive 0 damage
                 } else {
-                    ch.damage (Math.round(damageRoll()*damageExplosionMult) - enemy.drRoll(),this);
-                };//damages foes nearby, with lowered damage
-                if (ch.pos == enemy.pos + i && ch.alignment != this.alignment && Math.random()>0.8) {
-                    Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-                    throwChar(ch, trajectory, 1, false, true, getClass());
-                }
-                if (ch == enemy && Math.random()>0.9){
-                    Buff.affect(ch, Cripple.class, 3);
-                }
+                    ch.damage (Math.round(damageRoll()*(ch.pos==cell ? 1 : damageExplosionMult)) - ch.drRoll(),this);
+                };
             }
-            if (level.heroFOV[enemy.pos+i]) {
-                CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
-
+            if (level.heroFOV[cell2] && !level.cellAdjacentToBorderCells(cell2)) {
+                CellEmitter.center(cell2).burst(BlastParticle.FACTORY, 30);
             }
-            if (level.heroFOV[enemy.pos]) {
-                CellEmitter.center(enemy.pos).start(SmokeParticle.FACTORY, 0.05f, 2);
-                CellEmitter.floor(enemy.pos).start(SmokeParticle.FACTORY, 0.12f, 3);
+            if (level.heroFOV[cell2] && !level.cellAdjacentToBorderCells(cell2)) {
+                CellEmitter.center(cell2).start(SmokeParticle.FACTORY, 0.05f, 2);
+                CellEmitter.floor(cell2).start(SmokeParticle.FACTORY, 0.12f, 3);
             }
-            if (level.flamable[cell]) {//affects terrain
-                level.destroy(cell);
-                GameScene.updateMap(cell);
+            if (level.flamable[cell2] && !level.cellAdjacentToBorderCells(cell)) {//affects terrain
+                level.destroy(cell2);
+                GameScene.updateMap(cell2);
             }
         }
+    }
 
-        return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
+    @Override
+    public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
+        boom(enemy.pos);
+        return true;
     }
 
 

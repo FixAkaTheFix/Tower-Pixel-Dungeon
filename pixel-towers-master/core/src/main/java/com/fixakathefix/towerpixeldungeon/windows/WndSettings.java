@@ -242,6 +242,22 @@ public class WndSettings extends WndTabbed {
 				chkFullscreen.enable(false);
 			}
 			add(chkFullscreen);
+			if (DeviceCompat.isAndroid()) {
+				Boolean landscape = SPDSettings.landscape();
+				if (landscape == null){
+					landscape = Game.width > Game.height;
+				}
+				Boolean finalLandscape = landscape;
+				btnOrientation = new RedButton(finalLandscape ?
+						Messages.get(this, "portrait")
+						: Messages.get(this, "landscape")) {
+					@Override
+					protected void onClick() {
+						SPDSettings.landscape(!finalLandscape);
+					}
+				};
+				add(btnOrientation);
+			}
 			chkStatusNumbersOn = new CheckBox( Messages.get(this, "statusnumbers") ) {
 				@Override
 				protected void onClick() {
@@ -250,8 +266,6 @@ public class WndSettings extends WndTabbed {
 				}
 			};
 			chkStatusNumbersOn.checked(SPDSettings.damageNumbersOn());
-
-
 			add(chkStatusNumbersOn);
 			chkFasterAnimations = new CheckBox( Messages.get(this, "fasteranimations") ) {
 				@Override

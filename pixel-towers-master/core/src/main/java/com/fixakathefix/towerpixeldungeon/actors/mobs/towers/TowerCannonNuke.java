@@ -18,7 +18,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.TowerCannonNukeSprite;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class TowerCannonNuke extends TowerCShooting{
+public class TowerCannonNuke extends TowerCannon1{
 
     {
         HP = HT = 400;
@@ -42,62 +42,41 @@ public class TowerCannonNuke extends TowerCShooting{
         return 1000000;
     }
 
-    /*@Override
-    public String info() {
-        StringBuilder info = new StringBuilder();
-        info.append(description());
-        int attackDelayShow = Math.round(100/baseAttackDelay);
-        int ac = Math.round(attackSkill(hero)*10);
-        String attackSkillShow = ac + "%";
-        if (ac >= 10000) attackSkillShow = Messages.get(this.getClass(),"nevermiss");
-        info.append(Messages.get(this, "stats", HT , damageMin, damageMax, attackSkillShow, attackDelayShow, attackRange));
-        info.append(Messages.get(this, "descstats"));
-        return info.toString();
-    }*/
-
     @Override
-    public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
-
-        int cell;
-        //CellEmitter.center(enemy.pos).burst(SmokeParticle.FACTORY, 30);
-
-
+    public void boom(int cell) {
         for (int i : PathFinder.NEIGHBOURS25) for (int i2 : PathFinder.NEIGHBOURS4){
+            int cell2 = cell + i + i2;
+            if (level.cellAdjacentToBorderCells(cell2)){
+                Char ch = Actor.findChar(cell2);
+                if (ch!=null){
+                    if (ch.alignment == Alignment.ALLY){
+                     //to not double-damage the foe
+                    } else ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(),this);//damages foes nearby, with lowered damage
 
-            cell = enemy.pos + i + i2;
-            if (cell > 0 && cell < level.width()*level.height()){
-            Char ch = Actor.findChar(cell);
-            if (ch!=null){
-                if (ch.alignment == Alignment.ALLY){
-                } else if (Actor.findChar(enemy.pos)==ch) {//to not double-damage the foe
-                } else ch.damage (Math.round(damageRoll()*damageExplosionMult) - enemy.drRoll(),this);//damages foes nearby, with lowered damage
-
-
-                if (ch.pos == cell && ch.alignment != this.alignment) {
-                    Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i + i2, Ballistica.MAGIC_BOLT);
-                    throwChar(ch, trajectory, 5, false, true, getClass());
+                    if (ch.pos == cell2 && ch.alignment != this.alignment) {
+                        Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i + i2, Ballistica.MAGIC_BOLT);
+                        throwChar(ch, trajectory, 5, false, true, getClass());
+                    }
                 }
-            }
 
-            CellEmitter.floor(cell).burst(SacrificialParticle.FACTORY, Random.Int(1,3));
+                CellEmitter.floor(cell2).burst(SacrificialParticle.FACTORY, Random.Int(1,3));
 
 
-            if (Dungeon.level.flamable[cell]) {//affects terrain
-                Dungeon.level.destroy(cell);
-                GameScene.updateMap(cell);
-            }
-            if (Dungeon.level.map[cell]== Terrain.EMPTY){
-                if (Math.random()<0.5) {
-                    Level.set(cell, Terrain.EMBERS);
-                    GameScene.updateMap(cell);
-                };
-            }
-            Heap heap = Dungeon.level.heaps.get(cell);//explodes bombs and affects heaps nearby
-            if (heap != null) heap.explode();
+                if (Dungeon.level.flamable[cell2]) {//affects terrain
+                    Dungeon.level.destroy(cell2);
+                    GameScene.updateMap(cell2);
+                }
+                if (Dungeon.level.map[cell2]== Terrain.EMPTY){
+                    if (Math.random()<0.5) {
+                        Level.set(cell2, Terrain.EMBERS);
+                        GameScene.updateMap(cell2);
+                    };
+                }
+                Heap heap = Dungeon.level.heaps.get(cell2);//explodes bombs and affects heaps nearby
+                if (heap != null) heap.explode();
             }
         }
         GameScene.updateFog();
-        return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
     }
 
     @Override

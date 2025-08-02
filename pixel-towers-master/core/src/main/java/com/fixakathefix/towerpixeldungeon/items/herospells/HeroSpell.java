@@ -25,7 +25,7 @@ public abstract class HeroSpell extends Item {
 
     @Override
     public boolean isUpgradable() {
-        return true;
+        return false;
     }
 
     protected int castCooldown(){//basic cost in cooldown turns

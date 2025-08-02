@@ -85,8 +85,23 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		setup( from,
 				to,
 				item,
-				listener );
+				listener);
 	}
+	public void reset( PointF from, PointF to, Item item, Callback listener, float speed, float anglespeed) {
+		revive();
+
+		if (item == null)   view(0, null);
+		else                view( item );
+
+		setup( from,
+				to,
+				item,
+				listener,
+				speed,
+				anglespeed);
+	}
+
+
 	
 	private static final int DEFAULT_ANGULAR_SPEED = 720;
 	
@@ -114,8 +129,11 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(TenguSprite.TenguShuriken.class,      2160);
 	}
 
+
+
+
 	//TODO it might be nice to have a source and destination angle, to improve thrown weapon visuals
-	private void setup( PointF from, PointF to, Item item, Callback listener ){
+	private void setup( PointF from, PointF to, Item item, Callback listener, float direction_speed, float angular_speed){
 
 		originToCenter();
 
@@ -130,8 +148,27 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		point( from );
 
 		PointF d = PointF.diff( to, from );
-		speed.set(d).normalize().scale(SPEED);
-		
+		speed.set(d).normalize().scale(direction_speed);
+
+		angularSpeed = angular_speed;
+		angle = 135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
+
+		if (d.x >= 0){
+			flipHorizontal = false;
+			updateFrame();
+
+		} else {
+			angularSpeed = -angularSpeed;
+			angle += 90;
+			flipHorizontal = true;
+			updateFrame();
+		}
+		float speed = direction_speed;
+		PosTweener tweener = new PosTweener( this, to, d.length() / speed );
+		tweener.listener = this;
+		parent.add( tweener );
+	}
+	private void setup( PointF from, PointF to, Item item, Callback listener ){
 		angularSpeed = DEFAULT_ANGULAR_SPEED;
 		for (Class<?extends Item> cls : ANGULAR_SPEEDS.keySet()){
 			if (cls.isAssignableFrom(item.getClass())){
@@ -139,20 +176,6 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 				break;
 			}
 		}
-		
-		angle = 135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
-		
-		if (d.x >= 0){
-			flipHorizontal = false;
-			updateFrame();
-			
-		} else {
-			angularSpeed = -angularSpeed;
-			angle += 90;
-			flipHorizontal = true;
-			updateFrame();
-		}
-		
 		float speed = SPEED;
 		if (item instanceof Dart
 				&& (Dungeon.hero.belongings.weapon() instanceof Crossbow
@@ -164,10 +187,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 				|| item instanceof TenguSprite.TenguShuriken){
 			speed *= 1.5f;
 		}
-		
-		PosTweener tweener = new PosTweener( this, to, d.length() / speed );
-		tweener.listener = this;
-		parent.add( tweener );
+		setup(from, to, item, listener, speed, angularSpeed);
 	}
 
 	@Override

@@ -90,6 +90,8 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.AbRegeneration;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTarget;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTaunt;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTeleport;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrArrowVolley;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrBombVolley;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTreatwounds;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbUndying;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbVision;
@@ -564,7 +566,8 @@ public enum HeroClass {
 		stableTeleportScroll.identify().collect();
 
 		new ScrollOfTeleportation().collect();
-		new BlandfruitBush.Seed().collect();
+		new AbTrArrowVolley().collect();
+		new AbTrBombVolley().collect();
 
 		new PotionOfLevitation().collect();
 		new BrokenHourglass().collect();

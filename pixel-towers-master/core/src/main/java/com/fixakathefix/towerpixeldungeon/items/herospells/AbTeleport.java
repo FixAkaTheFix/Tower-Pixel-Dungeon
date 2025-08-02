@@ -19,7 +19,7 @@ import com.watabou.noosa.audio.Sample;
 
 public class AbTeleport extends HeroSpellTargeted {
 
-    public static final int DISTANCE_COOLDOWN = 2;
+    private static final int DISTANCE_COOLDOWN = 2;
 
     {
         image = ItemSpriteSheet.HEROSPELL_TELEPORTATION;

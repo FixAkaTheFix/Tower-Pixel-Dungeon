@@ -116,6 +116,27 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
             return Random.IntRange(minionDamageMin, minionDamageMax);
         }
 
+        public void boom (int cell){
+            CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
+            CellEmitter.get(cell).burst(SmokeParticle.FACTORY, 4);
+            Sample.INSTANCE.play( Assets.Sounds.BLAST);
+            int cell2;
+            for (int i : PathFinder.NEIGHBOURS5){
+                cell2 = cell + i;
+                Char ch = Char.findChar(cell2);
+                if (ch!=null){
+                    if (ch.alignment == Alignment.ALLY){
+                        //friends receive 0 damage
+                    } else if (ch.pos == cell){
+                        ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(), getClass());
+                    };//damages foes nearby, with lowered damage
+                }
+                if (level.heroFOV[cell2]) {
+                    CellEmitter.center(cell2).burst(BlastParticle.FACTORY, 30);
+                }
+            }
+        }
+
         @Override
         public int attackProc( Char enemy, int damage ) {
 
