@@ -868,6 +868,17 @@ public class ItemSpriteSheet {
 	public static final int HEROSPELL_HOLY_WATER = HEROSPELLS + 32;
 	public static final int HEROSPELL_SUN = HEROSPELLS + 33;
 	public static final int HEROSPELL_PRAY = HEROSPELLS + 34;
+	public static final int HEROSPELL_TR_ARROWVALLEY = HEROSPELLS + 35;
+	public static final int HEROSPELL_TR_MANABOOM = HEROSPELLS + 36;
+	public static final int HEROSPELL_TR_PARRY = HEROSPELLS + 37;
+	public static final int HEROSPELL_TR_ORBITALLIGHTNING = HEROSPELLS + 38;
+	public static final int HEROSPELL_TR_NULLIFY = HEROSPELLS + 39;
+	public static final int HEROSPELL_TR_ANGERTHEDEAD = HEROSPELLS + 40;
+	public static final int HEROSPELL_TR_ORDER = HEROSPELLS + 41;
+	public static final int HEROSPELL_TR_AREABOMB = HEROSPELLS + 42;
+	public static final int HEROSPELL_TR_SUMMONDARTGUN = HEROSPELLS + 43;
+	public static final int HEROSPELL_TR_PLANB = HEROSPELLS + 44;
+	public static final int HEROSPELL_TR_CHAMP = HEROSPELLS + 45;
 
 
 	static {
