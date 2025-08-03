@@ -58,7 +58,7 @@ public class SupporterScene extends PixelScene {
 		int w = Camera.main.width;
 		int h = Camera.main.height;
 
-		int elementWidth = PixelScene.landscape() ? 202 : 120;
+		int elementWidth = Camera.main.width-10;
 
 		Archs archs = new Archs();
 		archs.setSize(w, h);

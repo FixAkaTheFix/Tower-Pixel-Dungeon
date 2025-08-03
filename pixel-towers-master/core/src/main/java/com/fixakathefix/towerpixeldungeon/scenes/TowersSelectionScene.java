@@ -67,11 +67,14 @@ public class TowersSelectionScene extends PixelScene {
 
 
 
-    private int delta = (int) Math.min(20, (Camera.main.height-36) * 0.08);
+    private int delta = (int)( landscape() ?
+            Math.max(Math.min(Math.max(Camera.main.width * 0.08, Camera.main.height*0.08), 34), 14):
+            Camera.main.width * 0.1);
+
     @Override
     public void create() {
         super.create();
-
+        System.out.println(delta);
         int w = Camera.main.width;
         int h = Camera.main.height;
 

@@ -282,15 +282,6 @@ public class LevelSelectScene extends PixelScene {
             }
         }
 
-
-        int xcentre = Math.round(Camera.main.width / 2f);
-        int ycentre = Math.round(Camera.main.height / 2f);
-        float leftArea = Math.max(50, Camera.main.width / 5f);//x
-        float rightArea = 0.8f * Camera.main.width;//x
-
-        float upperArea = Math.max(50, Camera.main.height / 8f);//x
-        float lowerArea = 0.8f * Camera.main.height;//x
-
         float uiHeight = Math.min(Camera.main.height - 20, 300);//y
         float uiSpacing = (uiHeight - 120) / 2f;//y
 
@@ -394,7 +385,7 @@ public class LevelSelectScene extends PixelScene {
 
         mainStagePic.scale.set(0.5f * Math.round(Camera.main.height / mainStagePic.height));
         mainStagePic.x = (Camera.main.width - mainStagePic.width()) / 2f;
-        mainStagePic.y = (Camera.main.height - mainStagePic.height()) / 2f;
+        mainStagePic.y = (Camera.main.height - mainStagePic.height()) / 2.2f;
         PixelScene.align(mainStagePic);
         add(mainStagePic);
 
@@ -429,8 +420,8 @@ public class LevelSelectScene extends PixelScene {
         levelDesc.maxWidth(100);
         levelDesc.setSize(levelDesc.maxWidth(), mainStagePic.height);
 
-        levelName.setPos(leftArea - levelName.width() / 2f, mainStagePic.center().y - levelDesc.height() / 2f - levelName.height());
-        levelDesc.setPos(leftArea - levelDesc.width() / 2f, mainStagePic.center().y - levelDesc.height() / 2f + levelName.height());
+        levelDesc.setPos(mainStagePic.x/2 - levelDesc.width()/2, mainStagePic.center().y - levelDesc.height() / 2f + levelName.height());
+        levelName.setPos(mainStagePic.x/2 - levelName.width()/2, mainStagePic.center().y - levelDesc.height() / 2f - levelName.height());
 
         align(levelDesc);
         add(levelDesc);
@@ -440,7 +431,7 @@ public class LevelSelectScene extends PixelScene {
         levelKnowledge.hardlight(Window.WHITE);
         levelKnowledge.align(RenderedTextBlock.CENTER_ALIGN);
         levelKnowledge.maxWidth(100);
-        levelKnowledge.setPos(rightArea - (levelKnowledge.maxWidth() / 2f), mainStagePic.center().y - (levelKnowledge.height() / 2f));
+        levelKnowledge.setPos((mainStagePic.x + mainStagePic.width() + Camera.main.width - levelKnowledge.width())/2, mainStagePic.center().y - (levelKnowledge.height() / 2f));
         levelKnowledge.setSize(mainStagePic.width, mainStagePic.height);
 
 
@@ -454,7 +445,7 @@ public class LevelSelectScene extends PixelScene {
         lockedText.maxWidth(100);
         lockedText.setSize(lockedText.maxWidth(), mainStagePic.height);
 
-        lockedText.setPos(leftArea - lockedText.width() / 2f, mainStagePic.center().y - lockedText.height() / 2f);
+        lockedText.setPos(mainStagePic.x/2 - lockedText.width()/2 - 2, mainStagePic.center().y - lockedText.height() / 2f);
 
         align(lockedText);
         add(lockedText);
@@ -465,26 +456,7 @@ public class LevelSelectScene extends PixelScene {
             levelDesc.visible = levelDesc.active = false;
             levelKnowledge.visible = levelKnowledge.active = false;
         }
-        levelNum = PixelScene.renderTextBlock(Integer.toString(chosenLevel), 18);
-        String specialName = "";
-        if (chosenLevel < 1) {
-            switch (chosenLevel) {
-                case 0:
-                    specialName = "Tutorial";
-                    break;
-                case -1:
-                    specialName = "Endless mode";
-                    break;
-            }
-            levelNum.text(specialName);
-        }
 
-        levelNum.hardlight(Window.WHITE);
-        levelNum.align(RenderedTextBlock.LEFT_ALIGN);
-        levelNum.setPos(mainStagePic.center().x - (levelNum.width() / 2f), lowerArea);
-
-        align(levelNum);
-        add(levelNum);
 
 
         startBtn = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "") {
@@ -513,10 +485,31 @@ public class LevelSelectScene extends PixelScene {
         startBtn.textColor(Window.TITLE_COLOR);
         startBtn.text(Messages.titleCase(Messages.get(this, "start")));
         startBtn.setSize(80, 20);
-        startBtn.setPos(levelNum.centerX() - (startBtn.width() / 2f), levelNum.centerY() + 0.05f * Camera.main.height);
+        startBtn.setPos(Camera.main.width/2f - (startBtn.width() / 2f), Camera.main.height - 2 - startBtn.height());
         align(startBtn);
         add(startBtn);
         startBtn.visible = startBtn.active = false;
+
+        levelNum = PixelScene.renderTextBlock(Integer.toString(chosenLevel), 18);
+        String specialName = "";
+        if (chosenLevel < 1) {
+            switch (chosenLevel) {
+                case 0:
+                    specialName = "Tutorial";
+                    break;
+                case -1:
+                    specialName = "Endless mode";
+                    break;
+            }
+            levelNum.text(specialName);
+        }
+
+        levelNum.hardlight(Window.WHITE);
+        levelNum.align(RenderedTextBlock.LEFT_ALIGN);
+        levelNum.setPos(mainStagePic.center().x - (levelNum.width() / 2f), startBtn.top() - levelNum.height() - 4);
+
+        align(levelNum);
+        add(levelNum);
 
         arrowLeftButton = new IconButton() {
             @Override
@@ -584,7 +577,7 @@ public class LevelSelectScene extends PixelScene {
             levelKnowledge.setSize(levelKnowledge.width(), levelKnowledge.height());
             levelKnowledge.setPos(
                     (Camera.main.width - levelKnowledge.width()) / 2f,
-                    areaWithoutEssentialsHeight - levelKnowledge.height());
+                    (mainStagePic.height() + mainStagePic.y + levelNum.top() - levelKnowledge.height())/2);
 
 
             align(levelName);

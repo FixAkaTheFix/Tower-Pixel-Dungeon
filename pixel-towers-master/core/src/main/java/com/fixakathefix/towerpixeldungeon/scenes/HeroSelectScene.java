@@ -218,7 +218,7 @@ public class HeroSelectScene extends PixelScene {
 			title.setPos( (leftArea - title.width())/2f, (Camera.main.height-uiHeight)/2f);
 			align(title);
 
-			int btnWidth = HeroBtn.MIN_WIDTH + 15;
+			int btnWidth = HeroBtn.MIN_WIDTH;
 			int btnHeight = HeroBtn.HEIGHT;
 			if (uiHeight >= 180){
 				btnHeight += 6;

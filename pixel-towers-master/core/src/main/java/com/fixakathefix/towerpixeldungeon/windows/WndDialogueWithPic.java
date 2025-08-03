@@ -149,7 +149,7 @@ public class WndDialogueWithPic extends Window {
 
         this.spriteActionIndexes = spriteActionIndexes;
 
-        int chromeWidth = PixelScene.landscape() ? PixelScene.uiCamera.width / 2 : PixelScene.uiCamera.width - 4;
+        int chromeWidth = PixelScene.landscape() ? (int)(PixelScene.uiCamera.width / 1.5f): PixelScene.uiCamera.width - 4;
         int chromeHeight = Math.round(PixelScene.uiCamera.height * 0.3f);
         chrome.x = (PixelScene.uiCamera.width - chromeWidth) * 0.5f;
         chrome.y = (PixelScene.uiCamera.height - chromeHeight - 2);
