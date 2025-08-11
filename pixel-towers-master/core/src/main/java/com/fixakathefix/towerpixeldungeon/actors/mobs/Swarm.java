@@ -34,6 +34,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Burning;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Poison;
 import com.fixakathefix.towerpixeldungeon.effects.Pushing;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.SwarmSprite;
 import com.watabou.utils.Bundle;
@@ -85,7 +86,7 @@ public class Swarm extends Mob {
 		//accounting for reduced damage on ascension
 		int effectiveDmg = (int)Math.ceil(damage / AscensionChallenge.statModifier(this));
 
-		if (HP >= effectiveDmg + 2) {
+		if (HP >= effectiveDmg + 2 && buff(PotionOfCleansing.Cleanse.class)==null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
 			
 			int[] neighbours = {pos + 1, pos - 1, pos + Dungeon.level.width(), pos - Dungeon.level.width()};
