@@ -30,6 +30,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Imp;
 import com.fixakathefix.towerpixeldungeon.items.food.Food;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.MonkSprite;
@@ -107,6 +108,9 @@ public class Monk extends Mob {
 	@Override
     public void spend(float time) {
 		focusCooldown -= time;
+		if (buff(PotionOfCleansing.Cleanse.class)!=null){
+			focusCooldown = 5;
+		}
 		super.spend( time );
 	}
 	

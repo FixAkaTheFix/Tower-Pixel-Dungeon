@@ -76,6 +76,7 @@ import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfIntuition;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfWarding;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.HeavyBoomerang;
+import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena2;
 import com.fixakathefix.towerpixeldungeon.levels.features.Chasm;
 import com.fixakathefix.towerpixeldungeon.levels.features.Door;
 import com.fixakathefix.towerpixeldungeon.levels.features.HighGrass;
@@ -218,10 +219,20 @@ public abstract class Level implements Bundlable {
 		Random.pushGenerator( Dungeon.seedCurDepth() );
 
 		mode = SPDSettings.mode();
+
+
 		slot1 = SPDSettings.towerslot1();
 		slot2 = SPDSettings.towerslot2();
 		slot3 = SPDSettings.towerslot3();
 		slot4 = SPDSettings.towerslot4();
+
+		if (this instanceof EndlessArena2){
+			if (slot1 == TowerInfo.AllTowers.RATCAMP) slot1 = TowerInfo.AllTowers.WALL;
+			if (slot2 == TowerInfo.AllTowers.RATCAMP) slot2 = TowerInfo.AllTowers.WALL;
+			if (slot3 == TowerInfo.AllTowers.RATCAMP) slot3 = TowerInfo.AllTowers.WALL;
+			if (slot4 == TowerInfo.AllTowers.RATCAMP) slot4 = TowerInfo.AllTowers.WALL;
+		}
+
 		
 		if (!(Dungeon.bossLevel())) {
 

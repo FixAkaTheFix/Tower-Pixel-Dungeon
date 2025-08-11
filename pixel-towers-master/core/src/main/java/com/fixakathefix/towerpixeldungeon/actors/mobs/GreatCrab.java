@@ -28,6 +28,7 @@ import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.DamageSource;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.GreatCrabSprite;
@@ -59,6 +60,7 @@ public class GreatCrab extends Crab {
 	public void damage( int dmg, Object src ){
 		//crab blocks all non-magical damage from the hero if it notices the source.
 		if (state != SLEEPING
+				&& buff(PotionOfCleansing.Cleanse.class)==null
 				&& paralysed == 0
 				&& (!DamageSource.MAGICAL.contains(src.getClass())&&!DamageSource.ELEMENTAL.contains(src.getClass()))
 				&& enemy.invisible == 0){

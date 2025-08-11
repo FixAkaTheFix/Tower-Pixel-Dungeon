@@ -3,6 +3,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
 import static com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave.throwChar;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -15,6 +16,7 @@ import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerCannonNukeSprite;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -44,19 +46,25 @@ public class TowerCannonNuke extends TowerCannon1{
 
     @Override
     public void boom(int cell) {
+        Sample.INSTANCE.play(Assets.Sounds.BLAST, 1.2f, 0.7f);
+        Sample.INSTANCE.play(Assets.Sounds.BURNING, 1f, 0.3f);
+        Sample.INSTANCE.play(Assets.Sounds.BURNING, 1f, 0.8f);
+        Sample.INSTANCE.play(Assets.Sounds.BURNING, 1f, 1f);
         for (int i : PathFinder.NEIGHBOURS25) for (int i2 : PathFinder.NEIGHBOURS4){
             int cell2 = cell + i + i2;
-            if (level.cellAdjacentToBorderCells(cell2)){
+            if (!level.cellAdjacentToBorderCells(cell2)){
                 Char ch = Actor.findChar(cell2);
                 if (ch!=null){
                     if (ch.alignment == Alignment.ALLY){
                      //to not double-damage the foe
-                    } else ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(),this);//damages foes nearby, with lowered damage
-
-                    if (ch.pos == cell2 && ch.alignment != this.alignment) {
+                    } else {
                         Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i + i2, Ballistica.MAGIC_BOLT);
-                        throwChar(ch, trajectory, 5, false, true, getClass());
+                        throwChar(ch, trajectory, 3, false, true, getClass());
+                        ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), this);//damages foes nearby, with lowered damage
                     }
+
+
+
                 }
 
                 CellEmitter.floor(cell2).burst(SacrificialParticle.FACTORY, Random.Int(1,3));

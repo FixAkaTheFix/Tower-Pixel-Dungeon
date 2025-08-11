@@ -77,7 +77,7 @@ public class Arena3 extends Arena {
         towerShopKeeperCell = amuletCell - 4 * WIDTH - 3;
         normalShopKeeperCell = amuletCell - 4 * WIDTH + 3;
 
-        waveCooldownNormal = 10;
+        waveCooldownNormal = 5;
         waveCooldownBoss = 300;
     }
 

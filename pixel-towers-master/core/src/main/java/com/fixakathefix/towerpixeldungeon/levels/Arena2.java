@@ -98,8 +98,8 @@ public class Arena2 extends Arena{
         towerShopKeeperCell = amuletCell - 5*WIDTH - 3;
         normalShopKeeperCell = amuletCell - 5*WIDTH + 2;
 
-        waveCooldownNormal = 10;
-        waveCooldownBoss = 300;
+        waveCooldownNormal = 5;
+        waveCooldownBoss = 200;
     }
 
     @Override
@@ -165,19 +165,19 @@ public class Arena2 extends Arena{
         switch (wave){
             case 1: return 2;
             case 2: return 8;
-            case 3: return 6;
-            case 4: return 8;
+            case 3: return 5;
+            case 4: return 7;
             case 5: return 3;
-            case 6: return 12;
-            case 7: return 20;
-            case 8: return 17;
-            case 9: return 21;
-            case 10: return 12;
-            case 11: return 21;
-            case 12: return 20;
-            case 13: return 20;
-            case 14: return 15;
-            case 15: return mode == WndModes.Modes.HARDMODE ? 5 : 3;
+            case 6: return 10;
+            case 7: return 18;
+            case 8: return 15;
+            case 9: return 19;
+            case 10: return 10;
+            case 11: return 19;
+            case 12: return 18;
+            case 13: return 18;
+            case 14: return 13;
+            case 15: return mode == WndModes.Modes.HARDMODE ? 6 : 3;
         }
         return 1;
     }

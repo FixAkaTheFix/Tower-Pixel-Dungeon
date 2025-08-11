@@ -47,6 +47,6 @@ public class AbIceWall extends HeroSpellTargeted{
 
     @Override
     protected int castCooldown() {
-        return 140;
+        return 150;
     }
 }

@@ -32,12 +32,13 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.PointF;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
 public class AbTrArrowVolley extends HeroSpellTargeted {
     private static int arrowcount = 0;
-    private static final int TURNS_ADDED_PER_CROSSBOW = 5;
+    private static final int TURNS_ADDED_PER_CROSSBOW = 20;
 
     {
         image = ItemSpriteSheet.HEROSPELL_TR_ARROWVALLEY;
@@ -54,7 +55,7 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
                             }
                         }
                         if (crossbows.isEmpty()) {
-                            GLog.w(Messages.get(getClass(), "no_crossbow"));
+                            GLog.w(Messages.get(AbTrArrowVolley.class, "no_crossbow"));
                             return;
                         }
                         hero.busy();
@@ -78,9 +79,11 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
                             }
 
                             PointF source = DungeonTilemap.raisedTileCenterToWorld(mob.pos);
-                            PointF dest = DungeonTilemap.raisedTileCenterToWorld(mob.pos);
-                            dest.y -= 250;
-                            dest.x = DungeonTilemap.tileCenterToWorld(cell).x;
+                            PointF dest = new PointF(
+                                    DungeonTilemap.tileCenterToWorld(cell).x,
+                                    DungeonTilemap.tileCenterToWorld(cell).y - 250
+
+                            );
                             mob.sprite.play(mob.sprite.attack.clone());
                             mob.sprite.turnTo(mob.pos, cell);
                             Sample.INSTANCE.play(Assets.Sounds.ATK_SPIRITBOW);
@@ -94,7 +97,7 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
                                                 public void call() {
                                                 }
                                             },
-                                            700f,
+                                            700f + Dungeon.level.distance(mob.pos, cell) * 50,
                                             0f);
 
                         }
@@ -154,7 +157,6 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        if (DeviceCompat.isDebug()) return 2;
         int addturns = 0;
         try {
             for (Mob mob : Level.mobs) {
@@ -163,7 +165,7 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
             }
         } catch (NullPointerException ignored) {
         }
-        return 50 + addturns;
+        return 40 + addturns;
     }
 
 }

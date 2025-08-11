@@ -24,37 +24,32 @@
 
 package com.fixakathefix.towerpixeldungeon.actors.buffs;
 
-import com.fixakathefix.towerpixeldungeon.Assets;
-import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
-import com.fixakathefix.towerpixeldungeon.items.artifacts.Artifact;
-import com.fixakathefix.towerpixeldungeon.items.artifacts.HornOfPlenty;
-import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.ui.BuffIndicator;
-import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 
-public class AbilityCooldown extends FlavourBuff {
+public class Overcharge extends FlavourBuff {
+	
+	{
+		type = buffType.POSITIVE;
+		
+		announced = false;
+	}
+	
+	public static final float DURATION	= 3f;
+	
+	@Override
+	public int icon() {
+		return BuffIndicator.OVERCHARGE;
+	}
+	@Override
+	public void fx(boolean on) {
+		if (on) target.sprite.aura( 0x22AAFF,10, 15, 720 );
+		else target.sprite.clearAura();
+	}
 
-    {
-        type = buffType.NEUTRAL;
-    }
-
-    @Override
-    public void detach() {
-        GLog.i(Messages.get(AbilityCooldown.class, "ready"));
-        Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
-        super.detach();
-    }
-
-    @Override
-    public int icon() {
-        return BuffIndicator.RECHARGING;
-    }
-
-    @Override
-    public void tintIcon(Image icon) {
-        icon.hardlight(0.7f, 0.1f, 0.8f);
-    }
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+	
 }

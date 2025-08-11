@@ -47,6 +47,6 @@ public class AbOakskin extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 50 + Dungeon.depth*5;
+        return 40 + Dungeon.depth*4;
     }
 }

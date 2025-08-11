@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Light;
 import com.fixakathefix.towerpixeldungeon.effects.Pushing;
 import com.fixakathefix.towerpixeldungeon.effects.TargetedCell;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
@@ -116,6 +117,9 @@ public class RipperDemon extends Mob {
 		AiState lastState = state;
 		boolean result = super.act();
 		if (paralysed <= 0) leapCooldown --;
+		if (buff(PotionOfCleansing.Cleanse.class)!=null){
+			leapCooldown = 10;
+		}
 
 		//if state changed from wandering to hunting, we haven't acted yet, don't update.
 		if (!(lastState == WANDERING && state == HUNTING)) {

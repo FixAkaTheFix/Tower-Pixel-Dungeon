@@ -30,6 +30,7 @@ import com.fixakathefix.towerpixeldungeon.actors.blobs.StenchGas;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Ooze;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Ghost;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.FetidRatSprite;
 import com.watabou.utils.Random;
@@ -77,7 +78,7 @@ public class FetidRat extends Rat {
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 
-		GameScene.add(Blob.seed(pos, 20, StenchGas.class));
+		if (buff(PotionOfCleansing.Cleanse.class)==null) GameScene.add(Blob.seed(pos, 20, StenchGas.class));
 
 		return super.defenseProc(enemy, damage);
 	}

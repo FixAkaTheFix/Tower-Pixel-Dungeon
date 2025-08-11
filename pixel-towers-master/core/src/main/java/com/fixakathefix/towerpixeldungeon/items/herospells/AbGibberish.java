@@ -52,6 +52,6 @@ public class AbGibberish extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 20;
+        return 15;
     }
 }

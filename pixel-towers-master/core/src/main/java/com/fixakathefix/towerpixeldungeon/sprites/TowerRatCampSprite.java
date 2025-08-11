@@ -44,15 +44,15 @@ public class TowerRatCampSprite extends MobSprite {
 		
 		TextureFilm frames = new TextureFilm( texture, 17, 17 );
 
-		lvl1 = new Animation(1, true);
+		lvl1 = new Animation(1, false);
 		lvl1.frames(frames, 0);
-		lvl2 = new Animation(1, true);
+		lvl2 = new Animation(1, false);
 		lvl2.frames(frames, 1);
-		lvl3 = new Animation(1, true);
+		lvl3 = new Animation(1, false);
 		lvl3.frames(frames, 2);
-		lvl4 = new Animation(1, true);
+		lvl4 = new Animation(1, false);
 		lvl4.frames(frames, 3);
-		lvl5 = new Animation(1, true);
+		lvl5 = new Animation(1, false);
 		lvl5.frames(frames, 4);
 
 		idle = new Animation( 1, true );
@@ -79,8 +79,6 @@ public class TowerRatCampSprite extends MobSprite {
 			case 4: play(lvl4); break;
 			case 5: play(lvl5); break;
 		}
-
-
 	}
 
 	@Override
@@ -89,5 +87,6 @@ public class TowerRatCampSprite extends MobSprite {
 		super.move(from, to);
 		linkVisuals(ch);
 	}
+
 
 }

@@ -7,6 +7,7 @@ import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.BlastParticle;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrPlanB;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerTntLogSprite;
@@ -48,9 +49,11 @@ public class TowerTntLog extends TowerCWall{
                 if (ch.alignment == Alignment.ALLY){
                     //friends receive 0 damage
                 } else {
-                    ch.damage (Math.round(damageRoll()) - enemy.drRoll(),this);
+                    int dam = Math.round(damageRoll()) - enemy.drRoll();
+
+                    ch.damage (cause instanceof AbTrPlanB ? dam*2 : dam,this);
                     Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-                    throwChar(ch, trajectory, 3, false, true, getClass());
+                    throwChar(ch, trajectory, cause instanceof AbTrPlanB ? 6 : 3, false, true, getClass());
                 };//damages foes nearby and throws them away
             }
             if (level.heroFOV[cell]) {

@@ -90,8 +90,17 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.AbRegeneration;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTarget;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTaunt;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTeleport;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrAngerTheDead;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrArrowVolley;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrBombVolley;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrDartgunAlly;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrGreatWall;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrHyperats;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrLightningStrike;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrNullify;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrOrder;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrOvercharge;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrPlanB;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTreatwounds;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbUndying;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbVision;
@@ -562,12 +571,22 @@ public enum HeroClass {
 		WandOfRegrowth wandOfRegrowth = new WandOfRegrowth();
 		wandOfRegrowth.upgrade(5).collect();
 
-		StableTeleportScroll stableTeleportScroll=new StableTeleportScroll();
+		StableTeleportScroll stableTeleportScroll = new StableTeleportScroll();
 		stableTeleportScroll.identify().collect();
-
 		new ScrollOfTeleportation().collect();
-		new AbTrArrowVolley().collect();
-		new AbTrBombVolley().collect();
+
+		//new AbTrArrowVolley().collect();
+		//new AbTrBombVolley().collect();
+		//new AbTrOvercharge().collect();
+		//new AbTrHyperats().collect();
+		//new AbTrAngerTheDead().collect();
+		//new AbTrDartgunAlly().collect();
+		//new AbTrGreatWall().collect();
+		//new AbTrLightningStrike().collect();
+		new AbTrNullify().collect();
+		new AbTrOrder().collect();
+		new AbTrPlanB().collect();
+
 
 		new PotionOfLevitation().collect();
 		new BrokenHourglass().collect();

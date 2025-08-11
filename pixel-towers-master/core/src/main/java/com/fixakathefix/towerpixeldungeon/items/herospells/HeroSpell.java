@@ -11,6 +11,7 @@ import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.HeroSprite;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
+import com.watabou.utils.DeviceCompat;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,7 @@ public abstract class HeroSpell extends Item {
 
         if (wep != null) finalCooldown *=
                 wep.spellCooldownModifier*(Math.max(0.7, (10 - Math.sqrt(level()))/10));
-        Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
+        if (!DeviceCompat.isDebug()) Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
     }
 
     public static final String AC_CAST		= "CAST";

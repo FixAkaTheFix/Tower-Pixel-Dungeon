@@ -24,6 +24,6 @@ public class AbBerserk extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 100;
+        return 80;
     }
 }

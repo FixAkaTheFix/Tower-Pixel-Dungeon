@@ -37,6 +37,6 @@ public class AbArcanesword extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 200;
+        return 100;
     }
 }

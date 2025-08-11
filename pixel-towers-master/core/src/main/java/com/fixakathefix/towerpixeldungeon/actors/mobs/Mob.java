@@ -50,6 +50,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MindVision;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MonkEnergy;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Overcharge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Preparation;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.PriorityTarget;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Sleep;
@@ -767,6 +768,7 @@ public abstract class Mob extends Char {
 		float delay = 1f;
 		if (this instanceof Tower) delay = ((Tower)this).baseAttackDelay;
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
+		if ( buff(Overcharge.class) != null) delay /= 10f;
 		for (Buff buff : buffs()){
 			if (buff instanceof Inspired) delay /= 1.15f;
 		}
@@ -960,7 +962,7 @@ public abstract class Mob extends Char {
 		if (alignment==Alignment.ENEMY&&EXP>=1&&maxLvl>=1&&buff(Minion.class)==null) Dungeon.gold += 3*EXP + 1;// Foes add up to gold
 		updateQuickslot();
 		if (buff(ChampionEnemy.Rejuvenating.class)!=null){
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.NEIGHBOURS25){
 				int cell = this.pos + i;
 				CellEmitter.get( cell ).start(CPHeal.UP, 0.05f, 10 );
 				Char ch = Char.findChar(cell);

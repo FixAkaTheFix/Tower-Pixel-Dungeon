@@ -47,6 +47,6 @@ public class AbDisengage extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 50;
+        return 40;
     }
 }

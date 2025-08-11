@@ -32,6 +32,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Imp;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.GolemSprite;
@@ -139,6 +140,10 @@ public class Golem extends Mob {
 	protected boolean act() {
 		selfTeleCooldown--;
 		enemyTeleCooldown--;
+		if (buff(PotionOfCleansing.Cleanse.class)!=null) {
+			selfTeleCooldown=30;
+			enemyTeleCooldown = 10;
+		}
 		if (teleporting){
 			((GolemSprite)sprite).teleParticles(false);
 			if (Actor.findChar(target) == null && Dungeon.level.openSpace[target]) {

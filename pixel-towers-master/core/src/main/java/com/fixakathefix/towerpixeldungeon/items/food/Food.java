@@ -154,4 +154,9 @@ public class Food extends Item {
 	public int value() {
 		return 10 * quantity;
 	}
+
+	@Override
+	public String status() {
+		return Math.round(healingPercentage*100) + "%";
+	}
 }

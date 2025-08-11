@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.items.Gold;
 import com.fixakathefix.towerpixeldungeon.items.Honeypot;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ThiefSprite;
@@ -98,11 +99,14 @@ public class Thief extends Mob {
 	@Override
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );
-		
-		if (alignment == Alignment.ENEMY && item == null
-				&& enemy instanceof Hero && steal( (Hero)enemy )) {
-			state = FLEEING;
+
+		if (buff(PotionOfCleansing.Cleanse.class)==null){
+			if (alignment == Alignment.ENEMY && item == null
+					&& enemy instanceof Hero && steal( (Hero)enemy )) {
+				state = FLEEING;
+			}
 		}
+
 
 		return damage;
 	}

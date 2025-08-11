@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Vulnerable;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Weakness;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
@@ -73,7 +74,7 @@ public abstract class Shaman extends Mob {
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return super.canAttack(enemy)
-				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+				|| (new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos && buff(PotionOfCleansing.Cleanse.class)==null);
 	}
 
 	@Override

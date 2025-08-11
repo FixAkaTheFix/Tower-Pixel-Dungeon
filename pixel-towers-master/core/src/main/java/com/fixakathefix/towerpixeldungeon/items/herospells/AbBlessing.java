@@ -42,6 +42,6 @@ public class AbBlessing extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 200;
+        return 100;
     }
 }

@@ -54,11 +54,12 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         upgradeLevel = 15;
 
     }
+
     public static float damageExplosionMult = 0.5f;
 
     @Override
     protected boolean act() {
-        if (enemy!=null) minionCooldownLeft = 0;
+        if (enemy != null) minionCooldownLeft = 0;
         return super.act();
     }
 
@@ -70,6 +71,7 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         info.append(Messages.get(this, "descstats"));
         return info.toString();
     }
+
     @Override
     public void spawnMinion(int pos) {
         RocketMinion minion = new RocketMinion();
@@ -83,7 +85,7 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         spend(1f);
     }
 
-    public static class RocketMinion extends Mob{
+    public static class RocketMinion extends Mob {
 
         {
             spriteClass = RocketSprite.class;
@@ -93,12 +95,13 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
             baseSpeed = 5f;
             flying = true;
         }
+
         private int countdown = 20;
 
         @Override
         protected boolean act() {
             countdown--;
-            if (countdown<=0) {
+            if (countdown <= 0) {
                 die(Hero.class);
                 this.spend(1);
                 return true;
@@ -116,45 +119,49 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
             return Random.IntRange(minionDamageMin, minionDamageMax);
         }
 
-        public void boom (int cell){
+        public void boom(int cell) {
             CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
             CellEmitter.get(cell).burst(SmokeParticle.FACTORY, 4);
-            Sample.INSTANCE.play( Assets.Sounds.BLAST);
+            Sample.INSTANCE.play(Assets.Sounds.BLAST);
             int cell2;
-            for (int i : PathFinder.NEIGHBOURS5){
+            for (int i : PathFinder.NEIGHBOURS5) {
                 cell2 = cell + i;
-                Char ch = Char.findChar(cell2);
-                if (ch!=null){
-                    if (ch.alignment == Alignment.ALLY){
-                        //friends receive 0 damage
-                    } else if (ch.pos == cell){
-                        ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(), getClass());
-                    };//damages foes nearby, with lowered damage
-                }
-                if (level.heroFOV[cell2]) {
-                    CellEmitter.center(cell2).burst(BlastParticle.FACTORY, 30);
+                if (!level.cellAdjacentToBorderCells(cell2)) {
+                    Char ch = Char.findChar(cell2);
+                    if (ch != null) {
+                        if (ch.alignment == Alignment.ALLY) {
+                            //friends receive 0 damage
+                        } else {
+                            ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), getClass());
+                        }
+                        ;//damages foes nearby, with lowered damage
+                    }
+                    if (level.heroFOV[cell2]) {
+                        CellEmitter.center(cell2).burst(BlastParticle.FACTORY, 30);
+                    }
                 }
             }
         }
 
         @Override
-        public int attackProc( Char enemy, int damage ) {
+        public int attackProc(Char enemy, int damage) {
 
             CellEmitter.center(enemy.pos).burst(BlastParticle.FACTORY, 30);
             CellEmitter.get(enemy.pos).burst(SmokeParticle.FACTORY, 4);
-            Sample.INSTANCE.play( Assets.Sounds.BLAST);
+            Sample.INSTANCE.play(Assets.Sounds.BLAST);
             int cell;
-            for (int i : PathFinder.NEIGHBOURS4){
+            for (int i : PathFinder.NEIGHBOURS4) {
                 cell = enemy.pos + i;
                 Char ch = Char.findChar(cell);
-                if (ch!=null){
-                    if (ch.alignment == Alignment.ALLY){
+                if (ch != null) {
+                    if (ch.alignment == Alignment.ALLY) {
                         //friends receive 0 damage
-                    } else if (ch != enemy){
-                        ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(), getClass());
-                    };//damages foes nearby, with lowered damage
+                    } else if (ch != enemy) {
+                        ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), getClass());
+                    }
+                    ;//damages foes nearby, with lowered damage
                 }
-                if (level.heroFOV[enemy.pos+i]) {
+                if (level.heroFOV[enemy.pos + i]) {
                     CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
 
                 }
@@ -167,24 +174,26 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         public void die(Object cause) {
             CellEmitter.center(pos).burst(BlastParticle.FACTORY, 30);
             CellEmitter.get(pos).burst(SmokeParticle.FACTORY, 4);
-            Sample.INSTANCE.play( Assets.Sounds.BLAST);
+            Sample.INSTANCE.play(Assets.Sounds.BLAST);
             int cell;
-            for (int i : PathFinder.NEIGHBOURS4){
+            for (int i : PathFinder.NEIGHBOURS4) {
                 cell = pos + i;
                 Char ch = Char.findChar(cell);
-                if (ch!=null){
-                    if (ch.alignment == Alignment.ALLY){
+                if (ch != null) {
+                    if (ch.alignment == Alignment.ALLY) {
                         //friends receive 0 damage
                     } else {
-                        ch.damage (Math.round(damageRoll()*damageExplosionMult) - ch.drRoll(),getClass());
-                    };//damages foes nearby, with lowered damage
+                        ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), getClass());
+                    }
+                    ;//damages foes nearby, with lowered damage
                 }
-                if (level.heroFOV[pos+i]) {
+                if (level.heroFOV[pos + i]) {
                     CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
                 }
             }
             super.die(cause);
         }
+
         public static final String COUNTDOWN = "countdown";
 
         @Override

@@ -25,6 +25,7 @@
 package com.fixakathefix.towerpixeldungeon.sprites;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Overcharge;
 import com.fixakathefix.towerpixeldungeon.effects.MagicMissile;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
@@ -63,7 +64,7 @@ public class TowerWand1Sprite extends MobSprite {
         super.zap( cell );
 
         MagicMissile.boltFromChar( parent,
-                MagicMissile.MAGIC_MISSILE,
+                ch.buff(Overcharge.class)!=null ? MagicMissile.MAGIC_MISSILE_ULTRA : MagicMissile.MAGIC_MISSILE,
                 this,
                 cell,
                 new Callback() {

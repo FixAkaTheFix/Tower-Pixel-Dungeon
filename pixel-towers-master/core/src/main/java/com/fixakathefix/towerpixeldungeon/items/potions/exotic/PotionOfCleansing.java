@@ -40,6 +40,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
 public class PotionOfCleansing extends ExoticPotion {
 	
@@ -58,19 +59,21 @@ public class PotionOfCleansing extends ExoticPotion {
 	
 	@Override
 	public void shatter(int cell) {
-		if (Actor.findChar(cell) == null){
-			super.shatter(cell);
-		} else {
-			if (Dungeon.level.heroFOV[cell]) {
-				Sample.INSTANCE.play(Assets.Sounds.SHATTER);
-				splash(cell);
-				identify();
-			}
-			
-			if (Actor.findChar(cell) != null){
-				cleanse(Actor.findChar(cell));
-			}
+		for (int i : PathFinder.NEIGHBOURS25){
+			int cell2 = cell + i;
+
+				if (Dungeon.level.heroFOV[cell2]) {
+					Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+					splash(cell2);
+					identify();
+				}
+
+				if (Actor.findChar(cell2) != null){
+					cleanse(Actor.findChar(cell2));
+				}
+
 		}
+
 	}
 
 	public static void cleanse(Char ch){
@@ -97,16 +100,11 @@ public class PotionOfCleansing extends ExoticPotion {
 			type = buffType.POSITIVE;
 		}
 
-		public static final float DURATION = 5f;
+		public static final float DURATION = 20f;
 
 		@Override
 		public int icon() {
-			return BuffIndicator.IMMUNITY;
-		}
-
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(1f, 0f, 2f);
+			return BuffIndicator.NULLIFIED;
 		}
 
 		@Override

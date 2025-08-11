@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.effects.particles.PurpleParticle;
 import com.fixakathefix.towerpixeldungeon.items.Dewdrop;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfDisintegration;
 import com.fixakathefix.towerpixeldungeon.levels.traps.DisintegrationTrap;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
@@ -116,6 +117,7 @@ public class Eye extends Mob {
 
 	@Override
 	protected boolean act() {
+		if (buff(PotionOfCleansing.Cleanse.class)!= null) beamCooldown = 5;
 		if (beamCharged && state != HUNTING){
 			beamCharged = false;
 			sprite.idle();

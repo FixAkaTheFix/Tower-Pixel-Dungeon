@@ -39,7 +39,7 @@ public class GLog {
 
 	public static final String RED = "## ";
 
-	public static final String BLUE	= "№№ ";
+
 
 	public static final String NEW_LINE	    = "\n";
 	
@@ -76,8 +76,5 @@ public class GLog {
 	}
 	public static void cursed( String text, Object... args ) {
 		i( RED + text, args );
-	}
-	public static void blue( String text, Object... args ) {
-		i( BLUE + text, args );
 	}
 }

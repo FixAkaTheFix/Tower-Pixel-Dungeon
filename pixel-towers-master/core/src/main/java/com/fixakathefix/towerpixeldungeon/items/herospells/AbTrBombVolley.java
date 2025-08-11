@@ -34,7 +34,8 @@ import java.util.ArrayList;
 
 public class AbTrBombVolley extends HeroSpellTargeted {
     private static int bombcount = 0;
-    private static final int TURNS_ADDED_PER_CANNON = 10;
+    private static final int TURNS_ADDED_PER_CANNON = 15;
+    private static final int TURNS_ADDED_PER_NUKE_ADDITIONAL = 200;
 
     {
         image = ItemSpriteSheet.HEROSPELL_TR_AREABOMB;
@@ -51,16 +52,19 @@ public class AbTrBombVolley extends HeroSpellTargeted {
                             }
                         }
                         if (cannons.isEmpty()) {
-                            GLog.w(Messages.get(getClass(), "no_cannons"));
+                            GLog.w(Messages.get(AbTrBombVolley.class, "no_cannons"));
                             return;
                         }
                         hero.busy();
                         bombcount = 0;
                         for (Tower mob : cannons) {
                             PointF source = DungeonTilemap.raisedTileCenterToWorld(mob.pos);
-                            PointF dest = DungeonTilemap.raisedTileCenterToWorld(mob.pos);
-                            dest.y -= 250;
-                            dest.x = DungeonTilemap.tileCenterToWorld(cell).x;
+                            PointF dest = new PointF(
+                                    DungeonTilemap.tileCenterToWorld(cell).x,
+                                    DungeonTilemap.tileCenterToWorld(cell).y - 250
+
+                            );
+
                             mob.sprite.play(mob.sprite.attack.clone());
                             mob.sprite.turnTo(mob.pos, cell);
                             Sample.INSTANCE.play(Assets.Sounds.ATK_SPIRITBOW);
@@ -78,7 +82,7 @@ public class AbTrBombVolley extends HeroSpellTargeted {
                                                 public void call() {
                                                 }
                                             },
-                                            Random.Int(400, 1000),
+                                            Random.Int(600, 1000)+ Dungeon.level.distance(mob.pos, cell) * 50,
                                             Random.Int(200, 600));
                             bombcount++;
 
@@ -145,16 +149,18 @@ public class AbTrBombVolley extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        if (DeviceCompat.isDebug()) return 2;
         int addturns = 0;
         try {
             for (Mob mob : Level.mobs) {
-                if (mob instanceof TowerCannon1 || mob instanceof TowerCannonNuke || mob instanceof TowerCannonMissileLauncher && mob.alignment == Char.Alignment.ALLY)
+                if (mob instanceof TowerCannon1 || mob instanceof TowerCannonMissileLauncher && mob.alignment == Char.Alignment.ALLY)
                     addturns += TURNS_ADDED_PER_CANNON;
+                if (mob instanceof TowerCannonNuke && mob.alignment == Char.Alignment.ALLY)
+                    addturns += TURNS_ADDED_PER_NUKE_ADDITIONAL;
+
             }
         } catch (NullPointerException ignored) {
         }
-        return 50 + addturns;
+        return 150 + addturns;
     }
 
 }

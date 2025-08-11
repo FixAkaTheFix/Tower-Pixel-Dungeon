@@ -1117,6 +1117,11 @@ public abstract class Char extends Actor {
 					&& !(buff instanceof LostInventory)){
 				return false;
 			}
+			if (buff.type == Buff.buffType.POSITIVE
+					&& !(buff instanceof AllyBuff)
+					&& !(buff instanceof LostInventory)){
+				return false;
+			}
 		}
 
 		if (sprite != null && buff(Challenge.SpectatorFreeze.class) != null){

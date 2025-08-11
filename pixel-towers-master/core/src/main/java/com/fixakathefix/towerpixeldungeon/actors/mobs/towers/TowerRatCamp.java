@@ -5,6 +5,8 @@ import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
 
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
@@ -47,6 +49,12 @@ public class TowerRatCamp extends TowerWave {
     public int levelCurrent = 1;
     public int levelMax = 5;
 
+    private boolean champs = false;
+
+    public void prepChamps(){
+        champs = true;
+    }
+
 
     @Override
     public String info() {
@@ -63,6 +71,7 @@ public class TowerRatCamp extends TowerWave {
         if (archers>0) info.append("\n\n").append(Messages.get(TowerRatCamp.class,"archercount", archers));
         if (mages>0) info.append("\n\n").append(Messages.get(TowerRatCamp.class,"magecount", mages));
         info.append(Messages.get(this, "descstats", levelCurrent, levelMax));
+        if (champs) info.append(Messages.get(this, "champ"));
         return info.toString();
     }
 
@@ -167,9 +176,8 @@ public class TowerRatCamp extends TowerWave {
         } else return true;
     }
 
-    public void summonOneMinion(Class<? extends Mob> clas, ArrayList<Integer> candidates){
+    public void summonOneMinion(Mob mob, ArrayList<Integer> candidates){
         if (!candidates.isEmpty()){
-            Mob mob = Reflection.newInstance(clas);
             mob.alignment = Alignment.ALLY;
             mob.pos = Random.element(candidates);
             GameScene.add(mob);
@@ -191,21 +199,33 @@ public class TowerRatCamp extends TowerWave {
                     pos >= 0 && pos < level.width()*level.height() &&
                     level.passable[pos+i]) cand.add(pos + i);
         }
+
         for (int i = 0; i<knifes;i++){
-            summonOneMinion(CampRatKnife.class, cand);
+            CampRatKnife rat = new CampRatKnife();
+            if (champs) Buff.affect(rat, ChampionEnemy.Projecting.class);
+            summonOneMinion(rat, cand);
         }
         for (int i = 0; i<leaders;i++){
-            summonOneMinion(CampRatLeader.class, cand);
+            CampRatLeader rat = new CampRatLeader();
+            if (champs) Buff.affect(rat, ChampionEnemy.Rejuvenating.class);
+            summonOneMinion(rat, cand);
         }
         for (int i = 0; i<shields;i++){
-            summonOneMinion(CampRatShield.class, cand);
+            CampRatShield rat = new CampRatShield();
+            if (champs) Buff.affect(rat, ChampionEnemy.Giant.class);
+            summonOneMinion(rat, cand);
         }
         for (int i = 0; i<archers;i++){
-            summonOneMinion(CampRatArcher.class, cand);
+            CampRatArcher rat = new CampRatArcher();
+            if (champs) Buff.affect(rat, ChampionEnemy.Blazing.class);
+            summonOneMinion(rat, cand);
         }
         for (int i = 0; i<mages;i++){
-            summonOneMinion(CampRatMage.class, cand);
+            CampRatMage rat = new CampRatMage();
+            if (champs) Buff.affect(rat, ChampionEnemy.Blessed.class);
+            summonOneMinion(rat, cand);
         }
+        champs = false;
     }
 
     @Override

@@ -49,7 +49,9 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWand3;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWandFireball;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWandLightning;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWandPrismatic;
+import com.fixakathefix.towerpixeldungeon.effects.Lightning;
 import com.fixakathefix.towerpixeldungeon.items.bombs.Bomb;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrLightningStrike;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfSkulls;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfDemonicSkull;
@@ -239,9 +241,12 @@ public class DamageSource {
         LIGHTNING.add( DM100.LightningBolt.class );
         LIGHTNING.add( WandOfLightning.class );
         LIGHTNING.add( TowerPylon.LightningBolt.class );
-        LIGHTNING.add(TowerLightning1.class);
-        LIGHTNING.add(TowerLightning2.class);
-        LIGHTNING.add(TowerLightning3.class);
+        LIGHTNING.add( TowerLightning1.class);
+        LIGHTNING.add( TowerLightning2.class);
+        LIGHTNING.add( TowerLightning3.class);
+        LIGHTNING.add( AbTrLightningStrike.class);
+        LIGHTNING.add( Lightning.class);
+        LIGHTNING.add( Lightning.Arc.class);
     }
     public static final HashSet<Class> POISON = new HashSet<>();
     static {

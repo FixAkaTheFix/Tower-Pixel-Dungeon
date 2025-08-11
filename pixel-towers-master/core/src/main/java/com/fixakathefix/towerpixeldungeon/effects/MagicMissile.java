@@ -75,6 +75,7 @@ public class MagicMissile extends Emitter {
 	public static final int SHAMAN_PURPLE   = 13;
 	public static final int TOXIC_VENT      = 14;
 	public static final int ELMO            = 15;
+	public static final int MAGIC_MISSILE_ULTRA   = 16;
 
 
 
@@ -133,6 +134,10 @@ public class MagicMissile extends Emitter {
 			case MAGIC_MISSILE: default:
 				size( 4 );
 				pour( WhiteParticle.FACTORY, 0.01f );
+				break;
+			case MAGIC_MISSILE_ULTRA:
+				size( 6 );
+				pour( WhiteParticle.FACTORY, 0.002f );
 				break;
 			case FROST:
 				pour( MagicParticle.FACTORY, 0.01f );

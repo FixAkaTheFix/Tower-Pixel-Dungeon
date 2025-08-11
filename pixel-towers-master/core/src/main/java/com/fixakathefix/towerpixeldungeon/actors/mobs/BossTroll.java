@@ -3,6 +3,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.sprites.BossTrollSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.ui.BossHealthBar;
@@ -96,7 +97,9 @@ public class BossTroll extends Mob {
 
     @Override
     protected boolean act() {
-        if (HP<HT) HP+=15;
+        if (buff(PotionOfCleansing.Cleanse.class)==null){
+            if (HP<HT) HP+=15;
+        }
         return super.act();
     }
 

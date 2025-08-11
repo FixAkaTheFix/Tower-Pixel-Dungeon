@@ -45,6 +45,6 @@ public class AbBanner extends HeroSpellTargeted{
 
     @Override
     protected int castCooldown() {
-        return 150;
+        return 100;
     }
 }

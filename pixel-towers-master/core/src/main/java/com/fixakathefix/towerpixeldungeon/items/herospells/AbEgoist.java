@@ -57,6 +57,6 @@ public class AbEgoist extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 150;
+        return 100;
     }
 }

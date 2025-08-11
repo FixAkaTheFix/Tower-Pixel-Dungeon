@@ -30,6 +30,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Terror;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena4;
 import com.fixakathefix.towerpixeldungeon.sprites.GoblinSprite;
 import com.watabou.noosa.audio.Sample;
@@ -64,11 +65,13 @@ public class Goblin extends Mob {
 
 	@Override
 	protected boolean act() {
-		if (HP<HT) HP+=5;
-		if (HP<HT*3/5&&wasScared<3&&buff(Terror.class)==null) {
-			wasScared++;
-			Buff.append(this, Terror.class, 7);
-			Sample.INSTANCE.play(Assets.Sounds.FALLING, 1, (float) Math.random()*0.5f + 1f);
+		if (buff(PotionOfCleansing.Cleanse.class)==null){
+			if (HP<HT) HP+=5;
+			if (HP<HT*3/5&&wasScared<3&&buff(Terror.class)==null) {
+				wasScared++;
+				Buff.append(this, Terror.class, 7);
+				Sample.INSTANCE.play(Assets.Sounds.FALLING, 1, (float) Math.random()*0.5f + 1f);
+			}
 		}
 		return super.act();
 	}

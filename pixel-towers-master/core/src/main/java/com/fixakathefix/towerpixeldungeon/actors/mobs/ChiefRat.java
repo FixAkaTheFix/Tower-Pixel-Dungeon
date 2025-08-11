@@ -7,6 +7,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Ghost;
 import com.fixakathefix.towerpixeldungeon.effects.Pushing;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ChiefRatSprite;
@@ -46,6 +47,9 @@ public class ChiefRat extends Rat {
 
     @Override
     public int defenseProc( Char enemy, int damage ) {
+        if (buff(PotionOfCleansing.Cleanse.class)!=null){
+            return super.defenseProc(enemy, damage);
+        }
         if (Random.Int(2) == 1) {
 
             ArrayList<Integer> candidates = new ArrayList<>();

@@ -77,11 +77,18 @@ public class ScrollOfTeleportation extends Scroll {
 	}
 
 	public static void teleportToAmulet(){
+		if (Dungeon.level instanceof Arena17){
+			Sample.INSTANCE.play(Assets.Sounds.DEGRADE);
+			GameScene.flash(0xCC0000);
+			GLog.n(Messages.get(ScrollOfTeleportation.class, "pit_teleport"));
+			hero.die(hero);
+		} else {
 		appear(hero, ((Arena)Dungeon.level).amuletCell);
 		Dungeon.level.occupyCell(hero);
 		Dungeon.observe();
 		GameScene.updateFog();
 		hero.interrupt();
+		}
 	}
 	
 	public static boolean teleportToLocation(Char ch, int pos){

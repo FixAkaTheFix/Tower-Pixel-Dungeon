@@ -33,6 +33,6 @@ public class AbGlowup extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 160;
+        return 100;
     }
 }

@@ -27,6 +27,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.DamageSource;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.MagiCrabSprite;
@@ -56,7 +57,7 @@ public class MagiCrab extends Crab {
     @Override
     public void damage( int dmg, Object src ){
         //crab blocks all magical or elemental damage
-        if (DamageSource.MAGICAL.contains(src.getClass()))
+        if (DamageSource.MAGICAL.contains(src.getClass()) && buff(PotionOfCleansing.Cleanse.class) == null)
         {
             sprite.showStatus( CharSprite.MYSTERIOUS, Messages.get(this, "def_verb") );
             Sample.INSTANCE.play( Assets.Sounds.CURSED, 1, Random.Float(0.96f, 1.05f));

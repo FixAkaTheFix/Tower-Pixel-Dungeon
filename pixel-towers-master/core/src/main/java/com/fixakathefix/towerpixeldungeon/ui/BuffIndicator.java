@@ -146,6 +146,8 @@ public class BuffIndicator extends Component {
 	public static final int WALLSTANCE  = 114;
 	public static final int INSPIRED    = 115;
 	public static final int KEENEYE     = 116;
+	public static final int OVERCHARGE     = 117;
+	public static final int NULLIFIED     = 118;
 
 
 	public static final int SIZE_SMALL  = 7;

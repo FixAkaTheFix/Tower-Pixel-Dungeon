@@ -36,6 +36,7 @@ import com.fixakathefix.towerpixeldungeon.effects.Pushing;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.NecromancerSprite;
@@ -237,6 +238,9 @@ public class Necromancer extends Mob {
 		}
 		for (Buff b : buffs(ChampionEnemy.class)){
 			Buff.affect( mySkeleton, b.getClass());
+		}
+		if (buff(PotionOfCleansing.Cleanse.class)!=null){
+			mySkeleton.die(PotionOfCleansing.Cleanse.class);
 		}
 	}
 	
