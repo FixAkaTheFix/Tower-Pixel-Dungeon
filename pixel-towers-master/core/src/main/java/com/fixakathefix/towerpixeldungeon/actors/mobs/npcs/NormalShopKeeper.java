@@ -66,6 +66,7 @@ import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.Sungrass;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
+import com.fixakathefix.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Game;
@@ -180,6 +181,17 @@ public class NormalShopKeeper extends NewShopKeeper {
                 new ScrollOfUpgrade(),
                 new ScrollOfEnchantment(),
                 new Ankh(),
+                new ElixirOfHoneyedHealing(),
+                new PotionOfShielding(),
+                new PotionOfStrength(),
+                new MeatPie(),
+                new ScrollOfUpgrade(),
+                new ScrollOfEnchantment(),
+                new Ankh(),
+                TowerInfo.getHeroAbility(Dungeon.level.slot1),
+                TowerInfo.getHeroAbility(Dungeon.level.slot2),
+                TowerInfo.getHeroAbility(Dungeon.level.slot3),
+                TowerInfo.getHeroAbility(Dungeon.level.slot4),
                 Generator.randomUsingDefaults(Generator.Category.SCROLL2),
                 Generator.randomUsingDefaults(Generator.Category.ARTIFACT)
 

@@ -62,6 +62,18 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWand2;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWand3;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.food.Berry;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrAngerTheDead;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrArrowVolley;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrBombVolley;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrDartgunAlly;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrGreatWall;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrHyperats;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrLightningStrike;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrNullify;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrOrder;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrOvercharge;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrPlanB;
+import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpell;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCamp;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCannon;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCrossbow;
@@ -226,6 +238,25 @@ public class TowerInfo extends Component {
         }
         return Lock.LOCKED;
     }
+    public static HeroSpell getHeroAbility(AllTowers sometower){
+
+        switch (sometower){
+            default:
+            case CANNON:         return new AbTrBombVolley();
+            case CROSSBOW:       return new AbTrArrowVolley();
+            case MAGICMISSILE:   return new AbTrOvercharge();
+            case LIGHTNING:      return new AbTrLightningStrike();
+            case DISINTEGRATION: return new AbTrNullify();
+            case WALL:           return new AbTrGreatWall();
+            case GRAVE:          return new AbTrAngerTheDead();
+            case GUARD:          return new AbTrOrder();
+            case DARTGUN:        return new AbTrDartgunAlly();
+            case TNTLOG:         return new AbTrPlanB();
+            case RATCAMP:        return new AbTrHyperats();
+
+        }
+    }
+
 
     public static Image getTowerIcon(AllTowers sometower) {
         Image preicon;
