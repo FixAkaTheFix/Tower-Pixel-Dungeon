@@ -43,6 +43,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Charm;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Corruption;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Dread;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.GuardOnDuty;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Haste;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Hunger;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Inspired;
@@ -117,6 +118,9 @@ public abstract class Mob extends Char {
 	}
 	private int distanceToHeroForTargetTracking = 100;
 	public boolean ranged = false;
+	public boolean mapGuard = false;
+	private static final int DISTANCE_FOR_GUARD_AGGRO = 4;
+	private int mapGuardCell = -1;
 
 	public enum TargetingPreference {
 		NORMAL,
@@ -171,6 +175,8 @@ public abstract class Mob extends Char {
 	private static final String TP_NOHERO	= "tp_nohero";
 	private static final String TP_ONLYAMULET	= "tp_onlyamulet";
 	private static final String HERODISTANCE	= "herodistance";
+	private static final String MAPGUARD	= "map_guard";
+	private static final String MAPGUARDCELL	= "map_guard_cell";
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 
@@ -200,6 +206,8 @@ public abstract class Mob extends Char {
 			bundle.put( TARGETING_PREFERENCE, TP_ONLYAMULET);
 		}
 
+		bundle.put(MAPGUARD, mapGuard);
+		bundle.put(MAPGUARDCELL, mapGuardCell);
 		bundle.put(HERODISTANCE, distanceToHeroForTargetTracking);
 
 		bundle.put( TARGET, target );
@@ -227,6 +235,8 @@ public abstract class Mob extends Char {
 			this.state = PASSIVE;
 		}
 
+		mapGuard = bundle.getBoolean(MAPGUARD);
+		mapGuardCell = bundle.getInt(MAPGUARDCELL);
 		distanceToHeroForTargetTracking = bundle.getInt(HERODISTANCE);
 
 		String targetPref = bundle.getString(TARGETING_PREFERENCE);
@@ -294,6 +304,17 @@ public abstract class Mob extends Char {
 
 		enemy = chooseEnemy();
 
+		if (mapGuard){
+			if (mapGuardCell==-1) mapGuardCell = pos;
+			else if (Dungeon.level.distance(pos, mapGuardCell) > DISTANCE_FOR_GUARD_AGGRO + 4){
+				Buff.affect(this, GuardOnDuty.class, 8);
+				enemy = null;
+			} else if (buff(GuardOnDuty.class)!= null && Dungeon.level.distance(pos, mapGuardCell) < 3){
+				Buff.detach(this, GuardOnDuty.class);
+				enemy = chooseEnemy();
+			}
+		}
+
 		distanceToHeroForTargetTracking = distance(Dungeon.hero);
 		boolean enemyInFOV = enemy != null && enemy.isAlive() && fieldOfView[enemy.pos] && enemy.invisible <= 0;
 
@@ -304,6 +325,7 @@ public abstract class Mob extends Char {
 			return true;
 		}
 
+
 		return state.act( enemyInFOV, justAlerted );
 	}
 
@@ -311,6 +333,7 @@ public abstract class Mob extends Char {
 	protected boolean intelligentAlly = false;
 
 	protected Char chooseEnemy() {
+		if (buff(GuardOnDuty.class)!=null) return null;
 
 		Dread dread = buff( Dread.class );
 		if (dread != null) {
@@ -477,6 +500,13 @@ public abstract class Mob extends Char {
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob.alignment == Alignment.ALLY &&
 							fieldOfView[mob.pos] && mob.invisible <= 0 &&
+							/*
+							the guard:
+							- stands until sees enemy which is close
+							- after it sees, it targets it as a foe for all guard distance only if the guard is damaged, thinking the char is tring to snipe it from the distance
+							- force go back if attempted to juke
+							 */
+							!(mob.mapGuard && enemy.distance(this) > DISTANCE_FOR_GUARD_AGGRO && HP<HT )&&
 							//ranged mobs must be close to the portal to be able to notice it
 							(!((mob instanceof Arena.AmuletTower || mob instanceof SubAmuletTower) && this.ranged && distance(mob)>1 )) )
 						enemies.add(mob);
@@ -621,6 +651,12 @@ public abstract class Mob extends Char {
 	}
 
 	protected boolean getCloser( int target ) {
+		if (mapGuard){
+			if (buff(GuardOnDuty.class)!=null && target!= mapGuardCell) return getCloser(mapGuardCell);
+			if (Dungeon.level.distance(mapGuardCell, pos) < 3 && enemy == null) return false;
+		}
+
+
 
 		if (rooted || target == pos) {
 			return false;

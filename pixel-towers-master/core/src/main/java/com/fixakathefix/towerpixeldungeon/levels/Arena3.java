@@ -193,7 +193,7 @@ public class Arena3 extends Arena {
 
 
         //random buildings
-        for (int y = 12; y < 70; y += Random.Int(8,9))//max height is 7
+        for (int y = 16; y < 70; y += Random.Int(8,9))//max height is 7
             for (int x = Random.Int(4, 7); x < 44; x += 2)//max width is 7
                 try {
                     int type = Random.Int(18);
@@ -448,7 +448,7 @@ public class Arena3 extends Arena {
             if (this.map[m]==Terrain.EMPTY_SP) candidates.add(m);
         }
         for (int m = 0; m<WIDTH*HEIGHT;m++ ){
-            if (this.map[m]==Terrain.EMPTY_SP&& this.distance(amuletCell, m) > 40 && Math.random()>0.5) candidates.add(m);//places more than 40 tiles away have 50% more chance for loot to appear on them
+            if (this.map[m]==Terrain.EMPTY_SP && this.distance(amuletCell, m) > 40 && Math.random()>0.3) candidates.add(m);//places more than 40 tiles away have 70% more chance for loot to appear on them
         }
         for (int i = 0; i<10; i++){
             this.drop(new Bomb(),Random.element(candidates));
@@ -496,12 +496,13 @@ public class Arena3 extends Arena {
         this.drop(new ThrowingStone(),Random.element(candidates));
 
 
-        for (int m = 0; m<WIDTH*HEIGHT- 7*WIDTH;m++){
+        for (int m = WIDTH*15 + WIDTH/2; m<WIDTH*HEIGHT- 7*WIDTH;m++){
             if (this.map[m]==Terrain.EMPTY_SP) {
-                GnollGuardSleeping goll = new GnollGuardSleeping();
+                GnollGuard goll = new GnollGuard();
+                goll.mapGuard = true;
                 goll.pos = m;
                 GameScene.add(goll);
-                m+=(2*WIDTH+10);
+                m+=(WIDTH+30);
             }
         }
         super.addDestinations();
@@ -570,19 +571,6 @@ public class Arena3 extends Arena {
             speed.set(Random.Float(-2, +2), 0);
 
             left = lifespan = 0.4f;
-        }
-    }
-
-    public static class GnollGuardSleeping extends GnollGuard {
-
-
-        {
-            state = SLEEPING;
-            EXP = 0;
-        }
-        @Override
-        public void beckon(int cell) {
-            //he be sleepin, no wakin
         }
     }
 

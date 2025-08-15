@@ -75,6 +75,7 @@ import com.fixakathefix.towerpixeldungeon.items.artifacts.RoseSeed;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.SandalsOfNature;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.UnstableSpellbook;
+import com.fixakathefix.towerpixeldungeon.items.bags.VelvetPouch;
 import com.fixakathefix.towerpixeldungeon.items.debuggers.StableTeleportScroll;
 import com.fixakathefix.towerpixeldungeon.items.debuggers.StaffOfBeasts;
 import com.fixakathefix.towerpixeldungeon.items.food.Food;
@@ -119,6 +120,7 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpellTargeted;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfLevitation;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfMindVision;
+import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfPurity;
 import com.fixakathefix.towerpixeldungeon.items.potions.brews.CausticBrew;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
@@ -244,6 +246,9 @@ public enum HeroClass {
 			case NECROHERO:
 				initNecrohero(hero);
 				break;
+			case PRIEST:
+				initPriest(hero);
+				break;
 
 		}
 
@@ -276,7 +281,7 @@ public enum HeroClass {
 			case TANK:
 				return 0xFFFF0000;
 			case PRIEST:
-				return 0xDDDD0000;
+				return 0xFFFFFFAA;
 			case FIX:
 				return 0xFF00FF00;
 		}
@@ -298,9 +303,9 @@ public enum HeroClass {
 			case TANK:
 				return 0xFFAA0000;
 			case PRIEST:
-				return 0xAAAA0000;
+				return 0xFFAAAA00;
 			case FIX:
-				return 0xFFFF00FF;
+				return 0xFF000000;
 		}
 	}
 
@@ -379,7 +384,7 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(2, a3);
 
 		new ScrollOfRage().collect();
-		new PotionOfCleansing().collect();
+		new PotionOfPurity().collect();
 		new PotionOfHealing().collect();
 	}
 
@@ -520,16 +525,13 @@ public enum HeroClass {
 
 	}
 	private static void initPriest( Hero hero ) {
-		hero.STR = 11;
+		hero.STR = 10;
 
 		Item i = new ClothArmor().identify();
 		hero.belongings.armor = (ClothArmor)i;
 
 		new ScrollOfHolyNova().collect();
 		new StoneOfFlock().collect();
-		new Starflower.Seed().collect();
-
-		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 	}
 	private static void initFix(Hero hero){
 
@@ -701,7 +703,7 @@ public enum HeroClass {
 			case TANK:
 				return SPDSettings.maxlevelunlocked()>=14;
 			case PRIEST:
-				return SPDSettings.maxlevelunlocked()>=22;
+				return Badges.isUnlocked(Badges.Badge.REDEMPTION);
 		}
 		return false;
 	}

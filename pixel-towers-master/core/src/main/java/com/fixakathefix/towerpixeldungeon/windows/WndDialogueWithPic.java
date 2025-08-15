@@ -67,6 +67,9 @@ public class WndDialogueWithPic extends Window {
     public static void dialogue(CharSprite icon, String title, String[] text, byte spriteActionIndexes[]) {
         dialogue(icon, title, text, spriteActionIndexes, WndType.NORMAL, new ArrayList<>());
     }
+    public static void dialogue(CharSprite icon, String title, String[] text, byte spriteActionIndexes[], WndType type) {
+        dialogue(icon, title, text, spriteActionIndexes, type, new ArrayList<>());
+    }
     public static void dialogue(CharSprite icon, String title, String[] text, byte[] spriteActionIndexes, WndType type, ArrayList<Runnable> runnableArrayList) {
 
         if ( level == null || level.mode == WndModes.Modes.NORMAL || type == WndType.FINAL) {

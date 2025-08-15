@@ -47,6 +47,8 @@ public class Button extends Component {
 	protected float pressTime;
 	protected boolean clickReady;
 
+
+
 	@Override
 	protected void createChildren() {
 		hotArea = new PointerArea( 0, 0, 0, 0 ) {
@@ -167,6 +169,7 @@ public class Button extends Component {
 				Game.vibrate( 50 );
 			}
 		}
+
 	}
 	
 	protected void onPointerDown() {}

@@ -50,7 +50,7 @@ public class ChiefRat extends Rat {
         if (buff(PotionOfCleansing.Cleanse.class)!=null){
             return super.defenseProc(enemy, damage);
         }
-        if (Random.Int(2) == 1) {
+        if (Random.Int(2) == 1 && buff(PotionOfCleansing.Cleanse.class)==null) {
 
             ArrayList<Integer> candidates = new ArrayList<>();
             for (int n : PathFinder.NEIGHBOURS8) {
@@ -98,7 +98,7 @@ public class ChiefRat extends Rat {
 
             }
         }
-        if (Random.Int(3) == 1) {
+        if (Random.Int(3) == 1 && buff(PotionOfCleansing.Cleanse.class)==null) {
             ArrayList<Integer> candidates2 = new ArrayList<>();
             for (int n : PathFinder.NEIGHBOURS8) {
                 if (Dungeon.level.passable[pos + n] && Actor.findChar(pos + n) == null) {

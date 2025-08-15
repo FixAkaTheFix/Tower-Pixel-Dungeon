@@ -34,6 +34,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Charm;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.Scroll;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
@@ -113,7 +114,7 @@ public class Succubus extends Mob {
 			}
 			
 		} else {
-
+			if (buff(PotionOfCleansing.Cleanse.class)!=null) blinkCooldown = 5;
 			blinkCooldown--;
 			return super.getCloser( target );
 			

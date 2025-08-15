@@ -17,6 +17,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbowBallis
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbowGatling;
 import com.fixakathefix.towerpixeldungeon.effects.MagicMissile;
 import com.fixakathefix.towerpixeldungeon.items.bombs.Bomb;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.fixakathefix.towerpixeldungeon.levels.Level;
@@ -63,17 +64,17 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
                         int arrowamount = 0;
                         for (TowerCrossbow1 mob : crossbows) {
                             arrowamount++;
-                            damage += 4;
+                            damage += 6;
                             if (mob instanceof TowerCrossbow2) {
-                                damage += 6;
+                                damage += 7;
                                 if (mob instanceof TowerCrossbow3) {
-                                    damage += 10;
+                                    damage += 13;
                                     if (mob instanceof TowerCrossbowBallista) {
-                                        damage += 20;
+                                        damage += 40;
                                     }
                                     if (mob instanceof TowerCrossbowGatling) {
                                         arrowamount += 3;
-                                        damage += 15;
+                                        damage += 30;
                                     }
                                 }
                             }
@@ -127,8 +128,11 @@ public class AbTrArrowVolley extends HeroSpellTargeted {
                                                     public void call() {
 
                                                         Char ch = Char.findChar(cell);
-                                                        if (ch != null)
-                                                            ch.damage(finalDamage / finalArrowamount, hero);
+
+                                                        if (ch != null){
+                                                            int drroll = ch.buff(PotionOfCleansing.Cleanse.class)==null ? ch.drRoll() : 0;
+                                                            ch.damage(finalDamage / finalArrowamount - drroll, hero);
+                                                        }
                                                         Sample.INSTANCE.play(Assets.Sounds.HIT_ARROW);
                                                         arrowcount--;
                                                         if (arrowcount == 0) hero.next();

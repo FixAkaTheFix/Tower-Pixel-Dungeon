@@ -116,6 +116,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.Potion;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfExperience;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfMight;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfAccuracy;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfEvasion;
@@ -617,7 +618,7 @@ public class Hero extends Char {
 		if (buff(HoldFast.class) != null){
 			dr += buff(HoldFast.class).armorBonus();
 		}
-		
+		if (buff(PotionOfCleansing.Cleanse.class)!= null) dr = 0;
 		return dr;
 	}
 	
@@ -1829,15 +1830,15 @@ public class Hero extends Char {
 		}
 		
 		if (levelUp) {
-			
+			//talents are given, though are not used. I will keep that code until I decide what to do with levels
 			if (sprite != null) {
 				GLog.newLine();
 				GLog.p( Messages.get(this, "new_level") );
 				sprite.showStatus( CharSprite.POSITIVE, Messages.get(Hero.class, "level_up") );
 				Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
 				if (lvl < Talent.tierLevelThresholds[Talent.MAX_TALENT_TIERS+1]){
-					GLog.newLine();
-					GLog.p( Messages.get(this, "new_talent") );
+					//GLog.newLine();
+					//GLog.p( Messages.get(this, "new_talent") );
 					StatusPane.talentBlink = 10f;
 					WndHero.lastIdx = 1;
 				}

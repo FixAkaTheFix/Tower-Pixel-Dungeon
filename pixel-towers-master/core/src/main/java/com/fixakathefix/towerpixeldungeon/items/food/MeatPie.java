@@ -38,7 +38,7 @@ public class MeatPie extends Food {
 	{
 		image = ItemSpriteSheet.MEAT_PIE;
 		energy = Hunger.STARVING*2f;
-		timeToEat = 50f;
+		timeToEat = 40f;
 		healingPercentage = 0.9f;
 	}
 	

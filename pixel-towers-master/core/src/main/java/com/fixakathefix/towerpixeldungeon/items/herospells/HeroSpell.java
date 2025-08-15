@@ -95,4 +95,9 @@ public abstract class HeroSpell extends Item {
     public boolean isIdentified() {
         return true;
     }
+
+    @Override
+    public int value() {
+        return 20 + Dungeon.depth * 5;
+    }
 }

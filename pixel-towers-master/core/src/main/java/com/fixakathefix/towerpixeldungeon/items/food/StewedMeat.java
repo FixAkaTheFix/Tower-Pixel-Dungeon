@@ -33,7 +33,7 @@ public class StewedMeat extends Food {
 	{
 		image = ItemSpriteSheet.STEWED;
 		energy = Hunger.HUNGRY/2f;
-		timeToEat = 22f;
+		timeToEat = 10f;
 		healingPercentage = 0.17f;
 	}
 	

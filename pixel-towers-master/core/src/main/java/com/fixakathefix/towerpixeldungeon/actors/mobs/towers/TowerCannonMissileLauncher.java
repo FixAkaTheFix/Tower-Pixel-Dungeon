@@ -10,6 +10,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.BlastParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SmokeParticle;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.RocketSprite;
@@ -132,7 +133,8 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
                         if (ch.alignment == Alignment.ALLY) {
                             //friends receive 0 damage
                         } else {
-                            ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), getClass());
+                            int drroll = ch.buff(PotionOfCleansing.Cleanse.class)==null ? ch.drRoll() : 0;
+                            ch.damage(Math.round(damageRoll() * damageExplosionMult) - drroll, getClass());
                         }
                         ;//damages foes nearby, with lowered damage
                     }

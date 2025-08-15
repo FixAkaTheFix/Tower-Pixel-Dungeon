@@ -159,7 +159,7 @@ public class Guard extends Mob {
 
 	@Override
 	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 7);
+		return super.drRoll() + Random.NormalIntRange(2, 6);
 	}
 
 	@Override

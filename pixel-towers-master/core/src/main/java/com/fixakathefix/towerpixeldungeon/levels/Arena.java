@@ -483,7 +483,6 @@ public class Arena extends Level {
         Buff.affect(hero, WaveBuff.class,   ((Arena) level).maxWaves==((Arena) level).wave ? 10000 : coldow);
         deployMobs(wave);
         doStuffStartwave(wave);
-        amuletTower.attractMobs();
         HashSet<Mob> mobsnoconcurrent = new HashSet<>();
         mobsnoconcurrent.addAll(mobs);
 
@@ -565,7 +564,7 @@ public class Arena extends Level {
         doStuffEndwave(wave);
 
 
-        if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20)) {
+        if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20) && (depth!=1)){
             int maxlevel = SPDSettings.maxlevelunlocked();
             win( Amulet.class );
             Dungeon.deleteGame( GamesInProgress.curSlot, true );
@@ -730,7 +729,6 @@ public class Arena extends Level {
 
             //acid water actions
             for (Mob mob : level.mobs.toArray( new Mob[0] )) {
-                if (mob.alignment!=Alignment.ALLY) mob.beckon( this.pos );
                 if (((Arena)level).waterIsToxic && level.map[mob.pos] == Terrain.WATER && !mob.flying && !(mob instanceof DMWMinion)){
                     if (!(level.mode == WndModes.Modes.CHALLENGE && depth==15)) mob.damage(1, Corrosion.class);
                     else if (mob.alignment == Alignment.ALLY) mob.damage(3, Corrosion.class);
@@ -766,7 +764,6 @@ public class Arena extends Level {
 
             for (Mob mob2 : mobs){
                 if (mob2 instanceof AmuletTower || mob2 instanceof SubAmuletTower) posesToBeckon.add(mob2.pos);
-
             }
 
 
@@ -777,22 +774,22 @@ public class Arena extends Level {
                     if (Dungeon.level.distance(mob.pos, posvar) < Dungeon.level.distance(mob.pos, beckoncell)) beckoncell = posvar;
                 }
 
-
-                if (mob.alignment!=Alignment.ALLY) mob.beckon( beckoncell );
-
-
                 if (mob.alignment==Alignment.ENEMY &&
+                        !(mob.mapGuard)&&
                         !(mob instanceof Tower) &&
                         !(mob instanceof SubAmuletTower) &&
                         !(mob instanceof Piranha) &&
                         !(mob instanceof RotLasher) &&
                         !(mob instanceof Mimic) &&
                         !(mob instanceof Bee) &&
-                        !(mob instanceof Arena3.GnollGuardSleeping) &&
                         !(mob instanceof Arena6.SleepyThief) &&
                         !(mob instanceof EnemyPortal) &&
                         mob.buff(Minion.class) == null &&
-                        !(mob instanceof BossDwarfKing && ((BossDwarfKing)mob).battleMode == 0)) enemyspotted = true;
+                        !(mob instanceof BossDwarfKing && ((BossDwarfKing)mob).battleMode == 0))
+                {
+                    mob.beckon( beckoncell );
+                    enemyspotted = true;
+                }
             }
             //non-chal depth specific actions
             if (Dungeon.depth==11 && Math.random()*1000+level.wave>999){
@@ -876,12 +873,6 @@ public class Arena extends Level {
                 }
                 return true;
             } else return true;
-        }
-
-        public void attractMobs(){
-            for (Mob mob : level.mobs.toArray( new Mob[0] )) if (mob.alignment == Alignment.ENEMY) {
-                mob.beckon( this.pos );
-            }
         }
 
         @Override

@@ -1,5 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -14,7 +16,10 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCWall;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall2;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall3;
@@ -27,23 +32,35 @@ import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfLevitation;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfToxicGas;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
 import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfFlock;
+import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCrossbow;
+import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerWall;
+import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
+import com.fixakathefix.towerpixeldungeon.sprites.MissileSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.RatKingSprite;
+import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
+import com.fixakathefix.towerpixeldungeon.ui.Toolbar;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Music;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
+import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Arena1 extends Arena {
 
@@ -125,21 +142,21 @@ public class Arena1 extends Arena {
             case 2:
                 return 5;
             case 3:
-                return 8;
+                return 5;
             case 4:
-                return 10;
-            case 5:
                 return 8;
+            case 5:
+                return 5;
             case 6:
-                return 10;
+                return 6;
             case 7:
-                return 25;
+                return 12;
             case 8:
-                return 20;
-            case 9:
                 return 13;
+            case 9:
+                return 10;
             case 10:
-                return 17;
+                return 12;
         }
         return 1;
     }
@@ -208,7 +225,7 @@ public class Arena1 extends Arena {
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
-            if (this.passable[m] && this.distance(amuletCell, m) > 10 && this.distance(amuletCell, m)< 35) candidates.add(m);
+            if (this.passable[m] && this.distance(amuletCell, m) > 10 && this.distance(amuletCell, m)< 35 && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         this.drop(new Honeypot(), Random.element(candidates));
         this.drop(new PotionOfHealing(), Random.element(candidates));
@@ -273,6 +290,21 @@ public class Arena1 extends Arena {
                             WndDialogueWithPic.RUN
                     }, WndDialogueWithPic.WndType.NORMAL, runnables);
         }
+        if (wave == 5) {;
+            WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l1w5start1"),
+                            Messages.get(RatKing.class, "l1w5start2"),
+                            Messages.get(RatKing.class, "l1w5start3")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                    }
+            );
+        }
+
         if (wave == 10) {
             WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
@@ -300,10 +332,83 @@ public class Arena1 extends Arena {
         super.doStuffEndwave(wave);
         if (wave == 1) {
             ArrayList<Runnable> runnables = new ArrayList<>();
-            for (int i = 0; i<5;i++) runnables.add(null);
+            for (int i = 0; i<4;i++) runnables.add(null);
             boolean isbowhere = true;
 
-
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    int cell = amuletCell+1;
+                    int cell2 = amuletCell+1+WIDTH;
+                    int cell3 = amuletCell+1-WIDTH;
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(cell), 2f);
+                    PointF source = DungeonTilemap.raisedTileCenterToWorld(cell);
+                    PointF dest = DungeonTilemap.tileCenterToWorld(cell);
+                    PointF source2 = DungeonTilemap.raisedTileCenterToWorld(cell2);
+                    PointF dest2 = DungeonTilemap.tileCenterToWorld(cell2);
+                    PointF source3 = DungeonTilemap.raisedTileCenterToWorld(cell3);
+                    PointF dest3 = DungeonTilemap.tileCenterToWorld(cell3);
+                    source.y -= 150;
+                    source2.y -= 150;
+                    source3.y -= 150;
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source,
+                                    dest,
+                                    new SpawnerWand(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new SpawnerWand(), cell);
+                                            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+                                        }
+                                    },
+                                    200f,
+                                    100f);
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source2,
+                                    dest2,
+                                    new SpawnerCrossbow(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new SpawnerCrossbow(), cell2);
+                                            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+                                        }
+                                    },
+                                    250f,
+                                    50f);
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source3,
+                                    dest3,
+                                    new SpawnerWall(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new SpawnerWall(), cell3);
+                                            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+                                        }
+                                    },
+                                    220f,
+                                    50f);
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source2,
+                                    dest2,
+                                    new SpawnerCrossbow(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new SpawnerCrossbow(), cell2);
+                                            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+                                        }
+                                    },
+                                    210f,
+                                    60f);
+                }
+            });
             runnables.add(new Runnable() {
                 @Override
                 public void run() {
@@ -317,7 +422,7 @@ public class Arena1 extends Arena {
                 }
             });
             if (!(Char.findChar(amuletCell+WIDTH) instanceof TowerCrossbow1)) isbowhere = false;
-            WndDialogueWithPic.dialogue(new RatKingSprite(), "Rat king",
+            WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
                             Dungeon.level.distance(Dungeon.hero.pos, amuletCell) < 10 ? (isbowhere ? Messages.get(RatKing.class, "l1w1end1") : Messages.get(RatKing.class, "l1w1end1nobow")) : Messages.get(RatKing.class, "l1w1end1herofar"),
                             Dungeon.level.distance(Dungeon.hero.pos, amuletCell) < 10 ? Messages.get(RatKing.class, "l1w1end2") : Messages.get(RatKing.class, "l1w1end2herofar"),
@@ -333,11 +438,75 @@ public class Arena1 extends Arena {
                             WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.IDLE,
-                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
                             WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.RUN
                     }, WndDialogueWithPic.WndType.NORMAL, runnables);
+        }
+        if (wave == 5) {
+            int totalprice = 0;
+            int wallsprice = 0;
+            int otherprice = 0;
+            for (Mob mob : Level.mobs) if (mob instanceof Tower){
+                Tower tower = (Tower) mob;
+                totalprice+=tower.cost;
+                if (tower instanceof TowerCWall || tower instanceof TowerGuard1) {
+                    wallsprice+=tower.cost;
+                } else otherprice+=tower.cost;
+            }
+            if (totalprice < 1000) {
+                WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                        new String[]{
+                                Messages.get(RatKing.class, "l1w5end_notowers")
+                        },
+                        new byte[]{
+                                WndDialogueWithPic.RUN,
+                        });
+            } else if (otherprice < 1100) {
+                WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                        new String[]{
+                                Messages.get(RatKing.class, "l1w5end_noshootings")
+                        },
+                        new byte[]{
+                                WndDialogueWithPic.RUN,
+                        });
+            } else if (wallsprice < 350) {
+                WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                        new String[]{
+                                Messages.get(RatKing.class, "l1w5end_nowalls")
+                        },
+                        new byte[]{
+                                WndDialogueWithPic.RUN,
+                        });
+            } else {
+                WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                        new String[]{
+                                Messages.get(RatKing.class, "l1w5end_good")
+                        },
+                        new byte[]{
+                                WndDialogueWithPic.RUN,
+                        });
+            }
+
+
+        }
+        if (wave == 10) {
+            WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l1w10end1"),
+                            Messages.get(RatKing.class, "l1w10end2"),
+                            Messages.get(RatKing.class, "l1w10end3"),
+                            Messages.get(RatKing.class, "l1w10end4"),
+                            Messages.get(RatKing.class, "l1w10end5")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
+                    }, WndDialogueWithPic.WndType.FINAL);
         }
     }
 
@@ -357,6 +526,8 @@ public class Arena1 extends Arena {
         wall3.sellable = false;
         wall3.pos = amuletCell + 3 - WIDTH;
         GameScene.add(wall);
+        GameScene.add(wall2);
+        GameScene.add(wall3);
         super.initNpcs();
     }
 

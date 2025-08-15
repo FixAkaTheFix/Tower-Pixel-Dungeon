@@ -11,6 +11,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Animated;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.levels.Level;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
@@ -60,7 +61,8 @@ public class TowerCannonNuke extends TowerCannon1{
                     } else {
                         Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i + i2, Ballistica.MAGIC_BOLT);
                         throwChar(ch, trajectory, 3, false, true, getClass());
-                        ch.damage(Math.round(damageRoll() * damageExplosionMult) - ch.drRoll(), this);//damages foes nearby, with lowered damage
+                        int drroll = ch.buff(PotionOfCleansing.Cleanse.class)==null ? ch.drRoll() : 0;
+                        ch.damage(Math.round(damageRoll() * damageExplosionMult) - drroll, this);//damages foes nearby, with lowered damage
                     }
 
 

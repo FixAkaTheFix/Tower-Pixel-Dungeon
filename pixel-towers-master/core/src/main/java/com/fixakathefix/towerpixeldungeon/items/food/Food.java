@@ -47,7 +47,7 @@ import java.util.ArrayList;
 
 public class Food extends Item {
 
-	public float timeToEat = 30f;
+	public float timeToEat = 15f;
 	public float healingPercentage = 0.3f;
 	
 	public static final String AC_EAT	= "EAT";

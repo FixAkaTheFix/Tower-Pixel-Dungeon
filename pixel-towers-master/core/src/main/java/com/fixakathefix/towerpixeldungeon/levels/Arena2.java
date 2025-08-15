@@ -1,5 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -24,8 +26,15 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.CampRatArcher;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.CampRatMage;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.CampRatShield;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCannon1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerDisintegration1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerLightning1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWand1;
 import com.fixakathefix.towerpixeldungeon.effects.Ripple;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
+import com.fixakathefix.towerpixeldungeon.items.Gold;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Honeypot;
 import com.fixakathefix.towerpixeldungeon.items.armor.LeatherArmor;
@@ -33,6 +42,7 @@ import com.fixakathefix.towerpixeldungeon.items.bombs.Bomb;
 import com.fixakathefix.towerpixeldungeon.items.food.MeatPie;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
 import com.fixakathefix.towerpixeldungeon.items.food.SmallRation;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbTrArrowVolley;
 import com.fixakathefix.towerpixeldungeon.items.keys.GoldenKey;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfExperience;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfFrost;
@@ -47,6 +57,7 @@ import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfRatLegion;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCamp;
+import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerWand;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
@@ -54,21 +65,26 @@ import com.fixakathefix.towerpixeldungeon.levels.traps.BurningTrap;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.BossRatKingSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.MissileSprite;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Arena2 extends Arena{
 
@@ -88,7 +104,7 @@ public class Arena2 extends Arena{
         WIDTH = 101;
         HEIGHT = 101;
 
-        startGold = 1100;
+        startGold = 200;
         startLvl = 3;
         arenaDepth = 2;
         maxWaves = 15;
@@ -163,20 +179,20 @@ public class Arena2 extends Arena{
     @Override
     public int mobsToDeploy(int wave) {
         switch (wave){
-            case 1: return 2;
-            case 2: return 8;
-            case 3: return 5;
-            case 4: return 7;
-            case 5: return 3;
-            case 6: return 10;
-            case 7: return 18;
-            case 8: return 15;
-            case 9: return 19;
-            case 10: return 10;
-            case 11: return 19;
-            case 12: return 18;
-            case 13: return 18;
-            case 14: return 13;
+            case 1: return 4;
+            case 2: return 6;
+            case 3: return 4;
+            case 4: return 9;
+            case 5: return 2;
+            case 6: return 6;
+            case 7: return 12;
+            case 8: return 9;
+            case 9: return 13;
+            case 10: return 6;
+            case 11: return 12;
+            case 12: return 15;
+            case 13: return 11;
+            case 14: return 9;
             case 15: return mode == WndModes.Modes.HARDMODE ? 6 : 3;
         }
         return 1;
@@ -202,7 +218,7 @@ public class Arena2 extends Arena{
     @Override
     public void doStuffStartwave(int wave) {
         if (wave == 1){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w1start1"),
                             Messages.get(RatKing.class, "l2w1start2"),
@@ -219,27 +235,99 @@ public class Arena2 extends Arena{
                             WndDialogueWithPic.RUN
                     });
         }
-        if (wave==5){
+        if (wave == 4){
+            int wands = 0;
+            for (Mob mob : Level.mobs) {
+                if ((mob instanceof TowerWand1 || mob instanceof TowerDisintegration1 || mob instanceof TowerLightning1 || mob instanceof TowerCannon1) && mob.alignment== Char.Alignment.ALLY) wands++;
+            }
+            if (wands == 0){
+                WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(RatKing.class, "name"),
+                        new String[]{
+                                Messages.get(RatKing.class, "l2w4start1_nowands"),
+                                Messages.get(RatKing.class, "l2w4start2_nowands")
+                        },
+                        new byte[]{
+                                WndDialogueWithPic.RUN,
+                                WndDialogueWithPic.IDLE,
+                        });
+            }
 
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+        }
+        if (wave==5){
+            ArrayList<Runnable> runnables = new ArrayList<>();
+            for (int i = 0; i<4;i++) runnables.add(null);
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    int cell = amuletCell+WIDTH;
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(cell), 2f);
+                    PointF source = DungeonTilemap.raisedTileCenterToWorld(cell);
+                    PointF dest = DungeonTilemap.tileCenterToWorld(cell);
+                    source.y-=150;
+                    source.x-=30;
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source,
+                                    dest,
+                                    new AbTrArrowVolley(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new AbTrArrowVolley(), cell);
+                                            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+                                        }
+                                    },
+                                    200f,
+                                    100f);
+                }
+            });
+            runnables.add(null);
+
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w5start1"),
+                            Messages.get(RatKing.class, "l2w5start2"),
+                            Messages.get(RatKing.class, "l2w5start3"),
+                            Messages.get(RatKing.class, "l2w5start4"),
+                            Messages.get(RatKing.class, "l2w5start5"),
+                            Messages.get(RatKing.class, "l2w5start6"),
                     },
                     new byte[]{
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
                             WndDialogueWithPic.RUN
-                    });
+                    }, WndDialogueWithPic.WndType.NORMAL, runnables);
         }
         if (wave==10){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+            ArrayList<Runnable> runnables = new ArrayList<>();
+            for (int i = 0; i<2;i++) runnables.add(null);
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    int cell = normalShopKeeperCell;
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(cell), 2f);
+                }
+            });
+            runnables.add(null);
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w10start1"),
+                            Messages.get(RatKing.class, "l2w10start2"),
+                            Messages.get(RatKing.class, "l2w10start3"),
+                            Messages.get(RatKing.class, "l2w10start4"),
                     },
                     new byte[]{
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.RUN
-                    });
+                    }, WndDialogueWithPic.WndType.NORMAL, runnables);
         }
         if (wave == 12){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w12start1"),
                     },
@@ -248,19 +336,19 @@ public class Arena2 extends Arena{
                     });
         }
 
-        if (wave==15){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+        if (wave==14){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
                     new String[]{
-                            Messages.get(RatKing.class, "l2w15start1"),
+                            Messages.get(RatKing.class, "l2w14start1"),
                     },
                     new byte[]{
-                            WndDialogueWithPic.RUN
+                            WndDialogueWithPic.IDLE
                     });
         }
-        if (wave==20){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+        if (wave==15){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
                     new String[]{
-                            Messages.get(RatKing.class, "l2w20start1"),
+                            Messages.get(RatKing.class, "l2w15start1"),
                     },
                     new byte[]{
                             WndDialogueWithPic.RUN
@@ -277,7 +365,34 @@ public class Arena2 extends Arena{
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
         if (wave == 2){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+            ArrayList<Runnable> runnables = new ArrayList<>();
+            for (int i = 0; i<2;i++) runnables.add(null);
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    int cell = amuletCell-WIDTH;
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(cell), 2f);
+                    PointF source = DungeonTilemap.raisedTileCenterToWorld(cell);
+                    PointF dest = DungeonTilemap.tileCenterToWorld(cell);
+                    source.y-=150;
+                    source.x-=30;
+                    ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class))
+                            .reset(
+                                    source,
+                                    dest,
+                                    new Gold(),
+                                    new Callback() {
+                                        @Override
+                                        public void call() {
+                                            drop(new Gold(626), cell);
+                                            Sample.INSTANCE.play(Assets.Sounds.GOLD);
+                                        }
+                                    },
+                                    200f,
+                                    100f);
+                }
+            });
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w2end1"),
                             Messages.get(RatKing.class, "l2w2end2"),
@@ -287,10 +402,11 @@ public class Arena2 extends Arena{
                             WndDialogueWithPic.RUN,
                             WndDialogueWithPic.IDLE,
                             WndDialogueWithPic.RUN
-                    });
+                    }, WndDialogueWithPic.WndType.NORMAL,
+                    runnables);
         }
         if (wave==4){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king",
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w4end1"),
                     },
@@ -299,7 +415,7 @@ public class Arena2 extends Arena{
                     });
         }
         if (wave==12){
-            WndDialogueWithPic.dialogue(new BossRatKingSprite(), "Rat king, disappointed",
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(RatKing.class, "name"),
                     new String[]{
                             Messages.get(RatKing.class, "l2w12end1"),
                     },
@@ -615,7 +731,36 @@ public class Arena2 extends Arena{
         super.addDestinations();
     }
 
-
+    @Override
+    public void initNpcs() {
+        super.initNpcs();
+        ArrayList<Integer> cellstoplacewalls = new ArrayList<>(Arrays.asList(
+                amuletCell+4+WIDTH,
+                amuletCell+4,
+                amuletCell+4-WIDTH,
+                amuletCell-4+WIDTH,
+                amuletCell-4,
+                amuletCell-4-WIDTH
+        ));
+        for (int cell : cellstoplacewalls){
+            TowerWall1 wall = new TowerWall1();
+            wall.sellable = false;
+            wall.pos = cell;
+            GameScene.add(wall);
+        }
+        ArrayList<Integer> cellstoplacecrossbows= new ArrayList<>(Arrays.asList(
+                amuletCell+3-WIDTH,
+                amuletCell-3-WIDTH,
+                amuletCell+3+WIDTH,
+                amuletCell-3+WIDTH
+        ));
+        for (int cell : cellstoplacecrossbows){
+            TowerCrossbow1 crossbow = new TowerCrossbow1();
+            crossbow.sellable = false;
+            crossbow.pos = cell;
+            GameScene.add(crossbow);
+        }
+    }
 
     @Override
     public String tilesTex() {

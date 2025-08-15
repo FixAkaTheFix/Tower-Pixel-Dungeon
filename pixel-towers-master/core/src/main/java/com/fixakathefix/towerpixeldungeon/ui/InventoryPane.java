@@ -88,6 +88,7 @@ public class InventoryPane extends Component {
 
 	private static final int SLOT_WIDTH = 17;
 	private static final int SLOT_HEIGHT = 17;
+	private static final int SLOT_AMOUNT = 40;
 
 	private WndBag.ItemSelector selector;
 
@@ -318,7 +319,7 @@ public class InventoryPane extends Component {
 		}
 
 		int j = 0;
-		for (int i = 0; i < 40; i++){
+		for (int i = 0; i < SLOT_AMOUNT; i++){
 			if (i == 0 && lastBag != stuff.backpack){
 				bagItems.get(i).item(lastBag);
 				continue;

@@ -60,6 +60,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Frost;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.FrostImbue;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Fury;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.GoldArmor;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.GuardOnDuty;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Haste;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Healing;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Hex;
@@ -419,8 +420,8 @@ public abstract class Char extends Actor {
 			return false;
 
 		} else if (hit( this, enemy, accMulti, DamageType.PHYSICAL )) {
-			
-			int dr = Math.round(enemy.drRoll() * AscensionChallenge.statModifier(enemy));
+
+			int dr = buff(PotionOfCleansing.Cleanse.class)==null ? Math.round(enemy.drRoll() * AscensionChallenge.statModifier(enemy)) : 0;
 
 			
 			if (this instanceof Hero){
@@ -746,6 +747,7 @@ public abstract class Char extends Actor {
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Rush.class ) != null) speed *= 5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
+		if ( buff( GuardOnDuty.class ) != null) speed *= 1.5f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( Animated.class ) != null) speed *= 1.3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
@@ -801,6 +803,7 @@ public abstract class Char extends Actor {
 			}
 		}
 		dmg = (int)Math.ceil(dmg / AscensionChallenge.statModifier(this));
+		if (buff(GuardOnDuty.class)!=null) dmg/=2;
 
 		if (!(src instanceof LifeLink) && buff(LifeLink.class) != null){
 			HashSet<LifeLink> links = buffs(LifeLink.class);

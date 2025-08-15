@@ -79,6 +79,9 @@ public class WndHeroInfo extends WndTabbed {
 			case NECROHERO:
 				tabIcon = Icons.get(Icons.NECROHERO);
 				break;
+			case PRIEST:
+				tabIcon = Icons.get(Icons.PRIEST);
+				break;
 		}
 
 		int finalHeight = MIN_HEIGHT;
@@ -179,28 +182,44 @@ public class WndHeroInfo extends WndTabbed {
 				case WARRIOR: default:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SEAL),
 							new ItemSprite(ItemSpriteSheet.SWORD),
-							new ItemSprite(ItemSpriteSheet.READABLESCROLL_NORMAL)};
+							new ItemSprite(ItemSpriteSheet.SCROLL_BATTLECRY)};
+					break;
+				case NECROHERO:
+					icons = new Image[]{ Icons.get(Icons.NECROHERO),
+							new ItemSprite(ItemSpriteSheet.DAGGER),
+							new ItemSprite(ItemSpriteSheet.SCROLL_SKULLS)};
+					break;
+				case PRIEST:
+					icons = new Image[]{ Icons.get(Icons.PRIEST),
+							new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER),
+							new ItemSprite(ItemSpriteSheet.SCROLL_UPGRADE)};
+					break;
+				case TANK:
+					icons = new Image[]{ Icons.get(Icons.TANK),
+							new ItemSprite(ItemSpriteSheet.EXOTIC_HEAL),
+							new ItemSprite(ItemSpriteSheet.SCROLL_MAGICMAPPING)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.MAGES_STAFF),
 							new ItemSprite(ItemSpriteSheet.STONE_INTUITION),
-							new ItemSprite(ItemSpriteSheet.READABLESCROLL_NORMAL)};
+							new ItemSprite(ItemSpriteSheet.SCROLL_TELEPORT)};
 					break;
 				case ROGUE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK),
 							new ItemSprite(ItemSpriteSheet.POTION_PARALYTICGAS),
-							new ItemSprite(ItemSpriteSheet.READABLESCROLL_NORMAL)};
+							new ItemSprite(ItemSpriteSheet.SCROLL_MIRRORIMAGE)};
 					break;
 				case HUNTRESS:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SPIRIT_BOW),
 							new ItemSprite(ItemSpriteSheet.KUNAI),
-							new ItemSprite(ItemSpriteSheet.READABLESCROLL_NORMAL)};
+							new ItemSprite(ItemSpriteSheet.SCROLL_DROWSINESS)};
 					break;
 				case DUELIST:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.RAPIER),
 							new ItemSprite(ItemSpriteSheet.WAR_HAMMER),
-							new ItemSprite(ItemSpriteSheet.READABLESCROLL_NORMAL)};
+							new ItemSprite(ItemSpriteSheet.SCROLL_TRANSMUTATION)};
 					break;
+
 			}
 			for (Image im : icons) {
 				add(im);
@@ -384,6 +403,11 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_NECROMANCY),
 							new ItemSprite(ItemSpriteSheet.HEROSPELL_UNDYING),
 							new ItemSprite(ItemSpriteSheet.HEROSPELL_OBELISK)};
+					break;
+				case PRIEST:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_PRAY),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_HOLY_WATER),
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_SUN)};
 					break;
 			}
 			for (Image im : icons) {

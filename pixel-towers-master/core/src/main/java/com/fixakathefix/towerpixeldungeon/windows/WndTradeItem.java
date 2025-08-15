@@ -61,6 +61,10 @@ public class WndTradeItem extends WndInfoItem {
 
 	private boolean selling = false;
 
+	private static int itemValue(Item item){
+		return Math.min(50 + Dungeon.depth*5, item.value());
+	}
+
 	//selling
 	public WndTradeItem( final Item item, WndBag owner ) {
 
@@ -74,7 +78,7 @@ public class WndTradeItem extends WndInfoItem {
 
 		if (item.quantity() == 1) {
 
-			RedButton btnSell = new RedButton( Messages.get(this, "sell", item.value()) ) {
+			RedButton btnSell = new RedButton( Messages.get(this, "sell", itemValue(item)) ) {
 				@Override
 				protected void onClick() {
 					sell( item );
@@ -89,7 +93,7 @@ public class WndTradeItem extends WndInfoItem {
 
 		} else {
 
-			int priceAll= item.value();
+			int priceAll= itemValue(item);
 			RedButton btnSell1 = new RedButton( Messages.get(this, "sell_1", priceAll / item.quantity()) ) {
 				@Override
 				protected void onClick() {
@@ -238,7 +242,7 @@ public class WndTradeItem extends WndInfoItem {
 		//selling items in the sell interface doesn't spend time
 		hero.spend(-hero.cooldown());
 
-		new Gold( item.value() ).doPickUp( hero );
+		new Gold( itemValue(item) ).doPickUp( hero );
 	}
 
 	public static void sellOne( Item item ) {
@@ -254,7 +258,7 @@ public class WndTradeItem extends WndInfoItem {
 			//selling items in the sell interface doesn't spend time
 			hero.spend(-hero.cooldown());
 
-			new Gold( item.value() ).doPickUp( hero );
+			new Gold( itemValue(item) ).doPickUp( hero );
 		}
 	}
 	

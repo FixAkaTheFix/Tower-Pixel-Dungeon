@@ -46,6 +46,6 @@ public class AbTrPlanB extends HeroSpell{
 
     @Override
     protected int castCooldown() {
-        return 40;
+        return 100;
     }
 }

@@ -12,6 +12,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Cripple;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.BlastParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SmokeParticle;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerCannon1Sprite;
@@ -53,7 +54,8 @@ public class TowerCannon1 extends TowerCShooting{
                 if (ch.alignment == this.alignment){
                     //friends receive 0 damage
                 } else {
-                    ch.damage (Math.round(damageRoll()*(ch.pos==cell ? 1 : damageExplosionMult)) - ch.drRoll(),this);
+                    int drroll = ch.buff(PotionOfCleansing.Cleanse.class)==null ? ch.drRoll() : 0;
+                    ch.damage (Math.round(damageRoll()*(ch.pos==cell ? 1 : damageExplosionMult)) - drroll,this);
                 };
             }
             if (level.heroFOV[cell2] && !level.cellAdjacentToBorderCells(cell2)) {

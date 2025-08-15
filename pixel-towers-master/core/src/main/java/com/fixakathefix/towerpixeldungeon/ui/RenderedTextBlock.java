@@ -61,6 +61,7 @@ public class RenderedTextBlock extends Component {
 
 	private int greyHightlightColor = 0xAAAAAA;
 	private int necroticgreenHightlightColor = 0x00dd11;
+	private int holyHightlightColor = 0xFFFFAA;
 	private boolean highlightingEnabled = true;
 
 	public static final int LEFT_ALIGN = 1;

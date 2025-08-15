@@ -300,6 +300,7 @@ public class Toolbar extends Component {
 					}
 				}
 			}
+
 			
 			@Override
 			public GameAction keyAction() {
@@ -684,8 +685,8 @@ public class Toolbar extends Component {
 		private static final int BGCOLOR = 0x7B8073;
 		
 		private Image base;
-		
-		public Tool( int x, int y, int width, int height ) {
+
+		public Tool(int x, int y, int width, int height ) {
 			super();
 
 			hotArea.blockLevel = PointerArea.ALWAYS_BLOCK;
@@ -732,7 +733,6 @@ public class Toolbar extends Component {
 				base.tint( BGCOLOR, 0.7f );
 			}
 		}
-		
 		public void enable( boolean value ) {
 			if (value != active) {
 				if (value) {

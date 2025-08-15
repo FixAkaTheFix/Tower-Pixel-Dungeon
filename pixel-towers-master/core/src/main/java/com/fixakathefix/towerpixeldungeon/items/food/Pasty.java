@@ -76,7 +76,7 @@ public class Pasty extends Food {
 	{
 		reset();
 
-		timeToEat = 40f;
+		timeToEat = 25f;
 
 		healingPercentage = 0.7f;
 

@@ -57,6 +57,7 @@ public enum Icons {
 	DUELIST,
 	FIX,
 	NECROHERO,
+	PRIEST,
 	TANK,
 
 	//grey icons, mainly used for buttons, spacing for 16x16
@@ -243,6 +244,9 @@ public enum Icons {
 				break;
 			case TANK:
 				icon.frame( icon.texture.uvRectBySize( 126, 16, 11, 12 ) );
+				break;
+			case PRIEST:
+				icon.frame( icon.texture.uvRectBySize( 137, 16, 11, 11 ) );
 				break;
 			case EXIT:
 				icon.frame( icon.texture.uvRectBySize( 0, 32, 15, 11 ) );

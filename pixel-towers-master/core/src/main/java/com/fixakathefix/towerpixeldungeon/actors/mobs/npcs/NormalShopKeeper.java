@@ -34,6 +34,7 @@ import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.LiquidMetal;
 import com.fixakathefix.towerpixeldungeon.items.Stylus;
 import com.fixakathefix.towerpixeldungeon.items.Torch;
+import com.fixakathefix.towerpixeldungeon.items.armor.Armor;
 import com.fixakathefix.towerpixeldungeon.items.food.Berry;
 import com.fixakathefix.towerpixeldungeon.items.food.MeatPie;
 import com.fixakathefix.towerpixeldungeon.items.potions.AlchemicalCatalyst;
@@ -61,14 +62,17 @@ import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerTotemHealin
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerTotemNecrotic;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerTotemShield;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.fixakathefix.towerpixeldungeon.journal.Notes;
 import com.fixakathefix.towerpixeldungeon.levels.Arena7;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.Sungrass;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.fixakathefix.towerpixeldungeon.ui.towerlist.TowerInfo;
+import com.fixakathefix.towerpixeldungeon.windows.WndBag;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
+import com.fixakathefix.towerpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -196,25 +200,53 @@ public class NormalShopKeeper extends NewShopKeeper {
                 Generator.randomUsingDefaults(Generator.Category.ARTIFACT)
 
         );
+
     }
 
 
+    public static WndBag sell() {
+        return GameScene.selectItem( itemSelector );
+    }
+
+    public static boolean canSell(Item item){
+        if (item.value() <= 0)                                              return false;
+        if (item.unique && !item.stackable)                                 return false;
+        if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
+        if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
+        return true;
+    }
+    public static WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+
+        @Override
+        public String textPrompt() {
+            return Messages.get(Shopkeeper.class, "sell");
+        }
+
+        @Override
+        public boolean itemSelectable(Item item) {
+            return canSell(item);
+        }
+
+        @Override
+        public void onSelect( Item item ) {
+            if (item != null) {
+                WndBag parentWnd = sell();
+                GameScene.show( new WndTradeItem( item, parentWnd ) );
+            }
+        }
+    };
+
     @Override
     public boolean interact(Char c) {
-        if (c == Dungeon.hero) {
-            Game.runOnRenderThread(new Callback() {
-                @Override
-                public void call() {
-                    GameScene.show(new WndDialogueWithPic(sprite(), "Shopkeeper",
-                            new String[]{
-                                    Messages.get(NormalShopKeeper.class, "line1"),
-                                    Messages.get(NormalShopKeeper.class, "line2"),
-                                    Messages.get(NormalShopKeeper.class, "line3"),
-                            }
-                    ));
-                }
-            });
+        if (c != Dungeon.hero) {
+            return true;
         }
+        Game.runOnRenderThread(new Callback() {
+            @Override
+            public void call() {
+                sell();
+            }
+        });
         return true;
     }
 

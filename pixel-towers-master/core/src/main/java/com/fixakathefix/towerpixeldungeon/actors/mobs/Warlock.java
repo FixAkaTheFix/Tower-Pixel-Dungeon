@@ -35,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
@@ -86,7 +87,7 @@ public class Warlock extends Mob implements Callback {
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return super.canAttack(enemy)
-				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+				|| (new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos && buff(PotionOfCleansing.Cleanse.class)==null);
 	}
 
 	@Override

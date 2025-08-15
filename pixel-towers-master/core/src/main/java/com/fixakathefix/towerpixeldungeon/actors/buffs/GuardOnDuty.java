@@ -22,22 +22,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.fixakathefix.towerpixeldungeon.items.food;
+package com.fixakathefix.towerpixeldungeon.actors.buffs;
 
-import com.fixakathefix.towerpixeldungeon.actors.buffs.Hunger;
-import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
+import com.fixakathefix.towerpixeldungeon.ui.BuffIndicator;
 
-public class SmallRation extends Food {
+public class GuardOnDuty extends FlavourBuff {
 
 	{
-		image = ItemSpriteSheet.OVERPRICED;
-		energy = Hunger.HUNGRY/2f;
-		timeToEat = 10f;
-		healingPercentage = 0.2f;
+		type = buffType.NEUTRAL;
 	}
 	
 	@Override
-	public int value() {
-		return 10 * quantity;
+	public int icon() {
+		return BuffIndicator.GUARDONDUTY;
 	}
 }
