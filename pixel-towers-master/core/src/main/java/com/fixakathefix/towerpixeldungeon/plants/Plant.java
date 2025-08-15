@@ -37,6 +37,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.LeafParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.items.food.Blandfruit;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.journal.Bestiary;
 import com.fixakathefix.towerpixeldungeon.levels.Level;
@@ -74,7 +75,7 @@ public abstract class Plant implements Bundlable {
 			Buff.affect(Dungeon.hero, Barkskin.class).set(2, 1 + 2*(Dungeon.hero.pointsInTalent(Talent.NATURES_AID)));
 		}
 
-		if (this instanceof WandOfRegrowth.Dewcatcher || this instanceof WandOfRegrowth.Seedpod) {
+		if (this instanceof WandOfRegrowth.Dewcatcher || this instanceof WandOfRegrowth.Seedpod || this instanceof BlandfruitBush) {
 			wither();
 		} else if (Math.random()>0.75) wither();//25 percent chance to wither
 		activate( ch );

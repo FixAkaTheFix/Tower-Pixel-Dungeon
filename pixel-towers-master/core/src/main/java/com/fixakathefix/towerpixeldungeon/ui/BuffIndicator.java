@@ -149,6 +149,7 @@ public class BuffIndicator extends Component {
 	public static final int OVERCHARGE     = 117;
 	public static final int NULLIFIED     = 118;
 	public static final int GUARDONDUTY    = 119;
+	public static final int HIGHLIGHTED    = 120;
 
 
 	public static final int SIZE_SMALL  = 7;

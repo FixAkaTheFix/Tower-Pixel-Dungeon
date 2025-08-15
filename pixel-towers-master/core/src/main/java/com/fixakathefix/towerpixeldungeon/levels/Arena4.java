@@ -3,6 +3,8 @@ package com.fixakathefix.towerpixeldungeon.levels;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Highlighted;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Crab;
@@ -21,7 +23,10 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.fixakathefix.towerpixeldungeon.effects.Ripple;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
+import com.fixakathefix.towerpixeldungeon.items.Gold;
+import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
+import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfRatLegion;
@@ -53,7 +58,7 @@ import java.util.ArrayList;
 
 public class Arena4 extends Arena {
     /**
-     * Introduces portals, in a manner that allows for killing them easy (summons snek).
+     * Introduces portals and monster lairs, in a manner that allows for killing them easy (summons snek).
      * Introduces a new tower: cannon, after that the tower menu is unlocked, with 2 towers appearing: Rat camp and Cannon
      */
 
@@ -331,6 +336,26 @@ public class Arena4 extends Arena {
                 m+=WIDTH*6+Random.Int(1,36);
             }
         }
+        int crabpoint = WIDTH* 30 + 4;
+        ArrayList<Integer> cells = new ArrayList<>();
+        for (int i : PathFinder.NEIGHBOURS25){
+            cells.add(crabpoint + i);
+        }
+        for (int i = 0;i < 4; i++) {
+            HermitCrab hermit = new HermitCrab();
+            int cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            hermit.pos = cell;
+            hermit.mapGuard = true;
+            hermit.state = hermit.HUNTING;
+            Buff.affect(hermit, Highlighted.class, 10000);
+            GameScene.add(hermit);
+            int chestcell = Random.element(cells);
+            Dungeon.level.drop(new Gold(Random.Int(100, 200)), chestcell).type = Heap.Type.CHEST;
+            Dungeon.level.drop(new ElixirOfAquaticRejuvenation(), chestcell).type = Heap.Type.CHEST;
+
+        }
+
 
         TowerCrossbow1 tower1 = new TowerCrossbow1();
         tower1.pos = amuletCell+1;
@@ -345,7 +370,7 @@ public class Arena4 extends Arena {
 
     @Override
     public void doStuffEndwave(int wave) {
-        int goldAdd = 110;
+        int goldAdd = 100;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);

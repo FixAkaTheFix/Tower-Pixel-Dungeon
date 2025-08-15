@@ -39,7 +39,7 @@ public abstract class HeroSpell extends Item {
 
         if (wep != null) finalCooldown *=
                 wep.spellCooldownModifier*(Math.max(0.7, (10 - Math.sqrt(level()))/10));
-        if (!DeviceCompat.isDebug()) Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
+        Buff.affect(Dungeon.hero, AbilityCooldown.class, finalCooldown);
     }
 
     public static final String AC_CAST		= "CAST";

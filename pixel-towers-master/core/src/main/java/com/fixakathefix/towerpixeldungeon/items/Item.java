@@ -580,6 +580,9 @@ public class Item implements Bundlable {
 	public String status() {
 		return quantity != 1 ? Integer.toString( quantity ) : null;
 	}
+	public String substatus() {
+		return null;
+	}
 
 	public static void updateQuickslot() {
 		GameScene.updateItemDisplays = true;

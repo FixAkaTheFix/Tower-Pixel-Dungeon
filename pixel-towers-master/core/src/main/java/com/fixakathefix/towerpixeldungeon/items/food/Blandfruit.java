@@ -27,6 +27,7 @@ package com.fixakathefix.towerpixeldungeon.items.food;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Hunger;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
+import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.Recipe;
 import com.fixakathefix.towerpixeldungeon.items.potions.Potion;
@@ -84,6 +85,12 @@ public class Blandfruit extends Food {
 			}
 		}
 		return false;
+	}
+
+	public static Blandfruit randomFruit(){
+		Blandfruit blandfruit = new Blandfruit();
+		blandfruit.potionAttrib = (Potion) Generator.random(Generator.Category.POTION);
+		return blandfruit;
 	}
 
 	@Override

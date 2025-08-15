@@ -29,6 +29,7 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.armor.Armor;
+import com.fixakathefix.towerpixeldungeon.items.food.Food;
 import com.fixakathefix.towerpixeldungeon.items.rings.Ring;
 import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.items.weapon.Weapon;
@@ -44,6 +45,7 @@ import com.watabou.utils.Rect;
 public class ItemSlot extends Button {
 
 	public static final int DEGRADED	= 0xFF4444;
+	public static final int HEALING	    = 0xFF9999;
 	public static final int UPGRADED	= 0x44FF44;
 	public static final int FADED       = 0x999999;
 	public static final int WARNING		= 0xFF8800;
@@ -59,6 +61,7 @@ public class ItemSlot extends Button {
 	protected ItemSprite sprite;
 	protected Item       item;
 	protected BitmapText status;
+	protected BitmapText substatus;
 	protected BitmapText extra;
 	protected Image      itemIcon;
 	protected BitmapText level;
@@ -115,6 +118,9 @@ public class ItemSlot extends Button {
 		
 		status = new BitmapText( PixelScene.pixelFont);
 		add(status);
+
+		substatus = new BitmapText( PixelScene.pixelFont);
+		add(substatus);
 		
 		extra = new BitmapText( PixelScene.pixelFont);
 		add(extra);
@@ -142,7 +148,17 @@ public class ItemSlot extends Button {
 			status.y = y + margin.top;
 			PixelScene.align(status);
 		}
-		
+		if (substatus != null) {
+			substatus.measure();
+			if (substatus.width > width - (margin.left + margin.right)){
+				substatus.scale.set(PixelScene.align(0.8f));
+			} else {
+				substatus.scale.set(1f);
+			}
+			substatus.x = x + width - margin.right - substatus.width;
+			substatus.y = y + height - margin.bottom - substatus.height;
+			PixelScene.align(substatus);
+		}
 		if (extra != null) {
 			extra.x = x + (width - extra.width()) - margin.right;
 			extra.y = y + margin.top;
@@ -174,6 +190,7 @@ public class ItemSlot extends Button {
 		if (sprite != null)     sprite.alpha(value);
 		if (extra != null)      extra.alpha(value);
 		if (status != null)     status.alpha(value);
+		if (substatus != null)  substatus.alpha(value);
 		if (itemIcon != null)   itemIcon.alpha(value);
 		if (level != null)      level.alpha(value);
 	}
@@ -222,13 +239,14 @@ public class ItemSlot extends Button {
 		}
 
 		if (item == null){
-			status.visible = extra.visible = level.visible = false;
+			status.visible = substatus.visible = extra.visible = level.visible = false;
 			return;
 		} else {
-			status.visible = extra.visible = level.visible = true;
+			status.visible = substatus.visible = extra.visible = level.visible = true;
 		}
 
 		status.text( item.status() );
+		substatus.text( item.substatus() );
 
 		//thrown weapons on their last use show quantity in orange, unless they are single-use
 		if (item instanceof MissileWeapon
@@ -237,6 +255,11 @@ public class ItemSlot extends Button {
 			status.hardlight(WARNING);
 		} else {
 			status.resetColor();
+		}
+		if (item instanceof Food){
+			substatus.hardlight(HEALING);
+		} else {
+			substatus.resetColor();
 		}
 
 		if (item.icon != -1 && (item.isIdentified() || (item instanceof Ring && ((Ring) item).isKnown()))){
@@ -308,6 +331,7 @@ public class ItemSlot extends Button {
 		float alpha = value ? ENABLED : DISABLED;
 		sprite.alpha( alpha );
 		status.alpha( alpha );
+		substatus.alpha( alpha );
 		extra.alpha( alpha );
 		level.alpha( alpha );
 		if (itemIcon != null) itemIcon.alpha( alpha );

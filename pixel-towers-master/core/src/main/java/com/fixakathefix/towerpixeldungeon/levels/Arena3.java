@@ -2,6 +2,7 @@ package com.fixakathefix.towerpixeldungeon.levels;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.ArmoredBrute;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Brute;
@@ -402,11 +403,24 @@ public class Arena3 extends Arena {
                             WndDialogueWithPic.IDLE,
                     });
         }
+        if (wave == 5){
+            WndDialogueWithPic.dialogue(new BossRatKingSprite(), Messages.get(BossRatKing.class, "name"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l3w5start1"),
+                            Messages.get(RatKing.class, "l3w5start2"),
+                            Messages.get(RatKing.class, "l3w5start3"),
+                            Messages.get(RatKing.class, "l3w5start4")
+
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                    });
+        }
     }
 
     @Override
     public void doStuffEndwave(int wave) {
-        int goldAdd = 120 + wave*15;
+        int goldAdd = 120 + wave*10;
         Dungeon.gold+=goldAdd;
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
@@ -462,7 +476,7 @@ public class Arena3 extends Arena {
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(new Honeypot(),Random.element(candidates));
             this.drop(new Honeypot(),Random.element(candidates));
-            this.drop(new Blandfruit(),Random.element(candidates));
+            this.drop(Blandfruit.randomFruit(),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
             this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));
@@ -496,11 +510,21 @@ public class Arena3 extends Arena {
         this.drop(new ThrowingStone(),Random.element(candidates));
 
 
-        for (int m = WIDTH*15 + WIDTH/2; m<WIDTH*HEIGHT- 7*WIDTH;m++){
+        for (int m = WIDTH*20 + WIDTH/2; m<WIDTH*HEIGHT- 7*WIDTH;m++){
             if (this.map[m]==Terrain.EMPTY_SP) {
                 GnollGuard goll = new GnollGuard();
                 goll.mapGuard = true;
                 goll.pos = m;
+                GameScene.add(goll);
+                m+=(WIDTH+30);
+            }
+        }
+        for (int m = WIDTH*50; m<WIDTH*HEIGHT- 7*WIDTH;m++){
+            if (this.map[m]==Terrain.EMPTY_SP && Char.findChar(m)==null) {
+                GnollGuard goll = new GnollGuard();
+                goll.mapGuard = true;
+                goll.pos = m;
+                goll.state = goll.HUNTING;
                 GameScene.add(goll);
                 m+=(WIDTH+30);
             }

@@ -39,6 +39,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Awareness;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Blindness;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Highlighted;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.LockedFloor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MagicalSight;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MindVision;
@@ -1341,7 +1342,7 @@ public abstract class Level implements Bundlable {
 			Dungeon.hero.mindVisionEnemies.clear();
 
 			for (Mob mob : mobs)
-				if (mob instanceof EnemyPortal || mob instanceof CampRatLeader || mob instanceof TowerRoseBush.GhostHero || mob instanceof BossOoze) {
+				if (mob instanceof EnemyPortal || mob instanceof CampRatLeader || mob instanceof TowerRoseBush.GhostHero || mob instanceof BossOoze || mob.buff(Highlighted.class)!= null) {
 				for (int i : PathFinder.NEIGHBOURS9) if (mob.pos+i>0 && mob.pos + i<width()*height()) {
 					heroMindFov[mob.pos + i] = true;
 				}

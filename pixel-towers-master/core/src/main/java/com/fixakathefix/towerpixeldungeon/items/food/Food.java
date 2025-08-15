@@ -156,7 +156,7 @@ public class Food extends Item {
 	}
 
 	@Override
-	public String status() {
+	public String substatus() {
 		return Math.round(healingPercentage*100) + "%";
 	}
 }

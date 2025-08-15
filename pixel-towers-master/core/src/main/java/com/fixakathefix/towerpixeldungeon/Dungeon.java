@@ -29,6 +29,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Amok;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Awareness;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Highlighted;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Light;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MagicalSight;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.MindVision;
@@ -895,7 +896,8 @@ public class Dungeon {
 				m instanceof EnemyPortal ||
 				m instanceof CampRatLeader ||
 				m instanceof TowerRoseBush.GhostHero ||
-				m instanceof BossOoze) if (m.pos >0) {
+				m instanceof BossOoze ||
+		m.buff(Highlighted.class)!=null) if (m.pos >0) {
 			BArray.or( level.visited, level.heroFOV, m.pos - 1 - level.width(), 3, level.visited );
 			BArray.or( level.visited, level.heroFOV, m.pos - 1, 3, level.visited );
 			BArray.or( level.visited, level.heroFOV, m.pos - 1 + level.width(), 3, level.visited );

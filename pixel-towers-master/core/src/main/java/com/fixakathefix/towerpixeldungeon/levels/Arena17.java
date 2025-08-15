@@ -307,6 +307,21 @@ public class Arena17 extends Arena {
                     new byte[]{
                             WndDialogueWithPic.IDLE
                     });
+            WndDialogueWithPic.dialogue(sprite, "#???#",
+                    new String[]{
+                            Messages.get(RatKing.class, "legion"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+            WndDialogueWithPic.dialogue(sprite, "#???#",
+                    new String[]{
+                            Messages.get(RatKing.class, "legion"),
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+
 
         }
 

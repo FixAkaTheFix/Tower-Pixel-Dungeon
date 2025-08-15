@@ -15,7 +15,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 
 public class AbTrGreatWall extends HeroSpell{
-    private static final int TURNS_ADDED_PER_WALL = 40;
+    private static final int TURNS_ADDED_PER_WALL = 10;
 
     {
         image = ItemSpriteSheet.HEROSPELL_TR_WALL;
@@ -49,6 +49,6 @@ public class AbTrGreatWall extends HeroSpell{
             }
         } catch (NullPointerException ignored) {
         }
-        return 200 + addturns;
+        return 100 + addturns;
     }
 }
