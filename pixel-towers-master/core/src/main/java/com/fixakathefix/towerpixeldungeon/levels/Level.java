@@ -926,7 +926,15 @@ public abstract class Level implements Bundlable {
 			}
 		}
 	}
-	
+
+	public void dropMany(ArrayList<Integer> candidates, Item... items ) {
+		dropMany(Heap.Type.HEAP, candidates, items);
+	}
+	public void dropMany(Heap.Type heaptype, ArrayList<Integer> candidates, Item... items ) {
+		if (!candidates.isEmpty()) for (Item item : items){
+			drop(item, Random.element(candidates)).type = heaptype;
+		}
+	}
 	public Heap drop( Item item, int cell ) {
 
 		if (item == null || Challenges.isItemBlocked(item)){

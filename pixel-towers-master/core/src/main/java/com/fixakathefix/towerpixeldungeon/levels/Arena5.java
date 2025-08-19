@@ -6,8 +6,10 @@ import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.FireImbue;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Highlighted;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveBuff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Albino;
@@ -15,6 +17,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Crab;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Gnoll;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.GnollGuard;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.GnollThrower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.GnollTrickster;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Goo;
@@ -35,6 +38,7 @@ import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Gold;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
+import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.RoseSeed;
 import com.fixakathefix.towerpixeldungeon.items.bombs.Firebomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.ShockBomb;
@@ -48,6 +52,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticR
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfDragonsBlood;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfDragonsBreath;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.fixakathefix.towerpixeldungeon.items.quest.CorpseDust;
 import com.fixakathefix.towerpixeldungeon.items.quest.CorruptedOoze;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAntiMagic;
@@ -107,6 +112,10 @@ public class Arena5 extends Arena{
         waveCooldownBoss = 300;
         waveCooldownNormal = 5;
     }
+
+     final int gnollPoint = amuletCell + 29 - WIDTH*25;
+    final int slimePoint = amuletCell + 35 + WIDTH*25;
+    final int crabPoint = amuletCell - 15  + WIDTH*15;
 
 
     @Override
@@ -365,68 +374,155 @@ public class Arena5 extends Arena{
 
     @Override
     public void addDestinations() {
+
+        ArrayList<Integer> cells = new ArrayList<>();
+        for (int i : PathFinder.NEIGHBOURS25) if (level.passable[gnollPoint+i] && Char.findChar(gnollPoint+i)==null){
+            cells.add(gnollPoint + i );
+        }
+        for (int i = 0;i < 4; i++) {
+            Gnoll goll = new Gnoll();
+            int cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            goll.pos = cell;
+            goll.mapGuard = true;
+            goll.state = goll.HUNTING;
+            GameScene.add(goll);
+
+            GnollThrower goll2 = new GnollThrower();
+            int cell2 = Random.element(cells);
+            cells.remove((Integer) cell2);
+            goll2.pos = cell2;
+            goll2.mapGuard = true;
+            goll2.state = goll2.HUNTING;
+            GameScene.add(goll2);
+
+            GnollGuard goll3 = new GnollGuard();
+            int cell3 = Random.element(cells);
+            cells.remove((Integer) cell3);
+            goll3.pos = cell3;
+            goll3.mapGuard = true;
+            goll3.state = goll3.HUNTING;
+            GameScene.add(goll3);
+            int chestcell = Random.element(cells);
+            Dungeon.level.drop(new Gold(Random.Int(200, 300)), chestcell).type = Heap.Type.CHEST;
+            cells.remove((Integer) chestcell);
+        }
+        cells = new ArrayList<>();
+        for (int i : PathFinder.NEIGHBOURS25) if (level.passable[slimePoint+i] && Char.findChar(slimePoint+i)==null) {
+            cells.add(slimePoint + i );
+        }
+        for (int i = 0;i < 6; i++) if (!cells.isEmpty()) {
+            CausticSlime slime = new CausticSlime();
+            int cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            slime.pos = cell;
+            slime.mapGuard = true;
+            slime.state = slime.HUNTING;
+            GameScene.add(slime);
+            CausticSlime slime2 = new CausticSlime();
+            cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            slime2.pos = cell;
+            slime2.mapGuard = true;
+            slime2.state = slime2.HUNTING;
+            GameScene.add(slime2);
+            int chestcell = Random.element(cells);
+            Dungeon.level.drop(Generator.random(Generator.Category.WEAPON), chestcell).type = Heap.Type.SKELETON;
+            cells.remove((Integer) chestcell);
+        }
+        cells = new ArrayList<>();
+        for (int i : PathFinder.NEIGHBOURS25) if (level.passable[crabPoint+i] && Char.findChar(crabPoint+i)==null) {
+            cells.add(crabPoint + i );
+        }
+        for (int i : PathFinder.NEIGHBOURS25) if (level.passable[crabPoint+i- 7 + WIDTH*5] && Char.findChar(crabPoint+i- 7 + WIDTH*5)==null) {
+            cells.add(crabPoint + i - 7 + WIDTH*5);
+        }
+        for (int i = 0;i < 10; i++) if (!cells.isEmpty()) {
+            HermitCrab hermitCrab = new HermitCrab();
+            int cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            hermitCrab.pos = cell;
+            hermitCrab.mapGuard = true;
+            hermitCrab.state = hermitCrab.HUNTING;
+            GameScene.add(hermitCrab);
+        }
+
+        this.drop(new CeremonialCandle(),amuletCell + 5 - WIDTH*10);
+        this.drop(new CeremonialCandle(),amuletCell + 4 - WIDTH*9);
+        this.drop(new CeremonialCandle(),amuletCell + 5 - WIDTH*8);
+        this.drop(new CeremonialCandle(),amuletCell + 6 - WIDTH*8);
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++) if (m<1300||m>3700){
             if (this.passable[m] && !cellAdjacentToBorderCells(m) && distance(amuletCell,m) > 15) candidates.add(m);
         }
         for (int i = 0; i < 20; i ++){
-            this.drop(new Gold(Random.Int(50, 100)),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL2),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+            this.dropMany(candidates,
+                    new Gold(Random.Int(50, 100)),
+                    Generator.random(Generator.Category.SCROLL2),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.STONE)
+                    );
         }
 
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
 
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLevitation(),Random.element(candidates));
-        this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
-        this.drop(new Starflower.Seed(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
+        this.dropMany(candidates,
+                new PotionOfHealing(),
+                new PotionOfHealing(),
+                new PotionOfHealing(),
+                new PotionOfHealing(),
+                new PotionOfHealing(),
+                new PotionOfLevitation(),
+                new ElixirOfAquaticRejuvenation(),
+                new Starflower.Seed(),
+                new ElixirOfToxicEssence(),
+                new IronKey(arenaDepth),
+                new IronKey(arenaDepth),
+                Generator.random(Generator.Category.MIS_T3)
+                );
 
-        this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
-        this.drop(new IronKey(arenaDepth),Random.element(candidates));
-        this.drop(new IronKey(arenaDepth),Random.element(candidates));
+
+
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.map[m] == Terrain.EMPTY_SP  && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new Firebomb(),Random.element(candidates));
-        this.drop(new Firebomb(),Random.element(candidates));
-        this.drop(new ElixirOfDragonsBlood(),Random.element(candidates));
-        this.drop(new ElixirOfDragonsBlood(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new Firebomb(),Random.element(candidates));
-        this.drop(new ShockBomb(),Random.element(candidates));
-        this.drop(new ElixirOfDragonsBlood(),Random.element(candidates));
-        this.drop(new PotionOfDragonsBreath(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T1).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T2).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T3).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T4).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEP_T5).identify(),Random.element(candidates)).type = Heap.Type.CHEST;
-        candidates.clear();
 
+
+        dropMany(candidates,
+                new PotionOfLiquidFlame(),
+                new PotionOfLiquidFlame(),
+                new PotionOfLiquidFlame(),
+                new PotionOfLiquidFlame(),
+                new Firebomb(),
+                new Firebomb(),
+                new ElixirOfDragonsBlood(),
+                new ElixirOfDragonsBlood(),
+                new PotionOfLiquidFlame(),
+                new Firebomb(),
+                new ShockBomb(),
+                new ElixirOfDragonsBlood(),
+                new PotionOfDragonsBreath()
+                );
+        dropMany(Heap.Type.CHEST, candidates,
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T4),
+                Generator.random(Generator.Category.MIS_T5),
+                Generator.random(Generator.Category.MIS_T4),
+                Generator.random(Generator.Category.ARMOR).identify(),
+                Generator.random(Generator.Category.ARMOR).identify(),
+                Generator.random(Generator.Category.ARMOR).identify(),
+                Generator.random(Generator.Category.ARMOR).identify(),
+                Generator.random(Generator.Category.WEP_T1).identify(),
+                Generator.random(Generator.Category.WEP_T2).identify(),
+                Generator.random(Generator.Category.WEP_T3).identify(),
+                Generator.random(Generator.Category.WEP_T4).identify(),
+                Generator.random(Generator.Category.WEP_T5).identify());
+        candidates.clear();
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.map[m] == Terrain.HIGH_GRASS  && !cellAdjacentToBorderCells(m)) candidates.add(m);
@@ -442,26 +538,32 @@ public class Arena5 extends Arena{
                 if (this.map[m] == Terrain.WATER && distance(amuletCell, m) > 20 && !cellAdjacentToBorderCells(m))
                     candidates.add(m);
             }
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(new CorruptedOoze(), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(new CorpseDust(), Random.element(candidates)).type = Heap.Type.SKELETON;
-            this.drop(new CausticBrew(), Random.element(candidates));
-            this.drop(new CausticBrew(), Random.element(candidates));
-            this.drop(new CausticBrew(), Random.element(candidates));
-            this.drop(new PotionOfToxicGas(), Random.element(candidates));
-            this.drop(new PotionOfToxicGas(), Random.element(candidates));
-            this.drop(new ElixirOfToxicEssence(), Random.element(candidates));
-            this.drop(new PotionOfToxicGas(), Random.element(candidates));
-            this.drop(new PotionOfToxicGas(), Random.element(candidates));
-            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
-            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
-            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
-            this.drop(new ElixirOfAquaticRejuvenation(),Random.element(candidates));
+
+            this.dropMany(candidates,
+                    new CausticBrew(),
+                    new CausticBrew(),
+                    new CausticBrew(),
+                    new PotionOfToxicGas(),
+                    new PotionOfToxicGas(),
+                    new ElixirOfToxicEssence(),
+                    new PotionOfToxicGas(),
+                    new PotionOfToxicGas(),
+                    new ElixirOfAquaticRejuvenation(),
+                    new ElixirOfAquaticRejuvenation(),
+                    new ElixirOfAquaticRejuvenation(),
+                    new ElixirOfAquaticRejuvenation()
+                    );
+            this.dropMany(Heap.Type.SKELETON, candidates,
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    new CorruptedOoze(),
+                    new CorpseDust()
+            );
+
             candidates.clear();
         }
         super.addDestinations();

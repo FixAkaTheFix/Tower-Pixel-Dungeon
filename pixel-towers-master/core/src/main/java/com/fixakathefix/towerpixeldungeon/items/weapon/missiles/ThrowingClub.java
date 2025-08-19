@@ -25,6 +25,9 @@
 package com.fixakathefix.towerpixeldungeon.items.weapon.missiles;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave;
+import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 
 public class ThrowingClub extends MissileWeapon {
@@ -38,10 +41,18 @@ public class ThrowingClub extends MissileWeapon {
 		baseUses = 15;
 		sticky = false;
 	}
-	
+
+	@Override
+	public int min(int lvl) {
+		return  3 * tier +
+				3*lvl;
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  4 * tier +                  //8 base, down from 10
-				(tier) * lvl;               //scaling unchanged
+		return  6 * tier +
+				tier*3*lvl;
 	}
+
+
 }

@@ -26,15 +26,15 @@ package com.fixakathefix.towerpixeldungeon.items.weapon.missiles;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
-import com.fixakathefix.towerpixeldungeon.actors.buffs.Bleeding;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.SoulBleeding;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Tomahawk extends MissileWeapon {
+public class BloodReaper extends MissileWeapon {
 
 	{
-		image = ItemSpriteSheet.TOMAHAWK;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		image = ItemSpriteSheet.BLOODREAPER;
+		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 0.9f;
 
 		tier = 4;
@@ -43,19 +43,20 @@ public class Tomahawk extends MissileWeapon {
 
 	@Override
 	public int min(int lvl) {
-		return  Math.round(1.5f * tier) +   //6 base, down from 8
-				2 * lvl;                    //scaling unchanged
+		return  Math.round(1.5f * tier) +
+				2 * lvl;
 	}
 	
 	@Override
 	public int max(int lvl) {
-		return  Math.round(3.75f * tier) +  //15 base, down from 20
-				(tier)*lvl;                 //scaling unchanged
+		return  Math.round(3.75f * tier) +
+				(tier)*lvl;
 	}
-	
+
 	@Override
-	public int proc( Char attacker, Char defender, int damage ) {
-		Buff.affect( defender, Bleeding.class ).set( Math.round(damage*0.6f) );
-		return super.proc( attacker, defender, damage );
+	protected void onThrow(int cell) {
+		Char defender = Char.findChar(cell);
+		if (defender!= null) Buff.affect( defender, SoulBleeding.class ).prolong(max() * 2);
+		super.onThrow(cell);
 	}
 }

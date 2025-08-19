@@ -24,16 +24,33 @@
 
 package com.fixakathefix.towerpixeldungeon.items;
 
+import com.badlogic.gdx.utils.Timer;
+import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
+import com.fixakathefix.towerpixeldungeon.effects.particles.ShaftParticle;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
+import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.AmuletScene;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
+import com.fixakathefix.towerpixeldungeon.scenes.TitleScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Amulet extends Item {
 	
@@ -65,6 +82,44 @@ public class Amulet extends Item {
 			showAmuletScene( false );
 		}
 	}*/
+
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			Timer timer = new Timer();
+			timer.scheduleTask(new Timer.Task() {
+				@Override
+				public void run() {
+					WndDialogueWithPic.dialogue(
+							Dungeon.hero.sprite,
+							"#1ERROR 3209434023840283402830948230984092894802398402834082038402834029834028#1",
+							new String[]{"?"});
+				}
+			}, 3, 0.2f, 20);
+			timer.scheduleTask(new Timer.Task() {
+				@Override
+				public void run() {
+					Camera.main.shake(2f, 10f);
+					Sample.INSTANCE.play(Assets.Sounds.HEALTH_CRITICAL);
+				}
+			}, 5, 0.2f, 10);
+			timer.scheduleTask(new Timer.Task() {
+				@Override
+				public void run() {
+					Dungeon.hero.die(Arena.AmuletTower.class);
+				}
+			}, 7);
+			timer.scheduleTask(new Timer.Task() {
+				@Override
+				public void run() {
+					Dungeon.fail(CeremonialCandle.class);
+					ShatteredPixelDungeon.switchScene(TitleScene.class);
+				}
+			}, 8);
+			return;
+		}
+		super.onThrow(cell);
+	}
 	
 	private void showAmuletScene( boolean showText ) {
 		AmuletScene.noText = !showText;

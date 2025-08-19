@@ -11,6 +11,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Shaman;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Skeleton;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.SkeletonArmored;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.SkeletonArmoredShielded;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.SpectralNecromancer;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Swarm;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
@@ -25,6 +26,7 @@ import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
 import com.fixakathefix.towerpixeldungeon.levels.rooms.special.MassGraveRoom;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.BossNecromancerSprite;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
@@ -214,12 +216,6 @@ public class Arena8 extends Arena{
         Painter.fillEllipse(this,70,caveY,7,19,Terrain.WALL);
         Painter.fill(this,71,caveY+4,3,9,Terrain.EMPTY);
 
-
-
-
-
-
-
         LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
         transitions.add(exit);
 
@@ -309,15 +305,34 @@ public class Arena8 extends Arena{
             if (Math.random()>0.8) {
                 if (this.map[cell]==Terrain.GRASS) this.map[cell]=Terrain.HIGH_GRASS;
             }
-
         }
+        ArrayList<Integer> necrocells = new ArrayList<>();
+        for (int x = 0; x < WIDTH; x ++) for (int y = 0; y < HEIGHT; y++){
+            int cell = x + WIDTH*y;
+            if (level.passable[cell] && !cellAdjacentToBorderCells(cell) && level.distance(amuletCell,cell)>30){
+                necrocells.add(cell);
+            }
+        }
+        for (int i = 0; i < 15; i++) {
+            createMapGuard(necrocells, new Necromancer());
+        }
+        for (int i = 0; i < 40; i++) {
+            createMapGuard(necrocells, new Skeleton());
+        }
+        for (int i = 0; i < 3; i++) {
+            createMapGuard(necrocells, new SpectralNecromancer());
+        }
+        for (int i = 0; i < 2; i++) {
+            createMapGuard(necrocells, new SkeletonArmoredShielded());
+        }
+
         MassGraveRoom.Bones b = new MassGraveRoom.Bones();
 
         b.setRect(71, caveY+3, 3, 10);
         level.customTiles.add(b);
 
         DarksteelSaber lostsword = new DarksteelSaber();
-        lostsword.upgrade(1);
+        lostsword.upgrade(2);
         lostsword.curseInfusionBonus = true;
         lostsword.enchant(Weapon.Enchantment.randomCurse());
         lostsword.cursed = true;
@@ -336,7 +351,7 @@ public class Arena8 extends Arena{
     public void doStuffStartwave(int wave) {
 
         if (wave == 1){
-            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), Messages.get(BossNecromancer.class, "name"),
                     new String[]{
                             Messages.get(BossNecromancer.class, "start1"),
                             Messages.get(BossNecromancer.class, "start2"),
@@ -347,7 +362,7 @@ public class Arena8 extends Arena{
         }
 
         if (wave == 10){
-            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), Messages.get(BossNecromancer.class, "name"),
                     new String[]{
                             Messages.get(BossNecromancer.class, "mid1"),
                             Messages.get(BossNecromancer.class, "mid1"),
@@ -358,7 +373,7 @@ public class Arena8 extends Arena{
         }
 
         if (wave == maxWaves){
-            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), "Remac",
+            WndDialogueWithPic.dialogue(new BossNecromancerSprite(), Messages.get(BossNecromancer.class, "name"),
                     new String[]{
                             Messages.get(BossNecromancer.class, "engage1"),
                             Messages.get(BossNecromancer.class, "engage2"),

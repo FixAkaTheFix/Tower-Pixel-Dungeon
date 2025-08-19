@@ -36,13 +36,11 @@ import com.fixakathefix.towerpixeldungeon.items.armor.PlateArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.RogueArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.ScaleArmor;
 import com.fixakathefix.towerpixeldungeon.items.armor.WarriorArmor;
-import com.fixakathefix.towerpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.Artifact;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.BrokenHourglass;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.CapeOfThorns;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.CloakOfShadows;
-import com.fixakathefix.towerpixeldungeon.items.artifacts.DriedRose;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.EtherealChains;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.HornOfPlenty;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.MasterThievesArmband;
@@ -57,7 +55,6 @@ import com.fixakathefix.towerpixeldungeon.items.bombs.HolyBomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.RegrowthBomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.ShockBomb;
 import com.fixakathefix.towerpixeldungeon.items.food.Berry;
-import com.fixakathefix.towerpixeldungeon.items.food.Blandfruit;
 import com.fixakathefix.towerpixeldungeon.items.food.Food;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
 import com.fixakathefix.towerpixeldungeon.items.food.Pasty;
@@ -148,6 +145,7 @@ import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfTransfusion;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfWarding;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.*;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.BloodReaper;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Bolas;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.FishingSpear;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ForceCube;
@@ -162,7 +160,6 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingSpear;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingSpike;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingStone;
-import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Trident;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.AdrenalineDart;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.BlindingDart;
@@ -565,7 +562,7 @@ public class Generator {
 			
 			MIS_T4.classes = new Class<?>[]{
 					Javelin.class,
-					Tomahawk.class,
+					BloodReaper.class,
 					HeavyBoomerang.class
 			};
 			MIS_T4.probs = new float[]{ 6, 5, 4 };

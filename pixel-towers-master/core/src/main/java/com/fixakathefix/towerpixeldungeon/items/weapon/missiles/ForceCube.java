@@ -31,6 +31,7 @@ import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfBlastWave;
 import com.fixakathefix.towerpixeldungeon.levels.traps.TenguDartTrap;
+import com.fixakathefix.towerpixeldungeon.mechanics.Ballistica;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
@@ -56,6 +57,18 @@ public class ForceCube extends MissileWeapon {
 	}
 
 	@Override
+	public int min(int lvl) {
+		return  Math.round(1f * tier) +
+				2 * lvl;
+	}
+
+	@Override
+	public int max(int lvl) {
+		return  Math.round(2.5f * tier) +
+				(tier)*lvl;
+	}
+
+	@Override
 	protected void onThrow(int cell) {
 		if (Dungeon.level.pit[cell]){
 			super.onThrow(cell);
@@ -70,7 +83,11 @@ public class ForceCube extends MissileWeapon {
 		
 		for (int i : PathFinder.NEIGHBOURS8){
 			if (!(Dungeon.level.traps.get(cell+i) instanceof TenguDartTrap)) Dungeon.level.pressCell(cell+i);
-			if (Actor.findChar(cell + i) != null) targets.add(Actor.findChar(cell + i));
+			Char ch = Actor.findChar(cell + i);
+			if (ch != null) {
+				targets.add(ch);
+				WandOfBlastWave.throwChar(ch, new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT), 7 + level()*2, false, true, this.getClass());
+			}
 		}
 		
 		for (Char target : targets){

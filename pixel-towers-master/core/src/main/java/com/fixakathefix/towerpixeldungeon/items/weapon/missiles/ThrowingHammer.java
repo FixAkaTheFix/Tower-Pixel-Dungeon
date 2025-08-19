@@ -25,6 +25,10 @@
 package com.fixakathefix.towerpixeldungeon.items.weapon.missiles;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Vertigo;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 
 public class ThrowingHammer extends MissileWeapon {
@@ -43,5 +47,11 @@ public class ThrowingHammer extends MissileWeapon {
 	public int max(int lvl) {
 		return  4 * tier +                  //20 base, down from 25
 				(tier) * lvl;               //scaling unchanged
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		Buff.affect(defender, Vertigo.class, 2 + level()*2);
+		return super.proc(attacker, defender, damage);
 	}
 }

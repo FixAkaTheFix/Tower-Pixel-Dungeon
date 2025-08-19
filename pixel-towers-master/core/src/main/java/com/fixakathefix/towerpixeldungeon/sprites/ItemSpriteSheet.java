@@ -356,7 +356,7 @@ public class ItemSpriteSheet {
 	public static final int KUNAI           = MISSILE_WEP+9;
 	
 	public static final int JAVELIN         = MISSILE_WEP+10;
-	public static final int TOMAHAWK        = MISSILE_WEP+11;
+	public static final int BLOODREAPER = MISSILE_WEP+11;
 	public static final int BOOMERANG       = MISSILE_WEP+12;
 	
 	public static final int TRIDENT         = MISSILE_WEP+13;
@@ -383,7 +383,7 @@ public class ItemSpriteSheet {
 		assignItemRect(KUNAI,           15, 15);
 		
 		assignItemRect(JAVELIN,         16, 16);
-		assignItemRect(TOMAHAWK,        13, 13);
+		assignItemRect(BLOODREAPER,        13, 13);
 		assignItemRect(BOOMERANG,       14, 14);
 		
 		assignItemRect(TRIDENT,         16, 16);
@@ -754,6 +754,7 @@ public class ItemSpriteSheet {
 	public static final int SHARD      = QUEST+8;
 	public static final int OOZE       = QUEST+9;
 	public static final int VILEBLOOM = QUEST+10;
+	public static final int BLOOD_CRYSTAL = QUEST+11;
 	static{
 		assignItemRect(SKULL,   16, 11);
 		assignItemRect(DUST,    12, 11);
@@ -766,6 +767,7 @@ public class ItemSpriteSheet {
 		assignItemRect(SHARD,    8, 10);
 		assignItemRect(OOZE,     8, 13);
 		assignItemRect(VILEBLOOM,16, 16);
+		assignItemRect(BLOOD_CRYSTAL, 13, 12);
 
 
 	}

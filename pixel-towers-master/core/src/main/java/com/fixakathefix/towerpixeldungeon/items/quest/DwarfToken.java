@@ -24,8 +24,21 @@
 
 package com.fixakathefix.towerpixeldungeon.items.quest;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Monk;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class DwarfToken extends Item {
 	
@@ -34,6 +47,32 @@ public class DwarfToken extends Item {
 		
 		stackable = true;
 		unique = true;
+	}
+
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			ArrayList<Integer> candidates = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS25){
+				int cel = cell + i;
+				if (Char.findChar(cel)==null && Dungeon.level.passable[cel]) candidates.add(cel);
+			}
+			int power = 40;
+			while (power > 0 && !candidates.isEmpty()){
+				power -= 40;
+				Monk monk = new Monk();
+				monk.pos = Random.element(candidates);
+				candidates.remove((Integer)monk.pos);
+				monk.alignment = Char.Alignment.ALLY;
+				monk.state = monk.HUNTING;
+				CellEmitter.get(monk.pos).burst(FlameParticle.FACTORY, 7);
+				GameScene.add(monk);
+			}
+			Sample.INSTANCE.play(Assets.Sounds.DEATH);
+			CellEmitter.get(cell).start(FlameParticle.FACTORY, 0.02f,50);
+			return;
+		}
+		super.onThrow(cell);
 	}
 	
 	@Override

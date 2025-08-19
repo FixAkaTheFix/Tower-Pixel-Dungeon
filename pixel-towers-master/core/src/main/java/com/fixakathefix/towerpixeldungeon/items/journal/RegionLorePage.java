@@ -34,7 +34,7 @@ public class RegionLorePage {
 			case RK_LOG: default:     return new RegionLorePage.Sewers();
 			case PRISONER:             return new RegionLorePage.Prison();
 			case DM_LOG:            return new RegionLorePage.Caves();
-			case GIBBERISH:              return new RegionLorePage.City();
+			case COURTMAN:              return new RegionLorePage.City();
 			case HALLS_KING:                return new RegionLorePage.Halls();
 		}
 	}
@@ -79,7 +79,7 @@ public class RegionLorePage {
 
 		@Override
 		public Document document() {
-			return Document.GIBBERISH;
+			return Document.COURTMAN;
 		}
 	}
 

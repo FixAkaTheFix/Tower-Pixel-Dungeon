@@ -42,8 +42,8 @@ import com.fixakathefix.towerpixeldungeon.items.wands.WandOfRegrowth;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfTransfusion;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfWarding;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Gauntlet;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.BloodReaper;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Shuriken;
-import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.ChangesScene;
@@ -420,10 +420,10 @@ public class v0_7_X_Changes {
 		changes.hardlight( CharSprite.NEGATIVE );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(new Tomahawk(),
-				"The Tomahawk has been adjusted to make its damage more upfront, but also to reduce its extreme damage scaling with upgrades.\n\n" +
-				"_-_ Tomahawk damage scaling increased to 2-4 per level, up from 2-2\n" +
-				"_-_ Tomahawk bleed damage now starts at 60% of damage, down from 100%"));
+		changes.addButton( new ChangeButton(new BloodReaper(),
+				"The BloodReaper has been adjusted to make its damage more upfront, but also to reduce its extreme damage scaling with upgrades.\n\n" +
+				"_-_ BloodReaper damage scaling increased to 2-4 per level, up from 2-2\n" +
+				"_-_ BloodReaper bleed damage now starts at 60% of damage, down from 100%"));
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.WARRIOR, 0, 15, 12, 15), "Warrior Nerfs",
 				"Warrior shielding regeneration scaling reduced. It is now a flat 1 shield every 30 turns. This is a very slight buff to the earlygame, and a significant nerf to the lategame.\n\n" +

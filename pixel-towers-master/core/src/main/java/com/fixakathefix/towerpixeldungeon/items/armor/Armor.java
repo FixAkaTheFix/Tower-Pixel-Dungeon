@@ -24,6 +24,7 @@
 
 package com.fixakathefix.towerpixeldungeon.items.armor;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Challenges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
@@ -35,7 +36,11 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Momentum;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.hero.HeroClass;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.ArmoredStatue;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.BrokenSeal;
 import com.fixakathefix.towerpixeldungeon.items.EquipableItem;
 import com.fixakathefix.towerpixeldungeon.items.Item;
@@ -64,14 +69,17 @@ import com.fixakathefix.towerpixeldungeon.items.armor.glyphs.Swiftness;
 import com.fixakathefix.towerpixeldungeon.items.armor.glyphs.Thorns;
 import com.fixakathefix.towerpixeldungeon.items.armor.glyphs.Viscosity;
 import com.fixakathefix.towerpixeldungeon.items.bags.Bag;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfArcana;
 import com.fixakathefix.towerpixeldungeon.journal.Catalog;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.HeroSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -297,6 +305,34 @@ public class Armor extends EquipableItem {
 			return false;
 		}
 	}
+
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			ArrayList<Integer> candidates = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS25){
+				int cel = cell + i;
+				if (Char.findChar(cel)==null && Dungeon.level.passable[cel]) candidates.add(cel);
+			}
+			int power = 40;
+			while (power > 0 && !candidates.isEmpty()){
+				power -= 40;
+				ArmoredStatue statue = new ArmoredStatue(this);
+				statue.HP = 1 + statue.HT/8;
+				statue.willdropweapon = false;
+				statue.pos = Random.element(candidates);
+				candidates.remove((Integer)statue.pos);
+				if (!this.cursed) statue.alignment = Char.Alignment.ALLY;
+				statue.state = statue.HUNTING;
+				CellEmitter.get(statue.pos).burst(FlameParticle.FACTORY, 7);
+				GameScene.add(statue);
+			}
+			Sample.INSTANCE.play(Assets.Sounds.DEATH);
+			CellEmitter.get(cell).start(FlameParticle.FACTORY, 0.02f,50);
+			return;
+		}
+		super.onThrow(cell);
+	}
 	
 	@Override
 	public boolean isEquipped( Hero hero ) {
@@ -333,7 +369,7 @@ public class Armor extends EquipableItem {
 		if (lvl >= max){
 			return (lvl - max);
 		} else {
-			return lvl/2;
+			return Math.min(lvl, Dungeon.depth/2 + 3);
 		}
 	}
 	

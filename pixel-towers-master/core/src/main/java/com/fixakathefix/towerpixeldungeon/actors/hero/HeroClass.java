@@ -83,10 +83,12 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.AbArcanesword;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbBanner;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbBerserk;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbEgoist;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbHolyWater;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbIceWall;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbLasher;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbOakskin;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbObelisk;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbPray;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbRegeneration;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTarget;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbTaunt;
@@ -115,6 +117,7 @@ import com.fixakathefix.towerpixeldungeon.items.herospells.AbGlowup;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbGoldarmor;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbShield;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbWallstance;
+import com.fixakathefix.towerpixeldungeon.items.herospells.AbWisp;
 import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpell;
 import com.fixakathefix.towerpixeldungeon.items.herospells.HeroSpellTargeted;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
@@ -127,6 +130,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEss
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.Scroll;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -369,9 +373,7 @@ public enum HeroClass {
 
 		(hero.belongings.weapon = new Sword()).identify();
 
-		if (hero.belongings.armor != null){
-			hero.belongings.armor.affixSeal(new BrokenSeal());
-		}
+		new BrokenSeal().collect();
 
 		HeroSpell a1 = new AbTreatwounds();
 		a1.collect();
@@ -532,6 +534,16 @@ public enum HeroClass {
 
 		new ScrollOfHolyNova().collect();
 		new StoneOfFlock().collect();
+
+		HeroSpell a1 = new AbPray();
+		a1.collect();
+		HeroSpell a2 = new AbHolyWater();
+		a2.collect();
+		HeroSpell a3 = new AbWisp();
+		a3.collect();
+		Dungeon.quickslot.setSlot(1, a1);
+		Dungeon.quickslot.setSlot(2, a2);
+		Dungeon.quickslot.setSlot(3, a3);
 	}
 	private static void initFix(Hero hero){
 
@@ -554,13 +566,14 @@ public enum HeroClass {
 		armor.inscribe(new AntiEntropy());
 
 		new ScrollOfHolyNova().collect();
-		new RoseSeed().collect();
+		//new RoseSeed().collect();
 
 		for (int i = 0; i < 9; i++) {
 			new ScrollOfGolems().collect();
 			MeleeWeapon wep = Generator.randomWeapon();
 			if (Math.random()>0.5) wep.cursed = true;
 			wep.collect();
+			new CeremonialCandle().collect();
 		}
 
 		WandOfDebug buggo = new WandOfDebug();
@@ -570,12 +583,12 @@ public enum HeroClass {
 		StaffOfBeasts staffo = new StaffOfBeasts();
 		staffo.identify().collect();
 
-		WandOfRegrowth wandOfRegrowth = new WandOfRegrowth();
-		wandOfRegrowth.upgrade(5).collect();
+		//WandOfRegrowth wandOfRegrowth = new WandOfRegrowth();
+		//wandOfRegrowth.upgrade(5).collect();
 
-		StableTeleportScroll stableTeleportScroll = new StableTeleportScroll();
-		stableTeleportScroll.identify().collect();
-		new ScrollOfTeleportation().collect();
+		//StableTeleportScroll stableTeleportScroll = new StableTeleportScroll();
+		//stableTeleportScroll.identify().collect();
+		//new ScrollOfTeleportation().collect();
 
 		//new AbTrArrowVolley().collect();
 		//new AbTrBombVolley().collect();
@@ -585,9 +598,9 @@ public enum HeroClass {
 		//new AbTrDartgunAlly().collect();
 		//new AbTrGreatWall().collect();
 		//new AbTrLightningStrike().collect();
-		new AbTrNullify().collect();
-		new AbTrOrder().collect();
-		new AbTrPlanB().collect();
+		//new AbTrNullify().collect();
+		//new AbTrOrder().collect();
+		//new AbTrPlanB().collect();
 
 
 		new PotionOfLevitation().collect();

@@ -49,8 +49,8 @@ public class Arena7 extends Arena{
         HEIGHT = 61;
         startLvl = 7;
         startGold = 2000;
-        waveCooldownNormal = 50;
-        waveCooldownBoss = 100;
+        waveCooldownNormal = 30;
+        waveCooldownBoss = 50;
         arenaDepth = 7;
 
         amuletCell = 30 + WIDTH*30;
@@ -247,13 +247,8 @@ public class Arena7 extends Arena{
                         Painter.fill(this, x+2,y+2,1,1,Terrain.PEDESTAL);
                         break;
                     }
-
                 }
-
-
             }
-
-
         Painter.fill(this, 2,28,58,5,Terrain.EMPTY_SP);
         Painter.fill(this, 2,29,58,3,Terrain.EMPTY);
         Painter.fill(this, 29,2,3,58,Terrain.EMPTY);
@@ -262,12 +257,6 @@ public class Arena7 extends Arena{
         for (int x = 28;x<33;x+=4) for (int y = 3;y<HEIGHT-3;y+=6){
             this.map[x+WIDTH*y] = Terrain.STATUE_SP;
         }
-
-
-
-
-
-
 
         LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
         transitions.add(exit);
@@ -289,40 +278,38 @@ public class Arena7 extends Arena{
             for (int i = 0; i < 30; i++){
                 this.drop(Generator.random(Generator.Category.SCROLL2),Random.element(candidates));
             }
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-            this.drop(new ScrollOfUpgrade(),Random.element(candidates));
+            for (int i = 0; i < 8; i++){
+                this.drop(new ScrollOfUpgrade(),Random.element(candidates));
+            }
         } else {
-            this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WAND).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WAND).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
+            dropMany(candidates,
+                    Generator.random(Generator.Category.ARTIFACT),
+                    Generator.random(Generator.Category.RING),
+                    Generator.random(Generator.Category.WAND),
+                    Generator.random(Generator.Category.RING),
+                    Generator.random(Generator.Category.WAND),
+                    Generator.random(Generator.Category.RING),
+                    Generator.random(Generator.Category.WAND),
+                    Generator.random(Generator.Category.WAND),
+                    Generator.random(Generator.Category.WAND),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.ARMOR),
+                    Generator.random(Generator.Category.ARMOR),
+                    Generator.random(Generator.Category.WEP_T2),
+                    Generator.random(Generator.Category.WEP_T2),
+                    Generator.random(Generator.Category.WEP_T2)
+                    );
         }
 
         candidates.clear();

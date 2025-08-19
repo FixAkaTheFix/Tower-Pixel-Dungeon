@@ -25,6 +25,8 @@
 package com.fixakathefix.towerpixeldungeon.effects;
 
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
+import com.fixakathefix.towerpixeldungeon.actors.blobs.WaterOfHealth;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Chill;
 import com.fixakathefix.towerpixeldungeon.effects.particles.BloodParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.CorrosionParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
@@ -92,6 +94,7 @@ public class MagicMissile extends Emitter {
 	public static final int PURPLE_CONE     = 111;
 	public static final int SPARK_CONE      = 112;
 	public static final int BLOOD_CONE      = 113;
+	public static final int WATER_CONE      = 114;
 	
 	public void reset( int type, int from, int to, Callback callback ) {
 		reset( type,
@@ -249,6 +252,10 @@ public class MagicMissile extends Emitter {
 			case BLOOD_CONE:
 				size( 10 );
 				pour( BloodParticle.FACTORY, 0.03f );
+				break;
+			case WATER_CONE:
+				size( 10 );
+				pour( MagicParticle.ATTRACTING, 0.03f );
 				break;
 		}
 

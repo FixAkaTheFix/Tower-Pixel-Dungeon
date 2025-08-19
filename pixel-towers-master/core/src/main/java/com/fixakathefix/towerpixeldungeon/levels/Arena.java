@@ -183,11 +183,10 @@ public class Arena extends Level {
         return Assets.Environment.WATER_HALLS;
     }
 
+
+
     @Override
     protected boolean build() {
-
-
-
 
         setSize(WIDTH,HEIGHT);
 
@@ -440,6 +439,14 @@ public class Arena extends Level {
     @Override
     public int mobCount() {//an important thing to count mobs on level.
         return super.mobCount();
+    }
+
+    public void createMapGuard(ArrayList<Integer> candidates, Mob mob){
+        mob.pos = Random.element(candidates);
+        mob.state = mob.HUNTING;
+        mob.mapGuard = true;
+        candidates.remove((Integer) mob.pos);
+        GameScene.add(mob);
     }
 
 
@@ -784,7 +791,6 @@ public class Arena extends Level {
                         !(mob instanceof Bee) &&
                         !(mob instanceof Arena6.SleepyThief) &&
                         !(mob instanceof EnemyPortal) &&
-                        mob.buff(Minion.class) == null &&
                         !(mob instanceof BossDwarfKing && ((BossDwarfKing)mob).battleMode == 0))
                 {
                     mob.beckon( beckoncell );

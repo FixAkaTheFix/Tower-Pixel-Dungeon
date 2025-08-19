@@ -32,7 +32,9 @@ import com.fixakathefix.towerpixeldungeon.effects.MagicMissile;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.RainbowParticle;
+import com.fixakathefix.towerpixeldungeon.effects.particles.ShaftParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SparkParticle;
+import com.fixakathefix.towerpixeldungeon.effects.particles.custom.CPLight;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -254,6 +256,29 @@ public abstract class ElementalSprite extends MobSprite {
 		@Override
 		public int blood() {
 			return 0xFFE3E3E3;
+		}
+	}
+	public static class Wisp extends ElementalSprite {
+
+		{
+			boltType = MagicMissile.FORCE;
+		}
+
+		@Override
+		protected int texOffset() {
+			return 70;
+		}
+
+		@Override
+		protected Emitter createEmitter() {
+			Emitter emitter = emitter();
+			emitter.pour(CPLight.DOWN, 0.025f );
+			return emitter;
+		}
+
+		@Override
+		public int blood() {
+			return 0xFFFFFF99;
 		}
 	}
 }

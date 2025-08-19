@@ -40,8 +40,13 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.hero.HeroClass;
 import com.fixakathefix.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Statue;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.KindOfWeapon;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.fixakathefix.towerpixeldungeon.items.weapon.Weapon;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.CellSelector;
@@ -56,6 +61,7 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -83,6 +89,33 @@ public class MeleeWeapon extends Weapon {
 		} else {
 			return super.defaultAction();
 		}
+	}
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			ArrayList<Integer> candidates = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS25){
+				int cel = cell + i;
+				if (Char.findChar(cel)==null && Dungeon.level.passable[cel]) candidates.add(cel);
+			}
+			int power = 40;
+			while (power > 0 && !candidates.isEmpty()){
+				power -= 40;
+				Statue statue = new Statue(this);
+				statue.HP = 1+statue.HT/10;
+				statue.pos = Random.element(candidates);
+				statue.willdropweapon = false;
+				candidates.remove((Integer)statue.pos);
+				if (!this.cursed) statue.alignment = Char.Alignment.ALLY;
+				statue.state = statue.HUNTING;
+				CellEmitter.get(statue.pos).burst(FlameParticle.FACTORY, 7);
+				GameScene.add(statue);
+			}
+			Sample.INSTANCE.play(Assets.Sounds.DEATH);
+			CellEmitter.get(cell).start(FlameParticle.FACTORY, 0.02f,50);
+			return;
+		}
+		super.onThrow(cell);
 	}
 
 	@Override

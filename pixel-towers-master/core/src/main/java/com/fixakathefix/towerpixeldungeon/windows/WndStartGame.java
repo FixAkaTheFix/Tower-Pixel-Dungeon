@@ -281,6 +281,11 @@ public class WndStartGame extends Window {
                             heroLoadout.icon(new ItemSprite(ItemSpriteSheet.HEROSPELL_WALLSTANCE, null));
                             heroMisc.icon(new ItemSprite(ItemSpriteSheet.EXOTIC_HEAL, null));
                             break;
+                        case PRIEST:
+                            heroItem.icon(Icons.get(Icons.PRIEST));
+                            heroLoadout.icon(new ItemSprite(ItemSpriteSheet.HEROSPELL_SUN, null));
+                            heroMisc.icon(new ItemSprite(ItemSpriteSheet.EXOTIC_BANISHMENT, null));
+                            break;
                     }
 
                     layout();

@@ -53,6 +53,7 @@ public class Statue extends Mob {
 	}
 	
 	protected Weapon weapon;
+	public boolean willdropweapon = true;
 
 	public boolean levelGenStatue = true;
 	
@@ -87,10 +88,12 @@ public class Statue extends Mob {
 	}
 	
 	private static final String WEAPON	= "weapon";
+	private static final String WILLDROPEQUIPMENT = "willdropequipment";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
+		bundle.put(WILLDROPEQUIPMENT, willdropweapon);
 		bundle.put( WEAPON, weapon );
 	}
 	
@@ -98,6 +101,7 @@ public class Statue extends Mob {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		weapon = (Weapon)bundle.get( WEAPON );
+		willdropweapon = bundle.getBoolean(WILLDROPEQUIPMENT);
 	}
 	
 	@Override
@@ -170,7 +174,7 @@ public class Statue extends Mob {
 	@Override
 	public void die( Object cause ) {
 		weapon.identify(false);
-		Dungeon.level.drop( weapon, pos ).sprite.drop();
+		if (willdropweapon) Dungeon.level.drop( weapon, pos ).sprite.drop();
 		super.die( cause );
 	}
 	

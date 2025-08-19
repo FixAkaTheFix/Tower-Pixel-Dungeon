@@ -28,20 +28,32 @@ import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.Statistics;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Eating;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Healing;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Hunger;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.MinionBoss;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.SpellSprite;
+import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.Artifact;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.HornOfPlenty;
+import com.fixakathefix.towerpixeldungeon.items.quest.CeremonialCandle;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -77,6 +89,33 @@ public class Food extends Item {
 				Messages.get(this, "stats", (int)timeToEat, (int)(healingPercentage*100))
 		);
 		return builder.toString();
+	}
+
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			ArrayList<Integer> candidates = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS9){
+				int cel = cell + i;
+				if (Char.findChar(cel)==null && Dungeon.level.passable[cel]) candidates.add(cel);
+			}
+			int power = (int)(healingPercentage * 200);
+			while (power > 0 && !candidates.isEmpty()){
+				power -= 40;
+				Snake snake = new Snake();
+				snake.pos = Random.element(candidates);
+				candidates.remove((Integer)snake.pos);
+				Buff.affect(snake, Minion.class);
+				snake.alignment = Char.Alignment.ENEMY;
+				snake.state = snake.HUNTING;
+				CellEmitter.get(snake.pos).burst(ElmoParticle.FACTORY, 7);
+				GameScene.add(snake);
+			}
+			Sample.INSTANCE.play(Assets.Sounds.DEATH);
+			CellEmitter.get(cell).start(ElmoParticle.FACTORY, 0.02f,50);
+			return;
+		}
+		super.onThrow(cell);
 	}
 
 	@Override

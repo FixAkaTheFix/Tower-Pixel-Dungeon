@@ -24,26 +24,23 @@
 
 package com.fixakathefix.towerpixeldungeon.items.quest;
 
-import com.fixakathefix.towerpixeldungeon.Assets;
+import com.badlogic.gdx.utils.IntMap;
 import com.fixakathefix.towerpixeldungeon.Badges;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
-import com.fixakathefix.towerpixeldungeon.actors.Actor;
-import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
-import com.fixakathefix.towerpixeldungeon.actors.mobs.Elemental;
-import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ElmoParticle;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Item;
-import com.fixakathefix.towerpixeldungeon.levels.RegularLevel;
-import com.fixakathefix.towerpixeldungeon.levels.rooms.standard.RitualSiteRoom;
-import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
+import com.fixakathefix.towerpixeldungeon.levels.Arena5;
+import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.sprites.BossRatKingSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.noosa.audio.Sample;
+import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -61,6 +58,8 @@ public class CeremonialCandle extends Item {
 		unique = true;
 		stackable = true;
 	}
+	//needed for making a candle not exist before pickup
+	transient boolean valid = true;
 
 	@Override
 	public boolean isUpgradable() {
@@ -76,21 +75,26 @@ public class CeremonialCandle extends Item {
 	public void doDrop(Hero hero) {
 		super.doDrop(hero);
 		aflame = false;
-		checkCandles();
+		valid = true;
+		checkAndUpdateCandles();
 	}
 
 	@Override
 	protected void onThrow(int cell) {
 		super.onThrow(cell);
 		aflame = false;
-		checkCandles();
+		valid = true;
+		checkAndUpdateCandles();
 	}
 
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
-		Badges.validateCandle();
 		if (super.doPickUp(hero, pos)){
+			this.valid = false;
+			Badges.validateCandle();
 			aflame = false;
+			checkAndUpdateCandles();
+			this.valid = true;
 			return true;
 		}
 		return false;
@@ -113,6 +117,41 @@ public class CeremonialCandle extends Item {
 	}
 
 	@Override
+	public String info() {
+		if (aflame) return super.info() + "\n\n" + Messages.get(CeremonialCandle.class, "lit");
+		return super.info();
+	}
+
+	public static boolean checkCellForSurroundingCandles(int cell){
+		for (int i : PathFinder.NEIGHBOURS4){
+			int cellcheck = cell + i;
+			Heap heap = Dungeon.level.heaps.get(cellcheck);
+			if (heap == null) return false;
+			else {
+				Item item = heap.items.getFirst();
+				if (!(item instanceof CeremonialCandle) || !((CeremonialCandle)item).valid ){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	public static boolean checkCellForSurroundingLitCandles(int cell){
+		for (int i : PathFinder.NEIGHBOURS4){
+			int cellcheck = cell + i;
+			Heap heap = Dungeon.level.heaps.get(cellcheck);
+			if (heap == null) return false;
+			else {
+				Item item = heap.items.getFirst();
+				if (!(item instanceof CeremonialCandle) || !((CeremonialCandle)item).aflame || !((CeremonialCandle)item).valid){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
 	public Emitter emitter() {
 		if (aflame) {
 			Emitter emitter = new Emitter();
@@ -124,80 +163,45 @@ public class CeremonialCandle extends Item {
 		return super.emitter();
 	}
 
-	private static void checkCandles(){
-		if (!(Dungeon.level instanceof RegularLevel)){
-			return;
-		}
-
-		if (!(((RegularLevel) Dungeon.level).room(ritualPos) instanceof RitualSiteRoom)){
-			return;
-		}
-
-		Heap[] candleHeaps = new Heap[4];
-
-		candleHeaps[0] = Dungeon.level.heaps.get(ritualPos - Dungeon.level.width());
-		candleHeaps[1] = Dungeon.level.heaps.get(ritualPos + 1);
-		candleHeaps[2] = Dungeon.level.heaps.get(ritualPos + Dungeon.level.width());
-		candleHeaps[3] = Dungeon.level.heaps.get(ritualPos - 1);
-
-		boolean allCandles = true;
-		for (Heap h : candleHeaps){
-			if (h != null && h.type == Heap.Type.HEAP){
-				boolean foundCandle = false;
-				for (Item i : h.items){
-					if (i instanceof CeremonialCandle){
-						if (!((CeremonialCandle) i).aflame) {
-							((CeremonialCandle) i).aflame = true;
-							h.sprite.view(h).place(h.pos);
-						}
-						foundCandle = true;
+	private static void checkAndUpdateCandles(){
+		ArrayList<Heap> heapstoupdate = new ArrayList<>();
+		ArrayList<CeremonialCandle> candlestolit = new ArrayList<>();
+		for (IntMap.Entry<Heap> heap : Dungeon.level.heaps) {
+			if (heap.value.items.getFirst() instanceof CeremonialCandle) {
+				((CeremonialCandle)heap.value.items.getFirst()).aflame=false;
+				heapstoupdate.add(heap.value);
+				if (checkCellForSurroundingCandles(heap.key+1)){
+					for (int i : PathFinder.NEIGHBOURS4){
+						candlestolit.add((CeremonialCandle)Dungeon.level.heaps.get(heap.key + 1 + i).items.getFirst());
 					}
-				}
-				if (!foundCandle){
-					allCandles = false;
-				}
-			} else {
-				allCandles = false;
-			}
-		}
+					if (!SPDSettings.ritualWasMade()){
+						WndDialogueWithPic.dialogue(new BossRatKingSprite(),  Messages.get(RatKing.class, "name"),
+								new String[]{
+										Messages.get(RatKing.class, "l5ritual1"),
+										Messages.get(RatKing.class, "l5ritual2"),
+										Messages.get(RatKing.class, "l5ritual3"),
+										Messages.get(RatKing.class, "l5ritual4"),
+										Messages.get(RatKing.class, "l5ritual5"),
+								},
+								new byte[]{
+										WndDialogueWithPic.RUN,
+										WndDialogueWithPic.IDLE,
+										WndDialogueWithPic.RUN,
+										WndDialogueWithPic.IDLE,
+										WndDialogueWithPic.IDLE
 
-		if (allCandles){
-
-			for (Heap h : candleHeaps) {
-				for (Item i : h.items.toArray(new Item[0])){
-					if (i instanceof CeremonialCandle){
-						h.remove(i);
+								});
+						SPDSettings.ritualWasMade(true);
 					}
 				}
 			}
-				
-			Elemental.NewbornFireElemental elemental = new Elemental.NewbornFireElemental();
-			Char ch = Actor.findChar( ritualPos );
-			if (ch != null) {
-				ArrayList<Integer> candidates = new ArrayList<>();
-				for (int n : PathFinder.NEIGHBOURS8) {
-					int cell = ritualPos + n;
-					if ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && Actor.findChar( cell ) == null) {
-						candidates.add( cell );
-					}
-				}
-				if (candidates.size() > 0) {
-					elemental.pos = Random.element( candidates );
-				} else {
-					elemental.pos = ritualPos;
-				}
-			} else {
-				elemental.pos = ritualPos;
-			}
-			elemental.state = elemental.HUNTING;
-			GameScene.add(elemental, 1);
-
-			for (int i : PathFinder.NEIGHBOURS9){
-				CellEmitter.get(ritualPos+i).burst(ElmoParticle.FACTORY, 10);
-			}
-			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 		}
-
+		for (CeremonialCandle candle : candlestolit){
+			candle.aflame = true;
+		}
+		for (Heap heap : heapstoupdate){
+			heap.sprite.view(heap).place(heap.pos);
+		}
 	}
 
 	@Override

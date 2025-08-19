@@ -24,14 +24,54 @@
 
 package com.fixakathefix.towerpixeldungeon.items.quest;
 
+import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
+import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Item;
+import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
+import com.fixakathefix.towerpixeldungeon.sprites.GooSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class GooBlob extends Item {
 	
 	{
 		image = ItemSpriteSheet.BLOB;
 		stackable = true;
+	}
+
+	@Override
+	protected void onThrow(int cell) {
+		if (CeremonialCandle.checkCellForSurroundingLitCandles(cell)){
+			ArrayList<Integer> candidates = new ArrayList<>();
+			for (int i : PathFinder.NEIGHBOURS25){
+				int cel = cell + i;
+				if (Char.findChar(cel)==null && Dungeon.level.passable[cel]) candidates.add(cel);
+			}
+			int power = 40;
+			while (power > 0 && !candidates.isEmpty()){
+				power -= 40;
+				CausticSlime slime = new CausticSlime();
+				slime.pos = Random.element(candidates);
+				candidates.remove((Integer)slime.pos);
+				slime.alignment = Char.Alignment.ALLY;
+				slime.state = slime.HUNTING;
+				CellEmitter.get(slime.pos).burst(GooSprite.GooParticle.FACTORY, 7);
+				GameScene.add(slime);
+			}
+			Sample.INSTANCE.play(Assets.Sounds.WATER);
+			CellEmitter.get(cell).start(GooSprite.GooParticle.FACTORY, 0.02f,50);
+			return;
+		}
+		super.onThrow(cell);
 	}
 	
 	@Override

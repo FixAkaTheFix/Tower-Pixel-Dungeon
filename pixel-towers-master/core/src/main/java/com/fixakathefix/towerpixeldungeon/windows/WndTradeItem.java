@@ -24,6 +24,7 @@
 
 package com.fixakathefix.towerpixeldungeon.windows;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.depth;
 import static com.fixakathefix.towerpixeldungeon.Dungeon.hero;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
@@ -39,10 +40,10 @@ import com.fixakathefix.towerpixeldungeon.items.EquipableItem;
 import com.fixakathefix.towerpixeldungeon.items.Gold;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Item;
-import com.fixakathefix.towerpixeldungeon.items.artifacts.Artifact;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.MasterThievesArmband;
+import com.fixakathefix.towerpixeldungeon.items.stuff.BloodCrystal;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.WarHammer;
-import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Tomahawk;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.BloodReaper;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.PoisonDart;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
@@ -62,7 +63,8 @@ public class WndTradeItem extends WndInfoItem {
 	private boolean selling = false;
 
 	private static int itemValue(Item item){
-		return Math.min(50 + Dungeon.depth*5, item.value());
+		if (item instanceof BloodCrystal) return 300 + depth*30;
+		return item.value()/2;
 	}
 
 	//selling
@@ -182,7 +184,7 @@ public class WndTradeItem extends WndInfoItem {
 									break;
 								} else if (hero.buff(Bleeding.class)==null){
 									((MissileSprite) mob.sprite.parent.recycle(MissileSprite.class)).
-											reset(mob.pos, hero.pos, new Tomahawk(), new Callback() {
+											reset(mob.pos, hero.pos, new BloodReaper(), new Callback() {
 												@Override
 												public void call() {
 													Buff.affect(hero, Bleeding.class).set(hero.HT / 3);

@@ -28,6 +28,7 @@ import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Cripple;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Roots;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Bolas extends MissileWeapon {
@@ -40,16 +41,23 @@ public class Bolas extends MissileWeapon {
 		tier = 3;
 		baseUses = 5;
 	}
-	
+
+	@Override
+	public int min(int lvl) {
+		return  Math.round(tier) +
+				2 * lvl;
+	}
+
 	@Override
 	public int max(int lvl) {
-		return  3 * tier +                      //9 base, down from 15
-				(tier == 1 ? 2*lvl : tier*lvl); //scaling unchanged
+		return  Math.round(2.5f * tier) +
+				(tier)*lvl;
 	}
 	
 	@Override
 	public int proc( Char attacker, Char defender, int damage ) {
-		Buff.prolong( defender, Cripple.class, Cripple.DURATION );
+		Buff.prolong( defender, Cripple.class, 10f + level()*5 );
+		Buff.prolong( defender, Roots.class, 3 + Math.abs(level()*3) );
 		return super.proc( attacker, defender, damage );
 	}
 }

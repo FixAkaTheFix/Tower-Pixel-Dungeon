@@ -21,6 +21,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.BloodParticle;
+import com.fixakathefix.towerpixeldungeon.items.stuff.BloodCrystal;
 import com.fixakathefix.towerpixeldungeon.levels.Arena10;
 import com.fixakathefix.towerpixeldungeon.levels.Arena16;
 import com.fixakathefix.towerpixeldungeon.levels.Arena20;
@@ -208,6 +209,7 @@ public class EnemyPortal extends Mob {
     @Override
     public void die(Object cause) {
         Badges.validateEyeSlayer();
+        level.drop(new BloodCrystal(), pos);
         super.die(cause);
     }
 

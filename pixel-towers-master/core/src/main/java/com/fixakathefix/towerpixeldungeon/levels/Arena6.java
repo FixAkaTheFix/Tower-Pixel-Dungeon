@@ -1,9 +1,13 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Highlighted;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Albino;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bandit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Brute;
@@ -38,6 +42,7 @@ import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.food.FrozenCarpaccio;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
 import com.fixakathefix.towerpixeldungeon.items.keys.IronKey;
+import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
@@ -59,6 +64,7 @@ import com.watabou.noosa.Halo;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -453,70 +459,62 @@ public class Arena6 extends Arena {
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
             if (this.passable[m] && this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
         }
-        for (int i = 0; i < 7; i ++){
-            this.drop(new Gold(100), Random.element(candidates));
-            this.drop(new Gold(50), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.RING), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-            this.drop(new IronKey(6), Random.element(candidates));
-            this.drop(new IronKey(6), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.MIS_T4), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.MIS_T5), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.DART).identify(), Random.element(candidates));
+        for (int i = 0; i < (mode == WndModes.Modes.CHALLENGE ? 14 : 7); i ++){
+
+            dropMany(candidates,
+                    new Gold(100),
+                    new Gold(50),
+                    Generator.random(Generator.Category.RING),
+                    Generator.random(Generator.Category.WEAPON),
+                    Generator.random(Generator.Category.ARMOR),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    new IronKey(6),
+                    new IronKey(6),
+                    Generator.random(Generator.Category.MIS_T4),
+                    Generator.random(Generator.Category.MIS_T5),
+                    Generator.random(Generator.Category.DART)
+                    );
+
+        }
+
+        ArrayList<Integer> cells = new ArrayList<>();
+
+        for (int x = 80; x < 90; x++) for (int y = 59; y < 67; y++){
+            cells.add(x + WIDTH*y);
+        }
+        for (int i = 0;i < 25; i++){
+            Guard guard = new Guard();
+            int cell = Random.element(cells);
+            cells.remove((Integer) cell);
+            guard.pos = cell;
+            guard.mapGuard = true;
+            guard.state = guard.HUNTING;
+            GameScene.add(guard);
+        }
+        for (int i = 0;i < 10; i++){
+            int chestcell = Random.element(cells);
+            Dungeon.level.drop(new Gold(Random.Int(100, 200)), chestcell).type = Heap.Type.CHEST;
+            cells.remove((Integer) chestcell);
         }
 
         this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates));
         this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates));
         this.drop(Generator.random(Generator.Category.DART), Random.element(candidates));
-
-        if (mode == WndModes.Modes.CHALLENGE) {
-            this.drop(Generator.random(Generator.Category.WAND).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.ARTIFACT).identify(), Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.ARTIFACT).identify(), Random.element(candidates));
-            for (int i = 0; i < 7; i ++){
-                this.drop(new Gold(100), Random.element(candidates));
-                this.drop(new Gold(50), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.RING), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-                this.drop(new IronKey(6), Random.element(candidates));
-                this.drop(new IronKey(6), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.MIS_T4), Random.element(candidates));
-                this.drop(Generator.random(Generator.Category.MIS_T5), Random.element(candidates));
-            }
-        }
 
 
         for (int m = 61 * 20; m < WIDTH * HEIGHT - WIDTH; m++) {

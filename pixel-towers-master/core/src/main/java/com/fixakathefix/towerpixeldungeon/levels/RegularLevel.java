@@ -503,7 +503,7 @@ public abstract class RegularLevel extends Level {
 				case 1: regionDoc = Document.RK_LOG; break;
 				case 2: regionDoc = Document.PRISONER; break;
 				case 3: regionDoc = Document.DM_LOG; break;
-				case 4: regionDoc = Document.GIBBERISH; break;
+				case 4: regionDoc = Document.COURTMAN; break;
 				case 5: regionDoc = Document.HALLS_KING; break;
 			}
 
@@ -560,7 +560,7 @@ public abstract class RegularLevel extends Level {
 		limitedDocs.put(Document.RK_LOG, Dungeon.LimitedDrops.LORE_SEWERS);
 		limitedDocs.put(Document.PRISONER, Dungeon.LimitedDrops.LORE_PRISON);
 		limitedDocs.put(Document.DM_LOG, Dungeon.LimitedDrops.LORE_CAVES);
-		limitedDocs.put(Document.GIBBERISH, Dungeon.LimitedDrops.LORE_CITY);
+		limitedDocs.put(Document.COURTMAN, Dungeon.LimitedDrops.LORE_CITY);
 		limitedDocs.put(Document.HALLS_KING, Dungeon.LimitedDrops.LORE_HALLS);
 	}
 	

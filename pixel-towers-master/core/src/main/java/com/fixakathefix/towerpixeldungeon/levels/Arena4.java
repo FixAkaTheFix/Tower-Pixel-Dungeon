@@ -1,5 +1,7 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
+import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
+
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
@@ -39,6 +41,7 @@ import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.AlmostEmptySprite;
 import com.fixakathefix.towerpixeldungeon.sprites.BossRatKingSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.RatKingSprite;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
@@ -49,6 +52,7 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.PointF;
@@ -84,6 +88,8 @@ public class Arena4 extends Arena {
         waveCooldownNormal = 5;
         waveCooldownBoss = 200;
     }
+
+    public int crabpoint = Random.oneOf(WIDTH* 30 + 4, WIDTH * 30 + WIDTH-4);
 
 
     @Override
@@ -336,12 +342,12 @@ public class Arena4 extends Arena {
                 m+=WIDTH*6+Random.Int(1,36);
             }
         }
-        int crabpoint = WIDTH* 30 + 4;
+
         ArrayList<Integer> cells = new ArrayList<>();
         for (int i : PathFinder.NEIGHBOURS25){
             cells.add(crabpoint + i);
         }
-        for (int i = 0;i < 4; i++) {
+        for (int i = 0;i < 4; i++) if (level.passable[crabpoint+i] && Char.findChar(crabpoint+i)==null){
             HermitCrab hermit = new HermitCrab();
             int cell = Random.element(cells);
             cells.remove((Integer) cell);
@@ -353,7 +359,7 @@ public class Arena4 extends Arena {
             int chestcell = Random.element(cells);
             Dungeon.level.drop(new Gold(Random.Int(100, 200)), chestcell).type = Heap.Type.CHEST;
             Dungeon.level.drop(new ElixirOfAquaticRejuvenation(), chestcell).type = Heap.Type.CHEST;
-
+            cells.remove((Integer) chestcell);
         }
 
 
@@ -448,6 +454,58 @@ public class Arena4 extends Arena {
                     }, WndDialogueWithPic.WndType.NORMAL, r2);
         }
 
+    }
+
+    @Override
+    public void doStuffStartwave(int wave) {
+        super.doStuffStartwave(wave);
+        if (wave == 1) {
+            ArrayList<Runnable> runnables = new ArrayList<>();
+            for (int i = 0; i<4;i++) runnables.add(null);
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(crabpoint), 2f);
+                }
+            });
+            runnables.add(new Runnable() {
+                @Override
+                public void run() {
+                    Camera.main.panTo(DungeonTilemap.tileCenterToWorld(Dungeon.hero.pos), 2f);
+                }
+            });
+            WndDialogueWithPic.dialogue(new RatKingSprite(), Messages.get(RatKing.class, "name"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l4w1start1"),
+                            Messages.get(RatKing.class, "l4w1start2"),
+                            Messages.get(RatKing.class, "l4w1start3"),
+                            Messages.get(RatKing.class, "l4w1start4"),
+                            Messages.get(RatKing.class, "l4w1start5"),
+                            Messages.get(RatKing.class, "l4w1start6")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.IDLE,
+                            WndDialogueWithPic.RUN
+                    }, WndDialogueWithPic.WndType.NORMAL, runnables);
+        }
+    }
+
+    private static final String CRABPOINT = "crab_point";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(CRABPOINT, crabpoint);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        crabpoint = bundle.getInt(CRABPOINT);
     }
 
     public void deployMobs(int wave) {

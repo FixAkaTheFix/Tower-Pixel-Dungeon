@@ -418,7 +418,7 @@ public class Arena10 extends Arena{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m]&&this.map[m]==Terrain.EMPTY && distance(amuletCell, m) > 13) candidates.add(m);
+            if (this.passable[m] && distance(amuletCell, m) > 13) candidates.add(m);
         }
         for (int i = 0; i < 12; i ++){
             this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
@@ -429,38 +429,42 @@ public class Arena10 extends Arena{
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
             this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
         }
-        this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND).identify(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(),Random.element(candidates));
+
+        dropMany( candidates,
+                Generator.random(Generator.Category.ARTIFACT),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T4),
+                Generator.random(Generator.Category.MIS_T5),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.WEP_T1),
+                Generator.random(Generator.Category.WEP_T2),
+                Generator.random(Generator.Category.WEP_T3),
+                Generator.random(Generator.Category.WEP_T4),
+                Generator.random(Generator.Category.WEP_T5),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T4),
+                Generator.random(Generator.Category.MIS_T5),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.WEP_T1),
+                Generator.random(Generator.Category.WEP_T2),
+                Generator.random(Generator.Category.WEP_T3),
+                Generator.random(Generator.Category.WEP_T4),
+                Generator.random(Generator.Category.WEP_T5),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.ARMOR)
+                );
+
         candidates.clear();
 
         super.addDestinations();

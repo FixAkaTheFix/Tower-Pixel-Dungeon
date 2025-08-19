@@ -40,9 +40,7 @@ import java.util.Locale;
 
 public class SPDSettings extends GameSettings {
 
-	//INTERNAL, DO NOT MODIFY
-
-
+	//INTERNAL
 	private static final String CURSED_KNIFE_LVL = "curved_knife_level";
 
 	public static void knifeLevel(int level){
@@ -90,6 +88,13 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(TOWERUNLOCKEDMESSAGE, false);
 	}
 
+	private static final String RITUALWASMADE = "ritualwasmade";
+	public static void ritualWasMade(boolean value){
+		put(RITUALWASMADE, value);
+	}
+	public static boolean ritualWasMade(){
+		return getBoolean(RITUALWASMADE, false);
+	}
 
 	private static final String CHOSENMODE		= "chosenmode";
 
