@@ -62,7 +62,7 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Arena1 extends Arena {
+public class Arena1 extends ArenaSewers {
 
     /**
      * Shows the basics, is extremely easy
@@ -227,27 +227,33 @@ public class Arena1 extends Arena {
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
             if (this.passable[m] && this.distance(amuletCell, m) > 10 && this.distance(amuletCell, m)< 35 && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
-        this.drop(new Honeypot(), Random.element(candidates));
-        this.drop(new PotionOfHealing(), Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(), Random.element(candidates));
-        this.drop(new PotionOfFrost(), Random.element(candidates));
-        this.drop(new PotionOfLevitation(), Random.element(candidates));
-        this.drop(new PotionOfToxicGas(), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        this.drop(Generator.randomUsingDefaults(Generator.Category.SCROLL), Random.element(candidates));
-        this.drop(new ScrollOfGolems(), Random.element(candidates));
-        this.drop(new ScrollOfAnimation(), Random.element(candidates));
-        this.drop(new StoneOfFlock(), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1), Random.element(candidates));
+
+        dropMany(candidates,
+                new Honeypot(),
+                new PotionOfHealing(),
+                new PotionOfLiquidFlame(),
+                new PotionOfFrost(),
+                new PotionOfLevitation(),
+                new PotionOfToxicGas(),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SEED),
+                Generator.random(Generator.Category.SEED),
+                Generator.random(Generator.Category.SEED),
+                Generator.randomUsingDefaults(Generator.Category.SCROLL),
+                new ScrollOfGolems(),
+                new ScrollOfAnimation(),
+                new StoneOfFlock(),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T1),
+                new GoldenKey(this.arenaDepth),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.SEED)
+                );
+
+
         this.drop(Generator.random(Generator.Category.RING), Random.element(candidates)).type = Heap.Type.CHEST;
         this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(this.arenaDepth), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE), Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
+
         MeleeWeapon someCursedWeapon = (MeleeWeapon) Generator.random(Generator.Category.WEP_T5);
         someCursedWeapon.cursed = true;
         this.drop(someCursedWeapon, Random.element(candidates)).type = Heap.Type.SKELETON;
@@ -535,14 +541,6 @@ public class Arena1 extends Arena {
         deploymobs(wave, Direction.RIGHT, 1);
     }
 
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
-    }
 
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_SEWERS;
-    }
 
 }

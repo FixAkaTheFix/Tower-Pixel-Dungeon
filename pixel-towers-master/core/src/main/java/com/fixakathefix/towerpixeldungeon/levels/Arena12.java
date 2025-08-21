@@ -32,7 +32,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena12 extends Arena{
+public class Arena12 extends ArenaCaves{
 
     {
 
@@ -150,18 +150,7 @@ public class Arena12 extends Arena{
             this.map[amuletCell] = Terrain.PEDESTAL;
 
         } catch (Exception tryAgain){checkUp=false;} while (!checkUp);
-        systemMapDisplay();
         return true;
-    }
-
-    public void systemMapDisplay(){
-        for (int x = 0;x<WIDTH;x++){
-            System.out.print("\n\n\n");
-            System.out.println(x+":");
-            for (int y = 0;y<HEIGHT;y++){
-                System.out.print(this.map[x+WIDTH*y] + "  ");
-            }
-        }
     }
 
     @Override
@@ -179,25 +168,29 @@ public class Arena12 extends Arena{
             if (this.passable[m]&&this.map[m]==Terrain.EMPTY) candidates.add(m);
         }
 
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(new Gold(50),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(new CorpseDust(),Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
+
+        dropMany(candidates,
+                new Gold(50),
+                new Gold(50),
+                new Gold(50),
+                new Gold(50),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WEP_T2),
+                new CorpseDust(),
+                new Pickaxe()
+                );
+
         candidates.clear();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.passable[m]&&this.map[m]==Terrain.WATER) candidates.add(m);
@@ -222,122 +215,4 @@ public class Arena12 extends Arena{
         }
         super.doStuffEndwave(wave);
     }
-
-    @Override
-    public String tileName( int tile ) {
-        switch (tile) {
-            case Terrain.GRASS:
-                return Messages.get(CavesLevel.class, "grass_name");
-            case Terrain.HIGH_GRASS:
-                return Messages.get(CavesLevel.class, "high_grass_name");
-            case Terrain.WATER:
-                return Messages.get(CavesLevel.class, "water_name");
-            default:
-                return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc( int tile ) {
-        switch (tile) {
-            case Terrain.ENTRANCE:
-                return Messages.get(CavesLevel.class, "entrance_desc");
-            case Terrain.EXIT:
-                return Messages.get(CavesLevel.class, "exit_desc");
-            case Terrain.HIGH_GRASS:
-                return Messages.get(CavesLevel.class, "high_grass_desc");
-            case Terrain.WALL_DECO:
-                return Messages.get(CavesLevel.class, "wall_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(CavesLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
-        }
-    }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addCavesVisuals( this, visuals );
-        return visuals;
-    }
-
-    public static void addCavesVisuals( Level level, Group group ) {
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new Arena11.Vein( i ) );
-            }
-        }
-    }
-
-    public static class Vein extends Group {
-
-        private int pos;
-
-        private float delay;
-
-        public Vein( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            delay = Random.Float( 2 );
-        }
-
-        @Override
-        public void update() {
-
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-
-                super.update();
-
-                if ((delay -= Game.elapsed) <= 0) {
-
-                    //pickaxe can remove the ore, should remove the sparkling too.
-                    if (Dungeon.level.map[pos] != Terrain.WALL_DECO){
-                        kill();
-                        return;
-                    }
-
-                    delay = Random.Float();
-
-                    PointF p = DungeonTilemap.tileToWorld( pos );
-                    ((Arena11.Sparkle)recycle( Arena11.Sparkle.class )).reset(
-                            p.x + Random.Float( DungeonTilemap.SIZE ),
-                            p.y + Random.Float( DungeonTilemap.SIZE ) );
-                }
-            }
-        }
-    }
-
-    public static final class Sparkle extends PixelParticle {
-
-        public void reset( float x, float y ) {
-            revive();
-
-            this.x = x;
-            this.y = y;
-
-            left = lifespan = 0.5f;
-        }
-
-        @Override
-        public void update() {
-            super.update();
-
-            float p = left / lifespan;
-            size( (am = p < 0.5f ? p * 2 : (1 - p) * 2) * 2 );
-        }
-    }
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_CAVES;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_CAVES;
-    }
-
 }

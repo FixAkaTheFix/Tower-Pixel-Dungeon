@@ -55,7 +55,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena18 extends Arena {
+public class Arena18 extends ArenaCity {
 
     {
         name = "Storm the gates";
@@ -128,40 +128,50 @@ public class Arena18 extends Arena {
             for (int y1 = 1; y1 < 28; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        this.drop(Random.oneOf(
-                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
-        ), Random.element(candidates));
-        level.drop(Random.oneOf(
-                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
-        ), Random.element(candidates));
-        level.drop(Random.oneOf(
-                TowerInfo.getTowerSpawner(Dungeon.level.slot1),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot2),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot3),
-                TowerInfo.getTowerSpawner(Dungeon.level.slot4)
-        ), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.SCROLL), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.SKELETON;
-        level.drop(Generator.random(Generator.Category.WAND).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
-        level.drop(Generator.random(Generator.Category.WAND).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
-        level.drop(Generator.random(Generator.Category.WAND).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
-        level.drop(Generator.random(Generator.Category.RING).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
-        level.drop(Generator.random(Generator.Category.RING).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
-        level.drop(Generator.random(Generator.Category.RING).upgrade(3).identify(), Random.element(candidates)).type = Heap.Type.TOMB;
+
+        dropMany(candidates,
+                Random.oneOf(
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+                ),
+                Random.oneOf(
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+                ),
+                Random.oneOf(
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot1),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot2),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot3),
+                        TowerInfo.getTowerSpawner(Dungeon.level.slot4)
+                ));
+        dropMany(Heap.Type.SKELETON, candidates,
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION)
+                );
+
+
+        dropMany(Heap.Type.TOMB,candidates,
+                Generator.random(Generator.Category.WAND).upgrade(3),
+                Generator.random(Generator.Category.WAND).upgrade(3),
+                Generator.random(Generator.Category.WAND).upgrade(3),
+                Generator.random(Generator.Category.RING).upgrade(3),
+                Generator.random(Generator.Category.RING).upgrade(3),
+                Generator.random(Generator.Category.RING).upgrade(3)
+                );
+
+
 
         candidates.clear();
         for (int x1 = x; x1 < x + 25; x1++)
@@ -297,25 +307,29 @@ public class Arena18 extends Arena {
             for (int y1 = 1; y1 < 28; y1++) {
                 if (level.passable[x1 + WIDTH * y1]) candidates.add(x1 + WIDTH * y1);
             }
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(new SpawnerWall(), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.SEED), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.BOMB), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.MIS_T3), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.FOOD), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.FOOD), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.FOOD), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.FOOD), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.FOOD), Random.element(candidates));
+
+        dropMany(candidates,
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                Generator.random(Generator.Category.SEED),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.BOMB),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.FOOD),
+                Generator.random(Generator.Category.FOOD),
+                Generator.random(Generator.Category.FOOD),
+                Generator.random(Generator.Category.FOOD),
+                Generator.random(Generator.Category.FOOD)
+        );
+
 
 
 
@@ -429,15 +443,19 @@ public class Arena18 extends Arena {
                 TowerInfo.getTowerSpawner(Dungeon.level.slot3),
                 TowerInfo.getTowerSpawner(Dungeon.level.slot4)
         ), Random.element(candidates));
-        level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.MIS_T1).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.MIS_T2).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.MIS_T3).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        level.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
+
+        dropMany(Heap.Type.CHEST, candidates,
+                Generator.random(Generator.Category.WEAPON),
+                Generator.random(Generator.Category.WEAPON),
+                Generator.random(Generator.Category.WEAPON),
+                Generator.random(Generator.Category.WEAPON),
+                Generator.random(Generator.Category.WEAPON),
+                Generator.random(Generator.Category.MIS_T1),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.ARMOR)
+                );
+
         level.drop(new GoldenKey(18), Random.element(candidates));
         level.drop(new GoldenKey(18), Random.element(candidates));
         level.drop(Generator.random(Generator.Category.ARMOR).identify().upgrade(3), Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
@@ -473,12 +491,6 @@ public class Arena18 extends Arena {
         level.buildFlagMaps();
         GameScene.updateMap();
     }
-
-    @Override
-    public void addDestinations() {
-        super.addDestinations();
-    }
-
     @Override
     public void initNpcs() {
         hero.lvl = startLvl;
@@ -623,125 +635,6 @@ public class Arena18 extends Arena {
         //mobs are created by the GenDrill
     }
 
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_CITY;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_CITY;
-    }
-
-
-    @Override
-    public String tileName(int tile) {
-        switch (tile) {
-            case Terrain.WATER:
-                return Messages.get(CityLevel.class, "water_name");
-            case Terrain.HIGH_GRASS:
-                return Messages.get(CityLevel.class, "high_grass_name");
-            default:
-                return super.tileName(tile);
-        }
-    }
-
-    @Override
-    public String tileDesc(int tile) {
-        switch (tile) {
-            case Terrain.ENTRANCE:
-                return Messages.get(CityLevel.class, "entrance_desc");
-            case Terrain.EXIT:
-                return Messages.get(CityLevel.class, "exit_desc");
-            case Terrain.WALL_DECO:
-            case Terrain.EMPTY_DECO:
-                return Messages.get(CityLevel.class, "deco_desc");
-            case Terrain.EMPTY_SP:
-                return Messages.get(CityLevel.class, "sp_desc");
-            case Terrain.STATUE:
-            case Terrain.STATUE_SP:
-                return Messages.get(CityLevel.class, "statue_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(CityLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc(tile);
-        }
-    }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addCityVisuals(this, visuals);
-        return visuals;
-    }
-
-    public static void addCityVisuals(Level level, Group group) {
-        for (int i = 0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add(new Smoke(i));
-            }
-        }
-    }
-
-    public static class Smoke extends Emitter {
-
-        private int pos;
-
-        public static final Emitter.Factory factory = new Factory() {
-
-            @Override
-            public void emit(Emitter emitter, int index, float x, float y) {
-                SmokeParticle p = (SmokeParticle) emitter.recycle(SmokeParticle.class);
-                p.reset(x, y);
-            }
-        };
-
-        public Smoke(int pos) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld(pos);
-            pos(p.x - 6, p.y - 4, 12, 12);
-
-            pour(factory, 0.2f);
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-                super.update();
-            }
-        }
-    }
-
-    public static final class SmokeParticle extends PixelParticle {
-
-        public SmokeParticle() {
-            super();
-
-            color(0x000000);
-            speed.set(Random.Float(-2, 4), -Random.Float(3, 6));
-        }
-
-        public void reset(float x, float y) {
-            revive();
-
-            this.x = x;
-            this.y = y;
-
-            left = lifespan = 2f;
-        }
-
-        @Override
-        public void update() {
-            super.update();
-            float p = left / lifespan;
-            am = p > 0.8f ? 1 - p : p * 0.25f;
-            size(6 - p * 3);
-        }
-    }
     public static class LineCannon extends TowerCannon1 {
 
         {

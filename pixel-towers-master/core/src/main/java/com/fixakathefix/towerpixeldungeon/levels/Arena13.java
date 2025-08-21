@@ -43,7 +43,7 @@ import com.watabou.utils.Random;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Arena13 extends Arena {
+public class Arena13 extends ArenaCaves {
     {
 
         name = "The temple";
@@ -326,37 +326,44 @@ public class Arena13 extends Arena {
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
             if (this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
         }
-        this.drop(new Honeypot(), Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
-        this.drop(new MeatPie(), Random.element(candidates));
-        this.drop(new Honeypot(), Random.element(candidates));
-        this.drop(new PotionOfHealing(), Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
-        this.drop(new MeatPie(), Random.element(candidates));
-        this.drop(new Honeypot(), Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(), Random.element(candidates));
-        this.drop(new MeatPie(), Random.element(candidates));
-        this.drop(new MysteryMeat(), Random.element(candidates));
 
-        this.drop(Generator.random(Generator.Category.ARMOR).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARTIFACT), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.RING), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WEAPON).identify(), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.ARTIFACT), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.RING), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WAND), Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.POTION), Random.element(candidates)).type = Heap.Type.CHEST;
+
+        dropMany(candidates,
+                new Honeypot(),
+                new ScrollOfMirrorImage(),
+                new MeatPie(),
+                new Honeypot(),
+                new PotionOfHealing(),
+                new ScrollOfMirrorImage(),
+                new MeatPie(),
+                new Honeypot(),
+                new ScrollOfMirrorImage(),
+                new MeatPie(),
+                new MysteryMeat()
+                );
+        dropMany(Heap.Type.CHEST,candidates,
+                Generator.random(Generator.Category.ARMOR).identify(),
+                Generator.random(Generator.Category.ARTIFACT),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.WEAPON).identify(),
+                Generator.random(Generator.Category.ARTIFACT),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.POTION)
+                );
+
+
 
 
         candidates = new ArrayList<>();
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
             if (this.map[m] == Terrain.EMPTY) candidates.add(m);
         }
-        this.drop(new Honeypot(), Random.element(candidates)).type = Heap.Type.REMAINS;
-        this.drop(new PotionOfHealing(), Random.element(candidates)).type = Heap.Type.REMAINS;
-        this.drop(new ScrollOfMirrorImage(), Random.element(candidates)).type = Heap.Type.REMAINS;
+        drop(new Honeypot(), Random.element(candidates)).type = Heap.Type.REMAINS;
+        drop(new PotionOfHealing(), Random.element(candidates)).type = Heap.Type.REMAINS;
+        drop(new ScrollOfMirrorImage(), Random.element(candidates)).type = Heap.Type.REMAINS;
 
 
         super.addDestinations();
@@ -456,51 +463,6 @@ public class Arena13 extends Arena {
     @Override
     public String tilesTex() {
         return Assets.Environment.TILES_TEMPLE;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_CAVES;
-    }
-
-    public static class GoblinCrossbow extends TowerCrossbow1 {
-
-        {
-            spriteClass = TowerCrossbow2Sprite.class;
-            state = HUNTING;
-            alignment = Alignment.ENEMY;
-
-            //no loot or exp
-            maxLvl = 0;
-
-            damageMin = 3;
-
-            //a bit more tough than those of a gnoll village
-            HT = HP = 35;
-        }
-
-        @Override
-        public CharSprite sprite() {
-            CharSprite sprite1 = super.sprite();
-            sprite1.rm = sprite1.bm = 0.7f;
-            return sprite1;
-        }
-
-        @Override
-        public void updateSpriteState() {
-            super.updateSpriteState();
-        }
-
-
-        @Override
-        public float spawningWeight() {
-            return 0;
-        }
-
-        @Override
-        public boolean interact(Char c) {
-            return false;
-        }
     }
 
 }

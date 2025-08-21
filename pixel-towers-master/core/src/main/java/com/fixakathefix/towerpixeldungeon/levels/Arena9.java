@@ -14,6 +14,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Shaman;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerLightning1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall3;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
@@ -56,7 +57,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena9 extends Arena{
+public class Arena9 extends ArenaPrison{
 
     /**
      * A short puzzle stage
@@ -152,38 +153,6 @@ public class Arena9 extends Arena{
     }
 
     @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_PRISON;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_PRISON;
-    }
-
-    @Override
-    public String tileName( int tile ) {
-        switch (tile) {
-            case Terrain.WATER:
-                return Messages.get(PrisonLevel.class, "water_name");
-            default:
-                return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc(int tile) {
-        switch (tile) {
-            case Terrain.EMPTY_DECO:
-                return Messages.get(PrisonLevel.class, "empty_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(PrisonLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
-        }
-    }
-
-    @Override
     protected boolean build() {
         setSize(WIDTH, HEIGHT);
 
@@ -202,6 +171,11 @@ public class Arena9 extends Arena{
     @Override
     public void initNpcs() {
         super.initNpcs();
+
+        TowerGuard1 guardo = new TowerGuard1();
+        guardo.pos = amuletCell + 7 + WIDTH*3;
+        guardo.state = guardo.SLEEPING;
+        GameScene.add(guardo);
         if (mode == WndModes.Modes.CHALLENGE){
 
                 TowerWall3 defRodLeft = new TowerWall3();
@@ -238,46 +212,47 @@ public class Arena9 extends Arena{
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.passable[m]&&m!=amuletCell&&distance(amuletCell,m)<3) candidates.add(m);
         }
-        this.drop(TowerInfo.getTowerSpawner(slot1), Random.element(candidates));
-        this.drop(TowerInfo.getTowerSpawner(slot2), Random.element(candidates));
-        this.drop(TowerInfo.getTowerSpawner(slot3), Random.element(candidates));
-        this.drop(TowerInfo.getTowerSpawner(slot4), Random.element(candidates));
 
-        this.drop(new ScrollOfAnimation(), Random.element(candidates));
-        this.drop(new ScrollOfAnimation(), Random.element(candidates));
-        this.drop(new ScrollOfAnimation(), Random.element(candidates));
-        this.drop(new ScrollOfGolems(), Random.element(candidates));
-        this.drop(new Pike(), Random.element(candidates));
-        this.drop(new Blindweed.Seed(), Random.element(candidates));
-        this.drop(new Stormvine.Seed(), Random.element(candidates));
-        this.drop(new PotionOfPurity(), Random.element(candidates));
-        this.drop(new PotionOfInvisibility(), Random.element(candidates));
-        this.drop(new PotionOfInvisibility(), Random.element(candidates));
-        this.drop(new ScrollOfTransmutation(), Random.element(candidates));
-        this.drop(new ScrollOfTransmutation(), Random.element(candidates));
-        this.drop(new ScrollOfTransmutation(), Random.element(candidates));
-        this.drop(new ScrollOfTransmutation(), Random.element(candidates));
-        this.drop(new ScrollOfDemonicSkull(), Random.element(candidates));
-        this.drop(new ElixirOfHoneyedHealing(), Random.element(candidates));
-        this.drop(new CorruptedOoze(),Random.element(candidates));
-        this.drop(new LiquidMetal(),Random.element(candidates));
-        this.drop(new ScrollOfAntiMagic(),Random.element(candidates));
-        this.drop(new PotionOfCleansing(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(), Random.element(candidates));
-        this.drop(new Swiftthistle.Seed(), Random.element(candidates));
-        this.drop(new ElixirOfAquaticRejuvenation(), Random.element(candidates));
-        this.drop(new AquaBlast(), Random.element(candidates));
-        this.drop(new AquaBlast(), Random.element(candidates));
-        this.drop(new AquaBlast(), Random.element(candidates));
-        this.drop(new AquaBlast(), Random.element(candidates));
-        this.drop(new StoneOfAggression(), Random.element(candidates));
-        this.drop(new StoneOfDeepSleep(), Random.element(candidates));
-        this.drop(new StoneOfDeepSleep(), Random.element(candidates));
-        this.drop(new StoneOfBlink(), Random.element(candidates));
-        this.drop(new StoneOfBlink(), Random.element(candidates));
-        this.drop(new StoneOfBlink(), Random.element(candidates));
-
+        dropMany(candidates,
+                TowerInfo.getTowerSpawner(slot1),
+                TowerInfo.getTowerSpawner(slot2),
+                TowerInfo.getTowerSpawner(slot3),
+                TowerInfo.getTowerSpawner(slot4),
+                new ScrollOfGolems(),
+                new Pike(),
+                new Blindweed.Seed(),
+                new Stormvine.Seed(),
+                new PotionOfPurity(),
+                new PotionOfInvisibility(),
+                new PotionOfInvisibility(),
+                new ScrollOfTransmutation(),
+                new ScrollOfTransmutation(),
+                new ScrollOfTransmutation(),
+                new ScrollOfTransmutation(),
+                new ScrollOfDemonicSkull(),
+                new ElixirOfHoneyedHealing(),
+                new CorruptedOoze(),
+                new LiquidMetal(),
+                new ScrollOfAntiMagic(),
+                new PotionOfCleansing(),
+                new PotionOfToxicGas(),
+                new Swiftthistle.Seed(),
+                new ElixirOfAquaticRejuvenation(),
+                new AquaBlast(),
+                new AquaBlast(),
+                new AquaBlast(),
+                new AquaBlast(),
+                new StoneOfAggression(),
+                new StoneOfDeepSleep(),
+                new StoneOfDeepSleep(),
+                new StoneOfBlink(),
+                new StoneOfBlink(),
+                new StoneOfBlink()
+                );
         candidates.clear();
+        for (int i = 0; i < 8; i++){
+            drop(new ScrollOfAnimation(), amuletCell-WIDTH);
+        }
 
         super.addDestinations();
     }
@@ -295,45 +270,5 @@ public class Arena9 extends Arena{
     @Override
     public void doStuffEndwave(int wave) {
         super.doStuffEndwave(wave);
-    }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addPrisonVisuals(this, visuals);
-        return visuals;
-    }
-
-    public static void addPrisonVisuals(Level level, Group group){
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new PrisonLevel.Torch( i ) );
-            }
-        }
-    }
-
-    public static class Torch extends Emitter {
-
-        private int pos;
-
-        public Torch( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 1, p.y + 2, 2, 0 );
-
-            pour( FlameParticle.FACTORY, 0.15f );
-
-            add( new Halo( 12, 0xFFDDDD, 0.4f ).point( p.x, p.y + 1 ) );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-                super.update();
-            }
-        }
     }
 }

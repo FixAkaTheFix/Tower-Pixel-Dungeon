@@ -5,6 +5,7 @@ import static com.fixakathefix.towerpixeldungeon.Dungeon.level;
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossNecromancer;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Guard;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Necromancer;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
@@ -16,6 +17,11 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.SpectralNecromancer;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Swarm;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard2;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall1;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
@@ -28,6 +34,7 @@ import com.fixakathefix.towerpixeldungeon.levels.rooms.special.MassGraveRoom;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.BossNecromancerSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.TowerGuard2Sprite;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndDialogueWithPic;
@@ -41,7 +48,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena8 extends Arena{
+public class Arena8 extends ArenaPrison{
 
     /**
      * A stage similar to stage 6, focused on necromancy. Has a ton of loot.
@@ -63,6 +70,7 @@ public class Arena8 extends Arena{
         arenaDepth = 8;
 
         maxWaves=20;
+
 
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
         towerShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
@@ -172,38 +180,6 @@ public class Arena8 extends Arena{
     }
 
     int caveY = Random.Int(5,60);
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_PRISON;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_HALLS;
-    }
-
-    @Override
-    public String tileName( int tile ) {
-        switch (tile) {
-            case Terrain.WATER:
-                return Messages.get(PrisonLevel.class, "water_name");
-            default:
-                return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc(int tile) {
-        switch (tile) {
-            case Terrain.EMPTY_DECO:
-                return Messages.get(PrisonLevel.class, "empty_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(PrisonLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
-        }
-    }
 
     @Override
     protected boolean build() {
@@ -344,13 +320,53 @@ public class Arena8 extends Arena{
         cleanWalls();
     }
 
+    @Override
+    public void initNpcs() {
+        super.initNpcs();
+        TowerGuard2 guard1defender = new TowerGuard2();
+        TowerGuard2 guard2defender = new TowerGuard2();
+        guard1defender.pos = amuletCell + 5 - 3*WIDTH;
+        guard2defender.pos = amuletCell + 5 + 3*WIDTH;
+        guard1defender.followingHero = true;
+        guard2defender.followingHero = true;
+        guard1defender.justSpawned = false;
+        guard2defender.justSpawned = false;
+        GameScene.add(guard1defender);
+        GameScene.add(guard2defender);
 
+        TowerGuard2 guard3corporal = new TowerGuard2();
+        guard3corporal.pos = amuletCell + 4;
+        GameScene.add(guard3corporal);
 
+        for (int pos : new int[]{ amuletCell + 6 + 4*WIDTH,amuletCell + 6 + 3*WIDTH,amuletCell + 6 + 2*WIDTH,amuletCell + 6 - 2*WIDTH,amuletCell + 6 - 3*WIDTH,amuletCell + 6 - 4*WIDTH}){
+            TowerWall1 wall = new TowerWall1();
+            wall.pos = pos;
+            GameScene.add(wall);
+        }
+        for (int pos : new int[]{ amuletCell + 5 + 4*WIDTH, amuletCell + 5 + 2*WIDTH,amuletCell + 5 - 2*WIDTH,amuletCell + 5 - 4*WIDTH}){
+            TowerCrossbow1 crossbow = new TowerCrossbow1();
+            crossbow.pos = pos;
+            GameScene.add(crossbow);
+        }
+    }
 
     @Override
     public void doStuffStartwave(int wave) {
 
         if (wave == 1){
+            WndDialogueWithPic.dialogue(new TowerGuard2Sprite(), Messages.get(RatKing.class, "someguard"),
+                    new String[]{
+                            Messages.get(RatKing.class, "l8w1start1"),
+                            Messages.get(RatKing.class, "l8w1start2"),
+                            Messages.get(RatKing.class, "l8w1start3"),
+                            Messages.get(RatKing.class, "l8w1start4"),
+                            Messages.get(RatKing.class, "l8w1start5")
+                    },
+                    new byte[]{
+                            WndDialogueWithPic.IDLE
+                    });
+        }
+        if (wave == 2){
             WndDialogueWithPic.dialogue(new BossNecromancerSprite(), Messages.get(BossNecromancer.class, "name"),
                     new String[]{
                             Messages.get(BossNecromancer.class, "start1"),
@@ -405,48 +421,4 @@ public class Arena8 extends Arena{
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
     }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addPrisonVisuals(this, visuals);
-        return visuals;
-    }
-
-    public static void addPrisonVisuals(Level level, Group group){
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new PrisonLevel.Torch( i ) );
-            }
-        }
-    }
-
-    public static class Torch extends Emitter {
-
-        private int pos;
-
-        public Torch( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 1, p.y + 2, 2, 0 );
-
-            pour( FlameParticle.FACTORY, 0.15f );
-
-            add( new Halo( 12, 0xFFDDDD, 0.4f ).point( p.x, p.y + 1 ) );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-                super.update();
-            }
-        }
-    }
-
-
-
-
 }

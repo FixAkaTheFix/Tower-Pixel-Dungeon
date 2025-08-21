@@ -86,7 +86,7 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Arena2 extends Arena{
+public class Arena2 extends ArenaSewers{
 
     /**
      * Has a ton of loot.
@@ -570,162 +570,77 @@ public class Arena2 extends Arena{
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.passable[m] && this.distance(amuletCell, m) > 15 && !cellAdjacentToBorderCells(m) ) candidates.add(m);
         }
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfDrowsiness(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfAnimation(),Random.element(candidates));
-        this.drop(new ScrollOfDrowsiness(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfAnimation(),Random.element(candidates));
-        this.drop(new ScrollOfDrowsiness(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfAnimation(),Random.element(candidates));
-        this.drop(new ScrollOfDrowsiness(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfAnimation(),Random.element(candidates));
-        this.drop(new ScrollOfDrowsiness(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(new Honeypot(),Random.element(candidates));
-        this.drop(new PotionOfHealing(),Random.element(candidates));
-        this.drop(new PotionOfLiquidFlame(),Random.element(candidates));
-        this.drop(new PotionOfFrost(),Random.element(candidates));
-        this.drop(new PotionOfExperience(),Random.element(candidates));
-        this.drop(new PotionOfToxicGas(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new ScrollOfAnimation(),Random.element(candidates));
-        this.drop(new ScrollOfTerror(),Random.element(candidates));
-        this.drop(new ScrollOfMirrorImage(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(new SmallRation(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;;
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));
+
+
+        dropMany(Heap.Type.CHEST,candidates,
+                new PotionOfHealing(),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND)
+                );
+        for (int i = 0; i < 3; i++) {
+            dropMany(candidates,
+                    new Honeypot(),
+                    new PotionOfLiquidFlame(),
+                    new PotionOfFrost(),
+                    new PotionOfExperience(),
+                    new PotionOfToxicGas(),
+                    new ScrollOfUpgrade(),
+                    new ScrollOfDrowsiness(),
+                    new ScrollOfTerror(),
+                    new ScrollOfMirrorImage(),
+                    new MeatPie(),
+                    new MysteryMeat(),
+                    new SmallRation(),
+                    new Honeypot(),
+                    new PotionOfHealing(),
+                    new PotionOfLiquidFlame(),
+                    new PotionOfFrost(),
+                    new PotionOfExperience(),
+                    new PotionOfToxicGas(),
+                    new ScrollOfUpgrade(),
+                    new ScrollOfAnimation(),
+                    new ScrollOfDrowsiness(),
+                    new ScrollOfTerror(),
+                    new ScrollOfMirrorImage(),
+                    new MeatPie(),
+                    new MysteryMeat(),
+                    new SmallRation(),
+                    Generator.random(Generator.Category.MIS_T3),
+                    Generator.random(Generator.Category.MIS_T2),
+                    Generator.random(Generator.Category.MIS_T1),
+                    new MysteryMeat(),
+                    Generator.random(Generator.Category.ARMOR),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.GOLD),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.GOLD)
+            );
+        }
+
 
         this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
         this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
         this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
         this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new ScrollOfRatLegion(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
-        this.drop(new GoldenKey(arenaDepth),Random.element(candidates));
-        this.drop(new SpawnerCamp(),Random.element(candidates)).type = Heap.Type.LOCKED_CHEST;
+
 
 
         super.addDestinations();
@@ -779,78 +694,5 @@ public class Arena2 extends Arena{
         return visuals;
     }
 
-    public static void addSewerVisuals( Level level, Group group ) {
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new Arena2.Sink( i ) );
-            }
-        }
-    }
-
-    private static class Sink extends Emitter {
-
-        private int pos;
-        private float rippleDelay = 0;
-
-        private static final Emitter.Factory factory = new Factory() {
-
-            @Override
-            public void emit( Emitter emitter, int index, float x, float y ) {
-                Arena2.WaterParticle p = (Arena2.WaterParticle)emitter.recycle( Arena2.WaterParticle.class );
-                p.reset( x, y );
-            }
-        };
-
-        public Sink( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 2, p.y + 3, 4, 0 );
-
-            pour( factory, 0.1f );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-
-                super.update();
-
-                if (!isFrozen() && (rippleDelay -= Game.elapsed) <= 0) {
-                    Ripple ripple = GameScene.ripple( pos + Dungeon.level.width() );
-                    if (ripple != null) {
-                        ripple.y -= DungeonTilemap.SIZE / 2;
-                        rippleDelay = Random.Float(0.4f, 0.6f);
-                    }
-                }
-            }
-        }
-    }
-
-    public static final class WaterParticle extends PixelParticle {
-
-        public WaterParticle() {
-            super();
-
-            acc.y = 50;
-            am = 0.5f;
-
-            color( ColorMath.random( 0xb6ccc2, 0x3b6653 ) );
-            size( 2 );
-        }
-
-        public void reset( float x, float y ) {
-            revive();
-
-            this.x = x;
-            this.y = y;
-
-            speed.set( Random.Float( -2, +2 ), 0 );
-
-            left = lifespan = 0.4f;
-        }
-    }
 
 }

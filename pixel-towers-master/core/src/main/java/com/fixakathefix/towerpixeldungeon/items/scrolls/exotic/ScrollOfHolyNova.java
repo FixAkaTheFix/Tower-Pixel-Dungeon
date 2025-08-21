@@ -77,10 +77,10 @@ public class ScrollOfHolyNova extends ExoticScroll {
 			HashSet<Mob> mobsFukConcurrentModificationException = new HashSet<>(Dungeon.level.mobs);
 
 			for (Mob mob : mobsFukConcurrentModificationException) {
-				if (hero.fieldOfView[mob.pos]) {
+				if (hero.fieldOfView[mob.pos] && Dungeon.level.distance(mob.pos, hero.pos) < 30) {
 					if (mob.properties().contains(Char.Property.UNDEAD) || mob.properties().contains(Char.Property.DEMONIC))
-						mob.damage(mob.properties().contains(Char.Property.BOSS) ? mob.HT/60 :
-								mob.properties().contains(Char.Property.MINIBOSS) ? mob.HT/15 : mob.HT/5, this);
+						mob.damage(mob.properties().contains(Char.Property.BOSS) ? mob.HT/60 + 1 :
+								mob.properties().contains(Char.Property.MINIBOSS) ? mob.HT/15 + 1 : mob.HT/5 + 1, this);
 					else if (mob.alignment == Char.Alignment.ALLY && !(mob instanceof Tower && ! (mob instanceof SentientTower)))
 						Buff.affect(mob, Bless.class, 10);
 				}

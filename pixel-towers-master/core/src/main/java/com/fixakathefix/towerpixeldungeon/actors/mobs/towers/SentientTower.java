@@ -4,6 +4,7 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
+import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 
 public class SentientTower extends Tower {
@@ -19,11 +20,13 @@ public class SentientTower extends Tower {
 
     }
 
-    protected boolean justSpawned = true;
+    public boolean justSpawned = true;
 
     protected boolean attacksAutomatically = true;
 
     protected int defendingPos;
+
+    public boolean followingHero = false;
     protected boolean movingToDefendPos = false;
 
 
@@ -31,11 +34,13 @@ public class SentientTower extends Tower {
         aggro(null);
         state = WANDERING;
         defendingPos = cell;
+        followingHero = false;
         movingToDefendPos = true;
     }
 
     public void clearDefensingPos(){
         defendingPos = -1;
+        followingHero = false;
         movingToDefendPos = false;
     }
 
@@ -43,11 +48,13 @@ public class SentientTower extends Tower {
         aggro(null);
         state = WANDERING;
         defendingPos = -1;
+        followingHero = true;
         movingToDefendPos = false;
     }
 
     public void targetChar( Char ch ){
         aggro(ch);
+        followingHero = false;
         target = ch.pos;
         movingToDefendPos = false;
     }
@@ -73,17 +80,18 @@ public class SentientTower extends Tower {
 
         } else if (Actor.findChar(cell).alignment == Char.Alignment.ENEMY){
             targetChar(Actor.findChar(cell));
-
         }
     }
 
     private static final String DEFEND_POS = "defend_pos";
     private static final String MOVING_TO_DEFEND = "moving_to_defend";
     private static final String JUSTSPAWNED = "justspawned";
+    private static final String FOLLOWING_HERO = "following_hero";
 
     public void justSpawnedLogic(){
         defendingPos = this.pos;
         movingToDefendPos = false;
+        followingHero = false;
     }
 
     @Override
@@ -91,6 +99,8 @@ public class SentientTower extends Tower {
         super.storeInBundle(bundle);
         bundle.put(DEFEND_POS, defendingPos);
         bundle.put(MOVING_TO_DEFEND, movingToDefendPos);
+        bundle.put(FOLLOWING_HERO, followingHero);
+        bundle.put(JUSTSPAWNED, justSpawned);
     }
 
     @Override
@@ -98,6 +108,8 @@ public class SentientTower extends Tower {
         super.restoreFromBundle(bundle);
         if (bundle.contains(DEFEND_POS)) defendingPos = bundle.getInt(DEFEND_POS);
         movingToDefendPos = bundle.getBoolean(MOVING_TO_DEFEND);
+        followingHero = bundle.getBoolean(FOLLOWING_HERO);
+        justSpawned = bundle.getBoolean(JUSTSPAWNED);
     }
 
     private class Wandering extends Mob.Wandering {
@@ -123,10 +135,10 @@ public class SentientTower extends Tower {
             } else {
 
                 enemySeen = false;
-                beckon(defendingPos);
-
+                if (followingHero) beckon(Dungeon.hero.pos);
+                else if (defendingPos!=-1)beckon(defendingPos);
+                else defendPos(pos);
                 int oldPos = pos;
-                target = defendingPos != -1 ? defendingPos : Dungeon.hero.pos;
                 //always move towards the hero when wandering
                 if (getCloser( target )) {
                     spend( 1 / speed() );
@@ -146,8 +158,10 @@ public class SentientTower extends Tower {
 
         @Override
         public boolean act(boolean enemyInFOV, boolean justAlerted) {
+            if (followingHero) defendingPos = -1;
             if (enemyInFOV && defendingPos != -1 && Dungeon.level.heroFOV[defendingPos] && !canAttack(enemy)){
-                target = defendingPos;
+                if (followingHero) target = Dungeon.hero.pos;
+                else target = defendingPos;
                 state = WANDERING;
                 return true;
             }

@@ -50,7 +50,7 @@ public class PotionOfInvisibility extends Potion {
 	
 	@Override
 	public int value() {
-		return 5 * quantity;
+		return 20 * quantity;
 	}
 
 }

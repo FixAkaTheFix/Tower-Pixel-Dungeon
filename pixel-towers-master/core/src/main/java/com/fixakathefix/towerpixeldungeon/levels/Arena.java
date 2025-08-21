@@ -48,6 +48,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWave;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.MagicMissile;
@@ -569,6 +570,12 @@ public class Arena extends Level {
         if (towerShopKeeper!=null) towerShopKeeper.placeItems();
         if (normalShopKeeper!=null) normalShopKeeper.placeItems();
         doStuffEndwave(wave);
+
+        for (Mob mob : mobs){
+            if (mob instanceof TowerGuard1 && mob.alignment == Char.Alignment.ALLY){
+                ((TowerGuard1)mob).turnsUntilRegen = 0;
+            }
+        }
 
 
         if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20) && (depth!=1)){

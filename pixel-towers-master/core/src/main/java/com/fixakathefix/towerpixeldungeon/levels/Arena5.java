@@ -80,7 +80,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena5 extends Arena{
+public class Arena5 extends ArenaSewers{
 
     /**
      * The boss level, with its map reworked and loot rerolled. A big exploration map, with a ghost seed in the bushes.
@@ -670,16 +670,12 @@ public class Arena5 extends Arena{
     }
 
     @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_SEWERS;
-    }
-
-    @Override
     public Group addVisuals() {
         super.addVisuals();
         addSewerVisuals(this, visuals);
         return visuals;
     }
+
 
     public static void addSewerVisuals( Level level, Group group ) {
         for (int i=0; i < level.length(); i++) {

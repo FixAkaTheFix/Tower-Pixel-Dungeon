@@ -60,7 +60,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena4 extends Arena {
+public class Arena4 extends ArenaSewers {
     /**
      * Introduces portals and monster lairs, in a manner that allows for killing them easy (summons snek).
      * Introduces a new tower: cannon, after that the tower menu is unlocked, with 2 towers appearing: Rat camp and Cannon
@@ -252,77 +252,59 @@ public class Arena4 extends Arena {
     @Override
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
-        for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m]&&this.map[m]!=Terrain.WATER&&this.map[m]!=Terrain.EMPTY&&this.map[m]!=Terrain.PEDESTAL) candidates.add(m);
+        for (int m = 0; m<WIDTH*HEIGHT;m++) {
+            if (this.passable[m] && this.map[m] != Terrain.WATER && this.map[m] != Terrain.EMPTY && this.map[m] != Terrain.PEDESTAL)
+                candidates.add(m);
         }
-        this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(new ElixirOfToxicEssence(),Random.element(candidates));
-        this.drop(new ElixirOfToxicEssence(),Random.element(candidates));
-        this.drop(new ElixirOfToxicEssence(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new SpawnerCannon(),Random.element(candidates));
-        this.drop(new SpawnerWand(),Random.element(candidates));
-        this.drop(new SpawnerWand(),Random.element(candidates));
-        this.drop(new SpawnerCannon(),Random.element(candidates));
-        this.drop(new SpawnerWand(),Random.element(candidates));
-        this.drop(new SpawnerWand(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
+        dropMany(candidates,
+                Generator.random(Generator.Category.ARTIFACT),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.SCROLL),
+                new ElixirOfToxicEssence(),
+                new ElixirOfToxicEssence(),
+                new ElixirOfToxicEssence(),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new ThrowingStone(),
+                new SpawnerCannon(),
+                new SpawnerWand(),
+                new SpawnerWand(),
+                new SpawnerCannon(),
+                new SpawnerWand(),
+                new SpawnerWand(),
+                new ThrowingStone()
+        );
+
         candidates.clear();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.map[m]==Terrain.WATER) candidates.add(m);
         }
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-        this.drop(new MysteryMeat(),Random.element(candidates));
+        for (int i = 0; i < 15; i++){
+            dropMany(candidates,
+                    Generator.random(Generator.Category.SEED),
+                    new MysteryMeat()
+                    );
+        }
 
 
         for (int m = 61*15; m<WIDTH*HEIGHT- WIDTH;m++){
@@ -513,13 +495,8 @@ public class Arena4 extends Arena {
     }
 
     @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
-    }
-
-    @Override
     public String waterTex() {
-        return Assets.Environment.WATER_SEWERS;
+        return Assets.Environment.WATER_CAVES;
     }
 
     @Override
@@ -527,79 +504,5 @@ public class Arena4 extends Arena {
         super.addVisuals();
         addSewerVisuals(this, visuals);
         return visuals;
-    }
-
-    public static void addSewerVisuals( Level level, Group group ) {
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new Arena4.Sink( i ) );
-            }
-        }
-    }
-
-    private static class Sink extends Emitter {
-
-        private int pos;
-        private float rippleDelay = 0;
-
-        private static final Emitter.Factory factory = new Factory() {
-
-            @Override
-            public void emit( Emitter emitter, int index, float x, float y ) {
-                Arena4.WaterParticle p = (Arena4.WaterParticle)emitter.recycle( Arena4.WaterParticle.class );
-                p.reset( x, y );
-            }
-        };
-
-        public Sink( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 2, p.y + 3, 4, 0 );
-
-            pour( factory, 0.1f );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-
-                super.update();
-
-                if (!isFrozen() && (rippleDelay -= Game.elapsed) <= 0) {
-                    Ripple ripple = GameScene.ripple( pos + Dungeon.level.width() );
-                    if (ripple != null) {
-                        ripple.y -= DungeonTilemap.SIZE / 2;
-                        rippleDelay = Random.Float(0.4f, 0.6f);
-                    }
-                }
-            }
-        }
-    }
-
-    public static final class WaterParticle extends PixelParticle {
-
-        public WaterParticle() {
-            super();
-
-            acc.y = 50;
-            am = 0.5f;
-
-            color( ColorMath.random( 0xb6ccc2, 0x3b6653 ) );
-            size( 2 );
-        }
-
-        public void reset( float x, float y ) {
-            revive();
-
-            this.x = x;
-            this.y = y;
-
-            speed.set( Random.Float( -2, +2 ), 0 );
-
-            left = lifespan = 0.4f;
-        }
     }
 }

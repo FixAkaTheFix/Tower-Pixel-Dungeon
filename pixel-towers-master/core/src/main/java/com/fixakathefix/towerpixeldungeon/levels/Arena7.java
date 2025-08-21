@@ -13,6 +13,8 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.RotLasher;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Shaman;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Skeleton;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard2;
 import com.fixakathefix.towerpixeldungeon.effects.particles.FlameParticle;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
@@ -23,6 +25,7 @@ import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Halo;
 import com.watabou.noosa.audio.Music;
@@ -33,7 +36,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena7 extends Arena{
+public class Arena7 extends ArenaPrison{
     /**
      * a filler stage with lasher invasions
      * introduction to the power of wands and scrolls
@@ -136,11 +139,6 @@ public class Arena7 extends Arena{
     }
 
     @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_PRISON;
-    }
-
-    @Override
     public String waterTex() {
         return Assets.Environment.WATER_HALLS;
     }
@@ -152,18 +150,6 @@ public class Arena7 extends Arena{
                 return Messages.get(PrisonLevel.class, "water_name");
             default:
                 return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc(int tile) {
-        switch (tile) {
-            case Terrain.EMPTY_DECO:
-                return Messages.get(PrisonLevel.class, "empty_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(PrisonLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
         }
     }
 
@@ -353,50 +339,15 @@ public class Arena7 extends Arena{
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
     }
-
     @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addPrisonVisuals(this, visuals);
-        return visuals;
+    public void initNpcs() {
+        TowerGuard2 guard1 = new TowerGuard2();
+        TowerGuard2 guard2 = new TowerGuard2();
+        guard1.pos = amuletCell+1;
+        guard2.pos = amuletCell-1;
+        GameScene.add(guard1);
+        GameScene.add(guard2);
+
+        super.initNpcs();
     }
-
-    public static void addPrisonVisuals(Level level, Group group){
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new PrisonLevel.Torch( i ) );
-            }
-        }
-    }
-
-    public static class Torch extends Emitter {
-
-        private int pos;
-
-        public Torch( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 1, p.y + 2, 2, 0 );
-
-            pour( FlameParticle.FACTORY, 0.15f );
-
-            add( new Halo( 12, 0xFFDDDD, 0.4f ).point( p.x, p.y + 1 ) );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-                super.update();
-            }
-        }
-    }
-
-
-
-
-
-
 }

@@ -53,7 +53,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena10 extends Arena{
+public class Arena10 extends ArenaPrison{
 
     /**
      * a hard boss stage
@@ -189,38 +189,6 @@ public class Arena10 extends Arena{
             case 8056: return 20;
         }
         return 1;
-    }
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_PRISON;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_PRISON;
-    }
-
-    @Override
-    public String tileName( int tile ) {
-        switch (tile) {
-            case Terrain.WATER:
-                return Messages.get(PrisonLevel.class, "water_name");
-            default:
-                return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc(int tile) {
-        switch (tile) {
-            case Terrain.EMPTY_DECO:
-                return Messages.get(PrisonLevel.class, "empty_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(PrisonLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
-        }
     }
 
     @Override
@@ -421,13 +389,17 @@ public class Arena10 extends Arena{
             if (this.passable[m] && distance(amuletCell, m) > 13) candidates.add(m);
         }
         for (int i = 0; i < 12; i ++){
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SCROLL2),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
+
+            dropMany(candidates,
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.SCROLL),
+                    Generator.random(Generator.Category.SCROLL2),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE)
+                    );
+
         }
 
         dropMany( candidates,
@@ -501,57 +473,4 @@ public class Arena10 extends Arena{
         GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
         super.doStuffEndwave(wave);
     }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addPrisonVisuals(this, visuals);
-        return visuals;
-    }
-
-    public static void addPrisonVisuals(Level level, Group group){
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new PrisonLevel.Torch( i ) );
-            }
-        }
-    }
-
-    public static class Torch extends Emitter {
-
-        private int pos;
-
-        public Torch( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld( pos );
-            pos( p.x - 1, p.y + 2, 2, 0 );
-
-            pour( FlameParticle.FACTORY, 0.15f );
-
-            add( new Halo( 12, 0xFFEEEE, 0.4f ).point( p.x, p.y + 1 ) );
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-                super.update();
-            }
-        }
-    }
-
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-    }
-
-
-
 }

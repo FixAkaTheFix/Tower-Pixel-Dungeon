@@ -51,7 +51,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena3 extends Arena {
+public class Arena3 extends ArenaSewers {
 
     /**
      * First real level.
@@ -465,49 +465,48 @@ public class Arena3 extends Arena {
             if (this.map[m]==Terrain.EMPTY_SP && this.distance(amuletCell, m) > 40 && Math.random()>0.3) candidates.add(m);//places more than 40 tiles away have 70% more chance for loot to appear on them
         }
         for (int i = 0; i<10; i++){
-            this.drop(new Bomb(),Random.element(candidates));
-            this.drop(new StewedMeat(),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.SEED),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.STONE),Random.element(candidates));
-            this.drop(new Honeypot(),Random.element(candidates));
-            this.drop(new Honeypot(),Random.element(candidates));
-            this.drop(Blandfruit.randomFruit(),Random.element(candidates));
-            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
-            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates)).type = Heap.Type.CHEST;
-            this.drop(Generator.random(Generator.Category.GOLD),Random.element(candidates));
+
+            dropMany(candidates,
+                    new Bomb(),
+                    new StewedMeat(),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.SEED),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.POTION),
+                    Generator.random(Generator.Category.STONE),
+                    Generator.random(Generator.Category.STONE),
+                    new Honeypot(),
+                    new Honeypot(),
+                    Blandfruit.randomFruit(),
+                    Generator.random(Generator.Category.GOLD),
+                    Generator.random(Generator.Category.GOLD)
+            );
+
         }
 
-        this.drop(new ElixirOfHoneyedHealing(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
-        this.drop(new ElixirOfHoneyedHealing(),Random.element(candidates));
-        this.drop(new ScrollOfUpgrade(),Random.element(candidates));
-        this.drop(new MeatPie(),Random.element(candidates));
 
-        this.drop(new IronKey(3),Random.element(candidates));
-        this.drop(new IronKey(3),Random.element(candidates));
-        this.drop(new IronKey(3),Random.element(candidates));
-        this.drop(new IronKey(3),Random.element(candidates));
-        this.drop(new IronKey(3),Random.element(candidates));
+        for (int i = 0; i< 5; i++) dropMany(candidates,
+                new ThrowingStone(),
+                new ElixirOfHoneyedHealing(),
+                new MeatPie(),
+                new IronKey(3)
+        );
+        drop(new ScrollOfUpgrade(),Random.element(candidates));
 
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.MIS_T1),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates)).type = Heap.Type.CHEST;
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
-        this.drop(new ThrowingStone(),Random.element(candidates));
+        dropMany(Heap.Type.CHEST, candidates,
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T1),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND)
+                );
+
+
 
 
         for (int m = WIDTH*20 + WIDTH/2; m<WIDTH*HEIGHT- 7*WIDTH;m++){
@@ -532,70 +531,6 @@ public class Arena3 extends Arena {
         super.addDestinations();
     }
 
-    private static class Sink extends Emitter {
 
-        private int pos;
-        private float rippleDelay = 0;
-
-        private static final Emitter.Factory factory = new Factory() {
-
-            @Override
-            public void emit(Emitter emitter, int index, float x, float y) {
-                Arena3.WaterParticle p = (Arena3.WaterParticle) emitter.recycle(Arena3.WaterParticle.class);
-                p.reset(x, y);
-            }
-        };
-
-        public Sink(int pos) {
-            super();
-
-            this.pos = pos;
-
-            PointF p = DungeonTilemap.tileCenterToWorld(pos);
-            pos(p.x - 2, p.y + 3, 4, 0);
-
-            pour(factory, 0.1f);
-        }
-
-        @Override
-        public void update() {
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-
-                super.update();
-
-                if (!isFrozen() && (rippleDelay -= Game.elapsed) <= 0) {
-                    Ripple ripple = GameScene.ripple(pos + Dungeon.level.width());
-                    if (ripple != null) {
-                        ripple.y -= DungeonTilemap.SIZE / 2;
-                        rippleDelay = Random.Float(0.4f, 0.6f);
-                    }
-                }
-            }
-        }
-    }
-
-    public static final class WaterParticle extends PixelParticle {
-
-        public WaterParticle() {
-            super();
-
-            acc.y = 50;
-            am = 0.5f;
-
-            color(ColorMath.random(0xb6ccc2, 0x3b6653));
-            size(2);
-        }
-
-        public void reset(float x, float y) {
-            revive();
-
-            this.x = x;
-            this.y = y;
-
-            speed.set(Random.Float(-2, +2), 0);
-
-            left = lifespan = 0.4f;
-        }
-    }
 
 }

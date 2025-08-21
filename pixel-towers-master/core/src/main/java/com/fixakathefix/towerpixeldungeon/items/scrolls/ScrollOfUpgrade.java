@@ -141,7 +141,7 @@ public class ScrollOfUpgrade extends InventoryScroll {
 	
 	@Override
 	public int value() {
-		return 55 * quantity;
+		return 50 * quantity;
 	}
 
 	@Override

@@ -47,7 +47,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Arena13Previous extends Arena{
+public class Arena13Previous extends ArenaCaves{
 
     {
 
@@ -256,209 +256,93 @@ public class Arena13Previous extends Arena{
         for (int m = 0; m<WIDTH*HEIGHT-1;m++){
             if (this.passable[m]&&this.map[m]==Terrain.EMPTY) candidates.add(m);
         }
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new DarkGold() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfMindVision() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfInvisibility() ,Random.element(candidates));
-        this.drop(new PotionOfDivineInspiration() ,Random.element(candidates));
-        this.drop(new PotionOfDivineInspiration() ,Random.element(candidates));
-        this.drop(new PotionOfDivineInspiration() ,Random.element(candidates));
-        this.drop(new PotionOfDivineInspiration() ,Random.element(candidates));
-        this.drop(new PotionOfDivineInspiration() ,Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
-        this.drop(new ParalyticDart(), Random.element(candidates));
+        for (int i = 0; i < 5; i++) dropMany(candidates,
+                new Pickaxe() ,
+                new DarkGold() ,
+                new DarkGold() ,
+                new DarkGold() ,
+                new PotionOfMindVision() ,
+                new PotionOfMindVision() ,
+                new PotionOfInvisibility() ,
+                new PotionOfInvisibility() ,
+                new PotionOfDivineInspiration() ,
+                new ParalyticDart(),
+                new ParalyticDart()
+                );
+
         candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
             if (this.passable[m]&&this.map[m]==Terrain.EMPTY_SP) candidates.add(m);
         }
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.POTION),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.SCROLL),Random.element(candidates));
-        this.drop(new HolyBomb(),Random.element(candidates));
-        this.drop(new FrostBomb(),Random.element(candidates));
-        this.drop(new RegrowthBomb(),Random.element(candidates));
-        this.drop(new ShockBomb(),Random.element(candidates));
-        this.drop(new Noisemaker(),Random.element(candidates));
-        this.drop(new Noisemaker(),Random.element(candidates));
-        this.drop(new Noisemaker(),Random.element(candidates));
-        this.drop(new Noisemaker(),Random.element(candidates));
-        this.drop(new Noisemaker(),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARMOR),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.RING),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WAND),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.ARTIFACT),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T3),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.MIS_T5),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T4),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T2),Random.element(candidates));
-        this.drop(Generator.random(Generator.Category.WEP_T3),Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new Pickaxe() ,Random.element(candidates));
-        this.drop(new SpawnerCrossbow(), Random.element(candidates));
-        this.drop(new SpawnerCrossbow(), Random.element(candidates));
-        this.drop(new SpawnerWand(), Random.element(candidates));
-        this.drop(new SpawnerWand(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerGrave(), Random.element(candidates));
-        this.drop(new SpawnerGrave(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
-        this.drop(new SpawnerCrossbow(), Random.element(candidates));
-        this.drop(new SpawnerCrossbow(), Random.element(candidates));
-        this.drop(new SpawnerWand(), Random.element(candidates));
-        this.drop(new SpawnerWand(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerWall(), Random.element(candidates));
-        this.drop(new SpawnerGrave(), Random.element(candidates));
-        this.drop(new SpawnerGrave(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
-        this.drop(new SpawnerCannon(), Random.element(candidates));
+
+        dropMany(candidates,
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                Generator.random(Generator.Category.POTION),
+                Generator.random(Generator.Category.SCROLL),
+                new HolyBomb(),
+                new FrostBomb(),
+                new RegrowthBomb(),
+                new ShockBomb(),
+                new Noisemaker(),
+                new Noisemaker(),
+                new Noisemaker(),
+                new Noisemaker(),
+                new Noisemaker(),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.ARMOR),
+                Generator.random(Generator.Category.RING),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.WAND),
+                Generator.random(Generator.Category.ARTIFACT),
+                Generator.random(Generator.Category.MIS_T3),
+                Generator.random(Generator.Category.MIS_T2),
+                Generator.random(Generator.Category.MIS_T4),
+                Generator.random(Generator.Category.MIS_T5),
+                Generator.random(Generator.Category.WEP_T4),
+                Generator.random(Generator.Category.WEP_T2),
+                Generator.random(Generator.Category.WEP_T3),
+                new Pickaxe() ,
+                new Pickaxe() ,
+                new Pickaxe() ,
+                new SpawnerCrossbow(),
+                new SpawnerCrossbow(),
+                new SpawnerWand(),
+                new SpawnerWand(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerGrave(),
+                new SpawnerGrave(),
+                new SpawnerCannon(),
+                new SpawnerCannon(),
+                new SpawnerCannon(),
+                new SpawnerCrossbow(),
+                new SpawnerCrossbow(),
+                new SpawnerWand(),
+                new SpawnerWand(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerWall(),
+                new SpawnerGrave(),
+                new SpawnerGrave(),
+                new SpawnerCannon(),
+                new SpawnerCannon(),
+                new SpawnerCannon()
+                );
+
 
         candidates.clear();
 
         super.addDestinations();
-    }
-
-    @Override
-    public void doStuffEndwave(int wave) {;
-        super.doStuffEndwave(wave);
-    }
-
-    @Override
-    public String tileName( int tile ) {
-        switch (tile) {
-            case Terrain.GRASS:
-                return Messages.get(CavesLevel.class, "grass_name");
-            case Terrain.HIGH_GRASS:
-                return Messages.get(CavesLevel.class, "high_grass_name");
-            case Terrain.WATER:
-                return Messages.get(CavesLevel.class, "water_name");
-            default:
-                return super.tileName( tile );
-        }
-    }
-
-    @Override
-    public String tileDesc( int tile ) {
-        switch (tile) {
-            case Terrain.ENTRANCE:
-                return Messages.get(CavesLevel.class, "entrance_desc");
-            case Terrain.EXIT:
-                return Messages.get(CavesLevel.class, "exit_desc");
-            case Terrain.HIGH_GRASS:
-                return Messages.get(CavesLevel.class, "high_grass_desc");
-            case Terrain.WALL_DECO:
-                return Messages.get(CavesLevel.class, "wall_deco_desc");
-            case Terrain.BOOKSHELF:
-                return Messages.get(CavesLevel.class, "bookshelf_desc");
-            default:
-                return super.tileDesc( tile );
-        }
-    }
-
-    @Override
-    public Group addVisuals() {
-        super.addVisuals();
-        addCavesVisuals( this, visuals );
-        return visuals;
-    }
-
-    public static void addCavesVisuals( Level level, Group group ) {
-        for (int i=0; i < level.length(); i++) {
-            if (level.map[i] == Terrain.WALL_DECO) {
-                group.add( new Arena11.Vein( i ) );
-            }
-        }
-    }
-
-    public static class Vein extends Group {
-
-        private int pos;
-
-        private float delay;
-
-        public Vein( int pos ) {
-            super();
-
-            this.pos = pos;
-
-            delay = Random.Float( 1 );
-        }
-
-        @Override
-        public void update() {
-
-            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-
-                super.update();
-
-                if ((delay -= Game.elapsed) <= 0) {
-
-                    //pickaxe can remove the ore, should remove the sparkling too.
-                    if (Dungeon.level.map[pos] != Terrain.WALL_DECO){
-                        kill();
-                        return;
-                    }
-
-                    delay = Random.Float();
-
-                    PointF p = DungeonTilemap.tileToWorld( pos );
-                    ((Arena11.Sparkle)recycle( Arena11.Sparkle.class )).reset(
-                            p.x + Random.Float( DungeonTilemap.SIZE ),
-                            p.y + Random.Float( DungeonTilemap.SIZE ) );
-                }
-            }
-        }
     }
 
     public static final class GoblinGuard extends Goblin {
@@ -577,18 +461,6 @@ public class Arena13Previous extends Arena{
             suspicion = bundle.getInt(SUSPICION);
         }
     }
-
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_CAVES;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_CAVES;
-    }
-
 
     private final String GOLDCOUNT = "goldcount";
 
