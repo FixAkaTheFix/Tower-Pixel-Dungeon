@@ -57,6 +57,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfMastery;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
+import com.fixakathefix.towerpixeldungeon.levels.ArenaPrison;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -69,7 +70,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class EndlessArena3 extends Arena {
+public class EndlessArena3 extends ArenaPrison {
 
     {
         name = "Sector 95";
@@ -316,18 +317,6 @@ public class EndlessArena3 extends Arena {
     public void initNpcs() {
         Buff.affect(hero, WaveCooldownBuff.class, 30);
         super.initNpcs();
-    }
-
-
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_PRISON;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_PRISON;
     }
 
 }

@@ -38,6 +38,7 @@ import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEss
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfStormClouds;
 import com.fixakathefix.towerpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
+import com.fixakathefix.towerpixeldungeon.levels.ArenaSewers;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
@@ -51,7 +52,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class EndlessArena1 extends Arena {
+public class EndlessArena1 extends ArenaSewers {
 
     //the default map is similar to sewer entrance.
     {
@@ -261,16 +262,6 @@ public class EndlessArena1 extends Arena {
 
     public void deployMobs(int wave) {
         deploymobs(wave, Direction.EXACTLYRIGHT, 1);
-    }
-
-    @Override
-    public String tilesTex() {
-        return Assets.Environment.TILES_SEWERS;
-    }
-
-    @Override
-    public String waterTex() {
-        return Assets.Environment.WATER_SEWERS;
     }
 
 }

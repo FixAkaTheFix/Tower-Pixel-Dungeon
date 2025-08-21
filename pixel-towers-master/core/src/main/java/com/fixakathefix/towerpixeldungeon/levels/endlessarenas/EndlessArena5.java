@@ -42,6 +42,8 @@ import com.fixakathefix.towerpixeldungeon.items.potions.brews.CausticBrew;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCorrosiveGas;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
+import com.fixakathefix.towerpixeldungeon.levels.ArenaCaves;
+import com.fixakathefix.towerpixeldungeon.levels.CavesLevel;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
@@ -53,7 +55,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class EndlessArena5 extends Arena {
+public class EndlessArena5 extends ArenaCaves {
 
     {
         name = "Bot factory";
@@ -258,10 +260,43 @@ public class EndlessArena5 extends Arena {
     }
 
 
+    @Override
+    public String tileName( int tile ) {
+        switch (tile) {
+            case Terrain.GRASS:
+                return Messages.get(CavesLevel.class, "grass_name");
+            case Terrain.HIGH_GRASS:
+                return Messages.get(CavesLevel.class, "high_grass_name");
+            case Terrain.WATER:
+                return Messages.get(CavesLevel.class, "watertoxic_name");
+            default:
+                return super.tileName( tile );
+        }
+    }
+
+    @Override
+    public String tileDesc( int tile ) {
+        switch (tile) {
+            case Terrain.ENTRANCE:
+                return Messages.get(CavesLevel.class, "entrance_desc");
+            case Terrain.EXIT:
+                return Messages.get(CavesLevel.class, "exit_desc");
+            case Terrain.HIGH_GRASS:
+                return Messages.get(CavesLevel.class, "high_grass_desc");
+            case Terrain.WALL_DECO:
+                return Messages.get(CavesLevel.class, "wall_deco_desc");
+            case Terrain.BOOKSHELF:
+                return Messages.get(CavesLevel.class, "bookshelf_desc");
+            case Terrain.WATER:
+                return Messages.get(CavesLevel.class, "watertoxic_desc");
+            default:
+                return super.tileDesc( tile );
+        }
+    }
 
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILES_CAVES;
+        return Assets.Environment.TILES_MINES;
     }
 
     @Override
