@@ -172,7 +172,7 @@ public class Arena11 extends ArenaCaves{
             ArrayList<Integer> empty = new ArrayList<>();
             for (int m = 3; m < WIDTH - 3; m++)
                 for (int n = 3; n < HEIGHT - 3; n++) {
-                    if (this.map[m + WIDTH * n] == Terrain.EMPTY) empty.add(m + WIDTH * n);
+                    if (this.map[m + WIDTH * n] == Terrain.EMPTY && !cellAdjacentToBorderCells(m + WIDTH*n)) empty.add(m + WIDTH * n);
                 }
             for (int tile : empty) {
                 if (Math.random() > 0.3) this.map[tile + 1] = Terrain.EMPTY;
@@ -180,16 +180,6 @@ public class Arena11 extends ArenaCaves{
                 if (Math.random() > 0.3) this.map[tile + WIDTH] = Terrain.EMPTY;
                 if (Math.random() > 0.3) this.map[tile - WIDTH] = Terrain.EMPTY;
             }
-
-
-            int x = WIDTH / 2;
-            int y = HEIGHT / 2;
-            ArrayList<Integer> candidatesforspawn = new ArrayList<>();
-            for (int m = 10; m < WIDTH - 10; m++)
-                for (int n = 10; n < HEIGHT - 10; n++) {
-                    if (((m < 11) || (m > WIDTH - 11)) || ((n < 11) || (n > HEIGHT - 11)))
-                        candidatesforspawn.add(m + WIDTH * n);
-                }
 
 
             for (int xcur = 5; xcur<WIDTH-5;xcur++){
@@ -209,7 +199,7 @@ public class Arena11 extends ArenaCaves{
             ArrayList<Integer> emptyTiles = new ArrayList<>();
             for (int m = 2; m < WIDTH - 2; m++)
                 for (int n = 2; n < HEIGHT - 2; n++) {
-                    if (this.map[m + WIDTH * n] == Terrain.EMPTY) emptyTiles.add(m + WIDTH * n);
+                    if (this.map[m + WIDTH * n] == Terrain.EMPTY && !cellAdjacentToBorderCells(m + WIDTH * n)) emptyTiles.add(m + WIDTH * n);
                 }
             for (int tile : emptyTiles) {
                 this.map[tile + 1] = Terrain.EMPTY;
@@ -285,8 +275,8 @@ public class Arena11 extends ArenaCaves{
 
             Painter.fillEllipse(this, WIDTH / 2 - 7, HEIGHT / 2 - 7, 14, 14, Terrain.EMPTY);
 
-            for (int x1 = 2; x1 < WIDTH - 2; x1++)
-                for (int y1 = 2; y1 < HEIGHT - 2; y1++) {
+            for (int x1 = 4; x1 < WIDTH - 4; x1++)
+                for (int y1 = 4; y1 < HEIGHT - 4; y1++) {
                     int cell = x1 + WIDTH * y1;
                     //some puddles
                     if (Math.random() > 0.92) {
@@ -314,7 +304,7 @@ public class Arena11 extends ArenaCaves{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (this.passable[m]&&this.map[m]==Terrain.EMPTY && distance(amuletCell, m) > 9) candidates.add(m);
+            if (passable[m]&&map[m]==Terrain.EMPTY && distance(amuletCell, m) > 9 && !cellAdjacentToBorderCells(m)) candidates.add(m);
         }
         for (int i = 0; i < 15; i ++){
             drop(new DarkGold(),Random.element(candidates));

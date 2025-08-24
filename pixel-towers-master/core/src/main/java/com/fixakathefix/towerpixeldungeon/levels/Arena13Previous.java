@@ -21,7 +21,7 @@ import com.fixakathefix.towerpixeldungeon.items.bombs.RegrowthBomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.ShockBomb;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfInvisibility;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfMindVision;
-import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfImmortality;
 import com.fixakathefix.towerpixeldungeon.items.quest.DarkGold;
 import com.fixakathefix.towerpixeldungeon.items.quest.Pickaxe;
 import com.fixakathefix.towerpixeldungeon.items.towerspawners.SpawnerCannon;
@@ -35,14 +35,10 @@ import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
-import com.fixakathefix.towerpixeldungeon.tiles.DungeonTilemap;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
-import com.watabou.noosa.Game;
-import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -265,7 +261,7 @@ public class Arena13Previous extends ArenaCaves{
                 new PotionOfMindVision() ,
                 new PotionOfInvisibility() ,
                 new PotionOfInvisibility() ,
-                new PotionOfDivineInspiration() ,
+                new PotionOfImmortality() ,
                 new ParalyticDart(),
                 new ParalyticDart()
                 );

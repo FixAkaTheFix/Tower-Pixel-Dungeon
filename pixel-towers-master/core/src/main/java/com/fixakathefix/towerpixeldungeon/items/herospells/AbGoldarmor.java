@@ -25,6 +25,6 @@ public class AbGoldarmor extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 800;
+        return 200;
     }
 }

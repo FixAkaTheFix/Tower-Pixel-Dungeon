@@ -21,6 +21,11 @@ import com.fixakathefix.towerpixeldungeon.levels.Arena18;
 import com.fixakathefix.towerpixeldungeon.levels.Arena19;
 import com.fixakathefix.towerpixeldungeon.levels.Arena2;
 import com.fixakathefix.towerpixeldungeon.levels.Arena20;
+import com.fixakathefix.towerpixeldungeon.levels.Arena21;
+import com.fixakathefix.towerpixeldungeon.levels.Arena22;
+import com.fixakathefix.towerpixeldungeon.levels.Arena23;
+import com.fixakathefix.towerpixeldungeon.levels.Arena24;
+import com.fixakathefix.towerpixeldungeon.levels.Arena25;
 import com.fixakathefix.towerpixeldungeon.levels.Arena3;
 import com.fixakathefix.towerpixeldungeon.levels.Arena4;
 import com.fixakathefix.towerpixeldungeon.levels.Arena5;
@@ -109,7 +114,12 @@ public class LevelSelectScene extends PixelScene {
                         Arena17.class,
                         Arena18.class,
                         Arena19.class,
-                        Arena20.class
+                        Arena20.class,
+                        Arena21.class,
+                        Arena22.class,
+                        Arena23.class,
+                        Arena24.class,
+                        Arena25.class
                 ));
                 break;
             case 1:
@@ -173,7 +183,7 @@ public class LevelSelectScene extends PixelScene {
                 return Assets.Splashes.ARENA19;
             case 20:
                 return Assets.Splashes.ARENA20;
-            /*case 21:
+            case 21:
                 return Assets.Splashes.ARENA21;
             case 22:
                 return Assets.Splashes.ARENA22;
@@ -183,7 +193,7 @@ public class LevelSelectScene extends PixelScene {
                 return Assets.Splashes.ARENA24;
             case 25:
                 return Assets.Splashes.ARENA25;
-*/
+
         }
         else if (GamemodeSelectionScene.chosenBranch == 1) switch (chosenLevel) {
             default:

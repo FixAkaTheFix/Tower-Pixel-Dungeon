@@ -714,7 +714,7 @@ public abstract class Char extends Actor {
 
 	public void speak(String speakText, int color)
 	{
-		this.sprite.showStatus(color, speakText);
+		if ( sprite!= null) sprite.showStatus(color, speakText);
 	}
 	
 	public int damageRoll() {

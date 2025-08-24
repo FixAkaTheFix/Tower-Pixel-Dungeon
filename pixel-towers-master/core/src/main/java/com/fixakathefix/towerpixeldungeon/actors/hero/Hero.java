@@ -38,7 +38,6 @@ import com.fixakathefix.towerpixeldungeon.Statistics;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.DamageSource;
-import com.fixakathefix.towerpixeldungeon.actors.blobs.SacrificialFire;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Amok;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AnkhInvulnerability;
@@ -114,10 +113,8 @@ import com.fixakathefix.towerpixeldungeon.items.keys.Key;
 import com.fixakathefix.towerpixeldungeon.items.keys.SkeletonKey;
 import com.fixakathefix.towerpixeldungeon.items.potions.Potion;
 import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfExperience;
-import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfHealing;
 import com.fixakathefix.towerpixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCleansing;
-import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfAccuracy;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfEvasion;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfForce;
@@ -169,7 +166,6 @@ import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndHero;
 import com.fixakathefix.towerpixeldungeon.windows.WndMessage;
 import com.fixakathefix.towerpixeldungeon.windows.WndOptions;
-import com.fixakathefix.towerpixeldungeon.windows.WndResurrect;
 import com.fixakathefix.towerpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -420,10 +416,7 @@ public class Hero extends Char {
 				|| (tier == 3 && subClass == HeroSubClass.NONE)
 				|| (tier == 4 && armorAbility == null)) {
 			return 0;
-		} else if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
-					&& buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
-			return 2;
-		} else {
+		}  else {
 			return 0;
 		}
 	}

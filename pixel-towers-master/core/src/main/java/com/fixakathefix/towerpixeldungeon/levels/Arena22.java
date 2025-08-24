@@ -1,4 +1,229 @@
 package com.fixakathefix.towerpixeldungeon.levels;
 
-public class Arena22 extends Arena{
+import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Eye;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Ghoul;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Golem;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Senior;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Skeleton;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.SkeletonArmored;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.SkeletonArmoredShielded;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Succubus;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
+import com.fixakathefix.towerpixeldungeon.items.Generator;
+import com.fixakathefix.towerpixeldungeon.items.Heap;
+import com.fixakathefix.towerpixeldungeon.items.armor.PlateArmor;
+import com.fixakathefix.towerpixeldungeon.items.armor.ScaleArmor;
+import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfExperience;
+import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.fixakathefix.towerpixeldungeon.items.potions.PotionOfStrength;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfCorrosiveGas;
+import com.fixakathefix.towerpixeldungeon.items.potions.exotic.PotionOfImmortality;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfAnimation;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfMirrorImage;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
+import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfGolems;
+import com.fixakathefix.towerpixeldungeon.items.stones.StoneOfAggression;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.BerserkerAxe;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.DarksteelSaber;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.DualHatchet;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Glaive;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.HandAxe;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.IronWhip;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.Sword;
+import com.fixakathefix.towerpixeldungeon.items.weapon.melee.WarHammer;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.Bolas;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingClub;
+import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingHammer;
+import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
+import com.fixakathefix.towerpixeldungeon.messages.Messages;
+import com.fixakathefix.towerpixeldungeon.plants.Firebloom;
+import com.fixakathefix.towerpixeldungeon.utils.GLog;
+import com.fixakathefix.towerpixeldungeon.windows.WndModes;
+import com.watabou.noosa.audio.Music;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+
+public class Arena22 extends ArenaHalls {
+    {
+        name = "The Forge";
+        WIDTH = 50;
+        HEIGHT = 50;
+        viewDistance = 13;
+
+        startGold = 2000;
+        startLvl = 21;
+        arenaDepth = 22;
+        maxWaves = 10;
+
+        normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
+        towerShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
+
+        amuletCell = 9 + WIDTH*24;
+        exitCell = amuletCell;
+        towerShopKeeperCell = 4 + 20*WIDTH;
+        normalShopKeeperCell = 4 + 28*WIDTH;
+
+        waveCooldownNormal = 50;
+        waveCooldownBoss = 200;
+    }
+    @Override
+    protected boolean build() {
+
+
+        setSize(WIDTH, HEIGHT);
+
+        map = new int[]{
+
+        };
+
+        buildFlagMaps();
+
+        LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
+        transitions.add(exit);
+
+        this.map[exitCell] = Terrain.EXIT;
+        this.map[amuletCell] = Terrain.PEDESTAL;
+
+        return true;
+    }
+    @Override
+    public void playLevelMusic() {
+        Music.INSTANCE.playTracks(
+                new String[]{Assets.Music.HALLS_TENSE},
+                new float[]{1, 1},
+                false);
+    }
+    @Override
+    public Mob chooseMob(int wave) {
+        Mob mob = new Rat();
+        switch (wave){
+            case 1:
+                mob = new Eye(); break;
+            case 2:
+                mob = new SkeletonArmored(); break;
+            case 3:
+                mob = new Golem(); break;
+            case 4:
+                mob = Random.oneOf(new Golem(), new Eye()); break;
+            case 5:
+                mob = new RipperDemon(); break;
+            case 6:
+                if (!bossSpawned) {
+                    bossSpawned = true;
+                    mob = new Eye();
+                } else mob = new SkeletonArmored();
+                break;
+            case 7:
+                mob = new Golem(); break;
+            case 8:
+                mob = Random.oneOf(new Eye(), new RipperDemon()); break;
+            case 9:
+                mob = new SkeletonArmored(); break;
+            case 10:
+                mob = new RipperDemon();
+                break;
+        }
+        if (mode == WndModes.Modes.CHALLENGE){
+            affectMob(mob);
+        }
+        return mob;
+    }
+    @Override
+    public int mobsToDeploy(int wave) {
+        switch (wave){
+            case 1: return 2;
+            case 2: return 3;
+            case 3: return 3;
+            case 4: return 3;
+            case 5: return 7;
+            case 6: return 6;
+            case 7: return 6;
+            case 8: return 7;
+            case 9: return 10;
+            case 10: return 20;
+        } return 1;
+    }
+
+    @Override
+    public void doStuffEndwave(int wave) {
+        int goldAdd = 500;
+        Dungeon.gold+=goldAdd;
+        GLog.w(Messages.get(Arena.class, "goldaddendwave", goldAdd));
+        super.doStuffEndwave(wave);
+    }
+
+    public void deployMobs(int wave) {
+        deploymobs(wave, Direction.TOORIGHT, 2);
+    }
+
+    @Override
+    public void addDestinations() {
+        ArrayList<Integer> candidates = new ArrayList<>();
+        for (int m = 0; m<WIDTH*HEIGHT;m++){
+            if (map[m]==Terrain.PEDESTAL && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
+        }
+
+        for (int i = 0;i < 5; i++) dropMany(candidates,
+                new ThrowingHammer(),
+                new HandAxe(),
+                new BerserkerAxe(),
+                new Glaive(),
+                new ScaleArmor(),
+                new PlateArmor(),
+                new ThrowingClub(),
+                new Bolas(),
+                new IronWhip(),
+                new Sword(),
+                new DualHatchet()
+        );
+        candidates.clear();
+        for (int m = 0; m<WIDTH*HEIGHT;m++){
+            if (map[m]==Terrain.WATER && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
+        }
+        for (int i = 0;i < 4; i++) dropMany(candidates,
+                new PotionOfStrength(),
+                new PotionOfImmortality(),
+                new PotionOfCorrosiveGas(),
+                new PotionOfExperience()
+        );
+        candidates.clear();
+        for (int m = 0; m<WIDTH*HEIGHT;m++){
+            if (map[m]==Terrain.EMPTY && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
+        }
+        for (int i = 0;i < 8; i++) dropMany(candidates,
+                new ScrollOfGolems(),
+                new ScrollOfChallenge(),
+                new ScrollOfAnimation(),
+                new Firebloom.Seed()
+        );
+        for (int i = 0;i < 3; i++) dropMany(candidates,
+                new ScrollOfMirrorImage(),
+                new StoneOfAggression()
+        );
+        candidates.clear();
+        for (int m = 0; m<WIDTH*HEIGHT;m++){
+            if (map[m]==Terrain.EMPTY_SP && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
+        }
+        for (int i = 0;i < 4; i++) dropMany(candidates,
+                new PotionOfLiquidFlame(),
+                new ScrollOfUpgrade(),
+                new ScrollOfEnchantment(),
+                Generator.random(Generator.Category.RING)
+        );
+        drop(new WarHammer().upgrade(2), 36 + WIDTH*10);
+        drop(new DarksteelSaber().upgrade(3), 36 + WIDTH*46);
+        for (int x = 5 ; x < 24 ; x += 2){
+            drop(Generator.randomWeapon().upgrade(), x + WIDTH*15);
+        }
+
+        super.addDestinations();
+    }
 }

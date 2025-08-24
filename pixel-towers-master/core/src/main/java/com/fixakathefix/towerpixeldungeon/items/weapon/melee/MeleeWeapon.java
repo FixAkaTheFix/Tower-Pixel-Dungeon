@@ -71,7 +71,7 @@ public class MeleeWeapon extends Weapon {
 	public static String AC_ABILITY = "ABILITY";
 
 	public static float damageModifier(){
-		return 1 + Dungeon.depth*0.0625f* (float)Math.sqrt(Math.sqrt(Math.sqrt(Dungeon.depth)));
+		return 1 + Dungeon.depth*0.03f* (float)Math.sqrt(Math.sqrt(Math.sqrt(Dungeon.depth)));
 	}
 
 	@Override

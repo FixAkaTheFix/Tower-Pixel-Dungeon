@@ -268,7 +268,8 @@ public class Arena extends Level {
         EXACTLYRIGHT,
         EXACTLYLEFT,
         EXACTLYUP,
-        EXACTLYDOWN
+        EXACTLYDOWN,
+        EXACTLYUPRIGHTDOWN
     }
 
     public void deploymobs(int wave, Direction direction, int groupnum){
@@ -372,7 +373,16 @@ public class Arena extends Level {
                     }
                     break;
                 }
-
+                case EXACTLYUPRIGHTDOWN:{
+                    if (
+                            ((y >= HEIGHT - 5) && (level.passable[x + WIDTH * y]) && x < WIDTH/2+2 && x > WIDTH/2-2) ||
+                                    ((x >= WIDTH - 6) && (level.passable[x + WIDTH * y])&& y < HEIGHT/2+2 && y > HEIGHT/2-2 ) ||
+                                    ((y <= 7) && (level.passable[x + WIDTH * y]) && x < WIDTH/2+2 && x > WIDTH/2-2)
+                    ) {
+                        candidatecells.add(x + WIDTH * y);
+                    }
+                    break;
+                }
             }
         }
         bossSpawned = false;

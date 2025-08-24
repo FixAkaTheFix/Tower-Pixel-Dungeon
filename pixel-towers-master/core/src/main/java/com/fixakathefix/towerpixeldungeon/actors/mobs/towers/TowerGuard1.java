@@ -81,13 +81,14 @@ public class TowerGuard1 extends SentientTower {
             info.append("\nIs moving to defendpos: " + movingToDefendPos);
             info.append("\nHas a defpos: " + (defendingPos != -1));
             info.append("\nFollowing hero: " + followingHero);
+            info.append("\nTurns until regen: " + turnsUntilRegen);
         }
         return info.toString();
     }
 
     @Override
     public int defenseProc(Char enemy, int damage) {
-        turnsUntilRegen = 10;
+        turnsUntilRegen = 30;
         return super.defenseProc(enemy, damage);
     }
 
@@ -95,7 +96,7 @@ public class TowerGuard1 extends SentientTower {
     protected boolean act() {
         if (enemy == null){
             if (turnsUntilRegen>0) turnsUntilRegen--;
-        } else turnsUntilRegen = 10;
+        } else if (turnsUntilRegen < 5) turnsUntilRegen = 5;
         if (Dungeon.hero.buff(WaveCooldownBuff.class) != null && turnsUntilRegen == 0){
             if (HP + regenNum <= HT) HP+=regenNum;
             else if (HT < HP + regenNum && HT>HP) HP = HT;
