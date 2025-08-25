@@ -21,20 +21,22 @@ public class Banner extends TowerCTotem{
     {
         HP = HT = 10;
         spriteClass = FlagFriendSprite.class;
-        abTimeMax = 10;
+        abTimeMax = 15;
         upgCount = 0;
         sellable = false;
     }
     protected void useAbility(int cell){
         Char ch = Char.findChar(cell);
-        Buff.append(ch, Inspired.class,10);
-        WandOfBlastWave.BlastWave.blast(pos);
+        if (ch!=null){
+            if (!(ch instanceof TowerNotliving))Buff.append(ch, Inspired.class,15);
+            ch.heal(1 + Dungeon.depth/5);
+        }
     }
     protected void searchAndUse(){
+        WandOfBlastWave.BlastWave.blast(pos);
         for (int i : PathFinder.NEIGHBOURS25) if (Char.findChar(pos+i)!=null){
             Char ch = Char.findChar(pos + i);
-            if (ch.alignment==this.alignment && !( ch instanceof TowerNotliving) && !( ch instanceof Hero))
-
+            if (ch.alignment==alignment && ch != this)
                 useAbility(pos+i);
         }
     }

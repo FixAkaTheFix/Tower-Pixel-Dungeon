@@ -700,6 +700,11 @@ public class Arena extends Level {
         public int counter = 0;
 
         @Override
+        public void heal(int healing) {
+            //no healing
+        }
+
+        @Override
         public void die(Object cause) {
             if (cause == AmuletTower.class) super.die(cause);
             else {

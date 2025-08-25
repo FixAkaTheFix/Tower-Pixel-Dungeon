@@ -6,7 +6,7 @@ import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
 public class Inspired extends FlavourBuff{
-    public static final float DURATION = 10f;
+    public static final float DURATION = 15f;
 
     {
         type = Buff.buffType.POSITIVE;

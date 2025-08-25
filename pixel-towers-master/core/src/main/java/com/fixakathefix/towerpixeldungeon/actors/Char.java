@@ -781,6 +781,7 @@ public abstract class Char extends Actor {
 		return cachedShield;
 	}
 	public void heal(int healing){
+		if (HP == HT) return;
 		HP += healing;
 		if (HP > HT) HP = HT;
 		speak(Integer.toString(healing), CharSprite.POSITIVE);
@@ -1074,8 +1075,9 @@ public abstract class Char extends Actor {
 			timeScale *= 2.0f;
 		}
 
-		if (Faint.class!=null){
+		if (buff(Faint.class)!=null){
 			super.spend(time);
+			return;
 		}
 
 		super.spend( time / timeScale );
