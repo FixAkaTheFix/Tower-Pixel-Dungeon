@@ -109,7 +109,7 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				item.detach(hero.belongings.backpack);
 				Statue statuewithmelee = new Statue((MeleeWeapon)item);
 				if (((MeleeWeapon)item).enchantment!=null) statuewithmelee = new Statue((MeleeWeapon)item, ((MeleeWeapon)item).enchantment);
-				statuewithmelee.HP = statuewithmelee.HT = hero.HP;
+				statuewithmelee.HP = statuewithmelee.HT = hero.HT;
 				statuewithmelee.alignment = Char.Alignment.ALLY;
 				if (cursedd) statuewithmelee.HP = statuewithmelee.HT/2;
 				statuewithmelee.pos = Random.element(respawnPoints);
@@ -138,7 +138,7 @@ public class ScrollOfGolems extends ExoticInventoryScroll {
 				item.detach(hero.belongings.backpack);
 				Statue statuewitharmor = new ArmoredStatue((Armor)item);
 				if (((Armor)item).glyph!=null) statuewitharmor = new ArmoredStatue((Armor)item, ((Armor)item).glyph);
-				statuewitharmor.HP = statuewitharmor.HT = hero.HP;
+				statuewitharmor.HP = statuewitharmor.HT = hero.HT;
 				if (cursedd) statuewitharmor.HP = statuewitharmor.HT/2;
 				statuewitharmor.alignment = Char.Alignment.ALLY;
 				statuewitharmor.pos = Random.element(respawnPoints);

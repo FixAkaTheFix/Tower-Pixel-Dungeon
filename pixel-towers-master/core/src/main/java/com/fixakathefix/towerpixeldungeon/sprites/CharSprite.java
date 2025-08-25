@@ -137,7 +137,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected TorchHalo light;
 	protected ShieldHalo shield;
 	protected AlphaTweener invisible;
-	protected Flare aura;
+	public Flare aura;
 	
 	protected EmoIcon emo;
 	protected CharHealthIndicator health;

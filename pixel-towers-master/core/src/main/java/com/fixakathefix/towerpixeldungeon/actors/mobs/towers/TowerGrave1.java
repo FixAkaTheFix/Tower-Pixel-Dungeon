@@ -38,7 +38,7 @@ public class TowerGrave1 extends TowerCSpawning{
     }
     @Override
     public void spawnMinion(int pos) {
-        SkeletonMinion minion = new SkeletonMinion();
+        TowerCSpawningMinion minion = minion();
         minion.pos = pos;
 
         Dungeon.level.occupyCell(minion);
@@ -68,7 +68,11 @@ public class TowerGrave1 extends TowerCSpawning{
         Buff.affect(minion, NoTowerWithering.class);
     }
 
-    public static class SkeletonMinion extends TowerCSpawningMinion {
+    protected TowerCSpawningMinion minion(){
+        return new SkeletonMinion1();
+    }
+
+    public static class SkeletonMinion1 extends TowerCSpawningMinion {
         {
             spriteClass = SkeletonSprite.class;
             properties.add(Property.UNDEAD);
@@ -76,7 +80,7 @@ public class TowerGrave1 extends TowerCSpawning{
             staysNearMomTower = true;
             diesWithoutMomtower = true;
         }
-        public SkeletonMinion() {
+        public SkeletonMinion1() {
             super();
         }
     }

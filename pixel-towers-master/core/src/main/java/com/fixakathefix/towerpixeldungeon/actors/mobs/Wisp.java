@@ -65,33 +65,6 @@ public class Wisp extends Mob {
     }
 
 
-    public static void spawnAround( int pos ) {
-        for (int n : PathFinder.NEIGHBOURS4) {
-            spawnAt( pos + n );
-        }
-    }
-
-    public static Wraith spawnAt( int pos ) {
-        if ((!Dungeon.level.solid[pos] || Dungeon.level.passable[pos]) && Actor.findChar( pos ) == null) {
-
-            Wraith w = new Wraith();
-            w.adjustStats( Dungeon.scalingDepth() );
-            w.pos = pos;
-            w.state = w.HUNTING;
-            GameScene.add( w );
-            Dungeon.level.occupyCell(w);
-
-            w.sprite.alpha( 0 );
-            w.sprite.parent.add( new AlphaTweener( w.sprite, 1, 0.5f ) );
-
-            w.sprite.emitter().burst( ShadowParticle.CURSE, 5 );
-
-            return w;
-        } else {
-            return null;
-        }
-    }
-
     @Override
     public void die(Object cause) {
         if (alignment == Alignment.ENEMY){

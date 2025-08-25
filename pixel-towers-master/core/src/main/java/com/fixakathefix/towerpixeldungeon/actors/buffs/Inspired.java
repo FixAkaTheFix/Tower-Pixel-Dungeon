@@ -24,6 +24,11 @@ public class Inspired extends FlavourBuff{
         super.storeInBundle( bundle );
 
     }
+    @Override
+    public void fx(boolean on) {
+        if (on) target.sprite.aura( 0xFFFF00, 12, 3, 45);
+        else target.sprite.clearAura();
+    }
 
     @Override
     public void restoreFromBundle( Bundle bundle ) {

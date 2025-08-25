@@ -272,7 +272,7 @@ public abstract class ElementalSprite extends MobSprite {
 		@Override
 		protected Emitter createEmitter() {
 			Emitter emitter = emitter();
-			emitter.pour(CPLight.DOWN, 0.025f );
+			emitter.pour(CPLight.DOWN, 0.1f );
 			return emitter;
 		}
 

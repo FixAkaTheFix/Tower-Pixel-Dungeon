@@ -9,6 +9,7 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
 import com.fixakathefix.towerpixeldungeon.items.Amulet;
+import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.scenes.PixelScene;
 import com.fixakathefix.towerpixeldungeon.scenes.RankingsScene;
@@ -214,9 +215,8 @@ public class WndDialogueWithPic extends Window {
             if (textNum >= texts.length) {
                 hide();
                 if (lastDialogue) {
-                    win(Amulet.class);
-                    Dungeon.deleteGame(GamesInProgress.curSlot, true);
-                    Game.switchScene(RankingsScene.class);
+                    Arena.completeStage();
+                    return;
                 }
             } else startText(texts[textNum]);
         }

@@ -60,7 +60,7 @@ public class TowerGraveElite extends TowerGrave3{
         CellEmitter.get(minion.pos).burst(ShadowParticle.UP, 5);
     }
 
-    public static class SkeletonWarriorMinion extends SkeletonMinion{
+    public class SkeletonWarriorMinion extends SkeletonMinion1 {
 
         {
             spriteClass = SkeletonWarriorSprite.class;

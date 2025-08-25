@@ -1,5 +1,6 @@
 package com.fixakathefix.towerpixeldungeon.actors.mobs.towers;
 
+import com.fixakathefix.towerpixeldungeon.sprites.SkeletonSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.TowerGrave3Sprite;
 
 public class TowerGrave3 extends TowerGrave2{
@@ -28,7 +29,14 @@ public class TowerGrave3 extends TowerGrave2{
 
         upgradeLevel = 11;
         upgCount = 2;
+    }
+    protected TowerCSpawningMinion minion(){
+        return new TowerGrave3.SkeletonMinion3();
+    }
 
-
+    public static class SkeletonMinion3 extends SkeletonMinion2 {
+        public SkeletonMinion3() {
+            super();
+        }
     }
 }

@@ -23,6 +23,7 @@ public class AbWallstance extends HeroSpell{
 
     @Override
     protected int castCooldown() {
+        if (Dungeon.level == null) return 100;
         return 50 + (Dungeon.level.width()+ Dungeon.level.height())/2;
     }
 }

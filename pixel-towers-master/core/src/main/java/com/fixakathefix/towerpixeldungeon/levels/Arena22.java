@@ -61,7 +61,7 @@ public class Arena22 extends ArenaHalls {
         startGold = 2000;
         startLvl = 21;
         arenaDepth = 22;
-        maxWaves = 10;
+        maxWaves = 15;
 
         normalShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
         towerShopKeeper.vertical = NewShopKeeper.ShopDirection.RIGHT;
@@ -98,7 +98,7 @@ public class Arena22 extends ArenaHalls {
     public void playLevelMusic() {
         Music.INSTANCE.playTracks(
                 new String[]{Assets.Music.HALLS_TENSE},
-                new float[]{1, 1},
+                new float[]{1},
                 false);
     }
     @Override
@@ -130,6 +130,21 @@ public class Arena22 extends ArenaHalls {
             case 10:
                 mob = new RipperDemon();
                 break;
+            case 11:
+                mob = new Eye();
+                break;
+            case 12:
+                mob = new Golem();
+                break;
+            case 13:
+                mob = new SkeletonArmored();
+                break;
+            case 14:
+                mob = Random.oneOf(new Eye(), new Golem());
+                break;
+            case 15:
+                mob = new RipperDemon();
+                break;
         }
         if (mode == WndModes.Modes.CHALLENGE){
             affectMob(mob);
@@ -149,6 +164,11 @@ public class Arena22 extends ArenaHalls {
             case 8: return 7;
             case 9: return 10;
             case 10: return 20;
+            case 11: return 10;
+            case 12: return 10;
+            case 13: return 10;
+            case 14: return 20;
+            case 15: return 40;
         } return 1;
     }
 
@@ -199,11 +219,11 @@ public class Arena22 extends ArenaHalls {
             if (map[m]==Terrain.EMPTY && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
         }
         for (int i = 0;i < 8; i++) dropMany(candidates,
-                new ScrollOfGolems(),
                 new ScrollOfChallenge(),
                 new ScrollOfAnimation(),
                 new Firebloom.Seed()
         );
+        for (int i = 0;i < 15; i++) drop(new ScrollOfGolems(), Random.element(candidates));
         for (int i = 0;i < 3; i++) dropMany(candidates,
                 new ScrollOfMirrorImage(),
                 new StoneOfAggression()

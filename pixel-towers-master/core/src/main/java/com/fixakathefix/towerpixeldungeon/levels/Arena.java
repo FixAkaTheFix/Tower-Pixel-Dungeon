@@ -589,22 +589,8 @@ public class Arena extends Level {
 
 
         if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20) && (depth!=1)){
-            int maxlevel = SPDSettings.maxlevelunlocked();
-            win( Amulet.class );
-            Dungeon.deleteGame( GamesInProgress.curSlot, true );
-            Game.switchScene( RankingsScene.class );
-            int maxnewlevel = SPDSettings.maxlevelunlocked();
-            if (maxnewlevel > maxlevel) {
-                if (maxnewlevel == 5 ||
-                        maxnewlevel==7||
-                        maxnewlevel==9||
-                        maxnewlevel==10||
-                        maxnewlevel==11||
-                        maxnewlevel==14||
-                        maxnewlevel==18){
-                    SPDSettings.towerUnlockedMessage(true);
-                }
-            }
+            completeStage();
+            return;
         }
         //attempts to save each fifth (5) wave.
         if (wave%5==0) try {
@@ -652,6 +638,24 @@ public class Arena extends Level {
         }
 
     };
+    public static void completeStage(){
+        int maxlevel = SPDSettings.maxlevelunlocked();
+        win( Amulet.class );
+        Dungeon.deleteGame( GamesInProgress.curSlot, true );
+        Game.switchScene( RankingsScene.class );
+        int maxnewlevel = SPDSettings.maxlevelunlocked();
+        if (maxnewlevel > maxlevel) {
+            if (maxnewlevel == 5 ||
+                    maxnewlevel==7||
+                    maxnewlevel==9||
+                    maxnewlevel==10||
+                    maxnewlevel==11||
+                    maxnewlevel==14||
+                    maxnewlevel==18){
+                SPDSettings.towerUnlockedMessage(true);
+            }
+        }
+    }
 
 
     //a method used for challenges with mobs being affected

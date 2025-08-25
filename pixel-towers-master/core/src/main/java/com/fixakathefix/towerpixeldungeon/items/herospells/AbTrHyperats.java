@@ -7,6 +7,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerRatCamp;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerTntLog;
+import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.levels.Level;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
@@ -18,7 +19,7 @@ public class AbTrHyperats extends HeroSpell{
         image = ItemSpriteSheet.HEROSPELL_TR_CHAMP;
     }
 
-    private static final int TURNS_PER_RATCAMP = 50;
+    private static final int TURNS_PER_RATCAMP = 20;
 
     @Override
     public void cast() {
@@ -41,7 +42,7 @@ public class AbTrHyperats extends HeroSpell{
         try {
             for (Mob mob : Level.mobs) {
                 if (mob instanceof TowerRatCamp && mob.alignment == Char.Alignment.ALLY)
-                    addturns += TURNS_PER_RATCAMP;
+                    addturns += TURNS_PER_RATCAMP + ((Arena)Dungeon.level).waveCooldownBoss/3;
             }
         } catch (NullPointerException ignored) {
         }
