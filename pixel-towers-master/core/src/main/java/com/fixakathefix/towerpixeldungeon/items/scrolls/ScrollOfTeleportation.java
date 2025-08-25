@@ -31,11 +31,12 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
-import com.fixakathefix.towerpixeldungeon.journal.Catalog;
 import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.levels.Arena17;
+import com.fixakathefix.towerpixeldungeon.levels.Level;
 import com.fixakathefix.towerpixeldungeon.levels.RegularLevel;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.rooms.Room;
@@ -71,23 +72,33 @@ public class ScrollOfTeleportation extends Scroll {
 			GameScene.flash(0x770000);
 			GLog.w(Messages.get(this, "no_tele_nightmare"));
 		} else {
-			teleportToAmulet();
+			teleportToSpawnpoint();
 		}
 		identify();
 	}
 
-	public static void teleportToAmulet(){
+	public static void teleportToSpawnpoint(){
 		if (Dungeon.level instanceof Arena17){
 			Sample.INSTANCE.play(Assets.Sounds.DEGRADE);
 			GameScene.flash(0xCC0000);
 			GLog.n(Messages.get(ScrollOfTeleportation.class, "pit_teleport"));
 			hero.die(hero);
 		} else {
-		appear(hero, ((Arena)Dungeon.level).amuletCell);
-		Dungeon.level.occupyCell(hero);
-		Dungeon.observe();
-		GameScene.updateFog();
-		hero.interrupt();
+			int target = -1;
+			for (Mob mob : Level.mobs){
+				if (mob instanceof Arena.AmuletTower){
+					target = mob.pos;
+					break;
+				}
+			}
+
+		if (target != -1){
+			appear(hero, target);
+			Dungeon.level.occupyCell(hero);
+			Dungeon.observe();
+			GameScene.updateFog();
+			hero.interrupt();
+		}
 		}
 	}
 	

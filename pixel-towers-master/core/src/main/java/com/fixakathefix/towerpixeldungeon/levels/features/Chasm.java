@@ -35,17 +35,11 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Cripple;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Levitation;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
-import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.Speck;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.spells.FeatherFall;
-import com.fixakathefix.towerpixeldungeon.levels.Level;
-import com.fixakathefix.towerpixeldungeon.levels.RegularLevel;
-import com.fixakathefix.towerpixeldungeon.levels.rooms.Room;
-import com.fixakathefix.towerpixeldungeon.levels.rooms.special.WeakFloorRoom;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
-import com.fixakathefix.towerpixeldungeon.scenes.InterlevelScene;
 import com.fixakathefix.towerpixeldungeon.sprites.MobSprite;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndOptions;
@@ -53,7 +47,6 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -108,7 +101,7 @@ public class Chasm implements Hero.Doom {
 		jumpConfirmed = false;
 		hero.faint(Chasm.class);
 		Sample.INSTANCE.play( Assets.Sounds.FALLING );
-		ScrollOfTeleportation.teleportToAmulet();
+		ScrollOfTeleportation.teleportToSpawnpoint();
 
 		/*
 		jumpConfirmed = false;
