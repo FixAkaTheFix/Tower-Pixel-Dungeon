@@ -59,7 +59,7 @@ public class WndHeroInfo extends WndTabbed {
 		Image tabIcon;
 		switch (cl){
 			case WARRIOR: default:
-				tabIcon = new ItemSprite(ItemSpriteSheet.SEAL, null);
+				tabIcon = new ItemSprite(ItemSpriteSheet.LONGSWORD, null);
 				break;
 			case MAGE:
 				tabIcon = new ItemSprite(ItemSpriteSheet.MAGES_STAFF, null);
@@ -180,8 +180,8 @@ public class WndHeroInfo extends WndTabbed {
 
 			switch (cls){
 				case WARRIOR: default:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SEAL),
-							new ItemSprite(ItemSpriteSheet.SWORD),
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.LONGSWORD),
+							new ItemSprite(ItemSpriteSheet.ARMOR_MAIL),
 							new ItemSprite(ItemSpriteSheet.SCROLL_BATTLECRY)};
 					break;
 				case NECROHERO:
@@ -372,7 +372,7 @@ public class WndHeroInfo extends WndTabbed {
 				case WARRIOR: default:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_TREATWOUNDS),
 							new ItemSprite(ItemSpriteSheet.HEROSPELL_GLOWUP),
-							new ItemSprite(ItemSpriteSheet.HEROSPELL_GOLDARMOR)};
+							new ItemSprite(ItemSpriteSheet.HEROSPELL_RAGE)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.HEROSPELL_GIBBERISH),

@@ -18,17 +18,18 @@ public class AbTreatwounds extends HeroSpell {
     public void cast() {
         super.cast();
 
-        Buff.affect(Dungeon.hero, Healing.class).setHeal(
+        Dungeon.hero.heal(
                 Dungeon.hero.HT/10 + // partial 10 percent heal
-                        10 +                 // flat 10 HP
-                        (int)((Dungeon.hero.HT - Dungeon.hero.HP)*0.2f), // the higher is the HP lost, the better is the heal, up to 30 percent of your hp
-                0.5f, 5);//the healing is almost instant
+                        5 +                 // flat 5 HP
+                        (int)((Dungeon.hero.HT - Dungeon.hero.HP)*0.15f) // the higher is the HP lost, the better is the heal, up to 15 percent of your hp
+        );
+
         Dungeon.hero.sprite.operate(Dungeon.hero.pos);
         Sample.INSTANCE.play(Assets.Sounds.GRASS);
     }
 
     @Override
     protected int castCooldown() {
-        return 120;
+        return 50;
     }
 }

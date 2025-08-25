@@ -369,7 +369,7 @@ public class Armor extends EquipableItem {
 		if (lvl >= max){
 			return (lvl - max);
 		} else {
-			return Math.min(lvl, Dungeon.depth/2 + 3);
+			return Math.min(lvl, Dungeon.depth/2 + 1);
 		}
 	}
 	

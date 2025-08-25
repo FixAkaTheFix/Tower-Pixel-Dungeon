@@ -848,6 +848,7 @@ public class ItemSpriteSheet {
 	public static final int HEROSPELL_DISENGAGE = HEROSPELLS+7;
 	public static final int HEROSPELL_SHADOWCLONE = HEROSPELLS+8;
 	public static final int HEROSPELL_NOAMULET = HEROSPELLS+9;
+	public static final int HEROSPELL_RAGE = HEROSPELLS+10;
 	public static final int HEROSPELL_GIBBERISH = HEROSPELLS+12;
 	public static final int HEROSPELL_BLESSING = HEROSPELLS+13;
 	public static final int HEROSPELL_NECROMANCY = HEROSPELLS+14;
@@ -886,8 +887,6 @@ public class ItemSpriteSheet {
 	static {
 		for (int i = HEROSPELLS; i < HEROSPELLS+34; i++)
 			assignItemRect(i, 16, 16);
-
-
 	}
 
 	//for smaller 8x8 icons that often accompany an item sprite

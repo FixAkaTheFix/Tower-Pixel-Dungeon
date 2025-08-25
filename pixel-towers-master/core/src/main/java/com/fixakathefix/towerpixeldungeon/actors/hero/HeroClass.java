@@ -82,7 +82,6 @@ import com.fixakathefix.towerpixeldungeon.items.food.Food;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbArcanesword;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbBanner;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbBerserk;
-import com.fixakathefix.towerpixeldungeon.items.herospells.AbEgoist;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbHolyWater;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbIceWall;
 import com.fixakathefix.towerpixeldungeon.items.herospells.AbLasher;
@@ -316,8 +315,8 @@ public enum HeroClass {
 	private static void initNecrohero( Hero hero ) {;
 		hero.STR = 11;
 
-		Item i = new ClothArmor().identify();
-		hero.belongings.armor = (ClothArmor)i;
+		ClothArmor i = new ClothArmor();
+		hero.belongings.armor = i;
 		(hero.belongings.weapon = new Dagger()).identify();
 
 		HeroSpell a1 = new AbNecromancy();
@@ -339,10 +338,13 @@ public enum HeroClass {
 		hero.STR = 13;
 		hero.defenseSkill = 4;
 
-		Item i = new ClothArmor().identify();
-		hero.belongings.armor = (ClothArmor)i;
+		LeatherArmor i = new LeatherArmor();
+		hero.belongings.armor = i;
 
-		(hero.belongings.weapon = new ShortSword()).identify();
+		RoundShield shield = new RoundShield();
+		shield.upgrade();
+
+		hero.belongings.weapon = shield;
 
 		HeroSpell a1 = new AbShield();
 		a1.collect();
@@ -367,8 +369,8 @@ public enum HeroClass {
 		hero.attackSkill = 9;
 
 
-		Item i = new LeatherArmor().identify();
-		hero.belongings.armor = (LeatherArmor)i;
+		Item i = new MailArmor().identify();
+		hero.belongings.armor = (MailArmor)i;
 
 
 		(hero.belongings.weapon = new Sword()).identify();
@@ -379,7 +381,7 @@ public enum HeroClass {
 		a1.collect();
 		HeroSpell a2 = new AbGlowup();
 		a2.collect();
-		HeroSpell a3 = new AbGoldarmor();
+		HeroSpell a3 = new AbBerserk();
 		a3.collect();
 		Dungeon.quickslot.setSlot(0, a1);
 		Dungeon.quickslot.setSlot(1, a2);

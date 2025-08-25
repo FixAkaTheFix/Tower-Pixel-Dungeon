@@ -23,8 +23,8 @@ public class AbGlowup extends HeroSpell {
         super.cast();
         for (int i : PathFinder.NEIGHBOURS25) {
             Char ch = Char.findChar(Dungeon.hero.pos + i);
-            if (ch != null && ch.alignment== Char.Alignment.ALLY) {
-                Buff.affect(ch, Battlecry.class, ch instanceof Tower ? Math.max(10, 70*(200/((Tower) ch).cost)) : 20);
+            if (ch != null &&ch != Dungeon.hero && ch.alignment== Char.Alignment.ALLY) {
+                Buff.affect(ch, Battlecry.class, ch instanceof Tower ? Math.max(15, 70*(200/((Tower) ch).cost)) : 20);
                 CellEmitter.floor(ch.pos).start(CPRed.UP, 0.05f, 10);
             }
         }

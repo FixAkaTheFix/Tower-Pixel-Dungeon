@@ -55,6 +55,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Cripple;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Doom;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Dread;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Eating;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Faint;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.FireImbue;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Frost;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.FrostImbue;
@@ -747,7 +748,7 @@ public abstract class Char extends Actor {
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Rush.class ) != null) speed *= 5f;
-		if ( buff( Adrenaline.class ) != null) speed *= 2f;
+		if ( buff( Adrenaline.class ) != null) speed *= 1.5f;
 		if ( buff( GuardOnDuty.class ) != null) speed *= 1.5f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
 		if ( buff( Animated.class ) != null) speed *= 1.3f;
@@ -1073,7 +1074,9 @@ public abstract class Char extends Actor {
 			timeScale *= 2.0f;
 		}
 
-
+		if (Faint.class!=null){
+			super.spend(time);
+		}
 
 		super.spend( time / timeScale );
 	}
