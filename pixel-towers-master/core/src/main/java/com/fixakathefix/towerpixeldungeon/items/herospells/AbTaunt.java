@@ -17,7 +17,7 @@ public class AbTaunt extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, StoneOfAggression.Aggression.class, 10);
+        Buff.affect(Dungeon.hero, StoneOfAggression.Aggression.class, 12);
         curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
         Sample.INSTANCE.play(Assets.Sounds.READ, 1f, 0.5f);
     }

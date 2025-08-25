@@ -23,7 +23,7 @@ public class AbShield extends HeroSpell {
         for (int i : PathFinder.NEIGHBOURS9) {
             Char ch = Char.findChar(Dungeon.hero.pos + i);
             if (ch != null && ch.alignment== Char.Alignment.ALLY && !(ch instanceof Arena.AmuletTower)) {
-                Buff.affect(ch, Barrier.class).setShield(10+Dungeon.depth*3);
+                Buff.affect(ch, Barrier.class).setShield(10+Dungeon.depth*4);
                 CellEmitter.floor(ch.pos).start(CPShield.TOCENTER, 0.01f, 10);
             }
         }
