@@ -20,7 +20,7 @@ public class LicteriaLasher extends Mob {
     {
         spriteClass = LicteriaLasherSprite.class;
 
-        HP = HT = 8;
+        HP = HT = 5;
         defenseSkill = 0;
 
         EXP = 0;

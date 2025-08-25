@@ -24,7 +24,7 @@ public class AbOakskin extends HeroSpellTargeted {
                 if (cell!=null) {
                     if (Char.findChar(cell) != null && Char.findChar(cell)!= Dungeon.hero) {
                         Char ch = Char.findChar(cell);
-                        Buff.affect(ch, Barkskin.class).set((int)(Dungeon.depth/1.5) + 6, 30);
+                        Buff.affect(ch, Barkskin.class).set((int)(Dungeon.depth/1.5) + 6, 25 - Math.min(Dungeon.depth, 16));
                         Sample.INSTANCE.play(Assets.Sounds.GRASS);
                         CellEmitter.get(cell).burst(LeafParticle.GENERAL, 10);
                         cooldown();
@@ -47,6 +47,6 @@ public class AbOakskin extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 40 + Dungeon.depth*4;
+        return 40 + Dungeon.depth*5;
     }
 }

@@ -19,7 +19,7 @@ import com.watabou.noosa.audio.Sample;
 
 public class AbTeleport extends HeroSpellTargeted {
 
-    private static final int DISTANCE_COOLDOWN = 2;
+    private static final int DISTANCE_COOLDOWN = 6;
 
     {
         image = ItemSpriteSheet.HEROSPELL_TELEPORTATION;
@@ -28,7 +28,7 @@ public class AbTeleport extends HeroSpellTargeted {
             @Override
             public void onSelect(Integer cell) {
                 if (cell != null) {
-                    if (Char.findChar(cell) == null && Dungeon.level.passable[cell] && !Dungeon.level.pit[cell] && Dungeon.hero.fieldOfView[cell]) {
+                    if (Char.findChar(cell) == null && Dungeon.level.passable[cell] && !Dungeon.level.pit[cell] && (Dungeon.level.visited[cell] || Dungeon.level.mapped[cell])) {
                         Buff.affect(Dungeon.hero, AbilityCooldown.class, castCooldown() + DISTANCE_COOLDOWN*Dungeon.level.distance(Dungeon.hero.pos, cell));//cooldown depends on the distance
                         Dungeon.hero.pos = cell;
                         ScrollOfTeleportation.appear(Dungeon.hero, cell);
@@ -57,6 +57,6 @@ public class AbTeleport extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 10;
+        return 6;
     }
 }

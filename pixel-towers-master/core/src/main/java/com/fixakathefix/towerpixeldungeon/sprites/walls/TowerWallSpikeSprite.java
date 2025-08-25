@@ -50,7 +50,18 @@ public class TowerWallSpikeSprite extends MobSprite {
         if (ch==null) play (idle); else linkVisuals(ch);
     }
 
+    //walls show no emotions
+    @Override
+    public void showAlert() {
+    }
 
+    @Override
+    public void showLost() {
+    }
+
+    @Override
+    public void showSleep() {
+    }
     @Override
     public void linkVisuals(Char ch) {
         super.linkVisuals(ch);

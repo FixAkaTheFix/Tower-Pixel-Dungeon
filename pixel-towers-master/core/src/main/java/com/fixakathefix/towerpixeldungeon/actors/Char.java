@@ -101,6 +101,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Elemental;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Tengu;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.IceWall;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.particles.SacrificialParticle;
 import com.fixakathefix.towerpixeldungeon.effects.particles.ShadowParticle;
@@ -920,8 +921,10 @@ public abstract class Char extends Actor {
 
 		
 		if (sprite != null) {
-			if (sprite instanceof BossRatKingSprite && dmg == 0 || DamageSource.NOTDISPLAYED.contains(src.getClass())) {
-
+			if (sprite instanceof BossRatKingSprite && dmg == 0 ||
+					DamageSource.NOTDISPLAYED.contains(src.getClass()) ||
+			src instanceof IceWall.Melting) {
+				//do not display any numbers in these cases
 			}
 			else if (DamageSource.ICE.contains(src.getClass())) {
 				sprite.showStatus(CharSprite.CYAN, Integer.toString(dmg + shielded));

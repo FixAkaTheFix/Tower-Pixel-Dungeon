@@ -24,7 +24,7 @@ public class AbIceWall extends HeroSpellTargeted{
                 if (cell != null) {
                     if (Char.findChar(cell) == null && Dungeon.level.passable[cell] && !Dungeon.level.pit[cell] && Dungeon.hero.fieldOfView[cell]) {
                         IceWall wall = new IceWall();
-                        wall.HP = wall.HT = 20 + (int)(Dungeon.depth*(Math.sqrt(Math.sqrt(Dungeon.depth)))*7);
+                        wall.HP = wall.HT = 20 + (int)(Dungeon.depth*(Math.sqrt(Math.sqrt(Dungeon.depth)))*8);
                         wall.alignment = Char.Alignment.ALLY;
                         wall.pos = cell;
                         GameScene.add(wall);

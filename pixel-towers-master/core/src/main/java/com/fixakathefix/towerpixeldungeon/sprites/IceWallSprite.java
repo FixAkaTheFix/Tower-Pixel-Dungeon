@@ -40,6 +40,18 @@ public class IceWallSprite extends MobSprite{
         emitter.pour( MagicMissile.MagicParticle.FACTORY, 0.06f );
         return emitter;
     }
+    //walls show no emotions
+    @Override
+    public void showAlert() {
+    }
+
+    @Override
+    public void showLost() {
+    }
+
+    @Override
+    public void showSleep() {
+    }
 
     @Override
     public void link( Char ch ) {
