@@ -6,6 +6,7 @@ import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
+import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Acidic;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bandit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bat;
@@ -14,7 +15,9 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Crab;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DM100;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DM200;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DM201;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.DMW;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DMWHead;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.DMWWheels;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Eye;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Ghoul;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Gnoll;
@@ -41,6 +44,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.TimelessSpirit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Warlock;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.YogFist;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
 import com.fixakathefix.towerpixeldungeon.items.Heap;
@@ -61,9 +65,11 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import jdk.internal.net.http.common.Pair;
 
@@ -84,11 +90,11 @@ public class Arena24 extends Arena{
 
         amuletCell = 25 + WIDTH*24;
         exitCell = amuletCell;
-        towerShopKeeperCell = 19 + 22*WIDTH;
-        normalShopKeeperCell = 19  + 26*WIDTH;
+        towerShopKeeperCell = 18 + 22*WIDTH;
+        normalShopKeeperCell = 18  + 26*WIDTH;
 
-        waveCooldownNormal = 1;
-        waveCooldownBoss = 1;
+        waveCooldownNormal = 20;
+        waveCooldownBoss = 20;
     }
     @Override
     protected boolean build() {
@@ -99,8 +105,8 @@ public class Arena24 extends Arena{
         Painter.fill(this, 0, 0, 50, 50, Terrain.WALL);
         Painter.fill(this, 17, 23, 5, 1, Terrain.PEDESTAL);
         Painter.fill(this, 17, 25, 5, 1, Terrain.PEDESTAL);
-        Painter.fill(this, 21, 22, 28, 5, Terrain.EMPTY);
-        Painter.fill(this, 17, 22, 5, 5, Terrain.EMPTY_SP);
+        Painter.fill(this, 21, 21, 28, 7, Terrain.EMPTY);
+        Painter.fill(this, 16, 22, 5, 5, Terrain.EMPTY_SP);
         buildFlagMaps();
 
         LevelTransition exit = new LevelTransition(this, exitCell, LevelTransition.Type.REGULAR_EXIT);
@@ -116,7 +122,6 @@ public class Arena24 extends Arena{
     public Mob chooseMob(int wave) {
         Mob mob = new Rat();
         switch (wave){
-            //scorpio = 110, Succubus = 80 + heal, Necromancer = 40 + skeleton = 25, TS = 5 hits, eye = 100 + 2 hitsav
             case 1:
                 mob = new Rat(); break;
             case 2:
@@ -139,12 +144,9 @@ public class Arena24 extends Arena{
             case 8:
                 mob = new Necromancer(); break;
             case 9:
-                mob = new Skeleton(); break;
+                mob = new Swarm(); break;
             case 10:
-                if (!bossSpawned) {
-                    bossSpawned = true;
-                    mob = new Shinobi();
-                } else mob = new Swarm();
+                mob = new Shinobi();
                 break;
             case 11:
                 mob = new Bat(); break;
@@ -160,8 +162,8 @@ public class Arena24 extends Arena{
             case 15:
                 if (!bossSpawned) {
                     bossSpawned = true;
-                    mob = new DMWHead();
-                } else mob = new DM201();
+                    mob = new DMWWheels();
+                } else mob = new DMWHead();
                 break;
             case 16:
                 mob = new Ghoul();
@@ -196,7 +198,7 @@ public class Arena24 extends Arena{
             case 25:
                 if (!bossSpawned) {
                     bossSpawned = true;
-                    mob = new Acidic();
+                    mob = new YogFist.BrightFist();
                 } else mob = new Scorpio();
                 break;
         }
@@ -212,27 +214,27 @@ public class Arena24 extends Arena{
             case 2: return 5;
             case 3: return 6;
             case 4: return 7;
-            case 5: return 8;
-            case 6: return  4;
-            case 7: return  5;
-            case 8: return  6;
-            case 9: return  7;
-            case 10: return 8;
-            case 11: return 4;
-            case 12: return 5;
-            case 13: return 6;
-            case 14: return 7;
+            case 5: return 5;
+            case 6: return  6;
+            case 7: return  7;
+            case 8: return  8;
+            case 9: return  15;
+            case 10: return 7;
+            case 11: return 8;
+            case 12: return 9;
+            case 13: return 10;
+            case 14: return 11;
             case 15: return 8;
-            case 16: return 4;
-            case 17: return 5;
-            case 18: return 6;
+            case 16: return 8;
+            case 17: return 14;
+            case 18: return 15;
             case 19: return 7;
-            case 20: return 8;
-            case 21: return 4;
-            case 22: return 5;
-            case 23: return 6;
-            case 24: return 7;
-            case 25: return 8;
+            case 20: return 17;
+            case 21: return 18;
+            case 22: return 19;
+            case 23: return 20;
+            case 24: return 21;
+            case 25: return 22;
         } return 1;
     }
 
@@ -250,7 +252,6 @@ public class Arena24 extends Arena{
     }
     @Override
     public void doStuffStartwave(int wave) {
-        fifthWaveEnded=false;
         super.doStuffStartwave(wave);
     }
 
@@ -268,28 +269,64 @@ public class Arena24 extends Arena{
         super.endWave();
         if (wave%5==0){
             fifthWaveEnded=true;
+            AmuletTower tower = null;
+            for (Mob mob: mobs){
+                if (mob instanceof AmuletTower){
+                    tower = (AmuletTower) mob; break;
+                }
+            }
+            if (tower!=null) tower.itWasAWave=false;
             m_12121();
+        } else {
+            fifthWaveEnded=false;
         }
+    }
 
+    private void refill(){
+        ArrayList<Integer> candidates = new ArrayList<>();
+        for (int cell = 0; cell < WIDTH*HEIGHT; cell++) {
+            if (map[cell]!=Terrain.WALL && map[cell]!=Terrain.EMPTY_SP && Char.findChar(cell)==null){
+                candidates.add(cell);
+            }
+        }
+        HashMap<Integer, Float> chancesForTerrain = new HashMap<>();
+        chancesForTerrain.put(Terrain.EMPTY, 0.7f);
+        chancesForTerrain.put(Terrain.GRASS, 0.1f);
+        chancesForTerrain.put(Terrain.STATUE, 0.03f);
+        chancesForTerrain.put(Terrain.HIGH_GRASS, 0.1f);
+        chancesForTerrain.put(Terrain.CHASM, 0.03f);
+        chancesForTerrain.put(Terrain.WATER, 0.04f);
+        for (int i : candidates){
+            map[i]= Random.chances(chancesForTerrain);
+        }
+        for (int i = 0; i < 5; i++)dropMany(candidates,
+                Generator.random(Generator.Category.SCROLL2),
+                Generator.random(Generator.Category.STONE),
+                Generator.random(Generator.Category.SEED),
+                Generator.random()
+        );
+        buildFlagMaps();
     }
 
     protected void m_12121() {
         int w = wave;
         if (fifthWaveEnded) w++;
         if (w == 6) {
-            Painter.fill(this, 22,1,5,27,Terrain.EMPTY);
+            Painter.fill(this, 21,1,7,27,Terrain.EMPTY);
+            Painter.fill(this, 21, 21, 28, 7, Terrain.EMPTY);
         }
         if (w == 11) {
-            Painter.fill(this, 22,22,5,27,Terrain.EMPTY);
+            Painter.fill(this, 21,21,7,28,Terrain.EMPTY);
         }
         if (w==6 || w==11 || w==16 || w==21){
             GameScene.flash(CharSprite.BLACK);
             buildFlagMaps();
-            amuletTower.itWasAWave = false;
+            hero.lvl = wave;
+            refill();
             Dungeon.switchLevel(this, hero.pos);
             InterlevelScene.mode= InterlevelScene.Mode.CONTINUE;
             Game.switchScene(InterlevelScene.class);
-            fifthWaveEnded = false;
+
         }
     }
 
@@ -329,5 +366,17 @@ public class Arena24 extends Arena{
         if (w < 16) Music.INSTANCE.play(Assets.Music.CAVES_TENSE, true); else
         if (w < 21) Music.INSTANCE.play(Assets.Music.CITY_TENSE, true); else
             Music.INSTANCE.play(Assets.Music.HALLS_TENSE, true);
+    }
+
+    @Override
+    public String tileName(int tile) {
+        if (tile == Terrain.GRASS || tile == Terrain.HIGH_GRASS || tile == Terrain.FURROWED_GRASS) return Messages.get(Arena24.class, "grass_name");
+        return super.tileName(tile);
+    }
+
+    @Override
+    public String tileDesc(int tile) {
+        if (tile == Terrain.GRASS || tile == Terrain.HIGH_GRASS || tile == Terrain.FURROWED_GRASS) return Messages.get(Arena24.class, "grass_desc");
+        return super.tileDesc(tile);
     }
 }

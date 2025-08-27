@@ -20,9 +20,9 @@ public class TowerGuardPaladin extends TowerGuard3{
         damageMin = 18;
         damageMax = 30;//dpt/c = 0.00941
         upgradeLevel = 8;
-        defMin = 2;
-        defMax = 15;
-        regenNum = 30;
+        defMin = 3;
+        defMax = 10;
+        regenNum = 20;
         upgCount = 0;
         baseAttackDelay = 0.99f;
     }

@@ -22,11 +22,11 @@ public class TowerGraveElite extends TowerGrave3{
         minionCooldown = 50;
         minionCooldownLeft = 1;
 
-        minionHP = 300;
+        minionHP = 400;
         minionDamageMax = 25;
         minionDamageMin = 20;
         minionAttackSkill = 10;
-        minionDefenseSkill = 4;
+        minionDefenseSkill = 0;
         minionDR = 6;
 
         cost = 2500;

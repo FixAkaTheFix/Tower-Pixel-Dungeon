@@ -55,6 +55,7 @@ public class SentientTower extends Tower {
     public void targetChar( Char ch ){
         aggro(ch);
         followingHero = false;
+        defendingPos = ch.pos;
         target = ch.pos;
         movingToDefendPos = false;
     }

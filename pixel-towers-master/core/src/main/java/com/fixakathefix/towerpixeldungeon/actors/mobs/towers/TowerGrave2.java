@@ -14,7 +14,7 @@ public class TowerGrave2 extends TowerGrave1{
         minionCooldown = 20;
         minionCooldownLeft = 1;
 
-        minionHP = 20;
+        minionHP = 30;
         minionDamageMax = 10;
         minionDamageMin = 5;
         minionAttackSkill = 10;

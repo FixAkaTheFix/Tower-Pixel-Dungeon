@@ -97,7 +97,7 @@ public abstract class Wand extends Item {
 	}
 
 	public static float magicDamageModifier(){
-		return (float) (Dungeon.depth*0.08f* Math.sqrt(Math.sqrt(Dungeon.depth)) + 1);
+		return (float) (Dungeon.depth*0.05f* Math.sqrt(Math.sqrt(Dungeon.depth)) + 1);
 	}
 	
 	@Override

@@ -24,15 +24,15 @@ public class TowerGuard1 extends SentientTower {
         damageMin = 3;//dpt/c = 0.00267
         damageMax = 5;
         upgradeLevel = 3;
-        defMin = 0;
-        defMax = 4;
+        defMin = 1;
+        defMax = 2;
         upgrade1Cost = 300;
         defenseSkill = 5;
 
         defendingPos = -1;
     }
 
-    public int regenNum = 6;
+    public int regenNum = 3;
     public int turnsUntilRegen = 0;
 
     public TowerGuard1(){

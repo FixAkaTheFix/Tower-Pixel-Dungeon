@@ -87,13 +87,6 @@ public abstract class YogFist extends Mob {
 	@Override
 	protected boolean act() {
 		if (paralysed <= 0 && rangedCooldown > 0) rangedCooldown--;
-
-		if (Dungeon.hero.invisible <= 0 && state == WANDERING){
-			beckon(Dungeon.hero.pos);
-			state = HUNTING;
-			enemy = Dungeon.hero;
-		}
-
 		return super.act();
 	}
 
@@ -104,22 +97,6 @@ public abstract class YogFist extends Mob {
 		} else {
 			return super.canAttack(enemy);
 		}
-	}
-
-	private boolean invulnWarned = false;
-
-	protected boolean isNearYog(){
-		int yogPos = Dungeon.level.exit() + 3*Dungeon.level.width();
-		return Dungeon.level.distance(pos, yogPos) <= 4;
-	}
-
-	@Override
-	public boolean isInvulnerable(Class effect) {
-		if (isNearYog() && !invulnWarned){
-			invulnWarned = true;
-			GLog.w(Messages.get(this, "invuln_warn"));
-		}
-		return isNearYog() || super.isInvulnerable(effect);
 	}
 
 	@Override

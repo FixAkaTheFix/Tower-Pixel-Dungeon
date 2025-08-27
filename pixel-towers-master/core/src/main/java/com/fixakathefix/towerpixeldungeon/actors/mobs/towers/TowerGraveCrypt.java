@@ -19,9 +19,9 @@ public class TowerGraveCrypt extends TowerCSpawning{
         minionCooldownLeft = 1;
 
         minionHP = 1;
-        minionDamageMax = 12;
-        minionDamageMin = 8;
-        minionAttackSkill = 10;
+        minionDamageMax = 15;
+        minionDamageMin = 12;
+        minionAttackSkill = 15;
         minionDefenseSkill = 10;
         minionDR = 0;
 

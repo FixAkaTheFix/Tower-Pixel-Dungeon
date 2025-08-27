@@ -20,9 +20,9 @@ public class TowerGrave1 extends TowerCSpawning{
         minionCooldown = 20;
         minionCooldownLeft = 1;
 
-        minionHP = 10;
+        minionHP = 15;
         minionDamageMax = 6;
-        minionDamageMin = 3;
+        minionDamageMin = 4;
         minionAttackSkill = 10;
         minionDefenseSkill = 5;
         minionDR = 1;

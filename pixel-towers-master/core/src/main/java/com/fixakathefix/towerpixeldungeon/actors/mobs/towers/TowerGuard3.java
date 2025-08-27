@@ -13,12 +13,12 @@ public class TowerGuard3 extends TowerGuard2{
         damageMin = 12;
         damageMax = 16;
         upgradeLevel = 16;
-        defMin = 1;
-        defMax = 9;
+        defMin = 2;
+        defMax = 6;
         upgCount = 2;
         upgrade1Cost = 1500;
         upgrade2Cost = 800;
-        regenNum = 20;
+        regenNum = 14;
     }
 
     @Override

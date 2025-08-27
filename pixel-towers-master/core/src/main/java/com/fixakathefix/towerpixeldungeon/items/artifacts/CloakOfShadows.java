@@ -220,11 +220,6 @@ public class CloakOfShadows extends Artifact {
 		}
 	}
 
-	@Override
-	public int value() {
-		return 100;
-	}
-
 	public class cloakRecharge extends ArtifactBuff{
 		@Override
 		public boolean act() {

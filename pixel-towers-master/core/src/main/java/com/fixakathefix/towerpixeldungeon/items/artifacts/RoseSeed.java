@@ -61,7 +61,7 @@ public class RoseSeed extends Artifact {
 
     @Override
     public int value() {
-        return 70 + Dungeon.depth*10;
+        return 100;
     }
 
 

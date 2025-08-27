@@ -73,11 +73,12 @@ public class InterlevelScene extends PixelScene {
 	private static final float NORM_FADE = 0.67f; //.33 in, .67 steady, .33 out, 1.33 seconds total
 	//fast fade when ascending, or descending to a floor you've been on
 	private static final float FAST_FADE = 0.50f; //.33 in, .33 steady, .33 out, 1 second total
+	private static final float ALMOST_INSTANT_FADE = 0.4f; //.33 in, .14 steady, .33 out, 1 second total
 	
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, SAME
 	}
 	public static Mode mode;
 
@@ -122,6 +123,11 @@ public class InterlevelScene extends PixelScene {
 			case CONTINUE:
 				loadingDepth = GamesInProgress.check(GamesInProgress.curSlot).depth;
 				scrollSpeed = 5;
+				break;
+			case SAME:
+				loadingDepth = GamesInProgress.check(GamesInProgress.curSlot).depth;
+				fadeTime = ALMOST_INSTANT_FADE;
+				scrollSpeed = 20;
 				break;
 			case DESCEND:
 				if (Dungeon.hero == null){
@@ -272,6 +278,7 @@ public class InterlevelScene extends PixelScene {
 								ascend();
 								break;
 							case CONTINUE:
+							case SAME:
 								restore();
 								break;
 							case RESURRECT:

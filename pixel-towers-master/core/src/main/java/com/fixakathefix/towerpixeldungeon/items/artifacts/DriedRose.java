@@ -248,11 +248,6 @@ public class DriedRose extends Artifact {
 		
 		return desc;
 	}
-	
-	@Override
-	public int value() {
-		return super.value();
-	}
 
 	@Override
 	public String status() {
