@@ -165,6 +165,6 @@ public class AbTrBombVolley extends HeroSpellTargeted {
 
     @Override
     public int value() {
-        return 100 + Dungeon.depth * 25;
+        return 90;
     }
 }

@@ -21,6 +21,7 @@ public class AbTreatwounds extends HeroSpell {
         Dungeon.hero.heal(
                 Dungeon.hero.HT/10 + // partial 10 percent heal
                         5 +                 // flat 5 HP
+                        Dungeon.hero.lvl +  //1 HP per level of hero
                         (int)((Dungeon.hero.HT - Dungeon.hero.HP)*0.15f) // the higher is the HP lost, the better is the heal, up to 15 percent of your hp
         );
 

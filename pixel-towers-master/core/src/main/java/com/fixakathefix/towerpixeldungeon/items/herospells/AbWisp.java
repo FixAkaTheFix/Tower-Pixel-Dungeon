@@ -23,6 +23,7 @@ public class AbWisp extends HeroSpell {
     public void cast() {
         super.cast();
         Wisp wisp = new Wisp();
+        wisp.HP = wisp.HT = Dungeon.hero.lvl;
         wisp.alignment = Char.Alignment.ALLY;
         wisp.pos = Dungeon.hero.pos;
         wisp.state = wisp.HUNTING;

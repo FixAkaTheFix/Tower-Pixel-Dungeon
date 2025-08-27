@@ -28,10 +28,12 @@ public class AbTrLightningStrike extends HeroSpellTargeted {
     private static int MIN_COST = 10;
 
     private static int mindam(){
-        return Dungeon.depth  + 5;
+        if (hero == null) return 7;
+        return hero.lvl  + 5;
     }
     private static int maxdam(){
-        return Dungeon.depth * 3 + 9;
+        if (hero == null) return 15;
+        return hero.lvl * 3 + 9;
     }
 
     {

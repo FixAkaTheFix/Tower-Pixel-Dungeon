@@ -648,6 +648,20 @@ public class GameScene extends PixelScene {
 
 		super.destroy();
 	}
+	public void updateAll(){
+		water.autoAdjust = true;
+		terrain.add( water );
+		DungeonTileSheet.setupVariance(Dungeon.level.map.length, Dungeon.seedCurDepth());
+		tiles = new DungeonTerrainTilemap();
+		visualGrid = new GridTileMap();
+		terrainFeatures = new TerrainFeaturesTilemap(Dungeon.level.plants, Dungeon.level.traps);
+		levelVisuals = Dungeon.level.addVisuals();
+		raisedTerrain = new RaisedTerrainTilemap();
+		walls = new DungeonWallsTilemap();
+		levelWallVisuals = Dungeon.level.addWallVisuals();
+		wallBlocking = new WallBlockingTilemap();
+		update();
+	}
 
 	public static void endActorThread(){
 		if (actorThread != null && actorThread.isAlive()){
@@ -712,19 +726,6 @@ public class GameScene extends PixelScene {
 		}
 
 		super.update();
-
-		/*if (!timerPaused && Dungeon.hero.ready && Dungeon.level.mode == WndModes.Modes.HARDMODE) {
-			status.timeeCircleArc.visible = true;
-			timer -= Game.elapsed;
-			status.timeeCircleArc.setSweep((float)timer/TIME_PER_TURN);
-			if (timer <= 0 && Dungeon.hero.isAlive()) {
-				Dungeon.hero.rest(false);
-				timer = TIME_PER_TURN;
-			}
-		} else {
-			status.timeeCircleArc.visible=false;
-		}*/
-
 
 		if (notifyDelay > 0) notifyDelay -= Game.elapsed;
 

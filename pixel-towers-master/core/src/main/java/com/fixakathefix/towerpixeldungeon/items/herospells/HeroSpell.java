@@ -98,6 +98,6 @@ public abstract class HeroSpell extends Item {
 
     @Override
     public int value() {
-        return 20 + Dungeon.depth * 5;
+        return 60;
     }
 }

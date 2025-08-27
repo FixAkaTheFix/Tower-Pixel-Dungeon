@@ -326,10 +326,10 @@ public class Arena4 extends ArenaSewers {
         }
 
         ArrayList<Integer> cells = new ArrayList<>();
-        for (int i : PathFinder.NEIGHBOURS25){
+        for (int i : PathFinder.NEIGHBOURS25) if (level.passable[crabpoint+i] && Char.findChar(crabpoint+i)==null){
             cells.add(crabpoint + i);
         }
-        for (int i = 0;i < 4; i++) if (level.passable[crabpoint+i] && Char.findChar(crabpoint+i)==null){
+        for (int i = 0;i < 4; i++) {
             HermitCrab hermit = new HermitCrab();
             int cell = Random.element(cells);
             cells.remove((Integer) cell);

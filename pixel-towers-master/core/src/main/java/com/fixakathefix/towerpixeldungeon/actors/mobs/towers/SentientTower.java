@@ -95,6 +95,12 @@ public class SentientTower extends Tower {
     }
 
     @Override
+    public int defenseProc(Char enemy, int damage) {
+        movingToDefendPos = false;
+        return super.defenseProc(enemy, damage);
+    }
+
+    @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(DEFEND_POS, defendingPos);

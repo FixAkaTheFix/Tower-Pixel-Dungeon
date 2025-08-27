@@ -24,6 +24,7 @@ public class AbTaunt extends HeroSpell {
 
     @Override
     protected int castCooldown() {
+        if (Dungeon.level==null) return 200;
         return 75 + (Dungeon.level.width()+ Dungeon.level.height())/2;
     }
 }

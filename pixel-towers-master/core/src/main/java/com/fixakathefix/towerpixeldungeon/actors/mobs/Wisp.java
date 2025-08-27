@@ -46,7 +46,7 @@ public class Wisp extends Mob {
     {
         spriteClass = ElementalSprite.Wisp.class;
 
-        HP = HT = 1 + Dungeon.depth;
+        HP = HT = 1;
 
         defenseSkill = 20;
 
@@ -56,7 +56,7 @@ public class Wisp extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange(1, Dungeon.depth);
+        return Random.NormalIntRange(1, hero.lvl);
     }
 
     @Override

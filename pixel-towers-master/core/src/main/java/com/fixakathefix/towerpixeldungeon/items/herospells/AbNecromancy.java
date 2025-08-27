@@ -46,6 +46,7 @@ public class AbNecromancy extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return Math.max(Math.max(45 - Dungeon.depth, 250 - Dungeon.hero.lvl*15), 50);
+        if (Dungeon.hero == null) return 100;
+        return Math.max(Math.max(55 - Dungeon.hero.lvl, 250 - Dungeon.hero.lvl*15), 30);
     }
 }

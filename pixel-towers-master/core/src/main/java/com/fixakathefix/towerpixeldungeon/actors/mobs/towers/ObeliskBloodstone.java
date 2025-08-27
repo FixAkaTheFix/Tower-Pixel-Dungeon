@@ -26,7 +26,7 @@ public class ObeliskBloodstone extends Obelisk{
         upgCount = 0;
         sellable = false;
         if (Dungeon.hero != null){
-            HP = HT = Dungeon.depth * 6 + 15;
+            HP = HT = Dungeon.hero.lvl * 6 + 15;
         }
     }
 
@@ -37,7 +37,7 @@ public class ObeliskBloodstone extends Obelisk{
 
     @Override
     public int attackProc(Char enemy, int damage) {
-        Buff.affect(enemy, SoulBleeding.class).prolong(Dungeon.depth/2 + 3);
+        Buff.affect(enemy, SoulBleeding.class).prolong(Dungeon.hero.lvl/2 + 3);
         CellEmitter.get(enemy.pos).burst(ShadowParticle.CURSE, 10);
         return super.attackProc(enemy, damage);
     }

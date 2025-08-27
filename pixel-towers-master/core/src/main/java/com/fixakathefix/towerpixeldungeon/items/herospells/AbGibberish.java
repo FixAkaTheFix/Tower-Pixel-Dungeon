@@ -52,6 +52,7 @@ public class AbGibberish extends HeroSpellTargeted {
 
     @Override
     protected int castCooldown() {
-        return 15;
+        if (Dungeon.hero == null) return 18;
+        return 20 - Dungeon.hero.lvl/3;
     }
 }

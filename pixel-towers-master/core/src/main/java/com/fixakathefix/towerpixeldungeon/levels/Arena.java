@@ -24,9 +24,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Faint;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Levitation;
-import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Prediction;
-import com.fixakathefix.towerpixeldungeon.actors.buffs.Speed;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Strength;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveBuff;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveCooldownBuff;
@@ -60,7 +58,6 @@ import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.painters.Painter;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
-import com.fixakathefix.towerpixeldungeon.scenes.LevelSelectScene;
 import com.fixakathefix.towerpixeldungeon.scenes.PixelScene;
 import com.fixakathefix.towerpixeldungeon.scenes.RankingsScene;
 import com.fixakathefix.towerpixeldungeon.sprites.GoblinFatSprite;
@@ -581,6 +578,7 @@ public class Arena extends Level {
         if (normalShopKeeper!=null) normalShopKeeper.placeItems();
         doStuffEndwave(wave);
 
+
         for (Mob mob : mobs){
             if (mob instanceof TowerGuard1 && mob.alignment == Char.Alignment.ALLY){
                 ((TowerGuard1)mob).turnsUntilRegen = 0;
@@ -593,7 +591,7 @@ public class Arena extends Level {
             return;
         }
         //attempts to save each fifth (5) wave.
-        if (wave%5==0) try {
+        if (wave%5==0)try {
             Dungeon.saveAll();
         } catch (Exception ignored) {}
         Buff.detach(hero, WaveBuff.class);
@@ -751,6 +749,7 @@ public class Arena extends Level {
         }
 
         public boolean itWasAWave = false;
+
         @Override
         protected boolean act() {
             boolean enemyspotted = false;

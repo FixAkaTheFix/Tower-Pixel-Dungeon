@@ -26,7 +26,7 @@ public class ObeliskPermafrost extends Obelisk {
         upgCount = 0;
         sellable = false;
         if (Dungeon.hero != null){
-            HP = HT = Dungeon.depth * 5 + 15;
+            HP = HT = Dungeon.hero.lvl * 5 + 15;
         }
     }
 
@@ -44,7 +44,7 @@ public class ObeliskPermafrost extends Obelisk {
     @Override
     public int attackProc(Char enemy, int damage) {
         Buff.affect(enemy, Chill.class, 5);
-        Buff.affect(this, Barrier.class).setShield(Dungeon.depth * 5 + 10);
+        Buff.affect(this, Barrier.class).setShield(Dungeon.hero.lvl * 5 + 10);
         return super.attackProc(enemy, damage);
     }
 

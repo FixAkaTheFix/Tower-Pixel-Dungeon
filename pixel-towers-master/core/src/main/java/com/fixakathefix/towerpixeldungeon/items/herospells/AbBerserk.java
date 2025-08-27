@@ -25,6 +25,8 @@ public class AbBerserk extends HeroSpell {
 
     @Override
     protected int castCooldown() {
-        return 100;
+
+        if (Dungeon.hero == null) return 100;
+        return 100 - Dungeon.hero.lvl*2;
     }
 }

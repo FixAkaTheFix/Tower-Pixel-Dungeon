@@ -20,7 +20,7 @@ public class LicteriaLasher extends Mob {
     {
         spriteClass = LicteriaLasherSprite.class;
 
-        HP = HT = 5;
+        HP = HT = 6;
         defenseSkill = 0;
 
         EXP = 0;
@@ -94,7 +94,7 @@ public class LicteriaLasher extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange(1, Dungeon.depth+2);
+        return Random.NormalIntRange(1, Dungeon.hero.lvl+2);
     }
 
     @Override

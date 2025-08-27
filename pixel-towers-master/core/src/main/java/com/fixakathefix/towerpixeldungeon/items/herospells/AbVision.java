@@ -23,8 +23,8 @@ public class AbVision extends HeroSpell {
     public void cast() {
         super.cast();
         Sample.INSTANCE.play(Assets.Sounds.READ);
-        Buff.affect(Dungeon.hero, MindVision.class, 21);
-        Buff.affect(Dungeon.hero, KeenEye.class, 21);
+        Buff.affect(Dungeon.hero, MindVision.class, 15 + Dungeon.hero.lvl);
+        Buff.affect(Dungeon.hero, KeenEye.class, 15 + Dungeon.hero.lvl);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class AbUndying extends HeroSpell {
     @Override
     public void cast() {
         super.cast();
-        Buff.affect(Dungeon.hero, Undying.class, 60);
+        Buff.affect(Dungeon.hero, Undying.class, 60 + Dungeon.hero.lvl*5);
         curUser.sprite.centerEmitter().start(ShadowParticle.CURSE, 0.3f, 3 );
         Sample.INSTANCE.play(Assets.Sounds.CURSED);
     }
