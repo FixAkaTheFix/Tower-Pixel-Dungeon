@@ -30,11 +30,13 @@ import com.fixakathefix.towerpixeldungeon.sprites.BeeSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CausticSlimeSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ElementalSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.GnollGuardSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.GorematiaSpiritSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSpriteSheet;
 import com.fixakathefix.towerpixeldungeon.sprites.PortalUnstableSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.RatSprite;
+import com.fixakathefix.towerpixeldungeon.sprites.RocketSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ShinobiSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.ShopkeeperSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.SpinnerSprite;
@@ -62,34 +64,17 @@ public class vTowersNewChanges {
 		add_v052_Changes(changeInfos);
 		add_v053_Changes(changeInfos);
 		add_v054_Changes(changeInfos);
+		add_v100_Changes(changeInfos);
 	}
 
 	public static void add_Coming_Soon( ArrayList<ChangeInfo> changeInfos ) {
 
-		ChangeInfo changes = new ChangeInfo("Coming Soon", true, "");
+		ChangeInfo changes = new ChangeInfo("Is anything coming soon?", true, "");
 		changes.hardlight(0xCCCCCC);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_ON), "General",
-				"Well, the new update is out and it is of great quality and took great effort. Not like I am begging for donations, as I didn't even add an option to do them :)\n\n" +
-				"Next update will depend on reception from the Community, may appear, or may not be released at all. Soooo, please tell me about all the bugs, your ideas on #5PD discord#5, this helps very much!"));
-
-		changes.addButton( new ChangeButton(Icons.get(Icons.TOWER), "new Towers?",
-				"I generally don't know what towers too add. These ideas, mentioned in the previous version that I think is still installed (as the package name is different): the hive, the beebot and Ice rod are easy to add and are generally bad. They do not provide additional gameplay time which I crave. But, here is another bunch of suggested tower ideas\n\n",
-				"- The Stomper: a melee tower that pushes enemies from it.\n",
-				"- The Healing station - will heal allies in an area\n",
-				"- A dummy - a moving tower that easily evades attacks and distracts enemies\n"
-				));
-
-		changes.addButton( new ChangeButton(Icons.get(Icons.DUELIST), "new Heroes",
-				"Well, next are Cleric (not the one Evan added, he is op and I generally dislike the direction of his... balancing. Too op even for pixel towers) and the Engineer."));
-
-		changes.addButton( new ChangeButton(Icons.get(Icons.AMULET), "new Modes",
-				"Idk, endless mode is done. Suggest me modes in #2reddit#2 and #5discord#5"));
-
-		changes.addButton( new ChangeButton(new YogSprite(), "Yog-Dzewa sealing ritual",
-				"The ritual already has a full concept of #0f#0#9o#9#5u#5#7r#7 phases. You can guess what that means phphph. Thanks for reading this... It means you are with me on that journey, and that means a lot"));
-
+		changes.addButton( new ChangeButton(Icons.get(Icons.AMULET), "New content? Your content!",
+				"There is nothing left to add, only polishing, balancing, maybe adding some items here and there, only perhaps in a DLC format, something not that typical. If you have any ideas, send them to me via #2reddit#2 and #5discord#5"));
 	}
 
 	public static void add_v010_Changes( ArrayList<ChangeInfo> changeInfos ) {
@@ -555,6 +540,101 @@ public class vTowersNewChanges {
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
 				"Bug removed:\n" +
 						"- Shinobi reworked with many of its crash bugs removed"));
+	}
+	public static void add_v100_Changes( ArrayList<ChangeInfo> changeInfos) {
+
+		ChangeInfo changes = new ChangeInfo("v1.0.0", true, null);
+		changes.hardlight(CharSprite.HOLY);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
+				"General update info:\n" +
+						"- Released 02.09.25\n" +
+						"- implemented final stages, made some heavy rebalancing and polished other stages\n" +
+						"- some crucial mechanics overhauled, towards simplification\n" +
+						"- full release version of the game\n" +
+						"- Fixed over 120 bugs"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.PRIEST, 0, 90, 12, 15), "New Hero",
+				"_New hero: the Priest_:\n" +
+						"- The priest is a _support_ class, can summon minion, damage enemies and heal allies slightly.\n" +
+						"- The priest has no weapons, only his faith. His unlock requirement is different from other heroes.\n" +
+						"- He can _Pray_ to conjure a random effect, _Summon a Wisp_ to aid in combat and has an infinite supply of _Holy water_"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.STONE_INTUITION), "No more identification",
+						"- All items are identified from the beginning. The shopkeepers will still try to scam you into buying cursed stuff...\n" +
+						"- You also know whether the item is cursed or not"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HOLSTER), "Autosave",
+				"- Implemented a feature of _autosaving_, which works each fifth wave"));
+		changes.addButton(new ChangeButton(Icons.get(Icons.NECROHERO), "Champion titles",
+				"Added new champion titles:\n" +
+						"- #1Copying#1 champions create their weaker clones upon being hit\n" +
+						"- #4Rejuvenating#4 champions heal other monsters after death\n" +
+						"- #8Destructive#8 champions are capable of killing any tower in a few hits"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HALLS_PAGE), "Lore",
+				"- Inserted a story of a fallen civilization into the gameplay\n" +
+						"- Fixed previous and added more lore pages\n" +
+						"- Finished the storyline of Pixel Towers. Many secrets await you..."));
+		changes.addButton(new ChangeButton(Icons.get(Icons.BLOODAMULET), "#1Hard mode changes#1",
+				"Made several changes to how hardmode works:\n" +
+						"- Champion amount increased\n" +
+						"- Any aid you are given by rat king during the tutorials won't work"));
+		changes.addButton(new ChangeButton(Icons.get(Icons.AMULET), "#7Final stages!#7",
+				"Made several changes to how some challenges work:\n" +
+						"- finished 5 last stages for story mode, with challenges added to each"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FORCE_CUBE), "Weaponry changes",
+				"- most missiles got a rebalance in damage\n" +
+						"- some missile weapons have _additional effects_ on upgrades, like melee weapons do\n" +
+						"- Some of the weaponry, both melee and ranges, remains worthless. It can still be sold!\n" +
+						"- Wands and melee damage depth scaling changed"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HEROSPELL_TR_ORBITALLIGHTNING), "Tower spells",
+						"- Added _Tower-specific spells_ which you can get from a shop if a specific tower is equipped\n" +
+						"- all of such spells will appear in the shop and have an effect related to their tower type"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HEROSPELL_HOLY_WATER), "Spell changes",
+				"Spells got a rework:\n" +
+						"- Most spells' _power is based on hero's level_, not the depth you are on\n" +
+						"- Most spells got special effects and usage sounds\n" +
+						"- Most spells got rebalanced, some with _additional effects_: the Ice wall, for example, now melts over time\n" +
+						"- Some class-specific spells were swapped (ex: warrior's Golden armor replaced with Rage)"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.WARRIOR, 0, 90, 12, 15), "Hero changes",
+				"All heroes have been rebalanced, according to player statistics:\n" +
+						"- _Mage_ and _Huntress_ got a _nerf_, mostly through their abilities. In core they remained the same, what was changed are numbers, like damage and cooldown time\n" +
+						"- _Tank_ and _Duelist_ got _buffed_, with the first receiving better equipment, while the second got her Banner ability some healing functionality. _Warrior_ got a better buff in both ability power and equipment\n" +
+						"- _Rogue_ and _Necromancer_ remained the same, as they are both quite visually effective and frequently used"
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_UPGRADE), "Landscape mode!",
+						"- Added Landscape mode! WOOHOO That's what we've been waiting for!"));
+		changes.addButton(new ChangeButton(new RocketSprite(), "Bomb buff",
+				"Made a few additions to bombs:\n" +
+						"- Made bombs significantly more _damaging_\n" +
+						"- Any explosion-creating items, such a scroll of skulls, or a runestone of Blast, are buffed too\n" +
+						"- Bomb _priceschanged_, bomb loot frequency increased"));
+		changes.addButton(new ChangeButton(new GnollGuardSprite(), "Map gen changes",
+				"Made some changes to how maps are generated\n" +
+						"- _Loot amount increased_ on almost each stage\n" +
+						"- Sometimes mobs of any type, labeled as _Map Guards_, defend specific map points. These mobs never leave their point of defense and are immune to being kited.\n" +
+						"- These _specific map points_ have much more loot, usually chests"));
+		changes.addButton(new ChangeButton(new ShopkeeperSprite(), "Selling items",
+				"You can sell items now:\n" +
+						"- Most items can now be sold by interacting with the Shopkeeper\n" +
+						"- Most sellable items have a cap for selling price, which is determined by the depth you are on\n" +
+						"- Some items can be sold for more that the cap allows for, those being, for ex, the #1Blood crystals#1 dropped from the Demonic portals"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SEED_FIREBLOOM), "Plants overhaul",
+				"- Any plant can be _trampled several times_, acting as a trap for monsters, or a buff point for your hero\n" +
+						"- (This excludes firebloom and any special plants, like dewcatcher)"));
+		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_CLEANSING), "Potion additions",
+				"- Replaced Cleansing with _Nullification_, which removes all buffs, debuffs, prevents most mobs from using special abilities\n" +
+						"- Changed all stats of some potions, like potion of invisibility, as they are quite useful now\n" +
+						"- Replaced potion of Divine inspiration with _potion of Immortality_, which gives short-term invincibility"));
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), "Bugs",
+				"Bugs removed:\n" +
+						"- Walls textures do not lag anymore\n" +
+						"- Scroll of Teleportation works properly now\n" +
+						"- Chasm bugs, especially recursive falling in many situations\n" +
+						"- A TON of optimisation features, almost halved the amount of level mob cycle checks\n" +
+						"- Fixed exponential increase of some items' prices with depth\n" +
+						"- A couple of Boss fixes\n" +
+						"- Fixed time scaling with several buffs and debuffs, some of which are Faint-related bugs\n" +
+						"- etc. etc. etc... there was quite a lot of them"));
+
 	}
 
 

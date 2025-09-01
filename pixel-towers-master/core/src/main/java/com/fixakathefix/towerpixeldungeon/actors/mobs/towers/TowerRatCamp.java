@@ -196,7 +196,6 @@ public class TowerRatCamp extends TowerWave {
         ArrayList<Integer> cand = new ArrayList<>();
         for (int i : PathFinder.NEIGHBOURS25){
             if (Char.findChar(pos + i)==null &&
-                    pos >= 0 && pos < level.width()*level.height() &&
                     level.passable[pos+i]) cand.add(pos + i);
         }
 

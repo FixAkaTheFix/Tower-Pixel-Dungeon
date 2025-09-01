@@ -116,6 +116,8 @@ public class WndStartGame extends Window {
                 hero = new Image(Assets.Sprites.DUELIST, 0, 90, 12, 15);
             } else if (cl == HeroClass.TANK){
                 hero = new Image(Assets.Sprites.TANK, 0, 90, 12, 15);
+            } else if (cl == HeroClass.PRIEST){
+                hero = new Image(Assets.Sprites.PRIEST, 0, 90, 12, 15);
             }
             update();
         }

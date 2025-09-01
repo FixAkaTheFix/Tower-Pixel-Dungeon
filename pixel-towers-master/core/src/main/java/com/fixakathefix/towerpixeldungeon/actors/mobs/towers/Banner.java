@@ -29,7 +29,7 @@ public class Banner extends TowerCTotem{
         Char ch = Char.findChar(cell);
         if (ch!=null){
             if (!(ch instanceof TowerNotliving))Buff.append(ch, Inspired.class,15);
-            ch.heal(1 + Dungeon.hero.lvl/5);
+            ch.heal(1 + Dungeon.hero.lvl/2);
         }
     }
     protected void searchAndUse(){

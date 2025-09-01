@@ -71,6 +71,8 @@ public class BossDwarfKing extends Mob{
 
         alignment = Alignment.ENEMY;
 
+        targetingPreference = TargetingPreference.NOT_AMULET;
+
 
         HUNTING = new Hunting();
     }

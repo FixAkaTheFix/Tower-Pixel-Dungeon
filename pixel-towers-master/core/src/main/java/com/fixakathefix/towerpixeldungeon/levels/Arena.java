@@ -15,6 +15,7 @@ import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Bless;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Burning;
@@ -24,6 +25,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Faint;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.GoldArmor;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Invisibility;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Levitation;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Minion;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Prediction;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Strength;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.WaveBuff;
@@ -33,6 +35,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Bandit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bee;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossDwarfKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DMWMinion;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mimic;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
@@ -46,6 +49,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWave;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
@@ -585,8 +589,8 @@ public class Arena extends Level {
             }
         }
 
-
-        if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20) && (depth!=1)){
+        //FIXME swap to Arena.class derivatives
+        if ((wave==maxWaves) && (depth!=6) && (depth!=17) && (depth!=20) && (depth!=1) && (depth!=25)){
             completeStage();
             return;
         }
@@ -748,7 +752,11 @@ public class Arena extends Level {
             return super.isImmune(effect);
         }
 
+        //a mechanism to see whether there has been a wave or a wave cooldown
         public boolean itWasAWave = false;
+
+        //if true, the portal won't start or end waves through act() method. Other actions are still being done.
+        public boolean stalled = false;
 
         @Override
         protected boolean act() {
@@ -756,6 +764,10 @@ public class Arena extends Level {
 
 
             counter++;
+            if (counter == 7 && level instanceof Arena25){
+                ((Arena25)level).startDialogue();
+            }
+
             if (Dungeon.depth == 18) GameScene.updateFog(pos, 8);
             else GameScene.updateFog(pos, 5);
 
@@ -778,6 +790,13 @@ public class Arena extends Level {
                     }
                 }
             }
+            if (level instanceof Arena22 && level.mode == WndModes.Modes.CHALLENGE){
+                for (Mob mob : level.mobs){
+                    if (mob.alignment==Alignment.ALLY && (mob instanceof TowerCrossbow1 || mob instanceof TowerGuard1) && mob.buff(Bless.class) == null){
+                        Buff.affect(mob, Bless.class).setTime(10000);
+                    }
+                }
+            }
             if (branch == 0 && depth==8 && level.mode == WndModes.Modes.CHALLENGE){
                 for (Mob mob : level.mobs){
                     if (mob.alignment==Alignment.ALLY && mob.buff(GoldArmor.class)==null){
@@ -796,6 +815,7 @@ public class Arena extends Level {
 
             for (Mob mob2 : mobs){
                 if (mob2 instanceof AmuletTower || mob2 instanceof SubAmuletTower) posesToBeckon.add(mob2.pos);
+
             }
 
 
@@ -808,6 +828,7 @@ public class Arena extends Level {
 
                 if (mob.alignment==Alignment.ENEMY &&
                         !(mob.mapGuard)&&
+                        mob.buff(Minion.class) == null &&
                         !(mob instanceof Tower) &&
                         !(mob instanceof SubAmuletTower) &&
                         !(mob instanceof Piranha) &&
@@ -816,7 +837,8 @@ public class Arena extends Level {
                         !(mob instanceof Bee) &&
                         !(mob instanceof Arena6.SleepyThief) &&
                         !(mob instanceof EnemyPortal) &&
-                        !(mob instanceof BossDwarfKing && ((BossDwarfKing)mob).battleMode == 0))
+                        !(mob instanceof BossDwarfKing && ((BossDwarfKing)mob).battleMode == 0) &&
+                        !(mob instanceof BossYog))
                 {
                     mob.beckon( beckoncell );
                     enemyspotted = true;
@@ -826,7 +848,7 @@ public class Arena extends Level {
             if (Dungeon.depth==11 && Math.random()*1000+level.wave>999){
                 if (mobs!=null && hero.buff(WaveCooldownBuff.class)==null) Arena11.dropRock(Random.element(mobs));
             }
-            if (Dungeon.depth!=18 && !(depth==20 && level.wave == 25)){
+            if (Dungeon.depth!=18 && !(depth==20 && level.wave == 25) && !stalled){
                 if (hero.buff(WaveBuff.class) != null && !enemyspotted) {
                     ((Arena) level).endWave();
                     itWasAWave = false;
@@ -913,17 +935,20 @@ public class Arena extends Level {
 
         private String COUNTER = "counter";
         private String LASTWASCOOLDOWN= "lastwascooldown";
+        private String STALLED= "stalled";
         @Override
         public void storeInBundle(Bundle bundle) {
             super.storeInBundle(bundle);
             bundle.put(COUNTER, counter);
             bundle.put(LASTWASCOOLDOWN, itWasAWave);
+            bundle.put(STALLED, stalled);
         }
         @Override
         public void restoreFromBundle(Bundle bundle) {
             super.restoreFromBundle(bundle);
             counter = bundle.getInt(COUNTER);
             itWasAWave = bundle.getBoolean(LASTWASCOOLDOWN);
+            stalled = bundle.getBoolean(STALLED);
         }
     }
 
@@ -931,7 +956,7 @@ public class Arena extends Level {
 
     private String SHOPKEEPER = "shopkeeper";
     private String TOWERSHOPKEEPER = "towershopkeeper";
-
+    private String PORTAL = "portal";
 
 
     @Override
@@ -940,6 +965,7 @@ public class Arena extends Level {
         bundle.put(WAVE, wave);
         bundle.put(SHOPKEEPER,normalShopKeeper);
         bundle.put(TOWERSHOPKEEPER,towerShopKeeper);
+        bundle.put(PORTAL, amuletTower.id());
     }
 
     @Override
@@ -948,6 +974,10 @@ public class Arena extends Level {
         wave = bundle.getInt(WAVE);
         normalShopKeeper = (NormalShopKeeper) bundle.get(SHOPKEEPER);
         towerShopKeeper = (TowerShopKeeper) bundle.get(TOWERSHOPKEEPER);
+        for (Mob mob : mobs){
+            if (mob.id() == bundle.getInt(PORTAL)) amuletTower = (AmuletTower) mob;
+        }
+
     }
 
 }

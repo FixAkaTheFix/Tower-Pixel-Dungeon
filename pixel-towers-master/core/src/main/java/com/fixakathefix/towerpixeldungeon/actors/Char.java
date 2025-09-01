@@ -78,6 +78,7 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Preparation;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Protected;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Rush;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.ShieldBuff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Sleep;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Slow;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.SnipersMark;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.SoulBleeding;
@@ -131,6 +132,8 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.enchantments.Pure;
 import com.fixakathefix.towerpixeldungeon.items.weapon.enchantments.Shocking;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.fixakathefix.towerpixeldungeon.levels.Arena21;
+import com.fixakathefix.towerpixeldungeon.levels.Arena23;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.fixakathefix.towerpixeldungeon.levels.features.Chasm;
 import com.fixakathefix.towerpixeldungeon.levels.features.Door;
@@ -143,6 +146,7 @@ import com.fixakathefix.towerpixeldungeon.sprites.BossRatKingSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.utils.BArray;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
+import com.fixakathefix.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
@@ -405,6 +409,10 @@ public abstract class Char extends Actor {
 								")");
 
 		};
+		if (Dungeon.level instanceof Arena21 && Dungeon.level.mode == WndModes.Modes.CHALLENGE){
+			if (buff(Weakness.class)==null)Buff.affect(this, Weakness.class, 5f);
+			if (buff(Slow.class)==null)Buff.affect(this, Slow.class, 5f);
+		}
 
 
 		if (enemy == null) return false;
@@ -788,7 +796,6 @@ public abstract class Char extends Actor {
 	}
 	
 	public void damage( int dmg, Object src) {
-		
 		if (!isAlive() || dmg < 0) {
 			return;
 		}
@@ -826,6 +833,11 @@ public abstract class Char extends Actor {
 					}
 				}
 			}
+		}
+
+		if (Dungeon.level instanceof Arena23 && Dungeon.level.mode == WndModes.Modes.CHALLENGE && alignment == Alignment.ALLY && !(src instanceof SoulBleeding)){
+			Buff.affect(this, SoulBleeding.class).prolong(dmg*2);
+			dmg = 0;
 		}
 
 		Terror t = buff(Terror.class);
@@ -1306,7 +1318,7 @@ public abstract class Char extends Actor {
 
 	public enum Property{
 		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfSkulls.class, ScrollOfDemonicSkull.class)),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
+				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class, Sleep.class) )),
 		MINIBOSS ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Dread.class, AllyBuff.class) )),
 		BOSS_MINION,

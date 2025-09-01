@@ -7,6 +7,8 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Acidic;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bandit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Bat;
@@ -345,6 +347,12 @@ public class Arena24 extends Arena{
         if (w < 16) return Assets.Environment.TILES_GOBS;          else
         if (w < 21) return Assets.Environment.TILES_CITY;            else
         return Assets.Environment.TILES_SOULDESERT;
+    }
+
+    @Override
+    public void affectMob(Mob mob) {
+        mob.HP = mob.HT/3;
+        Buff.affect(mob, ChampionEnemy.Rejuvenating.class);
     }
 
     @Override

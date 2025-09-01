@@ -50,6 +50,7 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -649,4 +650,5 @@ public class Arena18 extends ArenaCity {
             return false;
         }
     }
+
 }

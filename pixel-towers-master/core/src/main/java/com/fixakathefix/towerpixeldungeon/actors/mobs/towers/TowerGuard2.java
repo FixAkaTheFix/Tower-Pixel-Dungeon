@@ -16,7 +16,7 @@ public class TowerGuard2 extends TowerGuard1{
         defMin = 1;
         defMax = 5;
         upgrade1Cost = 600;
-        regenNum = 7;
+        regenNum = 5;
     }
 
     @Override

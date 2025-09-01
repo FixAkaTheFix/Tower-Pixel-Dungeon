@@ -14,8 +14,8 @@ allprojects {
         appName = 'Pixel Towers'
         appPackageName = 'com.fixakathefix.towerpixeldungeon'
 
-        appVersionCode = 705
-        appVersionName = '0.5.4'
+        appVersionCode = 706
+        appVersionName = '1.0.0'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 

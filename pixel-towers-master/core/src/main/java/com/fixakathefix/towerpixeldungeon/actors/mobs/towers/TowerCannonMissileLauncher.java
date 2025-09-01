@@ -41,8 +41,8 @@ public class TowerCannonMissileLauncher extends TowerCSpawning {
         minionCooldownLeft = 1000000;
 
         minionHP = 1;
-        minionDamageMin = 20;
-        minionDamageMax = 40;
+        minionDamageMin = 15;
+        minionDamageMax = 33;
 
         minionAttackSkill = 1000000;
         minionDefenseSkill = 6;

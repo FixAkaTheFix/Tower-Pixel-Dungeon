@@ -37,7 +37,7 @@ public class BoneMachete extends MeleeWeapon {
 
     @Override
     public int proc(Char attacker, Char defender, int damage) {
-        Buff.affect(attacker, Bleeding.class).set(Dungeon.depth/2);
+        Buff.affect(defender, Bleeding.class).set(Dungeon.depth/2);
         return super.proc(attacker, defender, damage);
     }
 

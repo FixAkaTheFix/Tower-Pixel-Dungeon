@@ -23,7 +23,7 @@ public class AbBanner extends HeroSpellTargeted{
                 if (cell != null) {
                     if (Char.findChar(cell) == null && Dungeon.level.passable[cell] && !Dungeon.level.pit[cell] && Dungeon.hero.fieldOfView[cell]) {
                         Banner banner = new Banner();
-                        banner.HP = banner.HT = 10 + Dungeon.hero.lvl*5;
+                        banner.HP = banner.HT = 10 + Dungeon.hero.lvl;
                         banner.alignment = Char.Alignment.ALLY;
                         banner.pos = cell;
                         GameScene.add(banner);

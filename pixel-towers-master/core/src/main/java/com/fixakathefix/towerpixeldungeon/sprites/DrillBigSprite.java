@@ -21,7 +21,13 @@ public class DrillBigSprite extends MobSprite {
         die = new Animation(15,true);
         die.frames(frames, 0,1,0,1,0,0,0,1,0,0,0,1,0,0);
 
+        flipHorizontal = false;
 
         play( idle );
+    }
+
+    @Override
+    public void turnTo(int from, int to) {
+        flipHorizontal = false;
     }
 }

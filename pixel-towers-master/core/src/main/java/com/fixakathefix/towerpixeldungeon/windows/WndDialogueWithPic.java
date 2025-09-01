@@ -38,11 +38,9 @@ public class WndDialogueWithPic extends Window {
 
     private int textNum = 0;
     public boolean lastDialogue = false;
+    public boolean unskippable = false;
 
     private String[] texts;
-
-
-    private float textSpeed;
     private String curText;
     private int letterNum = 0;
     private CharSprite image;
@@ -57,8 +55,8 @@ public class WndDialogueWithPic extends Window {
 
     public enum WndType {
         NORMAL,
-        FINAL,
-        CUSTOM
+        FINAL, //ends the game after that dialogue
+        YOGFINAL // unskippable
     }
 
     public static void dialogue(CharSprite icon, String title, String[] text) {
@@ -73,12 +71,13 @@ public class WndDialogueWithPic extends Window {
     }
     public static void dialogue(CharSprite icon, String title, String[] text, byte[] spriteActionIndexes, WndType type, ArrayList<Runnable> runnableArrayList) {
 
-        if ( level == null || level.mode == WndModes.Modes.NORMAL || type == WndType.FINAL) {
+        if ( level == null || level.mode == WndModes.Modes.NORMAL || type == WndType.FINAL || type == WndType.YOGFINAL) {
             Game.runOnRenderThread(new Callback() {
                 @Override
                 public void call() {
                     WndDialogueWithPic wnd = new WndDialogueWithPic(icon, title, text, spriteActionIndexes);
                     if (type == WndType.FINAL) wnd.lastDialogue = true;
+                    if (type == WndType.YOGFINAL) wnd.unskippable = true;
                     wnd.runnableArrayList = runnableArrayList;
                     if (ShatteredPixelDungeon.scene() instanceof GameScene)
                         GameScene.show(wnd);
@@ -99,51 +98,6 @@ public class WndDialogueWithPic extends Window {
 
     public WndDialogueWithPic(CharSprite icon, String title, String[] text, byte spriteActionIndexes[]) {
         super(0, 0, Chrome.get(Chrome.Type.TOAST_TR));
-/*
-        if (Dungeon.level.mode == WndModes.Modes.CHALLENGE) {
-            icon = new RatKingSprite();
-            title = Messages.get(WndDialogueWithPic.class, "rkavatar");
-            icon.hardlight(0x00EEEE);
-            if (Dungeon.level.wave == 1 && hero.buff(WaveBuff.class) != null) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "chalstart" + Random.NormalIntRange(1, 3))
-                };
-            } else if (Dungeon.level.wave > 2 && Dungeon.level.wave < ((Arena) Dungeon.level).maxWaves) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "chalmiddle" + Random.NormalIntRange(1, 5))
-                };
-            } else if (Dungeon.level.wave == ((Arena) Dungeon.level).maxWaves) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "chalend" + Random.NormalIntRange(1, 3))
-                };
-            } else {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "onlybeginning")
-                };
-            }
-        }
-        if (Dungeon.level.mode == WndModes.Modes.HARDMODE) {
-            icon = new GorematiaSpiritSprite();
-            title = "#???#";
-            if (Dungeon.level.wave == 1) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "hardstart" + Random.NormalIntRange(1, 3))
-                };
-            } else if (Dungeon.level.wave > 2 && Dungeon.level.wave < ((Arena) Dungeon.level).maxWaves) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "hardmiddle" + Random.NormalIntRange(1, 5))
-                };
-            } else if (Dungeon.level.wave >= ((Arena) Dungeon.level).maxWaves) {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "hardend" + Random.NormalIntRange(1, 3))
-                };
-            } else {
-                text = new String[]{
-                        Messages.get(WndDialogueWithPic.class, "onlysuffering")
-                };
-            }
-        }
-*/
         shadow.visible = false;
         resize(PixelScene.uiCamera.width, PixelScene.uiCamera.height);
         texts = text;
@@ -205,22 +159,25 @@ public class WndDialogueWithPic extends Window {
 
     @Override
     public void onBackPressed() {
-        if (typing) {
-            typing = false;
-            timer.stop();
-            timer.clear();
-            tf.text(texts[textNum]);
-        } else {
-            textNum++;
-            if (textNum >= texts.length) {
-                hide();
-                if (lastDialogue) {
-                    Arena.completeStage();
-                    return;
-                }
-            } else startText(texts[textNum]);
+        if (!unskippable) {
+            if (typing) {
+                typing = false;
+                timer.stop();
+                timer.clear();
+                tf.text(texts[textNum]);
+            } else {
+                textNum++;
+                if (textNum >= texts.length) {
+                    hide();
+                    if (lastDialogue) {
+                        Arena.completeStage();
+                        return;
+                    }
+                } else startText(texts[textNum]);
+            }
+            update();
         }
-        update();
+
     }
 
     private void startText(String text) {

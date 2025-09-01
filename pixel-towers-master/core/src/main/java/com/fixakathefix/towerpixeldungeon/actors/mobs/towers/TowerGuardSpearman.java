@@ -16,7 +16,7 @@ public class TowerGuardSpearman extends TowerGuard3{
         defMin = 2;
         defMax = 6;
         upgCount = 0;
-        regenNum = 15;
+        regenNum = 12;
         viewDistance = 3;
     }
 

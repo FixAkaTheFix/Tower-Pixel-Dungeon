@@ -38,6 +38,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
 import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.RatKingAvatar;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.Blacksmith;
@@ -895,6 +896,7 @@ public class Dungeon {
 		for (Mob m : level.mobs.toArray(new Mob[0])) if (
 				m instanceof EnemyPortal ||
 				m instanceof CampRatLeader ||
+						m instanceof BossYog ||
 				m instanceof TowerRoseBush.GhostHero ||
 				m instanceof BossOoze ||
 		m.buff(Highlighted.class)!=null) if (m.pos >0) {

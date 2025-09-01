@@ -582,6 +582,8 @@ public enum Icons {
 				return get( Icons.NECROHERO );
 			case TANK:
 				return get( Icons.TANK );
+			case PRIEST:
+				return get( Icons.PRIEST );
 			default:
 				return null;
 		}

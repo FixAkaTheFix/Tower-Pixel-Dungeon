@@ -62,14 +62,14 @@ import com.watabou.utils.Random;
 public abstract class YogFist extends Mob {
 
 	{
-		HP = HT = 300;
+		HP = HT = 1000;
 		defenseSkill = 20;
 
 		viewDistance = Light.DISTANCE;
 
 		//for doomed resistance
 		EXP = 25;
-		maxLvl = -2;
+		maxLvl = 30;
 
 		state = HUNTING;
 
@@ -133,7 +133,7 @@ public abstract class YogFist extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 18, 36 );
+		return Random.NormalIntRange( 18, 52 );
 	}
 
 	@Override
@@ -508,6 +508,11 @@ public abstract class YogFist extends Mob {
 		@Override
 		protected void incrementRangedCooldown() {
 			//ranged attack has no cooldown
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange( 40, 70 );
 		}
 
 		//used so resistances can differentiate between melee and magical attacks

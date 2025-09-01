@@ -605,10 +605,10 @@ public class YogDzewa extends Mob {
 			spriteClass = LarvaSprite.class;
 
 			HP = HT = 20;
-			defenseSkill = 12;
+			defenseSkill = 5;
 			viewDistance = Light.DISTANCE;
 
-			EXP = 5;
+			EXP = 1;
 			maxLvl = -2;
 
 			properties.add(Property.DEMONIC);

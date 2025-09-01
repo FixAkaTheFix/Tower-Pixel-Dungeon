@@ -211,7 +211,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case HUNTRESS:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SPIRIT_BOW),
-							new ItemSprite(ItemSpriteSheet.KUNAI),
+							new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH),
 							new ItemSprite(ItemSpriteSheet.SCROLL_DROWSINESS)};
 					break;
 				case DUELIST:

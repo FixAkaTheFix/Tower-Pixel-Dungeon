@@ -6,6 +6,8 @@ import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.KindOfWeapon;
+import com.fixakathefix.towerpixeldungeon.levels.Arena;
+import com.fixakathefix.towerpixeldungeon.levels.Arena25;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.HeroSprite;
@@ -34,6 +36,9 @@ public abstract class HeroSpell extends Item {
     }
 
     public void cooldown(){
+        if (Dungeon.level instanceof Arena25 && ((Arena25)Dungeon.level).yog.phase == 0){
+            ((Arena25)Dungeon.level).yog.startBattle();
+        }
         int finalCooldown = castCooldown();
         KindOfWeapon wep = Dungeon.hero.belongings.weapon();
 

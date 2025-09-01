@@ -131,7 +131,7 @@ public class ScrollOfUnspeakableHorrors extends ExoticScroll {
 		@Override
 		public void detach() {
 			super.detach();
-			Music.INSTANCE.volume(SPDSettings.musicVol() * 0.1f);
+			Music.INSTANCE.volume(SPDSettings.musicVol() * SPDSettings.musicVol() * 0.01f);
 			GameScene.scene.menu.active =
 					GameScene.scene.menu.visible = true;
 			GameScene.scene.status.active =

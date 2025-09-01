@@ -18,7 +18,7 @@ public class TowerGuard3 extends TowerGuard2{
         upgCount = 2;
         upgrade1Cost = 1500;
         upgrade2Cost = 800;
-        regenNum = 14;
+        regenNum = 10;
     }
 
     @Override

@@ -36,6 +36,7 @@ public class AbPray extends HeroSpell {
 
     @Override
     public void cast() {
+        super.cast();
         int index = Random.NormalIntRange(1, 1000);
         GLog.i(prayResult(index));
     }
@@ -112,7 +113,7 @@ public class AbPray extends HeroSpell {
 
         }
         if (!candidates.isEmpty()) {
-            Dungeon.level.dropMany(Heap.Type.CHEST, candidates,
+            Dungeon.level.dropMany(candidates,
                     new Gold(Random.Int(10, 10 + Dungeon.depth)),
                     new Gold(Random.Int(10, 10 + Dungeon.depth)),
                     new Gold(Random.Int(10, 10 + Dungeon.depth)),
@@ -130,7 +131,7 @@ public class AbPray extends HeroSpell {
 
         }
         if (!candidates.isEmpty()){
-            Dungeon.level.dropMany(Heap.Type.CHEST, candidates,
+            Dungeon.level.dropMany(candidates,
                     Generator.random(),
                     Generator.random()
             );

@@ -41,6 +41,7 @@ import com.fixakathefix.towerpixeldungeon.ui.StyledButton;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.tweeners.Delayer;
 import com.watabou.utils.Random;
 
@@ -60,15 +61,18 @@ public class AmuletScene extends PixelScene {
 	}
 
 	StyledButton btnExit = null;
-	StyledButton btnStay = null;
 	
 	@Override
 	public void create() {
 		super.create();
-		
+		Music.INSTANCE.playTracks(
+				new String[]{Assets.Music.THEME_FINALE},
+				new float[]{1},
+				false);
 		RenderedTextBlock text = null;
 		if (!noText) {
-			text = renderTextBlock( Messages.get(this, "text"), 8 );
+			text = renderTextBlock( Messages.get(this, "text"), 6 );
+			text.align(RenderedTextBlock.CENTER_ALIGN);
 			text.maxWidth( PixelScene.landscape() ? 2*WIDTH-4 : WIDTH);
 			add( text );
 		}
@@ -81,8 +85,7 @@ public class AmuletScene extends PixelScene {
 			protected void onClick() {
 				Dungeon.win( Amulet.class );
 				Dungeon.deleteGame( GamesInProgress.curSlot, true );
-				btnExit.enable(false);
-				btnStay.enable(false);
+				btnExit.enable(false);;
 
 				AmuletScene.this.add(new Delayer(0.1f){
 					@Override
@@ -104,32 +107,20 @@ public class AmuletScene extends PixelScene {
 		btnExit.icon(new ItemSprite(ItemSpriteSheet.AMULET));
 		btnExit.setSize( WIDTH, BTN_HEIGHT );
 		add( btnExit );
-		
-		btnStay = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "stay") ) {
-			@Override
-			protected void onClick() {
-				onBackPressed();
-				btnExit.enable(false);
-				btnStay.enable(false);
-			}
-		};
-		btnStay.icon(Icons.CLOSE.get());
-		btnStay.setSize( WIDTH, BTN_HEIGHT );
-		add( btnStay );
+
 		
 		float height;
 		if (noText) {
-			height = amulet.height + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
+			height = amulet.height + LARGE_GAP + btnExit.height();
 			
 			amulet.x = (Camera.main.width - amulet.width) / 2;
 			amulet.y = (Camera.main.height - height) / 2;
 			align(amulet);
 
 			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, amulet.y + amulet.height + LARGE_GAP );
-			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
 			
 		} else {
-			height = amulet.height + LARGE_GAP + text.height() + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
+			height = amulet.height + LARGE_GAP + text.height() + LARGE_GAP + btnExit.height();
 			
 			amulet.x = (Camera.main.width - amulet.width) / 2;
 			amulet.y = (Camera.main.height - height) / 2;
@@ -139,7 +130,6 @@ public class AmuletScene extends PixelScene {
 			align(text);
 			
 			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, text.top() + text.height() + LARGE_GAP );
-			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
 		}
 
 		new Flare( 8, 48 ).color( 0xFFDDBB, true ).show( amulet, 0 ).angularSpeed = +30;

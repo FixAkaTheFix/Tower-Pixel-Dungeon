@@ -30,6 +30,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTengu;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTroll;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.ChiefRat;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DMW;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.GoblinShaman;
@@ -420,7 +421,7 @@ public class Badges {
 		else if (mob instanceof BossTengu) badge = Badge.TENGU;
 		else if (mob instanceof DMW) badge = Badge.DWM;
 		else if (mob instanceof BossDwarfKing) badge = Badge.KING;
-		else if (mob instanceof YogDzewa) badge = Badge.YOG;
+		else if (mob instanceof BossYog) badge = Badge.YOG;
 		if (badge != null){
 			local.add( badge );
 			displayBadge( badge );

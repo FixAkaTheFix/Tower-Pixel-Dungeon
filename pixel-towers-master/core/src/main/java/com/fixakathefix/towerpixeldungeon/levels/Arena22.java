@@ -44,6 +44,7 @@ import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.ThrowingHammer;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.Firebloom;
+import com.fixakathefix.towerpixeldungeon.ui.towerlist.TowerInfo;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.fixakathefix.towerpixeldungeon.windows.WndModes;
 import com.watabou.noosa.audio.Music;
@@ -76,7 +77,12 @@ public class Arena22 extends ArenaHalls {
     }
     @Override
     protected boolean build() {
-
+        if (mode == WndModes.Modes.CHALLENGE) {
+            slot1 = TowerInfo.AllTowers.GUARD;
+            slot2 = TowerInfo.AllTowers.CROSSBOW;
+            slot3 = TowerInfo.AllTowers.CROSSBOW;
+            slot4 = TowerInfo.AllTowers.GUARD;
+        }
 
         setSize(WIDTH, HEIGHT);
 

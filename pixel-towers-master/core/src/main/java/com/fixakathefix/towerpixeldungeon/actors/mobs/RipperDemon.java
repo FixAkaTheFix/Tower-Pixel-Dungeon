@@ -66,7 +66,7 @@ public class RipperDemon extends Mob {
 		properties.add(Property.DEMONIC);
 		properties.add(Property.UNDEAD);
 
-		targetingPreference = TargetingPreference.NOT_WALLS;
+		targetingPreference = Random.oneOf(TargetingPreference.NOT_WALLS, TargetingPreference.NORMAL, TargetingPreference.NORMAL, TargetingPreference.NORMAL);
 	}
 
 	@Override

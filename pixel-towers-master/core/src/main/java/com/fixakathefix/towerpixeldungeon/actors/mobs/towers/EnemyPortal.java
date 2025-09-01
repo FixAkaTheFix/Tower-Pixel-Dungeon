@@ -17,6 +17,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Ghoul;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Rat;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.RipperDemon;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
 import com.fixakathefix.towerpixeldungeon.effects.CellEmitter;
@@ -25,6 +26,7 @@ import com.fixakathefix.towerpixeldungeon.items.stuff.BloodCrystal;
 import com.fixakathefix.towerpixeldungeon.levels.Arena10;
 import com.fixakathefix.towerpixeldungeon.levels.Arena16;
 import com.fixakathefix.towerpixeldungeon.levels.Arena20;
+import com.fixakathefix.towerpixeldungeon.levels.Arena25;
 import com.fixakathefix.towerpixeldungeon.levels.Arena4;
 import com.fixakathefix.towerpixeldungeon.levels.Arena5;
 import com.fixakathefix.towerpixeldungeon.levels.endlessarenas.EndlessArena3;
@@ -191,7 +193,7 @@ public class EnemyPortal extends Mob {
         if (level instanceof EndlessArena3) mob = Thief.class;
         if (level instanceof Arena16) mob = Ghoul.class;
         if (level instanceof Arena20) mob = Ghoul.class;
-
+        if (level instanceof Arena25) mob = RipperDemon.class;
         return mob;
     }
 
@@ -203,6 +205,7 @@ public class EnemyPortal extends Mob {
         if (level instanceof Arena10) count = (int) (level.wave * 0.5f);
         if (level instanceof Arena16) count = (int) (level.wave * 0.2f) + 1;
         if (level instanceof Arena20) count = (int) (level.wave * 0.35f) + 1;
+        if (level instanceof Arena25) count = (int) (level.wave * 0.2f) + 1;
         return count;
     }
 

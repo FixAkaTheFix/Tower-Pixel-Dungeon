@@ -38,6 +38,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.BossRatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTengu;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTenguClone;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossTroll;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Brute;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.CausticSlime;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.ChiefRat;
@@ -100,7 +101,9 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.Statue;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Succubus;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Swarm;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Thief;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.TimelessSpirit;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Warlock;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.Wisp;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Wraith;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.YogDzewa;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.YogFist;
@@ -285,7 +288,7 @@ public enum Bestiary
 				Slugger.class,
 				Ghoul.class, Elemental.FireElemental.class, Elemental.FrostElemental.class, Elemental.ShockElemental.class, Elemental.ChaosElemental.class,
 				Warlock.class, Monk.class, Senior.class, Golem.class,
-				RipperDemon.class, DemonSpawner.class, Succubus.class, Eye.class, Scorpio.class, Acidic.class);
+				RipperDemon.class, TimelessSpirit.class, Succubus.class, Eye.class, Scorpio.class, Acidic.class);
 		ELITE.addEntities(FetidRat.class, ChiefRat.class, GnollTrickster.class, Goo.class, GreatCrab.class, MagiCrab.class, GoblinGiant.class,
 				SkeletonArmored.class, SkeletonArmoredShielded.class
 		);
@@ -294,7 +297,9 @@ public enum Bestiary
 				BossNecromancer.class,
 				BossTengu.class, BossTenguClone.class, BossTroll.class,
 				DMW.class, DMWHead.class, DMWBody.class, DMWWheels.class, DMWMinion.class,
-				BossDwarfKing.class
+				BossDwarfKing.class,
+				BossYog.class,
+				YogDzewa.Larva.class
 				//,YogDzewa.Larva.class, YogFist.BurningFist.class, YogFist.SoiledFist.class, YogFist.RottingFist.class, YogFist.RustedFist.class,YogFist.BrightFist.class, YogFist.DarkFist.class, YogDzewa.class
 				);
 
@@ -310,7 +315,8 @@ public enum Bestiary
 				ShadowClone.ShadowAlly.class, Banner.class, IceWall.class,
 				CampRatKnife.class, CampRatLeader.class, CampRatShield.class, CampRatArcher.class, CampRatMage.class,
 				LicteriaLasher.class, ObeliskBloodstone.class, ObeliskNecrotic.class, ObeliskPermafrost.class,
-				NormalShopKeeper.class, TowerShopKeeper.class
+				NormalShopKeeper.class, TowerShopKeeper.class,
+				Wisp.class
 				);
 		TOWERS.addEntities(
 				TowerCrossbow1.class, TowerCrossbow2.class, TowerCrossbow3.class, TowerCrossbowBallista.class, TowerCrossbowGatling.class,

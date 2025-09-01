@@ -131,9 +131,11 @@ public class Tower extends Mob {
             Buff.affect(tower, champ.getClass());
         }
         if (buff(Animated.class)!=null) Buff.affect(tower, Animated.class);
+        if (tower instanceof SentientTower) ((SentientTower)tower).justSpawnedLogic();
         die(hero);
         GameScene.add(tower);
         Dungeon.level.occupyCell(tower);
+
     }
     public void upgrade2() {
         Tower tower = upgradeTower2();
@@ -144,6 +146,7 @@ public class Tower extends Mob {
             Buff.affect(tower, champ.getClass());
         }
         if (buff(Animated.class)!=null) Buff.affect(tower, Animated.class);
+        if (tower instanceof SentientTower) ((SentientTower)tower).justSpawnedLogic();
         die(hero);
         GameScene.add(tower);
         Dungeon.level.occupyCell(tower);
@@ -157,6 +160,7 @@ public class Tower extends Mob {
             Buff.affect(tower, champ.getClass());
         }
         if (buff(Animated.class)!=null) Buff.affect(tower, Animated.class);
+        if (tower instanceof SentientTower) ((SentientTower)tower).justSpawnedLogic();
         die(hero);
         GameScene.add(tower);
         Dungeon.level.occupyCell(tower);

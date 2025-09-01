@@ -123,4 +123,11 @@ public class ScrollOfHolyNova extends ExoticScroll {
 		Sample.INSTANCE.play( Assets.Sounds.READ );
 		readAnimation();
 	}
+
+	@Override
+	public int value() {
+		int x = super.value();
+		if (Dungeon.depth > 20) x*=3;
+		return x;
+	}
 }

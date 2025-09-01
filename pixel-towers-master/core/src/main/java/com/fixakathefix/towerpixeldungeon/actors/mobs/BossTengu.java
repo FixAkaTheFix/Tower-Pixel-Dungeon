@@ -62,8 +62,8 @@ public class BossTengu extends Mob {
     {
         spriteClass = TenguSprite.class;
 
-        HP = HT = 3500;
-        defenseSkill = 8;
+        HP = HT = 2500;
+        defenseSkill = 5;
         viewDistance = 4;
 
         properties.add(Property.BOSS);

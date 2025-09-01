@@ -51,6 +51,7 @@ import com.fixakathefix.towerpixeldungeon.actors.hero.HeroSubClass;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
 import com.fixakathefix.towerpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.BossOoze;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.MobSpawner;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Piranha;
@@ -1350,7 +1351,12 @@ public abstract class Level implements Bundlable {
 			Dungeon.hero.mindVisionEnemies.clear();
 
 			for (Mob mob : mobs)
-				if (mob instanceof EnemyPortal || mob instanceof CampRatLeader || mob instanceof TowerRoseBush.GhostHero || mob instanceof BossOoze || mob.buff(Highlighted.class)!= null) {
+				if (mob instanceof EnemyPortal ||
+						mob instanceof CampRatLeader ||
+						mob instanceof TowerRoseBush.GhostHero ||
+						mob instanceof BossYog ||
+						mob instanceof BossOoze ||
+						mob.buff(Highlighted.class)!= null) {
 				for (int i : PathFinder.NEIGHBOURS9) if (mob.pos+i>0 && mob.pos + i<width()*height()) {
 					heroMindFov[mob.pos + i] = true;
 				}

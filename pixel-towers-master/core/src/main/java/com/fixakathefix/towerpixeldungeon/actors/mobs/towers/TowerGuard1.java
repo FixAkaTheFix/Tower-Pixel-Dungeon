@@ -32,7 +32,7 @@ public class TowerGuard1 extends SentientTower {
         defendingPos = -1;
     }
 
-    public int regenNum = 3;
+    public int regenNum = 2;
     public int turnsUntilRegen = 0;
 
     public TowerGuard1(){

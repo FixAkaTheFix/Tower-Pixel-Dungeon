@@ -26,6 +26,7 @@ package com.fixakathefix.towerpixeldungeon.tiles;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
+import com.fixakathefix.towerpixeldungeon.levels.Arena25;
 import com.fixakathefix.towerpixeldungeon.levels.HallsBossLevel;
 import com.fixakathefix.towerpixeldungeon.levels.Terrain;
 import com.watabou.noosa.TextureFilm;
@@ -71,7 +72,7 @@ public class WallBlockingTilemap extends Tilemap {
 
 		//FIXME this is to address the wall blocking looking odd on the new yog floor.
 		// The true solution is to improve the fog of war so the blockers aren't necessary.
-		if (Dungeon.level instanceof HallsBossLevel){
+		if (Dungeon.level instanceof HallsBossLevel || Dungeon.level instanceof Arena25){
 			data[cell] = CLEARED;
 			super.updateMapCell(cell);
 			return;

@@ -26,6 +26,8 @@ package com.fixakathefix.towerpixeldungeon.sprites;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossDwarfKing;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.BossYog;
 import com.fixakathefix.towerpixeldungeon.effects.Splash;
 import com.watabou.noosa.TextureFilm;
 
@@ -57,8 +59,11 @@ public class YogSprite extends MobSprite {
 
 	@Override
 	public void link(Char ch) {
-		super.link(ch);
 		renderShadow = false;
+		super.link(ch);
+		if (ch instanceof BossYog && ((BossYog)ch).shielded){
+			add(CharSprite.State.SHIELDED);
+		}
 	}
 
 	@Override

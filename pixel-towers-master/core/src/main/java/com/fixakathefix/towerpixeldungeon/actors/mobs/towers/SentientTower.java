@@ -32,6 +32,7 @@ public class SentientTower extends Tower {
 
     public void defendPos( int cell ){
         aggro(null);
+        justSpawned = false;
         state = WANDERING;
         defendingPos = cell;
         followingHero = false;
@@ -46,6 +47,7 @@ public class SentientTower extends Tower {
 
     public void followHero(){
         aggro(null);
+        justSpawned = false;
         state = WANDERING;
         defendingPos = -1;
         followingHero = true;
@@ -54,6 +56,7 @@ public class SentientTower extends Tower {
 
     public void targetChar( Char ch ){
         aggro(ch);
+        justSpawned = false;
         followingHero = false;
         defendingPos = ch.pos;
         target = ch.pos;

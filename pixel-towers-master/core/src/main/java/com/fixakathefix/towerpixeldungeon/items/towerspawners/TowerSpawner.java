@@ -4,12 +4,17 @@ import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.Statistics;
 import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Bless;
+import com.fixakathefix.towerpixeldungeon.actors.buffs.Buff;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.SentientTower;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.Tower;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerCrossbow1;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerGuard1;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.TowerWall1;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.levels.Arena12;
 import com.fixakathefix.towerpixeldungeon.levels.Arena14;
+import com.fixakathefix.towerpixeldungeon.levels.Arena22;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
@@ -59,6 +64,9 @@ public abstract class TowerSpawner extends Item {
             Tower tower = instanceOfTower;
             tower.pos = cell;
             GameScene.add(tower);
+            if (Dungeon.level instanceof Arena22 && Dungeon.level.mode == WndModes.Modes.CHALLENGE && (tower instanceof TowerCrossbow1 || tower instanceof TowerGuard1)){
+                Buff.affect(tower, Bless.class, 10000);
+            }
             Statistics.towersbuilt++;
             Dungeon.level.occupyCell(tower);
             if (tower instanceof SentientTower){

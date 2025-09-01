@@ -22,13 +22,13 @@ public class TowerDisintegration1 extends TowerCShooting {
         HP = HT = 55;
         spriteClass = TowerDisintegration1Sprite.class;
 
-        attackRange = 9;
+        attackRange = 8;
         baseAttackDelay = 4f;//dpt/c = 0.003333
 
         cost = 300;
         upgrade1Cost = 500;
-        damageMin = 4;
-        damageMax = 4;
+        damageMin = 5;
+        damageMax = 5;
         upgradeLevel = 3;
     }
 
