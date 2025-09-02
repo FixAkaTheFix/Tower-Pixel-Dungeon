@@ -122,26 +122,23 @@ public class NormalShopKeeper extends NewShopKeeper {
                 Generator.randomUsingDefaults(Generator.Category.SEED),
                 Generator.randomUsingDefaults(Generator.Category.FOOD),
                 Generator.randomUsingDefaults(Generator.Category.SCROLL2),
-                Generator.randomUsingDefaults(Generator.Category.SCROLL2),
-                Generator.randomUsingDefaults(Generator.Category.RING),
+                Generator.randomUsingDefaults(Generator.Category.RING).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5)),
                 Generator.randomUsingDefaults(Generator.Category.STONE),
-                Generator.randomUsingDefaults(Generator.Category.WAND),
+                Generator.randomUsingDefaults(Generator.Category.WAND).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
                 Generator.randomUsingDefaults(Generator.Category.DART),
-                Generator.randomUsingDefaults(Generator.Category.MISSILE),
+                Generator.randomUsingDefaults(Generator.Category.MISSILE).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
                 Generator.randomUsingDefaults(Generator.Category.BOMB),
                 Random.oneOf(
                         //random garbage
                         new MetalShard(), new GooBlob(),//these 2 are useless
                         new CorpseDust(), new CeremonialCandle(),//these 2 give achievements on being picked up
                         new Vilebloom(), new CorruptedOoze(),//these 2 may give a glass cannon effect
-
-
                         //non-garbage random item
                         new Stylus(), new ArcaneResin(),
                         new AlchemicalCatalyst(), new ArcaneCatalyst(), new Honeypot(),
-                        new LiquidMetal(), new LiquidMetal(), new LiquidMetal(), new LiquidMetal(), new LiquidMetal()),//higher (30%) chance for tower-healing liquid metal
-                Generator.randomUsingDefaults(Generator.Category.ARMOR).upgrade(Random.NormalIntRange(0,2)).identify(),
-                Generator.randomUsingDefaults(Generator.Category.WEAPON).upgrade(Random.NormalIntRange(0,1)).identify()
+                        new LiquidMetal(), new LiquidMetal(), new LiquidMetal(), new LiquidMetal()),//higher chance for tower-healing liquid metal
+                Generator.randomUsingDefaults(Generator.Category.ARMOR).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5)),
+                Generator.randomUsingDefaults(Generator.Category.WEAPON).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5))
         );
     }
     public static Item normalSecondTierShopItem(){
@@ -150,13 +147,12 @@ public class NormalShopKeeper extends NewShopKeeper {
                 Generator.randomUsingDefaults(Generator.Category.SEED),
                 Generator.randomUsingDefaults(Generator.Category.FOOD),
                 Generator.randomUsingDefaults(Generator.Category.SCROLL2),
-                Generator.randomUsingDefaults(Generator.Category.SCROLL2),
-                Generator.randomUsingDefaults(Generator.Category.RING).upgrade(Random.NormalIntRange(0,1)).identify(),
+                Generator.randomUsingDefaults(Generator.Category.RING).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5)),
                 Reflection.newInstance(ExoticPotion.regToExo.get(Generator.randomUsingDefaults(Generator.Category.POTION).getClass())),
                 Generator.randomUsingDefaults(Generator.Category.STONE),
-                Generator.randomUsingDefaults(Generator.Category.WAND),
+                Generator.randomUsingDefaults(Generator.Category.WAND).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
                 Generator.randomUsingDefaults(Generator.Category.DART),
-                Generator.randomUsingDefaults(Generator.Category.MISSILE),
+                Generator.randomUsingDefaults(Generator.Category.MISSILE).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/6)),
                 Generator.randomUsingDefaults(Generator.Category.BOMB),
                 new LiquidMetal(),
                 Random.oneOf(
@@ -172,8 +168,8 @@ public class NormalShopKeeper extends NewShopKeeper {
 
                 Random.oneOf(new TelekineticGrab(), new SummonElemental(), new AquaBlast(), new CurseInfusion(), new Recycle(),
                         new SpawnerTotemAttack(), new SpawnerTotemNecrotic(), new SpawnerTotemHealing(), new SpawnerTotemShield()),
-                Generator.randomUsingDefaults(Generator.Category.ARMOR).upgrade(Random.NormalIntRange(0,4)).identify(),
-                Generator.randomUsingDefaults(Generator.Category.WEAPON).upgrade(Random.NormalIntRange(0,3)).identify()
+                Generator.randomUsingDefaults(Generator.Category.ARMOR).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5)),
+                Generator.randomUsingDefaults(Generator.Category.WEAPON).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/5))
         );
     }
     public static Item eliteShopItem(){
@@ -185,18 +181,10 @@ public class NormalShopKeeper extends NewShopKeeper {
                 new ScrollOfUpgrade(),
                 new ScrollOfEnchantment(),
                 new Ankh(),
-                new ElixirOfHoneyedHealing(),
-                new PotionOfShielding(),
-                new PotionOfStrength(),
-                new MeatPie(),
-                new ScrollOfUpgrade(),
-                new ScrollOfEnchantment(),
-                new Ankh(),
                 TowerInfo.getHeroAbility(Dungeon.level.slot1),
                 TowerInfo.getHeroAbility(Dungeon.level.slot2),
                 TowerInfo.getHeroAbility(Dungeon.level.slot3),
                 TowerInfo.getHeroAbility(Dungeon.level.slot4),
-                Generator.randomUsingDefaults(Generator.Category.SCROLL2),
                 Generator.randomUsingDefaults(Generator.Category.ARTIFACT)
 
         );

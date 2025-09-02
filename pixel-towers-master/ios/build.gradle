@@ -40,8 +40,6 @@ createIPA.dependsOn build
 
 dependencies {
     implementation project(':core')
-    implementation project(':services:updates:debugUpdates')
-    implementation project(':services:news:shatteredNews')
 
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     implementation "com.mobidevelop.robovm:robovm-rt:$robovmVersion"
@@ -50,4 +48,5 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
     implementation "com.badlogicgames.gdx-controllers:gdx-controllers-ios:$gdxControllersVersion"
+    implementation project(path: ':SPD-classes')
 }

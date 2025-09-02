@@ -544,7 +544,7 @@ public class vTowersNewChanges {
 	public static void add_v100_Changes( ArrayList<ChangeInfo> changeInfos) {
 
 		ChangeInfo changes = new ChangeInfo("v1.0.0", true, null);
-		changes.hardlight(CharSprite.HOLY);
+		changes.hardlight(CharSprite.GREEN);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(Icons.get(Icons.COPY), "General",
@@ -606,7 +606,7 @@ public class vTowersNewChanges {
 				"Made a few additions to bombs:\n" +
 						"- Made bombs significantly more _damaging_\n" +
 						"- Any explosion-creating items, such a scroll of skulls, or a runestone of Blast, are buffed too\n" +
-						"- Bomb _priceschanged_, bomb loot frequency increased"));
+						"- Bomb _prices changed_, bomb loot frequency increased"));
 		changes.addButton(new ChangeButton(new GnollGuardSprite(), "Map gen changes",
 				"Made some changes to how maps are generated\n" +
 						"- _Loot amount increased_ on almost each stage\n" +

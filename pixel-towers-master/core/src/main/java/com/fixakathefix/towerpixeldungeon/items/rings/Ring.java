@@ -251,16 +251,14 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public int value() {
-		int price = 75;
+		int price = 50;
 		if (cursed) {
-			price /= 2;
+			price /= 3;
 		}
-		if (levelKnown) {
-			if (level() > 0) {
-				price *= (level() + 1);
-			} else if (level() < 0) {
-				price /= (1 - level());
-			}
+		if (level() > 0) {
+			price *= (level() + 1);
+		} else if (level() < 0) {
+			price /= (1 - level());
 		}
 		if (price < 1) {
 			price = 1;

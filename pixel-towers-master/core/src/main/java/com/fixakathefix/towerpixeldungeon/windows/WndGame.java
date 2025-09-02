@@ -34,7 +34,6 @@ import com.fixakathefix.towerpixeldungeon.scenes.HeroSelectScene;
 import com.fixakathefix.towerpixeldungeon.scenes.InterlevelScene;
 import com.fixakathefix.towerpixeldungeon.scenes.RankingsScene;
 import com.fixakathefix.towerpixeldungeon.scenes.TitleScene;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.fixakathefix.towerpixeldungeon.ui.Icons;
 import com.fixakathefix.towerpixeldungeon.ui.RedButton;
 import com.fixakathefix.towerpixeldungeon.ui.Window;
@@ -65,17 +64,6 @@ public class WndGame extends Window {
 		});
 		curBtn.icon(Icons.get(Icons.PREFS));
 
-		//install prompt
-		if (Updates.isInstallable()){
-			addButton( curBtn = new RedButton( Messages.get(this, "install") ) {
-				@Override
-				protected void onClick() {
-					Updates.launchInstall();
-				}
-			} );
-			curBtn.textColor(Window.SHPX_COLOR);
-			curBtn.icon(Icons.get(Icons.CHANGES));
-		}
 
 		// Challenges window
 		if (Dungeon.challenges > 0) {

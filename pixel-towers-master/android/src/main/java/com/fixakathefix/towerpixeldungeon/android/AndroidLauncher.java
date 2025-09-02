@@ -42,10 +42,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
-import com.fixakathefix.towerpixeldungeon.services.news.News;
-import com.fixakathefix.towerpixeldungeon.services.news.NewsImpl;
-import com.fixakathefix.towerpixeldungeon.services.updates.UpdateImpl;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.fixakathefix.towerpixeldungeon.ui.Button;
 import com.watabou.utils.FileUtils;
@@ -88,12 +84,6 @@ public class AndroidLauncher extends AndroidApplication {
 				Game.versionCode = 0;
 			}
 
-			if (UpdateImpl.supportsUpdates()) {
-				Updates.service = UpdateImpl.getUpdateService();
-			}
-			if (NewsImpl.supportsNews()) {
-				News.service = NewsImpl.getNewsService();
-			}
 
 			FileUtils.setDefaultFileProperties(Files.FileType.Local, "");
 

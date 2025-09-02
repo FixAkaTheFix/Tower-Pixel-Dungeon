@@ -37,7 +37,6 @@ import com.fixakathefix.towerpixeldungeon.levels.Arena;
 import com.fixakathefix.towerpixeldungeon.levels.SewerLevel;
 import com.fixakathefix.towerpixeldungeon.messages.Languages;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.ui.Archs;
 import com.fixakathefix.towerpixeldungeon.ui.ExitButton;
@@ -265,14 +264,6 @@ public class TitleScene extends PixelScene {
 
 		public ChangesButton( Chrome.Type type, String label ){
 			super(type, label);
-			if (SPDSettings.updates()) Updates.checkForUpdate();
-		}
-
-		boolean updateShown = false;
-
-		@Override
-		public void update() {
-			super.update();
 		}
 
 		@Override

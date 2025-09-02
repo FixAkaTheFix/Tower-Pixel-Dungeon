@@ -31,8 +31,6 @@ import com.fixakathefix.towerpixeldungeon.messages.Languages;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.scenes.PixelScene;
-import com.fixakathefix.towerpixeldungeon.services.news.News;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.ui.CheckBox;
 import com.fixakathefix.towerpixeldungeon.ui.GameLog;
@@ -67,7 +65,6 @@ public class WndSettings extends WndTabbed {
 	private DisplayTab  display;
 	private UITab       ui;
 	private InputTab    input;
-	private DataTab     data;
 	private AudioTab    audio;
 	//private LangsTab    langs;
 
@@ -796,109 +793,6 @@ public class WndSettings extends WndTabbed {
 			}
 
 			height = optHoldMoveSens.bottom();
-
-		}
-	}
-
-	private static class DataTab extends Component{
-
-		RenderedTextBlock title;
-		ColorBlock sep1;
-		CheckBox chkNews;
-		CheckBox chkUpdates;
-		CheckBox chkBetas;
-		CheckBox chkWifi;
-
-		@Override
-		protected void createChildren() {
-			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
-			title.hardlight(TITLE_COLOR);
-			add(title);
-
-			sep1 = new ColorBlock(1, 1, 0xFF000000);
-			add(sep1);
-
-			chkNews = new CheckBox(Messages.get(this, "news")){
-				@Override
-				protected void onClick() {
-					super.onClick();
-					SPDSettings.news(checked());
-					News.clearArticles();
-				}
-			};
-			chkNews.checked(SPDSettings.news());
-			add(chkNews);
-
-			if (Updates.supportsUpdates() && Updates.isUpdateable()) {
-				chkUpdates = new CheckBox(Messages.get(this, "updates")) {
-					@Override
-					protected void onClick() {
-						super.onClick();
-						SPDSettings.updates(checked());
-						Updates.clearUpdate();
-					}
-				};
-				chkUpdates.checked(SPDSettings.updates());
-				add(chkUpdates);
-
-				if (Updates.supportsBetaChannel()){
-					chkBetas = new CheckBox(Messages.get(this, "betas")) {
-						@Override
-						protected void onClick() {
-							super.onClick();
-							SPDSettings.updates(checked());
-							Updates.clearUpdate();
-						}
-					};
-					chkBetas.checked(SPDSettings.betas());
-					add(chkBetas);
-				}
-			}
-
-			if (!DeviceCompat.isDesktop()){
-				chkWifi = new CheckBox(Messages.get(this, "wifi")){
-					@Override
-					protected void onClick() {
-						super.onClick();
-						SPDSettings.WiFi(checked());
-					}
-				};
-				chkWifi.checked(SPDSettings.WiFi());
-				add(chkWifi);
-			}
-		}
-
-		@Override
-		protected void layout() {
-			title.setPos((width - title.width())/2, y + GAP);
-			sep1.size(width, 1);
-			sep1.y = title.bottom() + 3*GAP;
-
-			float pos;
-			if (width > 200 && chkUpdates != null){
-				chkNews.setRect(0, sep1.y + 1 + GAP, width/2-1, BTN_HEIGHT);
-				chkUpdates.setRect(chkNews.right() + GAP, chkNews.top(), width/2-1, BTN_HEIGHT);
-				pos = chkUpdates.bottom();
-			} else {
-				chkNews.setRect(0, sep1.y + 1 + GAP, width, BTN_HEIGHT);
-				pos = chkNews.bottom();
-				if (chkUpdates != null) {
-					chkUpdates.setRect(0, chkNews.bottom() + GAP, width, BTN_HEIGHT);
-					pos = chkUpdates.bottom();
-				}
-			}
-
-			if (chkBetas != null){
-				chkBetas.setRect(0, pos + GAP, width, BTN_HEIGHT);
-				pos = chkBetas.bottom();
-			}
-
-			if (chkWifi != null){
-				chkWifi.setRect(0, pos + GAP, width, BTN_HEIGHT);
-				pos = chkWifi.bottom();
-			}
-
-			height = pos;
 
 		}
 	}

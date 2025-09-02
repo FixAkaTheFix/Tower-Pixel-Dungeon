@@ -52,6 +52,7 @@ import com.fixakathefix.towerpixeldungeon.items.bombs.Bomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.Firebomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.FrostBomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.HolyBomb;
+import com.fixakathefix.towerpixeldungeon.items.bombs.Noisemaker;
 import com.fixakathefix.towerpixeldungeon.items.bombs.RegrowthBomb;
 import com.fixakathefix.towerpixeldungeon.items.bombs.ShockBomb;
 import com.fixakathefix.towerpixeldungeon.items.food.Berry;
@@ -471,9 +472,10 @@ public class Generator {
 					Bomb.DoubleBomb.class,
 					HolyBomb.class,
 					FrostBomb.class,
-					ShockBomb.class
+					ShockBomb.class,
+					Noisemaker.class
 			};
-			BOMB.probs = new float[]{5,4,4,4,4,3,4};
+			BOMB.probs = new float[]{5,4,4,4,4,3,4,3};
 
 			WAND.classes = new Class<?>[]{
 					WandOfMagicMissile.class,

@@ -32,10 +32,6 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
-import com.fixakathefix.towerpixeldungeon.services.news.News;
-import com.fixakathefix.towerpixeldungeon.services.news.NewsImpl;
-import com.fixakathefix.towerpixeldungeon.services.updates.UpdateImpl;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 import com.watabou.utils.Point;
@@ -119,13 +115,6 @@ public class DesktopLauncher {
 			Game.versionCode = Integer.parseInt(DesktopLauncher.class.getPackage().getImplementationVersion());
 		} catch (NumberFormatException e) {
 			Game.versionCode = Integer.parseInt(System.getProperty("Implementation-Version"));
-		}
-
-		if (UpdateImpl.supportsUpdates()){
-			Updates.service = UpdateImpl.getUpdateService();
-		}
-		if (NewsImpl.supportsNews()){
-			News.service = NewsImpl.getNewsService();
 		}
 		
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();

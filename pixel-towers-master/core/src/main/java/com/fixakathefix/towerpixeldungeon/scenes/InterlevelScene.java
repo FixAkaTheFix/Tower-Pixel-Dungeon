@@ -42,7 +42,6 @@ import com.fixakathefix.towerpixeldungeon.levels.features.Chasm;
 import com.fixakathefix.towerpixeldungeon.levels.features.LevelTransition;
 import com.fixakathefix.towerpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
-import com.fixakathefix.towerpixeldungeon.services.updates.Updates;
 import com.fixakathefix.towerpixeldungeon.ui.GameLog;
 import com.fixakathefix.towerpixeldungeon.ui.Icons;
 import com.fixakathefix.towerpixeldungeon.ui.RenderedTextBlock;
@@ -176,10 +175,7 @@ public class InterlevelScene extends PixelScene {
 		else                         loadingAsset = Assets.Interfaces.SHADOW;
 		
 		//slow down transition when displaying an install prompt
-		if (Updates.isInstallable()){
-			fadeTime += 0.5f; //adds 1 second total
-		//speed up transition when debugging
-		} else if (DeviceCompat.isDebug()){
+		if (DeviceCompat.isDebug()){
 			fadeTime = 0f;
 		}
 		
@@ -230,30 +226,6 @@ public class InterlevelScene extends PixelScene {
 		);
 		align(message);
 		add( message );
-
-		if (Updates.isInstallable()){
-			StyledButton install = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "install")){
-				@Override
-				public void update() {
-					super.update();
-					float p = timeLeft / fadeTime;
-					if (phase == Phase.FADE_IN)         alpha(1 - p);
-					else if (phase == Phase.FADE_OUT)   alpha(p);
-					else                                alpha(1);
-				}
-
-				@Override
-				protected void onClick() {
-					super.onClick();
-					Updates.launchInstall();
-				}
-			};
-			install.icon(Icons.get(Icons.CHANGES));
-			install.textColor(Window.SHPX_COLOR);
-			install.setSize(install.reqWidth()+5, 20);
-			install.setPos((Camera.main.width - install.width())/2, (Camera.main.height - message.bottom())/3 + message.bottom());
-			add(install);
-		}
 		
 		phase = Phase.FADE_IN;
 		timeLeft = fadeTime;

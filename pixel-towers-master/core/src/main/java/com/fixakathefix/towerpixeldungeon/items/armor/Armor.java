@@ -638,7 +638,7 @@ public class Armor extends EquipableItem {
 		if (cursed || hasCurseGlyph()) {
 			price /= 2;
 		}
-		if (levelKnown && level() > 0) {
+		if (level() > 0) {
 			price *= (level() + 1);
 		}
 		if (price < 1) {
