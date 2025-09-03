@@ -126,7 +126,7 @@ public class NormalShopKeeper extends NewShopKeeper {
                 Generator.randomUsingDefaults(Generator.Category.STONE),
                 Generator.randomUsingDefaults(Generator.Category.WAND).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
                 Generator.randomUsingDefaults(Generator.Category.DART),
-                Generator.randomUsingDefaults(Generator.Category.MISSILE).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
+                Generator.randomUsingDefaults(Generator.Category.MISSILE),
                 Generator.randomUsingDefaults(Generator.Category.BOMB),
                 Random.oneOf(
                         //random garbage
@@ -152,7 +152,7 @@ public class NormalShopKeeper extends NewShopKeeper {
                 Generator.randomUsingDefaults(Generator.Category.STONE),
                 Generator.randomUsingDefaults(Generator.Category.WAND).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/10)),
                 Generator.randomUsingDefaults(Generator.Category.DART),
-                Generator.randomUsingDefaults(Generator.Category.MISSILE).upgrade(Random.NormalIntRange(0,1 + Dungeon.depth/6)),
+                Generator.randomUsingDefaults(Generator.Category.MISSILE),
                 Generator.randomUsingDefaults(Generator.Category.BOMB),
                 new LiquidMetal(),
                 Random.oneOf(

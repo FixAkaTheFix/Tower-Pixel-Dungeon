@@ -639,7 +639,7 @@ public class Armor extends EquipableItem {
 			price /= 2;
 		}
 		if (level() > 0) {
-			price *= (level() + 1);
+			price = Math.round(price * (level()*0.5f + 1));
 		}
 		if (price < 1) {
 			price = 1;
