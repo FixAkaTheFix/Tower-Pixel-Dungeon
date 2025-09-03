@@ -82,6 +82,6 @@ public class HolyBomb extends Bomb.MagicalBomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (15 + Dungeon.scalingDepth()*3);
+		return quantity * (30 + Dungeon.scalingDepth()*3);
 	}
 }

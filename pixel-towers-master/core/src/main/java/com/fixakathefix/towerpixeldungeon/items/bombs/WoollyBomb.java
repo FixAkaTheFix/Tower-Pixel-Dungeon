@@ -48,7 +48,7 @@ public class WoollyBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 		
-		PathFinder.buildDistanceMap( cell, BArray.not( Dungeon.level.solid, null ), 4 );
+		PathFinder.buildDistanceMap( cell, BArray.not( Dungeon.level.solid, null ), 8 );
 		ArrayList<Integer> spawnPoints = new ArrayList<>();
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
@@ -61,7 +61,7 @@ public class WoollyBomb extends Bomb {
 					&& Actor.findChar(i) == null
 					&& !(Dungeon.level.pit[i])) {
 				Sheep sheep = new Sheep();
-				sheep.lifespan = Dungeon.bossLevel() ? 20 : 200;
+				sheep.lifespan = 5;
 				sheep.pos = i;
 				GameScene.add(sheep);
 				Dungeon.level.occupyCell(sheep);

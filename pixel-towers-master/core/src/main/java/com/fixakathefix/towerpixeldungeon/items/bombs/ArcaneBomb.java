@@ -97,6 +97,6 @@ public class ArcaneBomb extends Bomb.MagicalBomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (20 + Dungeon.scalingDepth()*5);
+		return quantity * (80);
 	}
 }

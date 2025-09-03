@@ -89,6 +89,6 @@ public class ShockBomb extends Bomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * quantity * (20 + Dungeon.scalingDepth()*3);
+		return quantity * 70;
 	}
 }

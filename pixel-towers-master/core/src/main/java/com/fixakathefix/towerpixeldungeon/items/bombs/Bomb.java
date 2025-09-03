@@ -239,7 +239,7 @@ public class Bomb extends Item {
 
 	@Override
 	public int value() {
-		return (10 + Dungeon.scalingDepth()*3) * quantity;
+		return (60) * quantity;
 	}
 	
 	@Override

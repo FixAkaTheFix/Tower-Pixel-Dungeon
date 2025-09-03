@@ -63,6 +63,6 @@ public class Flashbang extends Bomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (10 + Dungeon.scalingDepth()*3);
+		return quantity * (65);
 	}
 }

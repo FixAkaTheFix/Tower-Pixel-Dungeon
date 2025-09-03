@@ -175,6 +175,6 @@ public class Noisemaker extends Bomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (15 + Dungeon.scalingDepth()*4);
+		return quantity * 70;
 	}
 }

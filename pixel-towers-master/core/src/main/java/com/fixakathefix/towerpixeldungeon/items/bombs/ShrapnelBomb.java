@@ -84,6 +84,6 @@ public class ShrapnelBomb extends Bomb {
 	@Override
 	public int value() {
 		//prices of ingredients
-		return quantity * (40 + Dungeon.scalingDepth()*8);
+		return quantity * 150;
 	}
 }
