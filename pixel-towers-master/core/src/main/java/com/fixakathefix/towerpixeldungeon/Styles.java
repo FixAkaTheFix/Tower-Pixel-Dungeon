@@ -17,7 +17,8 @@ public class Styles {
         YELLOWNEON,
         GREENNEON,
         BLUENEON,
-        PURPLENEON;
+        PURPLENEON,
+        CRIMSON;
 
 
 
@@ -36,12 +37,6 @@ public class Styles {
 
         public boolean exists(Style style){
             boolean ex = true;
-            if (style == NORMAL) ex = true;
-            if (style == REDNEON) ex = true;
-            if (style == SEWER) ex = true;
-            if (style == PRISON) ex = true;
-            if (style == FIXED) ex = true;
-            if (style == MAGICLING) ex = true;
             return ex;
         }
 
@@ -58,6 +53,7 @@ public class Styles {
             if (style == FIXED) con = SPDSettings.maxlevelunlocked()>=6;
             if (style == MAGICLING) con = SPDSettings.maxlevelunlocked()>=11;
             if (style == CLAIRVOYANT) con = SPDSettings.maxlevelunlocked()>=16;
+            if (style == CRIMSON) con = SPDSettings.maxlevelunlocked()>=26;
             if (DeviceCompat.isDebug()) return true;
             return con;
         }
@@ -73,6 +69,7 @@ public class Styles {
             if (style == FIXED) return "fixed";
             if (style == MAGICLING) return "magicling";
             if (style == CLAIRVOYANT) return "clairvoyant";
+            if (style == CRIMSON) return "crimson";
             return "normal";
         }
     }

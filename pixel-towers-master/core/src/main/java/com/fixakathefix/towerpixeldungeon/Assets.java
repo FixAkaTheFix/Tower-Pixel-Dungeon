@@ -90,6 +90,7 @@ public class Assets {
 				case "purpleneon": interfaceType = "purpleneoninterface"; break;
 				case "magicling": interfaceType = "magiclinginterface";break;
 				case "clairvoyant": interfaceType = "clairvoyantinterface";break;
+				case "crimson": interfaceType = "crimsoninterface";break;
 			}
 		}
 		public static final String ARCS_BG  = "interfaces/" + interfaceType + "/arcs1.png";
