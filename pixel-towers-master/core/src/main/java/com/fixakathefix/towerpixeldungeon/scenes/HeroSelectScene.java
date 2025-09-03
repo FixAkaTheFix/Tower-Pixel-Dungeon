@@ -289,27 +289,27 @@ public class HeroSelectScene extends PixelScene {
 
 
 
-			background.scale.set(0.5f * Camera.main.height/background.height);
+			background.scale.set(0.45f * Camera.main.height/background.height);
 			background.visible = false;
 			background.x = (Camera.main.width - background.width())/2;
 			background.y = (Camera.main.height - background.height())/2;
 			align(background);
 
-			int btnWidth = HeroBtn.MIN_WIDTH;
-
-			float curX = (Camera.main.width - btnWidth * heroBtns.size()) / 2f;
-			if (curX > 0) {
-				btnWidth += Math.min(curX / (heroBtns.size() / 2f), 15);
-				curX = (Camera.main.width - btnWidth * heroBtns.size()) / 2f;
-			}
-			float curY = Camera.main.height - HeroBtn.HEIGHT + 3;
-
+			int halfindex = heroBtns.size()/2;
+			//for all buttons to be equal, we need some space
+			int btnWidth = Camera.main.width/(halfindex + 1);
+			float curX = (Camera.main.width - halfindex*btnWidth)*0.5f;
+			float curY = Camera.main.height - HeroBtn.HEIGHT*2;
 			for (StyledButton button : heroBtns) {
+				if (curX + btnWidth > Camera.main.width){
+					curY+=HeroBtn.HEIGHT;
+					curX = (Camera.main.width - (heroBtns.size() - heroBtns.indexOf(button))*btnWidth)*0.5f;
+				}
 				button.setRect(curX, curY, btnWidth, HeroBtn.HEIGHT);
 				curX += btnWidth;
 			}
 
-			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));
+			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT * 2 - title.height() - 4));
 
 			btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
 			optionsPane.setPos(heroBtns.get(0).left(), 0);
@@ -413,8 +413,6 @@ public class HeroSelectScene extends PixelScene {
 			align(heroName);
 			//add(heroName);
 
-
-
 			heroDesc.setPos((Camera.main.width - heroDesc.width())/2, heroName.bottom() + 5);
 			align(heroDesc);
 			//add(heroDesc);
@@ -425,7 +423,7 @@ public class HeroSelectScene extends PixelScene {
 			startBtn.text(Messages.titleCase(cl.title()));
 			startBtn.setSize(startBtn.reqWidth() + 8, 21);
 
-			startBtn.setPos((Camera.main.width - startBtn.width())/2f, (Camera.main.height - HeroBtn.HEIGHT + 2 - startBtn.height()));
+			startBtn.setPos((Camera.main.width - startBtn.width())/2f, (Camera.main.height - HeroBtn.HEIGHT*2 + 2 - startBtn.height()));
 			PixelScene.align(startBtn);
 
 			infoButton.visible = infoButton.active = true;

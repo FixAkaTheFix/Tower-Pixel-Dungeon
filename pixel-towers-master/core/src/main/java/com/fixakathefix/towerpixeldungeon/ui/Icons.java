@@ -80,6 +80,7 @@ public enum Icons {
 	CROSS,
 	RIGHTARROW,
 	CALENDAR,
+	SMILEY_FACE,
 
 	//misc icons, mainly used for buttons, spacing for 16x16 until the smaller icons at the end
 	UNCHECKED,
@@ -304,6 +305,9 @@ public enum Icons {
 				break;
 			case CALENDAR:
 				icon.frame( icon.texture.uvRectBySize( 240, 16, 15, 12 ) );
+				break;
+			case SMILEY_FACE:
+				icon.frame( icon.texture.uvRectBySize( 226, 16, 12, 12 ) );
 				break;
 
 			case UNCHECKED:

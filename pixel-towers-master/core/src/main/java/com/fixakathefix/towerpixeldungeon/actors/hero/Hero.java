@@ -461,7 +461,7 @@ public class Hero extends Char {
 	
 	public int tier() {
 		Armor armor = belongings.armor();
-		if (armor instanceof ClassArmor){
+		if (armor instanceof ClassArmor || SPDSettings.heroArmorOn()){
 			return 6;
 		} else if (armor != null){
 			return armor.tier;

@@ -167,6 +167,14 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(FASTERATTACKANIMATIONS, false);
 	}
 
+	private static final String HEROARMORON	= "heroarmoron";
+	public static void heroArmorOn(Boolean value){
+		put(HEROARMORON, value);
+	}
+	public static boolean heroArmorOn() {
+		return getBoolean(HEROARMORON, false);
+	}
+
 	//Version info
 	
 	public static final String KEY_VERSION      = "version";

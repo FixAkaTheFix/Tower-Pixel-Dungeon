@@ -66,6 +66,7 @@ public class WndSettings extends WndTabbed {
 	private UITab       ui;
 	private InputTab    input;
 	private AudioTab    audio;
+	private MiscTab    misc;
 	//private LangsTab    langs;
 
 	public static int last_index = 0;
@@ -141,6 +142,20 @@ public class WndSettings extends WndTabbed {
 			}
 		});
 
+		misc = new MiscTab();
+		misc.setSize(width, 0);
+		height = Math.max(height, misc.height());
+		add( misc );
+
+		add( new IconTab(Icons.get(Icons.SMILEY_FACE)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				misc.visible = misc.active = value;
+				if (value) last_index = 4;
+			}
+		});
+
 		/*langs = new LangsTab();
 		langs.setSize(width, 0);
 		height = Math.max(height, langs.height());
@@ -175,7 +190,7 @@ public class WndSettings extends WndTabbed {
 
 		layoutTabs();
 
-		if (tabs.size() == 3 && last_index >= 2){
+		if (tabs.size() == 4 && last_index >= 2){
 			//input tab isn't visible
 			select(last_index-1);
 		} else {
@@ -948,6 +963,50 @@ public class WndSettings extends WndTabbed {
 		}
 
 	}
+	private static class MiscTab extends Component {
+
+		RenderedTextBlock title;
+		ColorBlock sep1;
+		CheckBox chkHeroArmorOn;
+
+		@Override
+		protected void createChildren() {
+			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			sep1 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep1);
+
+			chkHeroArmorOn = new CheckBox( Messages.get(this, "heroarmor") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.heroArmorOn(checked());
+				}
+			};
+			chkHeroArmorOn.checked(SPDSettings.heroArmorOn());
+			add(chkHeroArmorOn);
+		}
+
+		@Override
+		protected void layout() {
+
+			float bottom = y;
+
+			title.setPos((width - title.width())/2, bottom + GAP);
+			sep1.size(width, 1);
+			sep1.y = title.bottom() + 3*GAP;
+
+			bottom = sep1.y + 1;
+
+			{
+				chkHeroArmorOn.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkHeroArmorOn.bottom();
+			}
+		}
+	}
+
 
 	private static class LangsTab extends Component{
 

@@ -162,38 +162,6 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 		else                                                    energyGain = 1;
 
 		float enGainMulti = 1f;
-		if (target instanceof Hero) {
-			Hero hero = (Hero) target;
-			if (hero.hasTalent(Talent.UNENCUMBERED_SPIRIT)) {
-				int points = hero.pointsInTalent(Talent.UNENCUMBERED_SPIRIT);
-
-				if (hero.belongings.armor() != null){
-					if (hero.belongings.armor().tier <= 1 && points >= 3){
-						enGainMulti += 1.00f;
-					} else if (hero.belongings.armor().tier <= 2 && points >= 2){
-						enGainMulti += 0.667f;
-					} else if (hero.belongings.armor().tier <= 3 && points >= 1){
-						enGainMulti += 0.333f;
-					}
-				}
-
-				if (hero.belongings.weapon() instanceof MeleeWeapon
-						&& hero.buff(RingOfForce.BrawlersStance.class) == null){
-					if (((MeleeWeapon) hero.belongings.weapon()).tier <= 1 && points >= 3){
-						enGainMulti += 1.00f;
-					} else if (((MeleeWeapon) hero.belongings.weapon()).tier <= 2 && points >= 2){
-						enGainMulti += 0.667f;
-					} else if (((MeleeWeapon) hero.belongings.weapon()).tier <= 3 && points >= 1){
-						enGainMulti += 0.333f;
-					}
-				} else if (hero.belongings.weapon == null) {
-					if (hero.buff(RingOfForce.Force.class) == null && points >= 3){
-						enGainMulti += 1.50f;
-					}
-				}
-
-			}
-		}
 		energyGain *= enGainMulti;
 
 		energy = Math.min(energy+energyGain, energyCap());
