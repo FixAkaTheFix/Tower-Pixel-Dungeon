@@ -459,7 +459,7 @@ public enum HeroClass {
 	private static void initHuntress( Hero hero ) {
 
 		hero.STR = 11;
-		hero.attackSkill = 11;
+		hero.attackSkill = 12;
 
 		Item x = new LeatherArmor().identify();
 		x.upgrade(1);
@@ -496,7 +496,7 @@ public enum HeroClass {
 
 	private static void initDuelist( Hero hero ) {
 		hero.STR = 13;
-		hero.critChance = 0.15f;
+		hero.critChance = 0.225f;
 
 		Item i = new LeatherArmor().identify();
 		hero.belongings.armor = (LeatherArmor)i;

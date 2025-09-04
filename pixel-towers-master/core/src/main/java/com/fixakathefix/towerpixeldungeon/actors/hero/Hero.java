@@ -1547,7 +1547,12 @@ public class Hero extends Char {
 		hero.sprite.emitter().start( Speck.factory( Speck.STAR), 0.05f, 10 );
 		GameScene.scene.menu.active =
 				GameScene.scene.menu.visible = false;
-		int spendDeathTime = 25 + deathCount*10;
+		int spendDeathTime;
+		if (hero.heroClass == HeroClass.PRIEST){
+			spendDeathTime = 27 + deathCount*3;
+		} else if (hero.heroClass == HeroClass.NECROHERO){
+			spendDeathTime = 10 + deathCount*10;
+		} else spendDeathTime = 15 + deathCount*15;
 		if (src == Chasm.class ) {
 			hero.HP = hero.HT / (deathCount + 10);
 		} else hero.HP = hero.HT/(deathCount+1);
