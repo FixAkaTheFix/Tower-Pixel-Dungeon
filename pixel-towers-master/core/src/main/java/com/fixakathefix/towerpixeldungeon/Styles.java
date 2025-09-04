@@ -4,6 +4,8 @@ import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.windows.WndStyles;
 import com.watabou.utils.DeviceCompat;
 
+import java.util.Locale;
+
 public class Styles {
 
     public enum Style{
@@ -58,19 +60,7 @@ public class Styles {
             return con;
         }
         public String index(Style style){
-            if (style == NORMAL)return "normal";
-            if (style == REDNEON)return "redneon";
-            if (style == YELLOWNEON)return "yellowneon";
-            if (style == GREENNEON)return "greenneon";
-            if (style == BLUENEON)return "blueneon";
-            if (style == PURPLENEON)return "purpleneon";
-            if (style == SEWER)return "sewer";
-            if (style == PRISON)return "prison";
-            if (style == FIXED) return "fixed";
-            if (style == MAGICLING) return "magicling";
-            if (style == CLAIRVOYANT) return "clairvoyant";
-            if (style == CRIMSON) return "crimson";
-            return "normal";
+            return style.name().toLowerCase(Locale.ROOT);
         }
     }
 

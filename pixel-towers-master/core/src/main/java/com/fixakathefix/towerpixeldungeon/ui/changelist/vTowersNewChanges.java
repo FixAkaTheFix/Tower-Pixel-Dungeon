@@ -25,6 +25,7 @@
 package com.fixakathefix.towerpixeldungeon.ui.changelist;
 
 import com.fixakathefix.towerpixeldungeon.Assets;
+import com.fixakathefix.towerpixeldungeon.Styles;
 import com.fixakathefix.towerpixeldungeon.items.wands.WandOfMagicMissile;
 import com.fixakathefix.towerpixeldungeon.sprites.BeeSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CausticSlimeSprite;
@@ -569,6 +570,9 @@ public class vTowersNewChanges {
 						"- #1Copying#1 champions create their weaker clones upon being hit\n" +
 						"- #4Rejuvenating#4 champions heal other monsters after death\n" +
 						"- #8Destructive#8 champions are capable of killing any tower in a few hits"));
+		changes.addButton(new ChangeButton(Icons.get(Icons.SMILEY_FACE), "Styles",
+				"Have made these changes to styles:\n" +
+						"- new style, post-yog crimson style, created"));
 		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.HALLS_PAGE), "Lore",
 				"- Inserted a story of a fallen civilization into the gameplay\n" +
 						"- Fixed previous and added more lore pages\n" +
