@@ -226,7 +226,7 @@ public class TowerInfo extends Component {
             case LIGHTNING:
             case TNTLOG:
             case DARTGUN:
-            case DISINTEGRATION: if (TowerInfo.getTowerUnlockLevel(sometower)>=SPDSettings.maxlevelunlocked()) return Lock.UNLOCKED; else return Lock.LOCKED;
+            case DISINTEGRATION: if (TowerInfo.getTowerUnlockLevel(sometower)<=SPDSettings.maxlevelunlocked()) return Lock.UNLOCKED; else return Lock.LOCKED;
 
             //dungeon ones
             case TOTEM:
