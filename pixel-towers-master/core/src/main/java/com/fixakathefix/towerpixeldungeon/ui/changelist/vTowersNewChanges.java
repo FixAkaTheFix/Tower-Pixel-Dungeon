@@ -75,7 +75,8 @@ public class vTowersNewChanges {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.AMULET), "New content? Your content!",
-				"There is nothing left to add, only polishing, balancing, maybe adding some items here and there, only perhaps in a DLC format, something not that typical. If you have any ideas, send them to me via #2reddit#2 and #5discord#5"));
+				"I have a lot of ideas for this game. Several new Heroes, more stages, reworks of some annoying ones. An entire mode, even 2 of them. But...\n" +
+				"For the current version, the first release one, is nothing left to add. Only polishing, balancing, maybe adding some items here and there. All of that would be added in the next patches, after I get enough reviews about the game. If you have any ideas, send them to me via #2reddit#2 and #5discord#5"));
 	}
 
 	public static void add_v010_Changes( ArrayList<ChangeInfo> changeInfos ) {
