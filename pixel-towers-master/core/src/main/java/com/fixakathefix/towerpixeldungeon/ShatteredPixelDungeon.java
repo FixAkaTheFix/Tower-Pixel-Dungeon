@@ -82,15 +82,6 @@ public class ShatteredPixelDungeon extends Game {
 		
 	}
 
-	@Override
-	public void finish() {
-		if (!DeviceCompat.isiOS()) {
-			super.finish();
-		} else {
-			//can't exit on iOS (Apple guidelines), so just go to title screen
-			switchScene(TitleScene.class);
-		}
-	}
 
 	public static void switchNoFade(Class<? extends PixelScene> c){
 		switchNoFade(c, null);

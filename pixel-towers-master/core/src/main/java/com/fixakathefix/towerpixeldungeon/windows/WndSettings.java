@@ -886,22 +886,7 @@ public class WndSettings extends WndTabbed {
 			chkMuteSFX.checked(!SPDSettings.soundFx());
 			add( chkMuteSFX );
 
-			if (DeviceCompat.isiOS()){
-
-				sep3 = new ColorBlock(1, 1, 0xFF000000);
-				add(sep3);
-
-				chkIgnoreSilent = new CheckBox( Messages.get(this, "ignore_silent") ){
-					@Override
-					protected void onClick() {
-						super.onClick();
-						SPDSettings.ignoreSilentMode(checked());
-					}
-				};
-				chkIgnoreSilent.checked(SPDSettings.ignoreSilentMode());
-				add(chkIgnoreSilent);
-
-			} else if (DeviceCompat.isDesktop()){
+			if (DeviceCompat.isDesktop()){
 
 				sep3 = new ColorBlock(1, 1, 0xFF000000);
 				add(sep3);
