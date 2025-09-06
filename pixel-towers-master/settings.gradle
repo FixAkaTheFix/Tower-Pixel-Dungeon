@@ -4,5 +4,4 @@ include ':core'
 
 //platform modules
 include ':android'
-include ':ios'
 include ':desktop'
