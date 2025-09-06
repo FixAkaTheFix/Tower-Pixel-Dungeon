@@ -179,7 +179,7 @@ public class Arena2 extends ArenaSewers{
     @Override
     public int mobsToDeploy(int wave) {
         switch (wave){
-            case 1: return 4;
+            case 1: return 3;
             case 2: return 6;
             case 3: return 4;
             case 4: return 9;
