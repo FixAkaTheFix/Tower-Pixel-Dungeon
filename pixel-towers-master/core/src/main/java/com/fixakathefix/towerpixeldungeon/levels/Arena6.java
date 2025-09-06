@@ -212,35 +212,39 @@ public class Arena6 extends ArenaPrison {
         Painter.fill(this, 2, 43, 5, 4, Terrain.EMPTY_SP);
         Painter.fill(this, 2, 44, 5, 1, Terrain.PEDESTAL);
         this.map[4 + WIDTH * 47] = Terrain.DOOR;
-
-        //canteen
-        Painter.fill(this, 80, 1, 20, 4, Terrain.WALL);
-        Painter.fill(this, 81, 2, 18, 2, Terrain.EMPTY_SP);
-        this.drop(new FrozenCarpaccio(), 82 + WIDTH * 3);
-        this.drop(new FrozenCarpaccio(), 85 + WIDTH * 2);
-        this.drop(new FrozenCarpaccio(), 87 + WIDTH * 3);
-        this.map[95 + WIDTH * 4] = Terrain.DOOR;
-
-        Painter.fill(this, 81, 6, 19, 1, Terrain.PEDESTAL);
-
-        //bathroom near canteen
-        Painter.fill(this, 73, 2, 7, 8, Terrain.EMPTY_SP);
-        Painter.fill(this, 80, 2, 1, 8, Terrain.WALL);
-        Painter.fill(this, 73, 2, 7, 1, Terrain.WELL);
-        Painter.fill(this, 73, 10, 6, 1, Terrain.WALL);
-
-
         //some fillers
 
-        Painter.fill(this, 74, 50, 20, 40, Terrain.GRASS);
-        Painter.fill(this, 76, 54, 17, 30, Terrain.HIGH_GRASS);
-        Painter.fill(this, 80, 59, 11, 8, Terrain.EMPTY_SP);
+        Painter.fill(this, 56, 58, 20, 17, Terrain.GRASS);
+        Painter.fill(this, 59, 59, 16, 15, Terrain.HIGH_GRASS);
+        Painter.fill(this, 62, 59, 11, 8, Terrain.EMPTY_SP);
+
+        Painter.fill(this, 55, 1, 45, 36, Terrain.WALL );
+        Painter.fill(this, 82, 55, 18, 45, Terrain.WALL );
+        Painter.fill(this, 55, 68, 40, 32, Terrain.WALL);
+        //canteen
+        Painter.fill(this, 62, 1 , 20, 23, Terrain.WALL);
+        Painter.fill(this, 62, 33, 20, 4, Terrain.WALL);
+        Painter.fill(this, 63, 34, 18, 2, Terrain.EMPTY_SP);
+        this.drop(new FrozenCarpaccio(), 64 + WIDTH * 35);
+        this.drop(new FrozenCarpaccio(), 67 + WIDTH * 34);
+        this.drop(new FrozenCarpaccio(), 69 + WIDTH * 35);
+        this.map[77 + WIDTH * 36] = Terrain.DOOR;
+
+        Painter.fill(this, 63, 38, 19, 1, Terrain.PEDESTAL);
+
+        //bathroom near canteen
+        Painter.fill(this, 55, 34, 7, 8, Terrain.EMPTY_SP);
+        Painter.fill(this, 62, 34, 1, 8, Terrain.WALL);
+        Painter.fill(this, 55, 34, 7, 1, Terrain.WELL);
+        Painter.fill(this, 55, 42, 6, 1, Terrain.WALL);
+
+
 
 
         //prison cells
         for (int y = 1; y <= 93; y += 7) {
             if (y > 40 && y < 50) y += 15;
-            for (int x = 1; x <= 67; ) {
+            for (int x = 1; x <= 49; ) {
                 Painter.fill(this, x, y, 7, 7, Terrain.WALL);
                 Painter.fill(this, x + 1, y + 1, 5, 5, Terrain.EMPTY_SP);
                 int type = Random.Int(25);
@@ -459,7 +463,7 @@ public class Arena6 extends ArenaPrison {
         for (int m = 0; m < WIDTH * HEIGHT; m++) {
             if (this.passable[m] && this.map[m] == Terrain.EMPTY_SP) candidates.add(m);
         }
-        for (int i = 0; i < (mode == WndModes.Modes.CHALLENGE ? 14 : 7); i ++){
+        for (int i = 0; i < (mode == WndModes.Modes.CHALLENGE ? 11 : 6); i ++){
 
             dropMany(candidates,
                     new Gold(100),
@@ -493,18 +497,11 @@ public class Arena6 extends ArenaPrison {
 
         ArrayList<Integer> cells = new ArrayList<>();
 
-        for (int x = 80; x < 90; x++) for (int y = 59; y < 67; y++){
+        for (int x = 62; x < 72; x++) for (int y = 59; y < 67; y++){
             cells.add(x + WIDTH*y);
         }
-        for (int i = 0;i < 25; i++){
-            Guard guard = new Guard();
-            int cell = Random.element(cells);
-            cells.remove((Integer) cell);
-            guard.pos = cell;
-            guard.mapGuard = true;
-            guard.state = guard.HUNTING;
-            GameScene.add(guard);
-        }
+        for (int i = 0;i < 15; i++) createMapGuard(cells, new Guard());
+
         for (int i = 0;i < 10; i++){
             int chestcell = Random.element(cells);
             Dungeon.level.drop(new Gold(Random.Int(100, 200)), chestcell).type = Heap.Type.CHEST;

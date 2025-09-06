@@ -558,6 +558,7 @@ public enum HeroClass {
 		updateQuickslot();
 
 		hero.STR = 14;
+		new ScrollOfMagicMapping().collect();
 
 		PotionOfMindVision p = new PotionOfMindVision();
 		p.identify().collect();
