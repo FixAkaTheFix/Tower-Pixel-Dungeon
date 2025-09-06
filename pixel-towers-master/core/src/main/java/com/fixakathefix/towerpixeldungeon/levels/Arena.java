@@ -812,7 +812,6 @@ public class Arena extends Level {
 
                 if (mob.alignment==Alignment.ENEMY &&
                         !(mob.mapGuard)&&
-                        mob.buff(Minion.class) == null &&
                         !(mob instanceof Tower) &&
                         !(mob instanceof SubAmuletTower) &&
                         !(mob instanceof Piranha) &&
