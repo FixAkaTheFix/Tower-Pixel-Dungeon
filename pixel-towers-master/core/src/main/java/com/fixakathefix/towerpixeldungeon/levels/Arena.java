@@ -45,6 +45,7 @@ import com.fixakathefix.towerpixeldungeon.actors.mobs.RotLasher;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NewShopKeeper;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.NormalShopKeeper;
+import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.RatKing;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.npcs.TowerShopKeeper;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.EnemyPortal;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.towers.SubAmuletTower;
@@ -531,34 +532,17 @@ public class Arena extends Level {
             classesinawave.add(arenacopy.chooseMob(wave).getClass());
         }
         int howmanyclasses = classesinawave.size();
-        for (Class<? extends Mob> aClass : classesinawave) {
-
-            waveDesc.append(Messages.get(aClass, "name"));
-            howmanyclasses--;
-            if (howmanyclasses!=0) waveDesc.append(", ");
-        }
-        GLog.i(Messages.get(this, "wavestart", wave, waveDesc.toString()));
-
-        /*for (int wavenum = wave; wavenum <= Math.min(maxWaves, wave + 3);wavenum++){
-            StringBuilder waveDesc = new StringBuilder(Messages.get(LevelSelectScene.class, "wave") + " " + wavenum + ": _");
-            HashSet<Class<? extends Mob>> classesinawave = new HashSet<>();
-            for (int randomo = 0; randomo < 20; randomo++){
-                classesinawave.add(chooseMob(wavenum).getClass());
-            }
-            int howmanyclasses = classesinawave.size();
+        //there are no rats in Arena 20 so we just write ???
+        if (this instanceof Arena20 && classesinawave.contains(Rat.class)|| this instanceof Arena18) {
+            GLog.i(Messages.get(this, "wavestart", wave, "???"));
+        } else {
             for (Class<? extends Mob> aClass : classesinawave) {
-
                 waveDesc.append(Messages.get(aClass, "name"));
                 howmanyclasses--;
                 if (howmanyclasses!=0) waveDesc.append(", ");
             }
-            desc.append(waveDesc);
-            if (wavenum!=maxWaves) desc.append("\n");}
-        */
-
-
-
-
+            GLog.i(Messages.get(this, "wavestart", wave, waveDesc.toString()));
+        }
     };
     public void destroyShopItems(){
         for (Heap heap: Dungeon.level.heaps.valueList()) {

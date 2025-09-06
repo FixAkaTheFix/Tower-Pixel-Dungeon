@@ -495,8 +495,8 @@ public class Arena20 extends ArenaCity {
             } else if (maxcoinson == lightnings) {
                 WndDialogueWithPic.dialogue(new KingSprite(), Messages.get(BossDwarfKing.class, "name"),
                         new String[]{
-                                Messages.get(BossDwarfKing.class, "favtower_lightnings"),
-                                Messages.get(BossDwarfKing.class, "strategy_lightnings"),
+                                Messages.get(BossDwarfKing.class, "favtower_lightning"),
+                                Messages.get(BossDwarfKing.class, "strategy_lightning"),
                         });
                 deploymobs(5007, Direction.TOOUP,10 );
             } else if (maxcoinson == guards) {
@@ -639,10 +639,10 @@ public class Arena20 extends ArenaCity {
                         });
 
                 HashSet<Integer> fudgeconcurrent = new HashSet<>();
-                for (Mob wall : level.mobs) if (wall instanceof TowerCWall) for (int i : PathFinder.NEIGHBOURS8) if (Char.findChar(wall.pos + i)== null)
+                for (Mob wall : level.mobs) if (wall instanceof TowerCWall || wall instanceof TowerGuard1) for (int i : PathFinder.NEIGHBOURS8) if (Char.findChar(wall.pos + i)== null)
                 fudgeconcurrent.add(wall.pos);
                 for (int wall2 : fudgeconcurrent) {
-                    Skeleton skele = new SkeletonArmored();
+                    Skeleton skele = Random.oneOf(new Skeleton(), new Skeleton(), new SkeletonArmored());
                     skele.pos = wall2;
                     skele.state = skele.HUNTING;
                     GameScene.add(skele);

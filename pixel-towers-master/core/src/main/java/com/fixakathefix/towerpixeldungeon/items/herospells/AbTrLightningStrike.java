@@ -55,6 +55,7 @@ public class AbTrLightningStrike extends HeroSpellTargeted {
                     if (ch!=null){
                         ch.damage(Random.Int(mindam(), maxdam()), AbTrLightningStrike.this);
                     }
+                    cooldown();
                 }
 
             }

@@ -64,6 +64,7 @@ public class AbHolyWater extends HeroSpellTargeted{
                     Ballistica bolt = new Ballistica(Dungeon.hero.pos, cell,Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID);
                     Dungeon.hero.busy();
                     fx(bolt);
+                    cooldown();
                 }
             }
 
@@ -148,7 +149,6 @@ public class AbHolyWater extends HeroSpellTargeted{
             @Override
             public void call() {
                 onZap(bolt);
-                cooldown();
                 Dungeon.hero.spendAndNext(1f);
             }
         };

@@ -195,7 +195,7 @@ public class Arena23 extends ArenaHalls{
     public void addDestinations() {
         ArrayList<Integer> candidates = new ArrayList<>();
         for (int m = 0; m<WIDTH*HEIGHT;m++){
-            if (passable[m] && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>10) candidates.add(m);
+            if (passable[m] && !cellAdjacentToBorderCells(m) && distance(m, amuletCell)>15) candidates.add(m);
         }
 
         for (int i = 0;i < 10; i++) dropMany(Heap.Type.SKELETON, candidates,

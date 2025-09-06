@@ -47,7 +47,7 @@ public class Faint extends FlavourBuff{
     protected void onRemove() {
         hero.sprite.play(hero.sprite.idle, true);
         Camera.main.panFollow(hero.sprite,1f);
-        hero.sprite.move(hero.pos, ((Arena) Dungeon.level).amuletCell);
+
         hero.paralysed = 0;
         hero.invisible = 0;
         GameScene.scene.menu.active = GameScene.scene.menu.visible = true;
@@ -56,8 +56,8 @@ public class Faint extends FlavourBuff{
         for (Mob m : level.mobs){
             if (m instanceof Arena.AmuletTower) portalpos = m.pos;
         }
-        if (portalpos > 1) hero.pos = portalpos;
-        else hero.pos = ((Arena)level).amuletCell;
+        hero.sprite.move(hero.pos, portalpos);
+        hero.pos = portalpos;
         Sample.INSTANCE.play( Assets.Sounds.MASTERY );
         CellEmitter.center(hero.pos).burst( Speck.factory( Speck.STAR),  10 );
         Dungeon.observe();
