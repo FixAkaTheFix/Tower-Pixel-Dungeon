@@ -825,7 +825,7 @@ public class Arena extends Level {
                         !(mob instanceof BossYog))
                 {
                     mob.beckon( beckoncell );
-                    enemyspotted = true;
+                    if (mob.buff(Minion.class) == null) enemyspotted = true;
                 }
             }
             //non-chal depth specific actions
