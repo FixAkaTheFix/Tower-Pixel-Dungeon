@@ -32,7 +32,6 @@ import com.fixakathefix.towerpixeldungeon.Challenges;
 import com.fixakathefix.towerpixeldungeon.Chrome;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.GamesInProgress;
-import com.fixakathefix.towerpixeldungeon.Rankings;
 import com.fixakathefix.towerpixeldungeon.SPDAction;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.ShatteredPixelDungeon;
@@ -41,14 +40,12 @@ import com.fixakathefix.towerpixeldungeon.actors.Actor;
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.actors.blobs.Blob;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.AscensionChallenge;
-import com.fixakathefix.towerpixeldungeon.actors.buffs.ChampionEnemy;
 import com.fixakathefix.towerpixeldungeon.actors.buffs.Faint;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Talent;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.DemonSpawner;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Ghoul;
 import com.fixakathefix.towerpixeldungeon.actors.mobs.Mob;
-import com.fixakathefix.towerpixeldungeon.actors.mobs.Snake;
 import com.fixakathefix.towerpixeldungeon.effects.BannerSprites;
 import com.fixakathefix.towerpixeldungeon.effects.BlobEmitter;
 import com.fixakathefix.towerpixeldungeon.effects.EmoIcon;
@@ -61,7 +58,6 @@ import com.fixakathefix.towerpixeldungeon.items.Heap;
 import com.fixakathefix.towerpixeldungeon.items.Honeypot;
 import com.fixakathefix.towerpixeldungeon.items.Item;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.DriedRose;
-import com.fixakathefix.towerpixeldungeon.items.journal.Guidebook;
 import com.fixakathefix.towerpixeldungeon.items.potions.Potion;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfUnspeakableHorrors;
@@ -76,7 +72,6 @@ import com.fixakathefix.towerpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.fixakathefix.towerpixeldungeon.levels.traps.Trap;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.plants.Plant;
-import com.fixakathefix.towerpixeldungeon.sprites.BossTrollSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.CharSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.DiscardedItemSprite;
 import com.fixakathefix.towerpixeldungeon.sprites.DrillBigSprite;
@@ -458,7 +453,6 @@ public class GameScene extends PixelScene {
 							int region = (Dungeon.depth+4)/5;
 							if (!Document.INTROS.isPageRead(region)) {
 								add(new WndStory(Document.INTROS.pageBody(region)).setDelays(0.6f, 1.4f));
-								Document.INTROS.readPage(region);
 							}
 							break;
 					}
@@ -599,13 +593,6 @@ public class GameScene extends PixelScene {
 			toolbar.visible = toolbar.active = false;
 			status.visible = status.active = false;
 			if (inventory != null) inventory.visible = inventory.active = false;
-		}
-
-		if (!SPDSettings.intro() &&
-				Rankings.INSTANCE.totalNumber > 0 &&
-				!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SPELLS)){
-			GLog.p(Messages.get(Guidebook.class, "hint"));
-			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_SPELLS);
 		}
 
 		if (!invVisible) toggleInvPane();
@@ -1553,10 +1540,6 @@ public class GameScene extends PixelScene {
 			GameScene.show( new WndHero() );
 		} else if ( o instanceof Mob && ((Mob) o).isActive() ){
 			GameScene.show(new WndInfoMob((Mob) o));
-			if (o instanceof Snake && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_HERO)){
-				GLog.p(Messages.get(Guidebook.class, "hint"));
-				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_HERO);
-			}
 		} else if ( o instanceof Heap && !((Heap) o).isEmpty() ){
 			GameScene.show(new WndInfoItem((Heap)o));
 		} else if ( o instanceof Plant ){

@@ -40,14 +40,12 @@ import com.fixakathefix.towerpixeldungeon.items.food.ChargrilledMeat;
 import com.fixakathefix.towerpixeldungeon.items.food.FrozenCarpaccio;
 import com.fixakathefix.towerpixeldungeon.items.food.MysteryMeat;
 import com.fixakathefix.towerpixeldungeon.items.journal.DocumentPage;
-import com.fixakathefix.towerpixeldungeon.items.journal.Guidebook;
 import com.fixakathefix.towerpixeldungeon.items.potions.Potion;
 import com.fixakathefix.towerpixeldungeon.items.rings.RingOfWealth;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.Scroll;
 import com.fixakathefix.towerpixeldungeon.items.wands.Wand;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.fixakathefix.towerpixeldungeon.items.weapon.missiles.darts.TippedDart;
-import com.fixakathefix.towerpixeldungeon.journal.Document;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
 import com.fixakathefix.towerpixeldungeon.sprites.ItemSprite;
 import com.watabou.noosa.audio.Sample;
@@ -430,9 +428,6 @@ public class Heap implements Bundlable {
 			if (item instanceof DocumentPage
 					&& ( !((DocumentPage) item).document().pageNames().contains(((DocumentPage) item).page())
 					||    ((DocumentPage) item).document().isPageFound(((DocumentPage) item).page()))){
-				items.remove(item);
-			}
-			if (item instanceof Guidebook && Document.ADVENTURERS_GUIDE.isPageRead(0)){
 				items.remove(item);
 			}
 		}

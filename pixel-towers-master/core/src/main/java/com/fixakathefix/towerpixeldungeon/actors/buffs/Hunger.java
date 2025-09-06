@@ -27,11 +27,8 @@ package com.fixakathefix.towerpixeldungeon.actors.buffs;
 import com.fixakathefix.towerpixeldungeon.Dungeon;
 import com.fixakathefix.towerpixeldungeon.SPDSettings;
 import com.fixakathefix.towerpixeldungeon.actors.hero.Hero;
-import com.fixakathefix.towerpixeldungeon.items.journal.Guidebook;
 import com.fixakathefix.towerpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.fixakathefix.towerpixeldungeon.journal.Document;
 import com.fixakathefix.towerpixeldungeon.messages.Messages;
-import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.ui.BuffIndicator;
 import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -101,11 +98,6 @@ public class Hunger extends Buff implements Hero.Doom {
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
 
 					GLog.w( Messages.get(this, "onhungry") );
-
-					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_FOOD)){
-						GLog.p(Messages.get(Guidebook.class, "hint"));
-						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_FOOD);
-					}
 
 				}
 				level = newLevel;

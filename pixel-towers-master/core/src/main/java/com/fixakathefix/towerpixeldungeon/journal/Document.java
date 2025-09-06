@@ -264,7 +264,7 @@ public enum Document {
 	public static final String KING_ATTRITION       = "attrition";
 
 	//pages and default states
-	static {
+	public static void reloadValues(){
 		boolean debug = DeviceCompat.isDebug();
 		//hero gets these when guidebook is collected
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_INTRO,             READ);
@@ -284,7 +284,7 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_BOSSES,            READ);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_STRENGTH,          READ);
 
-		
+
 		//given in sewers
 		ALCHEMY_GUIDE.pagesStates.put("Potions",                debug ? READ : NOT_FOUND);
 		ALCHEMY_GUIDE.pagesStates.put("Stones",                 debug ? READ : NOT_FOUND);
@@ -298,25 +298,25 @@ public enum Document {
 		ALCHEMY_GUIDE.pagesStates.put("Spells",                 debug ? READ : NOT_FOUND);
 
 		INTROS.pagesStates.put("Dungeon",                       READ);
-		INTROS.pagesStates.put("Sewers",                     debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Prison",                     debug||   SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Caves",                      debug||   SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("City",                       debug||   SPDSettings.maxlevelunlocked()>20 ? READ : NOT_FOUND);
-		INTROS.pagesStates.put("Halls",                      debug||   SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Sewers",                     debug ||   SPDSettings.maxlevelunlocked()>1 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Prison",                     debug ||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Caves",                      debug ||   SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("City",                       debug ||   SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
+		INTROS.pagesStates.put("Halls",                      debug ||   SPDSettings.maxlevelunlocked()>20 ? READ : NOT_FOUND);
 
-		RK_LOG.pagesStates.put("new_position",              debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		RK_LOG.pagesStates.put("dangerous",                 debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		RK_LOG.pagesStates.put("crabs",                     debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		RK_LOG.pagesStates.put("guild",                     debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		RK_LOG.pagesStates.put("lost",                      debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
-		RK_LOG.pagesStates.put("not_worth",                 debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("new_position",               debug ||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("dangerous",                  debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("crabs",                      debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("guild",                      debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("lost",                       debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
+		RK_LOG.pagesStates.put("not_worth",                  debug||   SPDSettings.maxlevelunlocked()>5 ? READ : NOT_FOUND);
 
-		PRISONER.pagesStates.put("journal",                   debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		PRISONER.pagesStates.put("recruits",                  debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		PRISONER.pagesStates.put("mines",                     debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		PRISONER.pagesStates.put("rotberry",                  debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		PRISONER.pagesStates.put("no_support",                debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
-		PRISONER.pagesStates.put("letter",                    debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("journal",                  debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("recruits",                 debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("mines",                    debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("rotberry",                 debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("no_support",               debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
+		PRISONER.pagesStates.put("letter",                   debug||  SPDSettings.maxlevelunlocked()>10 ? READ : NOT_FOUND);
 
 		DM_LOG.pagesStates.put("log_1",                      debug||  SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
 		DM_LOG.pagesStates.put("log_2",                      debug||  SPDSettings.maxlevelunlocked()>15 ? READ : NOT_FOUND);
@@ -332,13 +332,15 @@ public enum Document {
 		COURTMAN.pagesStates.put("heroes",                   debug||   SPDSettings.maxlevelunlocked()>20 ? READ : NOT_FOUND);
 		COURTMAN.pagesStates.put("again",                    debug||   SPDSettings.maxlevelunlocked()>20 ? READ : NOT_FOUND);
 
-		HALLS_KING.pagesStates.put("Rejection",               debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put("amulet",                  debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put("ritual",                  debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put("nightmare",               debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put("thing",                   debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-		HALLS_KING.pagesStates.put(KING_ATTRITION,            debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
-
+		HALLS_KING.pagesStates.put("Rejection",              debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		HALLS_KING.pagesStates.put("amulet",                 debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		HALLS_KING.pagesStates.put("ritual",                 debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		HALLS_KING.pagesStates.put("nightmare",              debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		HALLS_KING.pagesStates.put("thing",                  debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+		HALLS_KING.pagesStates.put(KING_ATTRITION,           debug||  SPDSettings.maxlevelunlocked()>=25 ? READ : NOT_FOUND);
+	}
+	static {
+		reloadValues();
 	}
 	
 	private static final String DOCUMENTS = "documents";

@@ -26,12 +26,7 @@ package com.fixakathefix.towerpixeldungeon.actors.mobs;
 
 import com.fixakathefix.towerpixeldungeon.actors.Char;
 import com.fixakathefix.towerpixeldungeon.items.Generator;
-import com.fixakathefix.towerpixeldungeon.items.journal.Guidebook;
-import com.fixakathefix.towerpixeldungeon.journal.Document;
-import com.fixakathefix.towerpixeldungeon.messages.Messages;
-import com.fixakathefix.towerpixeldungeon.scenes.GameScene;
 import com.fixakathefix.towerpixeldungeon.sprites.SnakeSprite;
-import com.fixakathefix.towerpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
 public class Snake extends Mob {
@@ -62,21 +57,10 @@ public class Snake extends Mob {
 		return 10;
 	}
 
-	private static int dodges = 0;
+
 
 	@Override
 	public boolean canGetSurpriseAttacked() {
 		return false;
-	}
-
-	@Override
-	public String defenseVerb() {
-		dodges++;
-		if (dodges >= 2 && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_HERO)){
-			GLog.p(Messages.get(Guidebook.class, "hint"));
-			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_HERO);
-			dodges = 0;
-		}
-		return super.defenseVerb();
 	}
 }

@@ -105,7 +105,6 @@ import com.fixakathefix.towerpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.fixakathefix.towerpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.fixakathefix.towerpixeldungeon.items.bags.MagicalHolster;
-import com.fixakathefix.towerpixeldungeon.items.journal.Guidebook;
 import com.fixakathefix.towerpixeldungeon.items.keys.CrystalKey;
 import com.fixakathefix.towerpixeldungeon.items.keys.GoldenKey;
 import com.fixakathefix.towerpixeldungeon.items.keys.IronKey;
@@ -1026,8 +1025,7 @@ public class Hero extends Char {
 					if (item instanceof Dewdrop
 							|| item instanceof TimekeepersHourglass.sandBag
 							|| item instanceof DriedRose.Petal
-							|| item instanceof Key
-							|| item instanceof Guidebook) {
+							|| item instanceof Key) {
 						//Do Nothing
 					} else {
 
@@ -1479,13 +1477,6 @@ public class Hero extends Char {
 						target = m;
 					} else if (distance(target) > distance(m)) {
 						target = m;
-					}
-					if (m instanceof Snake && Dungeon.level.distance(m.pos, pos) <= 4
-							&& !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_PORTAL)){
-						GLog.p(Messages.get(Guidebook.class, "hint"));
-						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_PORTAL);
-						//we set to read here to prevent this message popping up a bunch
-						Document.ADVENTURERS_GUIDE.readPage(Document.GUIDE_PORTAL);
 					}
 				}
 			}

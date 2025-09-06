@@ -105,6 +105,8 @@ public class WndJournal extends WndTabbed {
 		
 		resize(width, height);
 
+		Document.reloadValues();
+
 		guideTab = new GuideTab();
 		add(guideTab);
 		guideTab.setRect(0, 0, width, height);
