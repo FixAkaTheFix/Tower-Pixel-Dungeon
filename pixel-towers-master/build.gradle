@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.0.2'
     }
 }
 
@@ -19,9 +19,9 @@ allprojects {
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 
-        appAndroidCompileSDK = 33
+        appAndroidCompileSDK = 35
         appAndroidMinSDK = 14
-        appAndroidTargetSDK = 33
+        appAndroidTargetSDK = 35
 
         gdxVersion = '1.11.0'
         gdxControllersVersion = '2.2.3'

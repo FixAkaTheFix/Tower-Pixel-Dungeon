@@ -533,7 +533,7 @@ public class Arena6 extends ArenaPrison {
     public void doStuffStartwave(int wave) {
         super.doStuffStartwave(wave);
         if (wave == 1 && captain.isAlive()) {
-            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                     new String[]{
                             Messages.get(RatKing.class, "l6w1start1"),
                             Messages.get(RatKing.class, "l6w1start2"),
@@ -548,7 +548,7 @@ public class Arena6 extends ArenaPrison {
                     });
         }
         if (wave == 2 && captain.isAlive()) {
-            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                     new String[]{
                             Messages.get(RatKing.class, "l6w2start1"),
                             Messages.get(RatKing.class, "l6w2start2"),
@@ -565,7 +565,7 @@ public class Arena6 extends ArenaPrison {
                     });
         }
         if (wave == 8 && captain.isAlive()) {
-            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                     new String[]{
                             Messages.get(RatKing.class, "l6w8start1"),
                             Messages.get(RatKing.class, "l6w8start2"),
@@ -576,7 +576,7 @@ public class Arena6 extends ArenaPrison {
                     });
         }
         if (wave == 12 && captain.isAlive()) {
-            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                     new String[]{
                             Messages.get(RatKing.class, "l6w12start1"),
                             Messages.get(RatKing.class, "l6w12start2"),
@@ -587,7 +587,7 @@ public class Arena6 extends ArenaPrison {
                     });
         }
         if (wave == 16 && captain.isAlive()) {
-            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+            WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                     new String[]{
                             Messages.get(RatKing.class, "l6w16start1"),
                     },
@@ -613,7 +613,7 @@ public class Arena6 extends ArenaPrison {
         }
         if (wave == 20)
             if (captain.isAlive()) {
-                WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), "Prison guard captain",
+                WndDialogueWithPic.dialogue(new TowerGuard3Sprite(), Messages.get(TowerGuard3.class, "captain"),
                         new String[]{
                                 Messages.get(RatKing.class, "l6w20end1"),
                                 Messages.get(RatKing.class, "l6w20end2"),
@@ -630,7 +630,7 @@ public class Arena6 extends ArenaPrison {
                         },
                         WndDialogueWithPic.WndType.FINAL, new ArrayList<>());
             } else {
-                WndDialogueWithPic.dialogue(new GuardSprite(), "Prison warden",
+                WndDialogueWithPic.dialogue(new GuardSprite(), Messages.get(TowerGuard3.class, "warden"),
                         new String[]{
                                 Messages.get(RatKing.class, "l6w20endbad1"),
                                 Messages.get(RatKing.class, "l6w20endbad2"),
